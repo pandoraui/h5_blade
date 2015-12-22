@@ -10,7 +10,46 @@
         exports: '_'
       }
     },
+    /**
+    shim: {
+      $: {
+        exports: 'zepto'
+      },
+      _: {
+        exports: '_'
+      },
+      B: {
+        deps: ['_', '$'],
+        exports: 'Backbone'
+      },
+      F: {
+        deps: ['$'],
+        exports: 'Fastclick'
+      },
+      libs: {
+        deps: ['_', '$', 'B'],
+        exports: 'libs'
+      },
+      common: {
+        deps: ['libs']
+      },
+      cAjax: {
+        exports: 'cAjax'
+      },
+      UIView: {
+        deps: ['B'],
+        exports: 'UIView'
+      },
+    },
+    */
     paths: {
+      //依赖部分
+      // '$': libs,
+      // "_": app + "libs/underscore",
+      // "B": app + "libs/backbone",
+      // "F": app + "libs/fastclick",
+      // "libs": app + "libs/libs",
+
       //核心部分：
 
       'text': app + 'libs/require.text',

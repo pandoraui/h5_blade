@@ -17,13 +17,16 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <!--顶部栏样式，默认值为default（白色），可以定为black（黑色）和black-translucent（灰色半透明）-->
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+  <!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/> -->
+  <link rel="icon" href="favicon.png" type="image/png" />
   <link rel="stylesheet" href="res/style/global.core.css" />
   <link rel="stylesheet" href="res/style/hsq.css" />
 </head>
 <body>
   <div id="root"></div>
-  <div class="down-tip"></div>
+  <div class="down-tip"><div class="tip-bg"></div><span class="close">&times;</span>
+    <p><span class="btn fr">立即体验</span><img src="favicon.png" alt=""> 限时限量，下载好食期购买吧！</p>
+  </div>
   <script type="text/javascript" src="blade/libs/require.js"></script>
   <script type="text/javascript" src="blade/libs/zepto.js"></script>
   <script type="text/javascript" src="blade/libs/underscore.js"></script>

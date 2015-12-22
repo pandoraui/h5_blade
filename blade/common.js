@@ -11,16 +11,53 @@
       }
     },
     paths: {
+      //核心部分：
+
       'text': app + 'libs/require.text',
       'AbstractApp': app + 'mvc/abstract.app',
 
       //抽象view
-      'UIView': app + 'ui/ui.abstract.view',
-      'C_UIView': app + 'ui/ui.abstract.view.css',
+      'UIView': app + 'ui/core.abstract.view',
+      'C_UIView': app + 'ui/core.abstract.view.css',
+
+      //头部组件
+      'UIHeader': app + 'ui/core.header',
+      'T_UIHeader': app + 'ui/core.header.html',
+      'C_UIHeader': app + 'ui/core.header.css',
+
+
+      //基础组件部分
+
+      //蒙版
+      'UIMask': app + 'ui/ui.mask',
+      'C_UIMask': app + 'ui/ui.mask.css',
+
+      //弹出层基类
+      'UILayer': app + 'ui/ui.layer',
+      'T_UILayer': app + 'ui/ui.layer.html',
+      'C_UILayer': app + 'ui/ui.layer.css',
+
+      //loading弹出层
+      'UILoadingLayer': app + 'ui/ui.loading.layer',
+      'T_UILoadingLayer': app + 'ui/ui.loading.layer.html',
+      'C_UILoadingLayer': app + 'ui/ui.loading.layer.css',
+
+      //toast提升
+      'UIToast': app + 'ui/ui.toast',
+      'T_UIToast': app + 'ui/ui.toast.html',
+      'C_UIToast': app + 'ui/ui.toast.css',
+
+      //404提示
+      'UIWarning404': app + 'ui/ui.warning404',
+      'T_UIWarning404': app + 'ui/ui.warning404.html',
+      'C_UIWarning404': app + 'ui/ui.warning404.css',
 
       //alert组件
       'UIAlert': app + 'ui/ui.alert',
       'T_UIAlert': app + 'ui/ui.alert.html',
+
+      //扩展组件部分
+      //
 
       //气泡组件
       'UIBubbleLayer': app + 'ui/ui.bubble.layer',
@@ -37,11 +74,6 @@
       'T_UIGroupList': app + 'ui/ui.group.list.html',
       'C_UIGroupList': app + 'ui/ui.group.list.css',
 
-      //头部组件
-      'UIHeader': app + 'ui/ui.header',
-      'T_UIHeader': app + 'ui/ui.header.html',
-      'C_UIHeader': app + 'ui/ui.header.css',
-
       //身份证组件
       'UIIdentitycard': app + 'ui/ui.identitycard',
       'T_UIIdentitycard': app + 'ui/ui.identitycard.html',
@@ -50,24 +82,10 @@
       //图片轮播
       'UIImageSlider': app + 'ui/ui.image.slider',
 
-      //弹出层基类
-      'UILayer': app + 'ui/ui.layer',
-      'T_UILayer': app + 'ui/ui.layer.html',
-      'C_UILayer': app + 'ui/ui.layer.css',
-
       //底部弹出层列表
       'UILayerList': app + 'ui/ui.layer.list',
       'T_UILayerList': app + 'ui/ui.layer.list.html',
       'C_UILayerList': app + 'ui/ui.layer.list.css',
-
-      //loading弹出层
-      'UILoadingLayer': app + 'ui/ui.loading.layer',
-      'T_UILoadingLayer': app + 'ui/ui.loading.layer.html',
-      'C_UILoadingLayer': app + 'ui/ui.loading.layer.css',
-
-      //蒙版
-      'UIMask': app + 'ui/ui.mask',
-      'C_UIMask': app + 'ui/ui.mask.css',
 
       //数字组件
       'UINum': app + 'ui/ui.num',
@@ -104,16 +122,6 @@
       'UITab': app + 'ui/ui.tab',
       'T_UITab': app + 'ui/ui.tab.html',
       'C_UITab': app + 'ui/ui.tab.css',
-
-      //toast提升
-      'UIToast': app + 'ui/ui.toast',
-      'T_UIToast': app + 'ui/ui.toast.html',
-      'C_UIToast': app + 'ui/ui.toast.css',
-
-      //404提示
-      'UIWarning404': app + 'ui/ui.warning404',
-      'T_UIWarning404': app + 'ui/ui.warning404.html',
-      'C_UIWarning404': app + 'ui/ui.warning404.css',
 
       //'cHighlight': app + 'common/c.highlight',
     }

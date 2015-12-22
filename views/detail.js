@@ -1,5 +1,5 @@
-define(['View', getViewTemplatePath('detail'), 'UIGroupList'],
-  function (View, viewhtml, UIGroupList){
+define(['View', getViewTemplatePath('detail')],
+  function (View, viewhtml){
 
     return _.inherit(View, {
       propertys: function ($super) {
@@ -18,12 +18,12 @@ define(['View', getViewTemplatePath('detail'), 'UIGroupList'],
         this.on('onShow', function () {
           this.initPage();
         });
-
       },
 
       initHeader: function () {
         var scope = this;
         Blade.header.set({
+          back: false,
           title: '商品详情',
           // callback: function(){
           //   scope.back();

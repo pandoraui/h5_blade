@@ -14,6 +14,16 @@ define(['UIView', 'text!T_UIHeader', 'text!C_UIHeader'], function (UIView, templ
         center: {}
       };
 
+      /*
+        {
+          tagname: 'back',
+          value: '返回',
+          classname: 'back',
+          data: '',
+          callback: function(){},
+        }
+      */
+
       //html模板
       this.template = template;
       this.addUIStyle(style);

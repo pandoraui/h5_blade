@@ -16,7 +16,8 @@
 
 * @namespace UIView
 */
-define(['text!C_UIView'], function (style) {
+// define(['text!C_UIView'], function (style) {
+define([], function () {
   'use strict';
 
   /**
@@ -44,8 +45,12 @@ define(['text!C_UIView'], function (style) {
       this.id = _.uniqueId('ui-view-');
 
       //与模板对应的css文件，默认不存在，需要各个组件复写
-      this.uiStyle = null;
-      if (style) this.uiStyle = [style];
+      this.uiStyle = [];
+
+      if(typeof style !== "undefined" && style){
+        this.uiStyle = [style];
+      }
+
       //在不不支持shadow dom的情况下，需要降级处理，这里保存样式格式化结束的字符串，避免重复格式化
       this.formateStyle = '';
 
@@ -119,7 +124,9 @@ define(['text!C_UIView'], function (style) {
 
     //子类事件绑定若想保留父级的，应该使用该方法
     addEvents: function (events) {
-      if (_.isObject(events)) _.extend(this.events, events);
+      if (_.isObject(events)) {
+        _.extend(this.events, events);
+      }
     },
 
     //希望继承父类的情况下组装内嵌style
@@ -140,7 +147,9 @@ define(['text!C_UIView'], function (style) {
     * @method on
     */
     on: function (type, fn, insert) {
-      if (!this.eventArr[type]) this.eventArr[type] = [];
+      if (!this.eventArr[type]) {
+        this.eventArr[type] = [];
+      }
 
       //头部插入
       if (insert) {
@@ -263,7 +272,7 @@ define(['text!C_UIView'], function (style) {
           _.extend(this[k], options[k]);
           continue;
         } else if (this._isAddEvent(k)) {
-          this.on(k, options[k])
+          this.on(k, options[k]);
           continue;
         }
         this[k] = options[k];

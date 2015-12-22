@@ -40,7 +40,7 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
       this.$wrapper = $('body');
 
       //框架根节点
-      this.$mainframe = $('#main');
+      this.$mainframe = $('#root');   //root
 
       this.interface = ['forward', 'back', 'loadSubView'];
 
@@ -48,8 +48,8 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
       this.appmode = 'mobile';
 
       this.loading = new UILoadingLayer({
-         content: '正在拉取js...',
-         closeBtn: true
+         content: '加载中...',
+         closeBtn: false
       });
 
     },
@@ -182,7 +182,7 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
           });
 
           //设置网页上的view标志
-          this.curView.$root.attr('page-url', id).addClass('hsq-view-'+id);
+          this.curView.$root.attr('page-url', id).addClass('page-view-'+id);
 
           //保存至队列
           this.views[id] = this.curView;
@@ -202,7 +202,9 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
     loadView: function (path, callback) {
       var self = this;
       requirejs([this.buildUrl(path)], function (View) {
-        callback && callback.call(self, View);
+        if(callback){
+          callback.call(self, View);
+        }
       });
     },
 

@@ -20,6 +20,7 @@ body,button,input,select,textarea {
   left: 0;
   width: 100%;
 }
+#root,
 .main,
 .viewport-wrapper{
   height: 100%;
@@ -46,7 +47,7 @@ dfn.price{ display: inline-block; font-style: normal;font-size: 20px; color:#FF5
 dfn.price i{font-size: 14px;}
 
 /*详情页*/
-.hsq-view-detail{background: #efefef; color: #252525;}
+.page-view-detail{background: #efefef; color: #252525;}
 .solid_line,
 .group-list li{border-top: 1px solid #E4E4E4;}
 .group-list li{min-height: 18px; margin-top: -1px;line-height: 18px;padding: 11px 10px;}

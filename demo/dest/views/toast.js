@@ -1,0 +1,1 @@
+define(["View",getViewTemplatePath("toast"),"UIToast"],function(a,b,c){return _.inherit(a,{propertys:function($super){$super(),this.template=b,this.addEvents({"click .js_demo04":"demo04"})},demo04:function(){this.toast01||(this.toast01=new c({content:"two second close",hideSec:2e3})),this.toast01.show()}})});

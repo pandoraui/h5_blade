@@ -1,4 +1,4 @@
-define(['View', getViewTemplatePath('index'), 'UIGroupList'],
+define(['View', getViewTemplatePath('list'), 'UIGroupList'],
   function (View, viewhtml, UIGroupList){
 
     return _.inherit(View, {
@@ -17,6 +17,17 @@ define(['View', getViewTemplatePath('index'), 'UIGroupList'],
           this.initPage();
         });
 
+      },
+
+      initHeader: function () {
+        var scope = this;
+        Blade.header.set({
+          title: '列表页',
+          callback: function(){
+            scope.back();
+          }
+        });
+        Blade.header.show();
       },
       //初始化页面
       initPage: function () {

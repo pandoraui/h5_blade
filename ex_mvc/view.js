@@ -35,7 +35,8 @@
 
       Blade.header.set({
         back: {
-          tagname: 'back', callback: function () {
+          tagname: 'back',
+          callback: function () {
             Blade.back('index');
           }
         },

@@ -78,13 +78,15 @@
   background-color: #099fde;
   cursor: pointer;
 }
-.cm-header .cm-header-icon:active, .cm-header .cm-header-icon:hover {
+.cm-header .cm-header-icon:active,
+.cm-header .cm-header-icon:hover {
   background-color: #077cad;
 }
 .cm-header .cm-header-btn {
   padding: 0 10px;
   cursor: pointer;
 }
-.cm-header .cm-header-btn:active, .cm-header .cm-header-btn:hover {
+.cm-header .cm-header-btn:active,
+.cm-header .cm-header-btn:hover {
   background-color: #077cad;
 }

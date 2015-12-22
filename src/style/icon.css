@@ -1,4 +1,21 @@
-.icon-refund, .icon-offline, .icon-tel, .icon-home, .icon-loved, .icon-love, .icon-comment, .icon-compass, .icon-file, .icon-share, .icon-email, .icon-edit, .icon-sucess, .icon-date, .icon-rate, .icon-rate-half::before, .icon-loading, .icon-loading .icon-loading-circle {
+.icon-refund,
+.icon-offline,
+.icon-tel,
+.icon-home,
+.icon-loved,
+.icon-love,
+.icon-comment, 
+.icon-compass,
+.icon-file,
+.icon-share,
+.icon-email,
+.icon-edit,
+.icon-sucess,
+.icon-date,
+.icon-rate,
+.icon-rate-half::before,
+.icon-loading,
+.icon-loading .icon-loading-circle {
   background-image: url(http://doc.ui.sh.ctriptravel.com/utools/thumb/docs/images/bg-global.png);
   background-repeat: no-repeat;
   -webkit-background-size: 240px auto;
@@ -34,7 +51,8 @@
   text-align: center;
   cursor: pointer;
 }
-.icond-close::before, .icond-close::after {
+.icond-close::before,
+.icond-close::after {
   content: "";
   position: absolute;
   width: 2px;
@@ -222,7 +240,8 @@
           box-sizing: border-box;
 }
 
-.icond-checkbox, .icond-radio {
+.icond-checkbox,
+.icond-radio {
   display: inline-block;
   vertical-align: -2px;
   width: 18px;
@@ -234,10 +253,12 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-.icond-checkbox.active, .icond-radio.active {
+.icond-checkbox.active,
+.icond-radio.active {
   border-color: #099fde;
 }
-.icond-checkbox.active::after, .icond-radio.active::after {
+.icond-checkbox.active::after,
+.icond-radio.active::after {
   content: "";
   height: 4px;
   width: 12px;
@@ -249,7 +270,8 @@
   -webkit-transform: rotate(-45deg);
           transform: rotate(-45deg);
 }
-.icond-checkbox.active::before, .icond-radio.active::before {
+.icond-checkbox.active::before,
+.icond-radio.active::before {
   content: "";
   width: 5px;
   height: 6px;
@@ -258,7 +280,8 @@
   right: -1px;
   top: -1px;
 }
-.icond-checkbox.disabled, .icond-radio.disabled {
+.icond-checkbox.disabled,
+.icond-radio.disabled {
   border-color: #ccc;
 }
 
@@ -353,7 +376,8 @@
   height: 44px;
   line-height: 44px;
 }
-.icond-close::before, .icond-close::after {
+.icond-close::before,
+.icond-close::after {
   background-color: #fff;
 }
 
@@ -384,7 +408,8 @@
   line-height: 30px;
   position: relative;
 }
-.icond-plus::before, .icond-plus::after {
+.icond-plus::before,
+.icond-plus::after {
   content: "";
   width: 16px;
   height: 2px;

@@ -1,4 +1,4 @@
-define(['View', getViewTemplatePath('index'), 'UIGroupList'],
+define(['View', getViewTemplatePath('detail'), 'UIGroupList'],
   function (View, viewhtml, UIGroupList){
 
     return _.inherit(View, {
@@ -19,6 +19,17 @@ define(['View', getViewTemplatePath('index'), 'UIGroupList'],
           this.initPage();
         });
 
+      },
+
+      initHeader: function () {
+        var scope = this;
+        Blade.header.set({
+          title: '商品详情',
+          // callback: function(){
+          //   scope.back();
+          // }
+        });
+        Blade.header.show();
       },
       //初始化页面
       initPage: function () {

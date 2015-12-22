@@ -56,7 +56,7 @@ define(['text!C_UIView'], function (style) {
       this.shadowRoot = null;
 
       //框架统一开关，是否开启shadow dom
-      this.openShadowDom = true;
+      this.openShadowDom = false;
 
       //每次装载UI进wrapper时候是否需要清空容器，这个属性慎用，如果容器为body的话，就全部木有了
       this.needEmptyWrapper = false;
@@ -215,7 +215,7 @@ define(['text!C_UIView'], function (style) {
 
       } else {
         //如果不支持的话，便直接装载到UI根节点，这个时候除了多了一层shadowdom，整个dom结构是一致的
-        this.$root.append(this.shadowStyle);
+        //this.$root.append(this.shadowStyle);
         this.$root.append(this.$el);
       }
 
@@ -223,7 +223,7 @@ define(['text!C_UIView'], function (style) {
 
     /**
     * @description 根据传入的uiStyle字符串生成格式化后的css，如果开启shadow dom便不格式化
-    * @override 
+    * @override
     * @method getInlineStyle
     * @param {Object} options
     * @return string
@@ -252,7 +252,7 @@ define(['text!C_UIView'], function (style) {
 
     /**
     * @description 设置参数，重写默认属性
-    * @override 
+    * @override
     * @method setOption
     * @param {Object} options
     */
@@ -342,7 +342,7 @@ define(['text!C_UIView'], function (style) {
     /**
     * @description 根据getViewModel接口返回渲染模板所需数据，并且根据模板返回组装好的字符串
     * @method render
-    * @return 
+    * @return
     */
     render: function (callback) {
       var data = this.getViewModel() || {};

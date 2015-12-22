@@ -75,7 +75,9 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
     createViewPort: function () {
       if (this.isCreate) return;
 
-      var html = '', header = '<div class="header-wrapper"></div>', viewport = '<div class="viewport-wrapper"></div>';
+      var html = '',
+          header = '<div class="header-wrapper"></div>',
+          viewport = '<div class="viewport-wrapper"></div>';
 
       //首先搜索页面上是否具有main标签
       if (!this.$mainframe[0]) {
@@ -180,7 +182,7 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
           });
 
           //设置网页上的view标志
-          this.curView.$root.attr('page-url', id);
+          this.curView.$root.attr('page-url', id).addClass('hsq-view-'+id);
 
           //保存至队列
           this.views[id] = this.curView;
@@ -285,10 +287,10 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
 
       if (viewId) {
         opts.animatName = this.animBackwardName;
-        this.forward(viewId, opts)
+        this.forward(viewId, opts);
       } else {
         if (window.history.length == 1) {
-          this.forward(this.defaultView, opts)
+          this.forward(this.defaultView, opts);
         } else {
           history.back();
         }

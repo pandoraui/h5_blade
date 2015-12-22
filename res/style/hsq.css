@@ -1,0 +1,76 @@
+@font-face {
+  font-family: 'iconfont';
+  src: url('//at.alicdn.com/t/font_1450771137_7165658.eot'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_1450771137_7165658.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_1450771137_7165658.woff') format('woff'), /* chrome、firefox */
+  url('//at.alicdn.com/t/font_1450771137_7165658.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_1450771137_7165658.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+html{
+  font-size: 20px;
+  font-weight: normal;
+}
+body,button,input,select,textarea {
+    font: 400 14px/1.5 Arial,"Lucida Grande",Verdana,"Microsoft YaHei",hei
+}
+.header-wrapper{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.main,
+.viewport-wrapper{
+  height: 100%;
+}
+.viewport-wrapper .view{
+  box-sizing: border-box;
+  padding: 44px 0 20px;
+  width: 100%;
+  height: 100%;
+}
+.cm-header{
+  background-color: rgba(255, 238, 17, 0.9);
+  color: rgba(106, 57, 5, 1);
+}
+img{
+  max-width: 100%;
+}
+
+.hsq-card{background: #fff;}
+.hsq-card .card-title {padding: 10px; height: 16px;line-height: 16px; border-bottom: 1px solid #E4E4E4;}
+.hsq-card .card-title .tit{font-size: 16px; line-height: 1;}
+
+dfn.price{ display: inline-block; font-style: normal;font-size: 20px; color:#FF5555}
+dfn.price i{font-size: 14px;}
+
+/*详情页*/
+.hsq-view-detail{background: #efefef; color: #252525;}
+.solid_line,
+.group-list li{border-top: 1px solid #E4E4E4;}
+.group-list li{min-height: 18px; margin-top: -1px;line-height: 18px;padding: 11px 10px;}
+
+.detail-desc{}
+.detail-desc .title{font-size: 16px;line-height: 18px; margin-bottom: 10px;}
+.detail-desc .price{ margin-right: 10px;}
+.detail-desc del{color: #AEAEAE;}
+
+.gray,
+.detail-desc .label{color: #959595;}
+.hsq-card .link-more,
+.detail-desc .num{font-size: 12px;color: #959595;}
+.card-comments .list-comments{padding: 0 0 0 10px;}
+.card-comments .list-comments li{padding: 11px 10px 10px 0;}
+.card-comments .c-info{font-size: 12px;color: #959595; margin-bottom: 5px;}
+.card-comments .c-info .author,
+.card-comments .c-info .time{display: inline-block; margin-right: 10px;}
+.card-comments img{display: inline-block;margin-right:5px;width: 45px; height: 45px;}
+.card-comments .imgbox{margin-top: 8px;}
+
+.main-article {padding-bottom: 20px;}
+.main-article img{display: block; margin: 0 auto; max-width: 100%;}
+.main-article p{margin:10px 0; padding: 0 10px;}
+
+
+.down-tip{position: fixed;bottom: 0;left:0;width: 100%; min-height: 40px;}

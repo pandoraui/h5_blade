@@ -115,36 +115,12 @@ gulp.task('copy', ['copy:venders'], function () {
       {src: appPath + 'main.js', dest: appDist},
       {src: appPath + 'favicon.*', dest: appDist},
       {src: appPath + 'images/*', dest: appDist + 'images/'},
+      {src: appPath + 'img/*', dest: appDist + 'assets/images/'},
       {src: appPath + 'ex_mvc/*', dest: appDist + 'ex_mvc/'},
       {src: appPath + 'views/*', dest: appDist + 'views/'},
+      {src: appPath + 'model/*', dest: appDist + 'model/'},
   ];
   return copy2(copyPaths);
-
-  // return gulp.src([
-  //   appPath + 'index.html',
-  //   appPath + 'debug.html',
-  //   // '!app/js/**/*',
-  //   // // '!app/venders',
-  //   // // '!app/i',
-  //   // '!app/less',
-  //   // '!app/less/*',
-  //   // 'bower_components/pure/pure-min.css'
-  // ], {
-  //   dot: true
-  // }).pipe(gulp.dest(function(file) {
-  //   var filePath = file.path.toLowerCase();
-  //
-  //   console.log(filePath)
-  //   if (filePath.indexOf('.css') > -1) {
-  //     return paths.dist.css;
-  //   } else if (filePath.indexOf('fontawesome') > -1) {
-  //     return paths.dist.base;
-  //   } else if (filePath.indexOf('views') > -1) {
-  //     return paths.dist.base;
-  //   }
-  //   return paths.dist.base;
-  // }))
-  //   .pipe($.size({title: 'copy'}));
 });
 
 // 编译 SCSS，添加浏览器前缀

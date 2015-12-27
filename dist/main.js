@@ -14,8 +14,8 @@
       // 'AppCommonStore': project + 'model/commonStore',
       // 'AppStore': project + 'model/store',
       'AppModel': project + 'model/model',
-      'Swiper': 'blade/function/swiper',
-      'SwiperInit': 'blade/function/swiper-init',
+      // 'Swiper': 'blade/function/swiper',
+      // 'SwiperInit': 'blade/function/swiper-init',
     }
   });
 

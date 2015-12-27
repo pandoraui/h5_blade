@@ -1,5 +1,5 @@
-define(['View', 'AppModel', 'Swiper', getViewTemplatePath('detail')],
-  function (View, AppModel, Swiper, viewhtml){
+define(['View', 'AppModel', 'UISwiper', getViewTemplatePath('detail')],
+  function (View, AppModel, UISwiper, viewhtml){
 
     var ajaxGetHomePage = AppModel.getHomePage.getInstance();
 
@@ -50,18 +50,13 @@ define(['View', 'AppModel', 'Swiper', getViewTemplatePath('detail')],
           console.log(error);
         },this);
 
-        var container = $(".swiper-container");
-        var params = {
-          // nextButton: '.swiper-button-next',
-          // prevButton: '.swiper-button-prev',
-          pagination: '.swiper-pagination',
-          paginationClickable: true,
-          // Disable preloading of all images
-          preloadImages: false,
-          // Enable lazy loading
-          lazyLoading: true
-        };
-        var swiper = new $.Swiper(container, params);
+        var container = $('.swiper-container');
+        var imgList = [
+          'http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1n3rZHFXXXXX9XFXXXXXXXXXX_!!0-item_pic.jpg_640x640q60.jpg',
+          // 'http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i4/TB10rkPGVXXXXXGapXXXXXXXXXX_!!0-item_pic.jpg_640x640q60.jpg',
+          // 'http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1kQI3HpXXXXbSXFXXXXXXXXXX_!!0-item_pic.jpg_640x640q60.jpg'
+        ];
+        var swiper = new UISwiper(container, imgList);
         // $(".swiper-container").swiper(config)
       },
       renderPage: function(){

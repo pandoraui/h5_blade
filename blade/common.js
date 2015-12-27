@@ -67,6 +67,9 @@
 
       //基础组件部分
 
+      'Swiper': app + 'function/swiper',
+      'UISwiper': app + 'ui/ui.swiper',
+
       //蒙版
       'UIMask': app + 'ui/ui.mask',
       'C_UIMask': app + 'ui/ui.mask.css',

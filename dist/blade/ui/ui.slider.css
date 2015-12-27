@@ -1,4 +1,4 @@
-﻿.cm-slide .cm-slide-list:before, .cm-slide .cm-slide-list:after {
+.cm-slide .cm-slide-list:before, .cm-slide .cm-slide-list:after {
   content: "";
   display: table;
 }

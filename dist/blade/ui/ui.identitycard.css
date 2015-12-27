@@ -1,4 +1,4 @@
-﻿.cm-keyboard-list:before, .cm-keyboard-list:after {
+.cm-keyboard-list:before, .cm-keyboard-list:after {
   content: "";
   display: table;
 }

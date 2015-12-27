@@ -1,5 +1,7 @@
-define(['View', 'Swiper', getViewTemplatePath('detail')],
-  function (View, Swiper, viewhtml){
+define(['View', 'AppModel', 'Swiper', getViewTemplatePath('detail')],
+  function (View, AppModel, Swiper, viewhtml){
+
+    var ajaxGetHomePage = AppModel.getHomePage.getInstance();
 
     return _.inherit(View, {
       propertys: function ($super) {
@@ -39,8 +41,26 @@ define(['View', 'Swiper', getViewTemplatePath('detail')],
         //     return new $.Swiper(container, params);
         // };
 
+        ajaxGetHomePage.param = {};
+        ajaxGetHomePage.execute(function(response){
+          //成功
+          console.log(response);
+        },function(error){
+          //失败
+          console.log(error);
+        },this);
+
         var container = $(".swiper-container");
-        var params = {};
+        var params = {
+          // nextButton: '.swiper-button-next',
+          // prevButton: '.swiper-button-prev',
+          pagination: '.swiper-pagination',
+          paginationClickable: true,
+          // Disable preloading of all images
+          preloadImages: false,
+          // Enable lazy loading
+          lazyLoading: true
+        };
         var swiper = new $.Swiper(container, params);
         // $(".swiper-container").swiper(config)
       },

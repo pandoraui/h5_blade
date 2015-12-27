@@ -87,6 +87,14 @@
     if (!klass.prototype.initialize)
       klass.prototype.initialize = function () { };
 
+
+    // //兼容代码，非原型属性也需要进行继承
+    for (key in parent) {
+      if (parent.hasOwnProperty(key) && key !== 'prototype' && key !== 'superclass')
+        klass[key] = parent[key];
+    }
+
+
     klass.prototype.constructor = klass;
 
     return klass;
@@ -190,7 +198,7 @@
 //        el[0].__flipEventObj['__flip_noDefault'] = noDefault;
 //        el[0].__flipEventObj['__flip_sensibility'] = sensibility;
         return;
-      } 
+      }
 
       el[0].__flipEventObj = {};
       el[0].__flipEventObj['__flip_' + dir] = fn;
@@ -407,7 +415,7 @@
       }
     }
 
-    if(typeof rid == 'string'){ 
+    if(typeof rid == 'string'){
       ns = rid;
       resArr = TimerRes[ns];
       j = resArr.length;
@@ -418,10 +426,10 @@
 
     if(arguments.length == 0) {
        for(k1 in TimerRes) {
-       _.clearInterval(k1);     
+       _.clearInterval(k1);
        }
     }
-    
+
   }
 
 })();

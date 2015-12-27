@@ -1,4 +1,4 @@
-﻿define(['UIView', 'text!T_UIWaring404', 'text!C_warning404'], function (UIView, template, style) {
+define(['UIView', 'text!T_UIWaring404', 'text!C_warning404'], function (UIView, template, style) {
 
   return _.inherit(UIView, {
     propertys: function ($super) {

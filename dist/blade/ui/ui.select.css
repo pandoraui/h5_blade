@@ -1,4 +1,4 @@
-﻿.cm-scroll-select .cm-select-list li {
+.cm-scroll-select .cm-select-list li {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

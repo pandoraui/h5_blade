@@ -10,6 +10,10 @@
     baseUrl: './',
     paths: {
       'View': project + 'ex_mvc/view',
+      'ApiConfig': project + 'model/config',
+      // 'AppCommonStore': project + 'model/commonStore',
+      // 'AppStore': project + 'model/store',
+      'AppModel': project + 'model/model',
       'Swiper': 'blade/function/swiper',
       'SwiperInit': 'blade/function/swiper-init',
     }

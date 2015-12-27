@@ -1,4 +1,4 @@
-﻿
+
 define(['UIView', 'text!T_UIHeader', 'text!C_UIHeader'], function (UIView, template, style) {
 
   return _.inherit(UIView, {

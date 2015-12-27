@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
 
   //项目根路径，这个会跟着外层入口index.html而变化
   var app = './blade/';
@@ -6,54 +6,54 @@
 
   require.config({
     shim: {
-      _: {
-        exports: '_'
-      }
-    },
-    /**
-    shim: {
       $: {
         exports: 'zepto'
       },
       _: {
         exports: '_'
       },
-      B: {
-        deps: ['_', '$'],
-        exports: 'Backbone'
-      },
-      F: {
-        deps: ['$'],
-        exports: 'Fastclick'
-      },
-      libs: {
-        deps: ['_', '$', 'B'],
-        exports: 'libs'
-      },
-      common: {
-        deps: ['libs']
-      },
-      cAjax: {
-        exports: 'cAjax'
-      },
-      UIView: {
-        deps: ['B'],
-        exports: 'UIView'
-      },
+      // B: {
+      //   deps: ['_', '$'],
+      //   exports: 'Backbone'
+      // },
+      // F: {
+      //   deps: ['$'],
+      //   exports: 'Fastclick'
+      // },
+      // libs: {
+      //   deps: ['_', '$', 'B'],
+      //   exports: 'libs'
+      // },
+      // common: {
+      //   deps: ['libs']
+      // },
+      // cAjax: {
+      //   exports: 'cAjax'
+      // },
+      // UIView: {
+      //   deps: ['B'],
+      //   exports: 'UIView'
+      // },
     },
-    */
     paths: {
       //依赖部分
-      // '$': libs,
+      // 'R': app + "libs/require",
+      // '$': app + "libs/zepto",
       // "_": app + "libs/underscore",
       // "B": app + "libs/backbone",
       // "F": app + "libs/fastclick",
       // "libs": app + "libs/libs",
+      // "text": app + "libs/require.text",
+      // "cInherit": app + "common/c.class.inherit",
 
       //核心部分：
 
       'text': app + 'libs/require.text',
+      "cAjax": app + "mvc/c.ajax",
+      // "cInherit": app + "common/c.inherit",
       'AbstractApp': app + 'mvc/abstract.app',
+      'AbstractModel': app + 'mvc/abstract.model',
+      // 'AbstractStore': app + 'mvc/abstract.store',
 
       //抽象view
       'UIView': app + 'ui/core.abstract.view',

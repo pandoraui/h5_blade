@@ -1,4 +1,4 @@
-﻿define([], function () {
+define([], function () {
   return {
     isEmail: function (text) {
       var reg = /^(?:\w+\.?)*\w+@(?:\w+\.?)*\w+$/;

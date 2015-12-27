@@ -1,4 +1,4 @@
-﻿define([], function () {
+define([], function () {
   return _.inherit({
     propertys: function () {
       this.isError = false;

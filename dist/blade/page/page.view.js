@@ -26,8 +26,8 @@
  *  })
  * })
  */
-define(['libs', 'UIHeader'],
-  function (libs, Header) {
+// define(['libs', 'UIHeader'], function (libs, Header) {
+define(['UIHeader'], function (Header) {
     "use strict";
 
     var PageView = Backbone.View.extend({

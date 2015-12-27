@@ -1,4 +1,4 @@
-﻿define(['ajax'], function (ajax) {
+define(['cAjax'], function (cAjax) {
 
   var Model = _.inherit({
     //默认属性
@@ -7,19 +7,26 @@
       this.param = null;
       this.dataformat = null;
       this.validates = [];
-      this.protocol = 'http';
+      this.protocol = (window.location.protocol.indexOf("https") > -1) ? "https" : "http";
       this.contentType = 'json';
       this.method = 'POST';
+
+      this.timeout = 30000;
+
+      //是否主动取消当前ajax
+      this.isAbort = false;
 
       this.baseurl = {
         domain: '',
         path: ''
       };
-
     },
 
     setOption: function (options) {
-      _.extend(this, options);
+      // _.extend(this, options);
+      for (var key in options) {
+        this[key] = options[key];
+      }
     },
 
     assert: function () {
@@ -33,9 +40,13 @@
 
     initialize: function (opts) {
       this.propertys();
-      this.setOption(options);
+      this.setOption(opts);
       this.assert();
 
+    },
+
+    setAttr:function(key, val){
+      this[key] = val;
     },
 
     pushValidates: function (handler) {
@@ -120,16 +131,44 @@
 
       if (this.contentType === 'json') {
         // @description 跨域请求
-        ajax.cros(url, this.method, params, __onComplete, __onError);
+        cAjax.cros(url, this.method, params, __onComplete, __onError);
       } else if (this.contentType === 'jsonp') {
         // @description jsonp的跨域请求
-        ajax.jsonp(url, params, __onComplete, __onError);
+        cAjax.jsonp(url, params, __onComplete, __onError);
       } else {
         // @description 默认post请求
-        ajax.post(url, params, __onComplete, __onError);
+        cAjax.post(url, params, __onComplete, __onError);
       }
-    }
+    },
+    
+    // ajaxGet: function(onComplete, onError, scope, onAbort, params){
+    //   params = params || {};
+    //   params.method = 'GET';
+    //   this.execute(onComplete, onError, scope, onAbort, params);
+    // },
+    //
+    // ajaxPost: function(onComplete, onError, scope, onAbort, params){
+    //   params = params || {};
+    //   params.method = 'POST';
+    //   this.execute(onComplete, onError, scope, onAbort, params);
+    // },
+
   });
+
+
+
+  /**
+   * Model的单例获取方式
+   * @method Model.getDetail.getInstance()
+   * @returns {*}
+   */
+  Model.getInstance = function () {
+    if (this.instance instanceof this) {
+      return this.instance;
+    } else {
+      return this.instance = new this;
+    }
+  };
 
   return Model;
 });

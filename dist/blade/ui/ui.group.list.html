@@ -1,4 +1,4 @@
-﻿<%filter = filter.replace(/\s+/g, "").split(','); %>
+<%filter = filter.replace(/\s+/g, "").split(','); %>
 <div class="cm-group-list">
 <%for(var i = 0, len = data.length; i < len; i++) { %>
   <div data-groupindex="<%=i %>" class="cm-group-item <%if(_.isUndefined(data[i].needFold) || data[i].needFold === false) { %>expanded<%}%> ">

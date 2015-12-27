@@ -1,4 +1,4 @@
-﻿.cm-day-list:before, .cm-calendar .cm-calendar-hd:before, .cm-calendar .cm-calendar-ft .cm-calendar-quick-nav:before, .cm-day-list:after, .cm-calendar .cm-calendar-hd:after, .cm-calendar .cm-calendar-ft .cm-calendar-quick-nav:after {
+.cm-day-list:before, .cm-calendar .cm-calendar-hd:before, .cm-calendar .cm-calendar-ft .cm-calendar-quick-nav:before, .cm-day-list:after, .cm-calendar .cm-calendar-hd:after, .cm-calendar .cm-calendar-ft .cm-calendar-quick-nav:after {
   content: "";
   display: table;
 }

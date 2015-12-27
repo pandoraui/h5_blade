@@ -1,4 +1,4 @@
-﻿
+
 define(['UILayer', 'text!T_UIBubbleLayer', 'text!C_UIBubbleLayer'], function (UILayer, template, style) {
 
   'use strict';

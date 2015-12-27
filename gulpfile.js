@@ -3,7 +3,7 @@
  */
 
 /**
-npm install gulp gulp-load-plugins gulp-md5-plus del run-sequence browser-sync browserify watchify vinyl-source-stream vinyl-buffer gulp-sass gulp-cache gulp-rename gulp-autoprefixer gulp-size gulp-csso gulp-replace  --save-dev
+npm install gulp gulp-load-plugins gulp-md5-plus del run-sequence browser-sync browserify watchify vinyl-source-stream vinyl-buffer gulp-sass gulp-cache gulp-rename gulp-autoprefixer gulp-size gulp-csso gulp-replace gulp-copy2  --save-dev
 */
 
 'use strict';
@@ -33,7 +33,6 @@ var AUTOPREFIXER_BROWSERS = [
   'android >= 2.3',
   'bb >= 10'
 ];
-
 
 var appPath = 'hsq/';
 var appDist = 'dist/';
@@ -110,12 +109,13 @@ gulp.task('copy:venders', function () {
 // 拷贝相关资源
 gulp.task('copy', ['copy:venders'], function () {
   var copyPaths = [
+      {src: 'blade/**/*', dest: appDist + 'blade/'},
       {src: appPath + 'index.html', dest: appDist},
       {src: appPath + 'debug.html', dest: appDist},
       {src: appPath + 'main.js', dest: appDist},
       {src: appPath + 'favicon.*', dest: appDist},
       {src: appPath + 'images/*', dest: appDist + 'images/'},
-      {src: appPath + 'img/*', dest: appDist + 'assets/images/'},
+      {src: appPath + 'img/*', dest: appDist + 'assets/img/'},
       {src: appPath + 'ex_mvc/*', dest: appDist + 'ex_mvc/'},
       {src: appPath + 'views/*', dest: appDist + 'views/'},
       {src: appPath + 'model/*', dest: appDist + 'model/'},
@@ -216,7 +216,7 @@ gulp.task('clean', function(cb) {
     'dist/*',
     //'!dist/fonts',
     '!dist/venders',
-    '!dist/blade',
+    // '!dist/blade',
     '!dist/.git'
   ], {dot: true}, cb);
 });
@@ -224,6 +224,7 @@ gulp.task('clean', function(cb) {
 // 监视源文件变化自动cd编译
 gulp.task('watch', function() {
   // gulp.watch(appPath + '/**/*.html', ['html']);
+  gulp.watch('blade/**/*', ['copy']);
   gulp.watch(appPath + '/**/*', ['copy']);
   gulp.watch(appPath + '/scss/**/*.scss', ['styles']);
   gulp.watch('src/styles/**/*.scss', ['styles']);
@@ -231,6 +232,7 @@ gulp.task('watch', function() {
 });
 
 // 启动预览服务，并监视 Dist 目录变化自动刷新浏览器
+var times = 0;
 gulp.task('dev', ['default', 'watch'], function () {
   browserSync({
     // port: 5000, //默认3000
@@ -245,7 +247,7 @@ gulp.task('dev', ['default', 'watch'], function () {
     // },
     open: "local", //external
     notify: false,
-    logPrefix: 'happyCoding',
+    logPrefix: 'happyCoding' + times++,
     server: 'dist'
   });
 

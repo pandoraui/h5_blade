@@ -1,4 +1,4 @@
-﻿define(['UISlider'], function (UISlider) {
+define(['UISlider'], function (UISlider) {
   return _.inherit(UISlider, {
     propertys: function ($super) {
       $super();

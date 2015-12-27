@@ -1,4 +1,4 @@
-﻿define(['UILayer', 'text!T_UILayerList', 'UIScroll'], function (UILayer, template, UIScroll) {
+define(['UILayer', 'text!T_UILayerList', 'UIScroll'], function (UILayer, template, UIScroll) {
 
   return _.inherit(UILayer, {
     propertys: function ($super) {

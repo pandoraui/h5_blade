@@ -82,7 +82,7 @@
       //loading弹出层
       'UILoadingLayer': app + 'ui/ui.loading.layer',
       'T_UILoadingLayer': app + 'ui/ui.loading.layer.html',
-      'C_UILoadingLayer': app + 'ui/ui.loading.layer.css',
+      // 'C_UILoadingLayer': app + 'ui/ui.loading.layer.css',
 
       //toast提升
       'UIToast': app + 'ui/ui.toast',

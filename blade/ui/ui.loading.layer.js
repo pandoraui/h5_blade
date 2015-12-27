@@ -3,7 +3,8 @@
 用于继承的类，会自动垂直居中
 
 */
-define(['UILayer', 'text!T_UILoadingLayer', 'text!C_UILoadingLayer'], function (UILayer, template, style) {
+// define(['UILayer', 'text!T_UILoadingLayer', 'text!C_UILoadingLayer'], function (UILayer, template, style) {
+define(['UILayer', 'text!T_UILoadingLayer'], function (UILayer, template) {
   'use strict';
 
   return _.inherit(UILayer, {
@@ -20,7 +21,7 @@ define(['UILayer', 'text!T_UILoadingLayer', 'text!C_UILoadingLayer'], function (
       //html模板
       this.template = template;
       //只继承基类的重置css
-      this.uiStyle[1] = style;
+      // this.uiStyle[1] = style;
 
       this.closeBtn = false;
       this.content = '';

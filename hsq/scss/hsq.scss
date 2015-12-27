@@ -4,6 +4,15 @@
 @import "temp";
 @import "icon";
 
+.cm-loading .preloader{
+  width: 2.5rem;
+  height: 2.5rem;
+
+  ~ p {
+    margin: 0.4rem 0 0.4rem;
+  }
+}
+
 .bar-nav ~ .content{top: 0; padding-top: 2.2rem;}
 .mb10{margin-bottom: fontsize(10);}
 

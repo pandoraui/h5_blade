@@ -67,6 +67,7 @@
 
       //基础组件部分
 
+      'LazyLoad': app + 'function/lazyload',
       'Swiper': app + 'function/swiper',
       'UISwiper': app + 'ui/ui.swiper',
 

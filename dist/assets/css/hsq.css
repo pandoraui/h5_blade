@@ -791,7 +791,7 @@ dfn.price {
     display: block;
     margin: 0 auto;
     min-height: 6.25rem;
-    max-width: 100%; }
+    width: 100%; }
 
 .down-tip {
   font-size: 0.875rem;

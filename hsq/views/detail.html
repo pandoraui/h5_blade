@@ -9,8 +9,8 @@
         <li>
           <div class="tit"><%=name%></div>
           <p class="info-line">
-            <span class="num fr">仅剩<%=left_stock%>件</span>
-            <dfn class="price">&yen; 14.59<i>23434</i></dfn>
+            <span class="num fr"><%=deal_stock%></span>
+            <dfn class="price">&yen; <span class="price_num"><%=format_price%></span></dfn>
             <del><%=market_price%></del>
           </p>
         </li>
@@ -38,7 +38,7 @@
         <li>
           <p class="c-info">
             <span class="author"><%=item.username%></span>
-            <span class="time"><%=item.created_at%></span>
+            <span class="time"><%=_.dateUtil.format(item.created_at*1000, 'Y-M-D H:F:S')%></span>
             <span class="stars"><%=item.score%></span>
           </p>
           <div class="c-text">

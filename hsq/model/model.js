@@ -118,7 +118,9 @@ define(['AbstractModel', 'ApiConfig'], function( AbstractModel, ApiConfig) {
   //首页请求
   //_model.CruiseHomePage = _model.CustomModel("/GetHomePage");
 
-  _model.getHomePage = _model.CustomModel("/GetHomePage", {method: "GET"});
+  _model.getTestPage = _model.CustomModel("/GetHomePage", {method: "GET"});
+  _model.getDetailDesc = _model.CustomModel("/product/iteminfo", {method: "GET"});
+  _model.getDetailArticle = _model.CustomModel("/product/productdetail", {method: "GET"});
 
   //搜索项目获取列表，带缓存
   // _model.CruiseSearchPageModel = _model.CustomModel("/GetSearchItem",{

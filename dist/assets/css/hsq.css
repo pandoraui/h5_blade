@@ -600,6 +600,10 @@
 .icon-link:before {
   content: "\e614"; }
 
+img.icon-label {
+  display: inline-block;
+  height: 0.9375rem; }
+
 .cm-loading .preloader {
   width: 2.5rem;
   height: 2.5rem; }
@@ -617,6 +621,7 @@ body {
   font-size: 0.875rem;
   overflow-y: scroll; }
 
+html, body,
 .h100, #main {
   height: 100%; }
 
@@ -651,7 +656,7 @@ body {
   top: 0; }
 
 .viewport-wrapper > .view {
-  padding: 2.75rem 0; }
+  padding: 2.75rem 0 0; }
 
 /* 详情页 */
 .page-view-detail .swiper-container,
@@ -748,6 +753,13 @@ dfn.price {
 .detail-desc .label {
   color: #959595; }
 
+.detail-desc .ib-label {
+  display: inline-block;
+  margin-right: 0.625rem; }
+
+.detail-desc .icon-label {
+  margin-top: -2px; }
+
 .card-comments .list-comments {
   padding: 0 0 0 0.625rem; }
 
@@ -773,14 +785,12 @@ dfn.price {
   margin-top: 0.5rem; }
 
 .main-article {
+  min-height: 10rem;
   padding-bottom: 1px; }
   .main-article img {
     display: block;
     margin: 0 auto;
     max-width: 100%; }
-  .main-article p {
-    margin: 0.625rem 0;
-    padding: 0 0.625rem; }
 
 .down-tip {
   font-size: 0.875rem;

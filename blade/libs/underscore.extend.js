@@ -316,6 +316,8 @@
     * @return {string} 常用格式化字符串
     */
     format: function (date, format) {
+      //date 可以传入时间戳
+      typeof date === 'number' && (date = new Date(date));
       if (arguments.length < 2 && !date.getTime) {
         format = date;
         date = new Date();

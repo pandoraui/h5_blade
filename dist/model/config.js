@@ -41,7 +41,7 @@ define([], function() {
     },
     //api 域名地址
     restApi: function(protocol, url) {
-      var host = this.runTimeEnvironment(testDebug);
+      var host = this.runTimeEnvironment();
       var urls = {
         "http": 'http://' + host,
         "https": 'https://' + host

@@ -96,12 +96,20 @@ define([], function () {
       contentType: opt.contentType,
       timeout: opt.timeout || 50000,
       success: function (res) {
-        opt.callback(res);
+        if(res && res.errno === 0){
+          opt.callback(res);
+        }else{
+          opt.error && opt.error(res);
+        }
       },
       error: function (err) {
-        opt.error && opt.error(err);
+
       }
     };
+
+    //这两个属性不要
+    delete(obj.data.contentType);
+    delete(obj.contentType);
     //是否是跨域则加上这条
     if (opt.url.indexOf(window.location.host) === -1) obj.crossDomain = !!opt.crossDomain;
     return $.ajax(obj);

@@ -133,7 +133,17 @@ define(['View', 'AppModel', 'UISwiper', getViewTemplatePath('detail')],
       },
       renderDetailArticle: function(data){
         var html_article = _.template(this.$tpl.detail_article)(data);
-        this.$tplbox.detail_article.html(html_article);
+
+        //此处要做图片延迟加载，将所有的 img 图片 src 替换掉
+        var $tempBox = $('<div id="temp"></div>');
+        $tempBox.html(html_article);
+        $tempBox.find('img').forEach(function(item){
+          var src = $(item).attr('src');
+          $(item).attr('data-src',src).attr('src','');
+        })
+        var tempHtml = $tempBox.html();
+
+        this.$tplbox.detail_article.html(tempHtml);
       },
     });
 });

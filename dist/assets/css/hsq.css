@@ -790,6 +790,7 @@ dfn.price {
   .main-article img {
     display: block;
     margin: 0 auto;
+    min-height: 6.25rem;
     max-width: 100%; }
 
 .down-tip {

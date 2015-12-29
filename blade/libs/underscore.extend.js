@@ -315,30 +315,68 @@
     * @description将日期格式化为字符串
     * @return {string} 常用格式化字符串
     */
-    format: function (date, format) {
-      //date 可以传入时间戳
-      typeof date === 'number' && (date = new Date(date));
-      if (arguments.length < 2 && !date.getTime) {
-        format = date;
-        date = new Date();
+    format: function (date, options) {
+      options = options || {type: 'date', format: 'Y年M月D日 H时F分S秒'};
+      if(options.type === 'countdown' && !options.format){
+        options.format = 'H时F分S秒';
       }
-      typeof format != 'string' && (format = 'Y年M月D日 H时F分S秒');
-      return format.replace(/Y|y|M|m|D|d|H|h|F|f|S|s/g, function (a) {
-        switch (a) {
-          case "y": return (date.getFullYear() + "").slice(2);
-          case "Y": return date.getFullYear();
-          case "m": return date.getMonth() + 1;
-          case "M": return _.dateUtil.formatNum(date.getMonth() + 1);
-          case "d": return date.getDate();
-          case "D": return _.dateUtil.formatNum(date.getDate());
-          case "h": return date.getHours();
-          case "H": return _.dateUtil.formatNum(date.getHours());
-          case "f": return date.getMinutes();
-          case "F": return _.dateUtil.formatNum(date.getMinutes());
-          case "s": return date.getSeconds();
-          case "S": return _.dateUtil.formatNum(date.getSeconds());
+      
+      var format = options.format;
+
+      if(options.type === 'countdown'){
+        //此时 date 为剩余时间 毫秒数
+        var countTimes = {};
+        var time = parseInt(date*0.001);
+
+        var seconds = time%60;
+        time = parseInt(time/60);
+        var minutes = time%60;
+        time = parseInt(time/60);
+        var hours = parseInt(time%24);
+        var days = parseInt(time/24);
+        // var times = 1000;
+
+        return format.replace(/Y|y|M|m|D|d|H|h|F|f|S|s/g, function (a) {
+          switch (a) {
+            case "d": return days;
+            case "D": return _.dateUtil.formatNum(days);
+            case "h": return hours;
+            case "H": return _.dateUtil.formatNum(hours);
+            case "f": return minutes;
+            case "F": return _.dateUtil.formatNum(minutes);
+            case "s": return seconds;
+            case "S": return _.dateUtil.formatNum(seconds);
+          }
+        });
+      }else{
+        //date 可以传入时间戳 毫秒数
+        if(typeof date === 'number'){
+          date = new Date(date);
         }
-      });
+        if (arguments.length < 2 && !date.getTime) {
+          format = date;
+          date = new Date();
+        }
+        //typeof format != 'string' && (format = 'Y年M月D日 H时F分S秒');
+        return format.replace(/Y|y|M|m|D|d|H|h|F|f|S|s/g, function (a) {
+          switch (a) {
+            case "y": return (date.getFullYear() + "").slice(2);
+            case "Y": return date.getFullYear();
+            case "m": return date.getMonth() + 1;
+            case "M": return _.dateUtil.formatNum(date.getMonth() + 1);
+            case "d": return date.getDate();
+            case "D": return _.dateUtil.formatNum(date.getDate());
+            case "h": return date.getHours();
+            case "H": return _.dateUtil.formatNum(date.getHours());
+            case "f": return date.getMinutes();
+            case "F": return _.dateUtil.formatNum(date.getMinutes());
+            case "s": return date.getSeconds();
+            case "S": return _.dateUtil.formatNum(date.getSeconds());
+          }
+        });
+      }
+
+
     },
     // @description 是否为为日期对象，该方法可能有坑，使用需要慎重
     // @param year {num} 日期对象

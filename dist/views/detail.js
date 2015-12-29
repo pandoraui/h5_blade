@@ -78,11 +78,11 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
           console.log(res);
 
           var data = res.data;
-          data.offline_times = data.expired_date - data.offline_before_expired;//下架时间
+          data._offline_times = data.expired_date - data.offline_before_expired;//下架时间
           this.timestamp = res.timestamp;
           data.timestamp = res.timestamp;
-          if(data.offline_times < res.timestamp){
-            data.timestamp = data.offline_times;
+          if(data._offline_times < res.timestamp){
+            data.timestamp = data._offline_times;
           }
 
           data._humanTimes = scope.humanTimes;
@@ -108,8 +108,10 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
       },
       renderPage: function(data){
         console.log('渲染页面');
-        data.deal_stock = this.dealStock(data).deal_stock;
-        data.format_price = this.dealPrice(data).format_price;
+
+        //注意，自己自定义的挂在 data 上的变量，使用_开头，避免后期服务器端修改，导致数据冲突
+        data._deal_stock = this.dealStock(data)._deal_stock;
+        data._format_price = this.dealPrice(data)._format_price;
 
         var container = this.$el.find('.swiper-container');
         container.css({'height': this.fullWidth});
@@ -129,30 +131,64 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
         this.$tplbox.detail_desc.html(html_desc);
 
         this.$priceDom = this.$tplbox.detail_desc.find('#J_price_box');
+        this.$stockDom = this.$tplbox.detail_desc.find('#J_stock_box');
         this.countDownPrice(data);
+        this.countDownStock(data);
       },
       humanTimes: function(times){
         //如果是今天，显示 "今天 时分秒"，否则显示 'Y-M-D H:F:S' 格式
         if(!this.today){
-          this.today = _.dateUtil.format(this.timestamp*1000, 'Y-M-D');
+          this.today = _.dateUtil.format(this.timestamp*1000, {
+            format: 'Y-M-D'
+          });
         }
-        var result = _.dateUtil.format(times*1000, 'Y-M-D H:F:S');
+        var result = _.dateUtil.format(times*1000, {
+          format: 'Y-M-D H:F:S'
+        });
 
         return result.replace(this.today, '今天');
       },
       countDownPrice: function(data){
         var scope = this;
         setInterval(function(){
-          var format_price = scope.dealPrice(data, true).format_price;
-          scope.$priceDom.html(format_price);
+          var _format_price = scope.dealPrice(data, true)._format_price;
+          scope.$priceDom.html(_format_price);
           data.timestamp += 1;
         },1000);
       },
-      dealStock: function(data){
+      countDownStock: function(data){
+        var scope = this;
+        var bool = this.need_countdown_stock;
+        if( !bool ){
+          return;
+        }
+        if(data._left_times >= 3660){
+          blankTimes = 60000;
+        }else{
+          blankTimes = 1000;
+        }
+
+        var _deal_stock = scope.dealStock(data, true)._deal_stock;
+        scope.$stockDom.html(_deal_stock);
+
+        //开启倒计时
+        setTimeout(function(){//clearInterval
+          if( (data._left_times < 0) || !scope.need_countdown_stock){
+            clearTimeout(scope.clear_stock_countdown);
+            return;
+          }
+          data._left_times -= blankTimes*0.001;
+
+          scope.countDownStock(data);
+
+        }, blankTimes);
+
+      },
+      dealStock: function(data, countType){
         /**
         关于库存或停售时间的呈现逻辑：
           data.timestamp 当前时间
-          offline_times 下架时间
+          _offline_times 下架时间
           left_stock 剩余库存
           expired_date 过期时间
           offline_before_expired 离保质期多久下架
@@ -166,29 +202,39 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
           - 当库存为0时，显示：**已售完**
         */
         //部分数据需要处理，比如库存 仅剩<%=left_stock%>件
-        var deal_stock = '';  //经过处理的库存状态显示
-        var left_times = data.offline_times - data.timestamp;  //剩余时间
+        var _deal_stock = '';  //经过处理的库存状态显示
 
-        this.left_times = left_times;
-        if( (data.left_stock > 30) && (left_times < 86400*7)){
-          if(left_times >= 86400){
-            deal_stock = "剩" + data.left_stock + "停售";  //剩x天xx小时停售
-          }else if(left_times >= 3600){
-            deal_stock = "剩xx小时xx分停售";  //剩xx小时xx分停售
-          }else if(left_times >= 1){
-            deal_stock = "剩xx分xx秒停售";  //剩xx分xx秒停售
+        var _left_times;
+        if(data._left_times && countType){
+          _left_times = data._left_times;
+        }else{
+          _left_times = data._offline_times - data.timestamp;  //剩余时间
+          // _left_times = 3605;
+          data._left_times = _left_times;
+        }
+
+        this.need_countdown_stock = false;
+        if( (data.left_stock > 30) && (_left_times < 86400*7)){
+          if(_left_times >= 86400){
+            _deal_stock = _.dateUtil.format(_left_times*1000 ,{type: 'countdown', format: '剩D天H小时停售'});  //剩x天xx小时停售
+          }else if(_left_times >= 3600){
+            this.need_countdown_stock = true;
+            _deal_stock = _.dateUtil.format(_left_times*1000 ,{type: 'countdown', format: '剩H小时F分停售'});  //剩xx小时xx分停售
+          }else if(_left_times >= 1){
+            this.need_countdown_stock = true;
+            _deal_stock = _.dateUtil.format(_left_times*1000 ,{type: 'countdown', format: '剩F分S秒停售'});  //剩xx分xx秒停售
           }else{
-            deal_stock = "已停售";   //已停售
+            _deal_stock = "已停售";   //已停售
           }
         }else{
           if(data.left_stock < 1){
-            deal_stock = "已售完";
+            _deal_stock = "已售完";
           }else{
-            deal_stock = "仅剩" + data.left_stock + "件";
+            _deal_stock = "仅剩" + data.left_stock + "件";
           }
         }
 
-        data.deal_stock = deal_stock;
+        data._deal_stock = _deal_stock;
 
         return data;
       },
@@ -201,30 +247,30 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
           开售时间 seller_time
         */
 
-        if(countType && data.diff_m_price){
-          data.deal_price = (data.deal_price - data.diff_m_price).toFixed(6);
-          data.format_price = this.formatPrice(data.deal_price, 6, 4);
+        if(countType && data._diff_m_price && data._deal_price){
+          data._deal_price = (data._deal_price - data._diff_m_price).toFixed(6);
+          data._format_price = this.formatPrice(data._deal_price, 6, 4);
           return data;
         }
         //(price - cur_price) / (cur_price - lowest_price)
-        // = (timestamp - seller_time)/(offline_times - timestamp)
-        var diff_all_price = data.price - data.lowest_price;
+        // = (timestamp - seller_time)/(_offline_times - timestamp)
+        var _diff_all_price = data.price - data.lowest_price;
         //每秒变动的价格
-        var diff_m_price;
-        var diff_price
-        if(data.offline_times - data.seller_time <= 0){
-          diff_m_price = 0;
-          diff_price = diff_all_price;
+        var _diff_m_price;
+        var _diff_price;
+        if(data._offline_times - data.seller_time <= 0){
+          _diff_m_price = 0;
+          _diff_price = _diff_all_price;
         }else{
-          diff_m_price = 1/(data.offline_times - data.seller_time);
-          diff_price = diff_all_price * (data.timestamp - data.seller_time)*diff_m_price;
+          _diff_m_price = 1/(data._offline_times - data.seller_time);
+          _diff_price = _diff_all_price * (data.timestamp - data.seller_time)*_diff_m_price;
         }
-        var deal_price = (data.price - diff_price).toFixed(6);
-        var format_price = this.formatPrice(deal_price, 6, 4);
+        var _deal_price = (data.price - _diff_price).toFixed(6);
+        var _format_price = this.formatPrice(_deal_price, 6, 4);
 
-        data.diff_m_price = diff_m_price;
-        data.deal_price = deal_price;
-        data.format_price = format_price;
+        data._diff_m_price = _diff_m_price;
+        data._deal_price = _deal_price;
+        data._format_price = _format_price;
 
         return data;
       },
@@ -235,8 +281,8 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
         if(is0) price += 1;
         // 需要小数点后2位
         needCount = needCount || 2;
-        // fn = fn || 'round';
-        var numStr = Math['round'](price * Math.pow(10, needCount)).toString();
+        var fn = fn || 'round';
+        var numStr = Math[fn](price * Math.pow(10, needCount)).toString();
         var index = numStr.length - needCount;
         var intPart = numStr.substr(0, index);
         if(is0) intPart = parseInt(intPart) - 1;

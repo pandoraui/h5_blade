@@ -1,7 +1,7 @@
 define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail')],
   function (View, AppModel, UISwiper, LazyLoad, viewhtml){
 
-    var ajaxTest = AppModel.getTestPage.getInstance();
+    // var ajaxTest = AppModel.getTestPage.getInstance();
     var ajaxGetDetailDesc = AppModel.getDetailDesc.getInstance();
     var ajaxGetDetailArticle = AppModel.getDetailArticle.getInstance();
 
@@ -12,11 +12,10 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
         // this.template = viewhtml;
         // this.$el.html(viewhtml);
         this.addEvents({
-          'click .js_demo01': 'demo01',
-          'click .js_demo02': 'demo02'
+          // 'click #J_down_tip': 'closeDownTip',
+          'click .swiper-wrapper': 'demo02'
         });
       },
-
       addEvent: function ($super) {
         $super();
         //在页面显示后做的事情
@@ -35,7 +34,6 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
 
         });
       },
-
       initHeader: function () {
         var scope = this;
         Blade.header.set({

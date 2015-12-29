@@ -12,7 +12,7 @@ define([], function() {
     local: '10.0.0.10:9502',
     dev: '10.0.0.10:9502',
     staging: '10.0.0.10:9502',
-    pro: '',
+    pro: 'm.api.haoshiqi.net',
   };
   var config = {
     //运行环境
@@ -22,7 +22,7 @@ define([], function() {
       }
       //0本地 1dev 2staging 3pro
       var host = location.host;
-      if (host.match(/^m\.hsq\.com/i)) {
+      if (host.match(/^m\.haoshiqi\.net/i)) {
         return hosts.pro;
       }
       if ( host.match(/^(localhost|10\.0|127\.0|192\.168)/i)) {

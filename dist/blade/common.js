@@ -70,6 +70,7 @@
       'LazyLoad': app + 'function/lazyload',
       'Swiper': app + 'function/swiper',
       'UISwiper': app + 'ui/ui.swiper',
+      'UIDownTip': app + 'ui/ui.downtip',
 
       //蒙版
       'UIMask': app + 'ui/ui.mask',

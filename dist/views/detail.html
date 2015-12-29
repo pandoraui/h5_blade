@@ -15,13 +15,15 @@
           </p>
         </li>
         <li><span class="label">保质期至：<%=_.dateUtil.format(expired_date*1000, {format: 'Y年M月D日'})%></span></li>
+        <%if(attrs.length){%>
         <li><span class="label">口味/净含量：<%=_.pluck(attrs, 'value').join('、')%></span></li>
+        <%}%>
         <%if(labels.length){%>
-            <li>
-              <%labels.forEach(function(item){%>
-              <span class="ib-label"><img class="icon-label" src="<%=item.icon%>"> <%=item.text%></span>
-              <%})%>
-            </li>
+          <li>
+            <%labels.forEach(function(item){%>
+            <span class="ib-label"><img class="icon-label" src="<%=item.icon%>"> <%=item.text%></span>
+            <%})%>
+          </li>
         <%}%>
       </ul>
     </div>

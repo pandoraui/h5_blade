@@ -20,15 +20,20 @@ define([], function (){
     };
    }
 
-  function countdownTimer(endDateParam){
+  function countdownTimer(diff_times){ //剩余的时间，秒数
+    diff_times = Number(diff_times)
+    if(diff_times !== diff_times){
+      console.warn('数据有误');
+      return;
+    }
     /*
     初始化部分开始
     */
     if (this == window) {
-      return new countdownTimer(endDateParam);
+      return new countdownTimer(diff_times);
     }
 
-    if (!endDateParam && typeof endDateParam !== 'object') {
+    if (typeof diff_times === 'number') {
 
       /*
       new Date时，三个参数分别代表年月日，月份是从0开始算的，如一月份，第二个参数是0，所以2011,8,11代表2011-9-11；但是如果一字符串形式"2011,8,11"则不是从0开始，但是ie6、7、8不支持此写法，ie9不知道
@@ -55,7 +60,24 @@ define([], function (){
   }
 
   countdownTimer.prototype = {
-    update: function(){
+    update: function(diff_times){
+
+      var time = parseInt(diff_times);
+      //console.log(obj);
+
+      var s = time%60;
+      time = parseInt(time/60);
+      var m = time%60;
+      time = parseInt(time/60);
+      var h = parseInt(time%24);
+      var day = parseInt(time/24);
+      var times = 1000;
+
+      //时分秒都有了,全部返回，想用什么格式，自己组装
+
+      return {
+
+      };
 
       var nowDate = new Date();
 

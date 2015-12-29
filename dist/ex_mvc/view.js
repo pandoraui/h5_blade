@@ -1,4 +1,4 @@
-define(['UIView'], function (AbstractView) {
+define(['UIView', 'UIDownTip'], function (AbstractView, UIDownTip) {
 
   return _.inherit(AbstractView, {
 
@@ -9,6 +9,10 @@ define(['UIView'], function (AbstractView) {
 
     resetPropery: function ($super) {
       $super();
+
+      this.addEvents({
+        'click #J_down_tip': 'closeDownTip',
+      });
 
       var i = 0, len = 0 , k;
 
@@ -25,8 +29,9 @@ define(['UIView'], function (AbstractView) {
       $super();
 
       this.on('onShow', function () {
-         this.initHeader();
-
+          this.initHeader();
+          var downTip = new UIDownTip();
+          downTip.checkStatus();
       });
 
     },
@@ -46,6 +51,10 @@ define(['UIView'], function (AbstractView) {
 
     },
 
+    closeDownTip: function(e){
+      var target = $(e.currentTarget);
+      target.hide();
+    },
     // formatCode: function () {
     //   window.sss = this;
     //   hljs.initHighlighting(this);

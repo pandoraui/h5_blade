@@ -57,6 +57,7 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
       },
       //初始化页面
       initPage: function () {
+        this.fullWidth = $(document).width();
         var scope = this;
 
         // $.swiper = function (container, params) {
@@ -77,7 +78,15 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
           console.log(res);
 
           var data = res.data;
+          data.offline_times = data.expired_date - data.offline_before_expired;//下架时间
           this.timestamp = res.timestamp;
+          data.timestamp = res.timestamp;
+          if(data.offline_times < res.timestamp){
+            data.timestamp = data.offline_times;
+          }
+
+          data._humanTimes = scope.humanTimes;
+
           this.renderPage(data);
 
           // if(!params.id){
@@ -97,10 +106,53 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
         // }
         // $(".swiper-container").swiper(config)
       },
-      dealData: function(data){
+      renderPage: function(data){
+        console.log('渲染页面');
+        data.deal_stock = this.dealStock(data).deal_stock;
+        data.format_price = this.dealPrice(data).format_price;
+
+        var container = this.$el.find('.swiper-container');
+        container.css({'height': this.fullWidth});
+        var imgList = data.pics || [];
+        // [
+        //   'http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1n3rZHFXXXXX9XFXXXXXXXXXX_!!0-item_pic.jpg_640x640q60.jpg',
+        //   'http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i4/TB10rkPGVXXXXXGapXXXXXXXXXX_!!0-item_pic.jpg_640x640q60.jpg',
+        //   'http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1kQI3HpXXXXbSXFXXXXXXXXXX_!!0-item_pic.jpg_640x640q60.jpg'
+        // ];
+
+        if(imgList.length > 5){
+          imgList.length = 5;
+        }
+        var swiper = new UISwiper(container, imgList);
+
+        var html_desc = _.template(this.$tpl.detail_desc)(data);
+        this.$tplbox.detail_desc.html(html_desc);
+
+        this.$priceDom = this.$tplbox.detail_desc.find('#J_price_box');
+        this.countDownPrice(data);
+      },
+      humanTimes: function(times){
+        //如果是今天，显示 "今天 时分秒"，否则显示 'Y-M-D H:F:S' 格式
+        if(!this.today){
+          this.today = _.dateUtil.format(this.timestamp*1000, 'Y-M-D');
+        }
+        var result = _.dateUtil.format(times*1000, 'Y-M-D H:F:S');
+
+        return result.replace(this.today, '今天');
+      },
+      countDownPrice: function(data){
+        var scope = this;
+        setInterval(function(){
+          var format_price = scope.dealPrice(data, true).format_price;
+          scope.$priceDom.html(format_price);
+          data.timestamp += 1;
+        },1000);
+      },
+      dealStock: function(data){
         /**
         关于库存或停售时间的呈现逻辑：
-          this.timestamp 当前时间
+          data.timestamp 当前时间
+          offline_times 下架时间
           left_stock 剩余库存
           expired_date 过期时间
           offline_before_expired 离保质期多久下架
@@ -115,8 +167,8 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
         */
         //部分数据需要处理，比如库存 仅剩<%=left_stock%>件
         var deal_stock = '';  //经过处理的库存状态显示
-        var offline_times = data.expired_date - data.offline_before_expired;//下架时间
-        var left_times = offline_times - this.timestamp;  //剩余时间
+        var left_times = data.offline_times - data.timestamp;  //剩余时间
+
         this.left_times = left_times;
         if( (data.left_stock > 30) && (left_times < 86400*7)){
           if(left_times >= 86400){
@@ -135,8 +187,12 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
             deal_stock = "仅剩" + data.left_stock + "件";
           }
         }
+
         data.deal_stock = deal_stock;
 
+        return data;
+      },
+      dealPrice: function(data, countType){
         /** 处理价格
           14.59<i>23434</i>
           变动的价格=（起售价-最底价）*1s/（保质期截止时间-提前下架的时间-上架售卖时间）
@@ -145,18 +201,29 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
           开售时间 seller_time
         */
 
+        if(countType && data.diff_m_price){
+          data.deal_price = (data.deal_price - data.diff_m_price).toFixed(6);
+          data.format_price = this.formatPrice(data.deal_price, 6, 4);
+          return data;
+        }
         //(price - cur_price) / (cur_price - lowest_price)
         // = (timestamp - seller_time)/(offline_times - timestamp)
-
         var diff_all_price = data.price - data.lowest_price;
         //每秒变动的价格
-        var diff_m_price = 1/(offline_times - data.seller_time);
-        var diff_price = diff_all_price * (this.timestamp - data.seller_time)*diff_m_price;
+        var diff_m_price;
+        var diff_price
+        if(data.offline_times - data.seller_time <= 0){
+          diff_m_price = 0;
+          diff_price = diff_all_price;
+        }else{
+          diff_m_price = 1/(data.offline_times - data.seller_time);
+          diff_price = diff_all_price * (data.timestamp - data.seller_time)*diff_m_price;
+        }
         var deal_price = (data.price - diff_price).toFixed(6);
-
         var format_price = this.formatPrice(deal_price, 6, 4);
 
-        this.deal_price = deal_price;
+        data.diff_m_price = diff_m_price;
+        data.deal_price = deal_price;
         data.format_price = format_price;
 
         return data;
@@ -174,27 +241,6 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
         var intPart = numStr.substr(0, index);
         if(is0) intPart = parseInt(intPart) - 1;
         return intPart + '.' + numStr.substr(index, 2) + '<i>' + numStr.substr(index+2) + '</i>';
-      },
-      renderPage: function(data){
-        console.log('渲染页面');
-        data.deal_stock = this.dealData(data).deal_stock;
-        data.format_price = this.dealData(data).format_price;
-
-        var container = this.$el.find('.swiper-container');
-        var imgList = data.pics || [];
-        // [
-        //   'http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1n3rZHFXXXXX9XFXXXXXXXXXX_!!0-item_pic.jpg_640x640q60.jpg',
-        //   'http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i4/TB10rkPGVXXXXXGapXXXXXXXXXX_!!0-item_pic.jpg_640x640q60.jpg',
-        //   'http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1kQI3HpXXXXbSXFXXXXXXXXXX_!!0-item_pic.jpg_640x640q60.jpg'
-        // ];
-
-        if(imgList.length > 5){
-          imgList.length = 5;
-        }
-        var swiper = new UISwiper(container, imgList);
-
-        var html_desc = _.template(this.$tpl.detail_desc)(data);
-        this.$tplbox.detail_desc.html(html_desc);
       },
       //继续请求图文详情接口
       getDetailArticle: function(){

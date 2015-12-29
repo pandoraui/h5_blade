@@ -661,7 +661,8 @@ html, body,
 /* 详情页 */
 .page-view-detail .swiper-container,
 .page-detail .swiper-container {
-  height: 15rem; }
+  height: 15rem;
+  background: #fff; }
 
 .page-view-detail .swiper-slide img,
 .page-detail .swiper-slide img {
@@ -775,6 +776,11 @@ dfn.price {
     display: inline-block;
     margin-right: 0.625rem; }
 
+.card-comments .stars {
+  color: #fec446; }
+  .card-comments .stars .icon-star:before {
+    font-size: 0.75rem; }
+
 .card-comments img {
   display: inline-block;
   margin-right: 0.3125rem;
@@ -792,6 +798,24 @@ dfn.price {
     margin: 0 auto;
     min-height: 6.25rem;
     width: 100%; }
+
+.stars-score-0 i.icon-star:nth-of-type(n+1) {
+  color: #d8d8d8; }
+
+.stars-score-1 i.icon-star:nth-of-type(n+2) {
+  color: #d8d8d8; }
+
+.stars-score-2 i.icon-star:nth-of-type(n+3) {
+  color: #d8d8d8; }
+
+.stars-score-3 i.icon-star:nth-of-type(n+4) {
+  color: #d8d8d8; }
+
+.stars-score-4 i.icon-star:nth-of-type(n+5) {
+  color: #d8d8d8; }
+
+.stars-score-5 i.icon-star:nth-of-type(n+6) {
+  color: #d8d8d8; }
 
 .down-tip {
   font-size: 0.875rem;

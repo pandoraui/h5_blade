@@ -40,7 +40,7 @@ define(['Swiper'], function (Swiper) {
           // prevButton: '.swiper-button-prev',
           pagination: '.swiper-pagination',
           paginationClickable: true,
-          autoHeight: true,
+          // autoHeight: true, 这个插件不支持这个功能
           loop: true,
           // Disable preloading of all images
           preloadImages: false,

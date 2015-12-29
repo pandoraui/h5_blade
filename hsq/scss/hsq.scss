@@ -56,6 +56,7 @@ html,body,
 .page-detail {
   .swiper-container {
     height: 15rem;
+    background: #fff;
   }
   .swiper-slide img {
     width: 100%;
@@ -110,6 +111,10 @@ dfn.price{
 }
 
 /*详情页*/
+.tplbox_box{
+  // padding-bottom: 1px;
+  // background: #efefef;
+}
 .page-view-detail{
   background: #efefef;
   color: #252525;
@@ -175,6 +180,13 @@ dfn.price{
       margin-right: fontsize(10);
     }
   }
+  .stars{
+    color: rgba(254, 196, 70, 1);
+
+    .icon-star:before{
+      font-size: fontsize(12);
+    }
+  }
   img {
     display: inline-block;
     margin-right: fontsize(5);
@@ -201,7 +213,36 @@ dfn.price{
   //   padding: 0 fontsize(10);
   // }
 }
-
+.stars-score-0 {
+  i.icon-star:nth-of-type(n+1){
+    color: rgba(216, 216, 216, 1);
+  }
+}
+.stars-score-1 {
+  i.icon-star:nth-of-type(n+2){
+    color: rgba(216, 216, 216, 1);
+  }
+}
+.stars-score-2 {
+  i.icon-star:nth-of-type(n+3){
+    color: rgba(216, 216, 216, 1);
+  }
+}
+.stars-score-3 {
+  i.icon-star:nth-of-type(n+4){
+    color: rgba(216, 216, 216, 1);
+  }
+}
+.stars-score-4 {
+  i.icon-star:nth-of-type(n+5){
+    color: rgba(216, 216, 216, 1);
+  }
+}
+.stars-score-5 {
+  i.icon-star:nth-of-type(n+6){
+    color: rgba(216, 216, 216, 1);
+  }
+}
 .down-tip{font-size: fontsize(14);
   position: fixed;bottom: 0;left:0;width: 100%; min-height: fontsize(30); line-height: fontsize(30);color: #fff;
   .tip-bg{position: absolute; width: 100%;height: 100%; background: rgba(0,0,0,0.7); z-index: 1;}

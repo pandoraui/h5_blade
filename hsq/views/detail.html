@@ -1,7 +1,7 @@
 
 <div class="swiper-container" data-space-between='10'></div>
 
-<div id="tplbox_detail">
+<div class="tplbox_box" id="tplbox_detail">
   <script type="text/template" id="tpl_detail">
     <!--产品描述-->
     <div class="hsq-card mb10 detail-desc">
@@ -10,7 +10,7 @@
           <div class="tit"><%=name%></div>
           <p class="info-line">
             <span class="num fr"><%=deal_stock%></span>
-            <dfn class="price">&yen; <span class="price_num"><%=format_price%></span></dfn>
+            <dfn class="price">&yen; <span class="price_num" id="J_price_box"><%=format_price%></span></dfn>
             <del><%=market_price%></del>
           </p>
         </li>
@@ -37,9 +37,9 @@
         <%ugcBrief.list.forEach(function(item){%>
         <li>
           <p class="c-info">
+            <span class="stars fr stars-score-<%=item.score%>"><i class="icon icon-star"></i><i class="icon icon-star"></i><i class="icon icon-star"></i><i class="icon icon-star"></i><i class="icon icon-star"></i></span>
             <span class="author"><%=item.username%></span>
-            <span class="time"><%=_.dateUtil.format(item.created_at*1000, 'Y-M-D H:F:S')%></span>
-            <span class="stars"><%=item.score%></span>
+            <span class="time"><%=_humanTimes(item.created_at)%></span>
           </p>
           <div class="c-text">
             <%=item.content%>

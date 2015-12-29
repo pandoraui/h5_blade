@@ -68,7 +68,7 @@
       //基础组件部分
 
       'LazyLoad': app + 'function/lazyload',
-      'Swiper': app + 'function/swiper',
+      'Swiper': app + 'function/swiper',  //extend
       'UISwiper': app + 'ui/ui.swiper',
       'UIDownTip': app + 'ui/ui.downtip',
 

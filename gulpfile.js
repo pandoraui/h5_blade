@@ -23,13 +23,14 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var reload = browserSync.reload;
 
-//
+// var git = require("gulp-git");
 var fs = require('fs');
 var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 // var amdOptimize = require('gulp-amd-optimizer');
 var amdOptimize = require('amd-optimize');
+var requirejsOptimize = require('gulp-requirejs-optimize');
 
 var isProduction = process.env.NODE_ENV === "production";
 
@@ -86,6 +87,17 @@ var paths = {
     // css: [styleThemes + 'hsq/hsqapp.scss', appPath + 'scss/hsq.scss'],
     css: ['src/styles/hsqapp.scss', appPath + 'scss/hsq.scss'],
     venders: appPath + 'venders',
+    jsfiles: [
+      // './blade/libs/*.js',
+      './blade/libs/require.js',
+      './blade/libs/zepto.js',
+      './blade/libs/underscore.js',
+      './blade/libs/underscore.extend.js',
+      // './blade/libs/require.text.js',
+      './blade/libs/zepto-adapter.js',
+      './blade/libs/fastclick.js',
+      './blade/common.js',
+    ],
     js: appPath + 'js',
   },
   dist: {
@@ -194,17 +206,7 @@ gulp.task('styles', function () {
 });
 
 
-var jsFiles = [
-  // './blade/libs/*.js',
-  './blade/libs/require.js',
-  './blade/libs/zepto.js',
-  './blade/libs/underscore.js',
-  './blade/libs/underscore.extend.js',
-  // './blade/libs/require.text.js',
-  './blade/libs/zepto-adapter.js',
-  './blade/libs/fastclick.js',
-  './blade/common.js',
-];
+
 var options = {};
 
 /*
@@ -221,15 +223,48 @@ hsq
 
 var libsConfig = requireConfig.libs.options;
 var bladeConfig = requireConfig.blade.options;
-
+// var jsFiles = './blade/**.js';
+var jsFiles = './blade/*.js';
 // var requireConfig = require('./blade/common');
-
 // console.log(libsConfig)
+
+gulp.task('js', function () {
+  var s = (gulp.src(jsFiles)
+      // gulp.src('src/*.js', {base: requireConfig.baseUrl})
+      // .pipe(tap(function (file, t){
+      //     addJSIndent (file, t);
+      // }))
+      // .pipe($.jshint())
+      // .pipe($.jshint.reporter(stylish)) //'default'
+      .pipe($.sourcemaps.init())
+      // .pipe(amdOptimize(requireConfig, options))
+      // .pipe(amdOptimize('common', bladeConfig))
+      .pipe(requirejsOptimize(bladeConfig))
+      //注意要用;间隔一下，不然闭包成()()()之类的，会报错？？？
+      .pipe($.concat('blade.js', {newLine: ';'}))  //合并成为一个文件，顺序从前到后，
+      // .pipe($.header(f7.banner, { pkg : f7.pkg, date: f7.date } ))
+      .pipe($.sourcemaps.write())
+      .pipe(gulp.dest(paths.dist.js))
+      .pipe($.size({title: 'blade'}))
+    );
+    // .pipe(connectReload)
+    // .on('end', function () {
+    //     cb();
+    // }));
+
+  return !isProduction ? s : s.pipe($.uglify())
+      .pipe($.rename({suffix: '.min'}))
+      .pipe(md5(10, paths.quoteSrc))
+      .pipe(gulp.dest(paths.dist.js))
+      .pipe($.size({
+        title: 'blade minify'
+      }));
+});
 
 
 // 编译 JS
 gulp.task('libs', ['copy', 'html'], function () {
-  var s = (gulp.src(jsFiles)
+  var s = (gulp.src(paths.entry.jsfiles)
       // gulp.src('src/*.js', {base: requireConfig.baseUrl})
       // .pipe(tap(function (file, t){
       //     addJSIndent (file, t);
@@ -341,7 +376,7 @@ gulp.task('html', function () {
 });
 
 // 洗刷刷
-gulp.task('clean', function(cb) {
+gulp.task('clean:dev', function(cb) {
   return del([
     'dist/*',
     //'!dist/fonts',
@@ -351,7 +386,7 @@ gulp.task('clean', function(cb) {
     // '!dist/blade/libs/*.min_*',
   ], {dot: true}, cb);
 });
-gulp.task('clean:all', function(cb) {
+gulp.task('clean', function(cb) {
   return del([
     'dist/*',
   ], {dot: true}, cb);
@@ -402,7 +437,7 @@ gulp.task('dev', ['default', 'watch'], function () {
 gulp.task('default', function (cb) {
   console.log('生产环境：' + isProduction);
   //runSequence('clean', ['styles', 'jshint', 'html', 'images', 'copy', 'browserify'], cb);
-  runSequence('clean', ['copy', 'html', 'styles', 'libs'], cb);
+  runSequence('clean:dev', ['copy', 'html', 'styles', 'libs'], cb);
   // runSequence('clean', ['styles', 'html', 'images', 'copy', 'browserify'], cb);
 });
 

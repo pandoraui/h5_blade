@@ -35,6 +35,7 @@ module.exports = {
         "uglify": {
           "except": ["$super"]
         },
+        // "modules": [],
         "paths": {
           // "common_dest": "common_dest",
 
@@ -50,12 +51,12 @@ module.exports = {
 
           //抽象view
           "UIView": "ui/core.abstract.view",
-          "C_UIView": "ui/core.abstract.view.css",
+          // "C_UIView": "ui/core.abstract.view.css",
 
           //头部组件
           "UIHeader": "ui/core.header",
           "T_UIHeader": "ui/core.header.html",
-          "C_UIHeader": "ui/core.header.css",
+          // "C_UIHeader": "ui/core.header.css",
 
 
           //基础组件部分
@@ -71,7 +72,7 @@ module.exports = {
 
           //弹出层基类
           "UILayer": "ui/ui.layer",
-          "T_UILayer": "ui/ui.layer.html",
+          // "T_UILayer": "ui/ui.layer.html",
           // "C_UILayer": "ui/ui.layer.css",
 
           //loading弹出层
@@ -110,10 +111,11 @@ module.exports = {
           // "T_UIToast": "ui/ui.toast.html"
         },
         "include": [
-          "text!ui/ui.header.html",
-          "text!ui/ui.mask.html",
+          "text!ui/core.header.html",
+          // "text!ui/ui.mask.html",
+          // "text!ui/ui.layer.html",
           "text!ui/ui.loading.layer.html",
-          "text!ui/ui.toast.html",
+          // "text!ui/ui.toast.html",
 
           // "text!ui/ui.alert.html",
           // "text!ui/ui.bubble.layer.html",
@@ -136,7 +138,7 @@ module.exports = {
 
 
         ],
-        "out": distDir + "out/blade.js"
+        // "out": distDir + "out/blade.js"
       }
 
     }

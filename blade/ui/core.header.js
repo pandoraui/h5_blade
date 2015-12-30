@@ -1,5 +1,5 @@
 ﻿
-define(['UIView', 'text!T_UIHeader', 'text!C_UIHeader'], function (UIView, template, style) {
+define(['UIView', 'text!T_UIHeader'], function (UIView, template) {
 
   return _.inherit(UIView, {
     propertys: function ($super) {
@@ -26,7 +26,7 @@ define(['UIView', 'text!T_UIHeader', 'text!C_UIHeader'], function (UIView, templ
 
       //html模板
       this.template = template;
-      this.addUIStyle(style);
+      // this.addUIStyle(style);
       this.openShadowDom = false;
 
       //每次create时候清空容器

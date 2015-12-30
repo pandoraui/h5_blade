@@ -22,6 +22,10 @@ $hsq-gray: #959595;
 $hsq-grayer: #AEAEAE;
 $hsq-border-line: #E4E4E4;
 
+.J_error_box p{
+  margin: 1rem;
+}
+
 html,body,
 .h100,#main {
   height:100%
@@ -116,8 +120,11 @@ dfn.price{
   // background: #efefef;
 }
 .page-view-detail{
-  background: #efefef;
   color: #252525;
+}
+
+.page-view-detail .J_showview_box{
+  background: #efefef;
 }
 .group-list{
   list-style: none;

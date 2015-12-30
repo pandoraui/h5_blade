@@ -20,7 +20,12 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
         $super();
         //在页面显示后做的事情
         this.on('onShow', function () {
+
+          console.log(111);
+
           this.$el.html(viewhtml);
+          this.$el.$errorDom = this.$el.find('.J_error_box');
+          this.$el.$showViewDom = this.$el.find('.J_showview_box');
           this.$tplbox = {
             detail_desc: this.$el.find('#tplbox_detail'),
             detail_article: this.$el.find('#tplbox_detail_article'),
@@ -57,6 +62,7 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
       initPage: function () {
         this.fullWidth = $(document).width();
         var scope = this;
+        this.errorTip();
 
         // $.swiper = function (container, params) {
         //     return new $.Swiper(container, params);
@@ -95,7 +101,7 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
         },function(error){
           //失败
           console.log(error);
-          console.log(error.errmsg);
+          this.errorTip(error.errmsg);
         },this);
 
         // if(params.id){
@@ -103,6 +109,17 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
         //   this.getDetailArticle();
         // }
         // $(".swiper-container").swiper(config)
+      },
+      errorTip: function(msg){
+        var html = '';
+        if(!msg){
+          this.$el.$showViewDom.show();
+          this.$el.$errorDom.html(html).hide();
+        }else{
+          html = '<p>'+msg+'</p>';
+          this.$el.$showViewDom.hide();
+          this.$el.$errorDom.html(html).show();
+        }
       },
       renderPage: function(data){
         console.log('渲染页面');

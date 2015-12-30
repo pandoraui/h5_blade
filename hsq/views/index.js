@@ -1,5 +1,5 @@
-﻿define(['View', getViewTemplatePath('index'), 'UIGroupList'],
-  function (View, viewhtml, UIGroupList){
+﻿define(['View', getViewTemplatePath('index')],
+  function (View, viewhtml){
 
     return _.inherit(View, {
       propertys: function ($super) {

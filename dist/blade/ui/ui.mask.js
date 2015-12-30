@@ -3,7 +3,7 @@
 用于继承的类，会自动垂直居中
 
 */
-define(['UIView', 'text!C_UIMask'], function (UIView, style) {
+define(['UIView'], function (UIView) {
   'use strict';
 
   return _.inherit(UIView, {
@@ -17,7 +17,7 @@ define(['UIView', 'text!C_UIMask'], function (UIView, style) {
 
     resetDefaultProperty: function () {
       this.events = {};
-      this.uiStyle[0] = style;
+      // this.uiStyle[0] = style;
 
       //      this.animateInClass = 'cm-up-in';
       this.animateOutClass = 'cm-overlay-out';

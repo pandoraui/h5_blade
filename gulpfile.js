@@ -4,6 +4,8 @@
 
 /**
 npm install gulp gulp-load-plugins gulp-md5-plus del run-sequence browser-sync browserify watchify vinyl-source-stream vinyl-buffer gulp-sass gulp-cache gulp-rename gulp-autoprefixer gulp-size gulp-csso gulp-replace gulp-copy2  --save-dev
+
+npm install fs gulp-concat gulp-jshint jshint-stylish gulp-amd-optimizer gulp-uglify --save-dev
 */
 
 'use strict';
@@ -20,7 +22,20 @@ var watchify = require('watchify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var reload = browserSync.reload;
+
+//
+var fs = require('fs');
+var concat = require('gulp-concat');
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
+// var amdOptimize = require('gulp-amd-optimizer');
+var amdOptimize = require('amd-optimize');
+
 var isProduction = process.env.NODE_ENV === "production";
+
+var requireConfig = require('./blade/gulpcfg').requirejs;
+
+var styleThemes = 'src/styles/themes/';
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 9',
@@ -38,21 +53,28 @@ var appPath = 'hsq/';
 var appDist = 'dist/';
 var paths = {
   entry: {
+    html: appPath + 'index.html',
     fonts: appPath + 'dist/fonts',
     img: appPath + 'dist/img',
+    // css: [styleThemes + 'hsq/hsqapp.scss', appPath + 'scss/hsq.scss'],
     css: ['src/styles/hsqapp.scss', appPath + 'scss/hsq.scss'],
     venders: appPath + 'venders',
     js: appPath + 'js',
   },
   dist: {
     base: appDist,
+    html: appDist,
     fonts: appDist + 'assets/fonts',
     img: appDist + 'assets/img',
     css: appDist + 'assets/css',
     venders: appDist + 'assets/venders',
     js: appDist + 'assets/js',
+    libs: 'blade/libs',
   },
-  quoteSrc: [appDist + 'index.html', appDist + 'debug.html',],//, 'dist/index.html.twig'
+  quoteSrc: [
+    appDist + 'index.html',
+    // appDist + 'debug.html'
+  ],//, 'dist/index.html.twig'
   venders: {
     src: [
       // './node_modules/react/dist/react-with-addons.min.js',
@@ -83,6 +105,9 @@ var paths = {
 //     .pipe($.size({title: 'images'}));
 // });
 
+// 指定一个新的 cwd (当前工作目录)
+//gulp.src('./some/dir/**/*.js', { cwd: 'public' });
+
 // 拷贝相关外部依赖
 gulp.task('copy:venders', function () {
   return gulp.src(
@@ -110,8 +135,8 @@ gulp.task('copy:venders', function () {
 gulp.task('copy', ['copy:venders'], function () {
   var copyPaths = [
       {src: 'blade/**/*', dest: appDist + 'blade/'},
-      {src: appPath + 'index.html', dest: appDist},
-      {src: appPath + 'debug.html', dest: appDist},
+      // {src: appPath + 'index.html', dest: appDist},
+      {src: appPath + 'd.html', dest: appDist},
       {src: appPath + 'main.js', dest: appDist},
       {src: appPath + 'favicon.*', dest: appDist},
       {src: appPath + 'images/*', dest: appDist + 'images/'},
@@ -127,8 +152,11 @@ gulp.task('copy', ['copy:venders'], function () {
 gulp.task('styles', function () {
   var s = (
     gulp.src(paths.entry.css)
+    .pipe($.sourcemaps.init())
+    //.pipe($.plumber())  //自动处理全部错误信息防止因为错误而导致 watch 不正常工作
     .pipe($.sass())
     .pipe($.autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))
+    .pipe($.sourcemaps.write())
     .pipe(gulp.dest(paths.dist.css))
   );
   return !isProduction ? s : s.pipe($.csso())
@@ -137,6 +165,74 @@ gulp.task('styles', function () {
     .pipe(gulp.dest(paths.dist.css))
     .pipe($.size({title: 'styles'}));
 });
+
+
+var jsFiles = [
+  // './blade/libs/*.js',
+  './blade/libs/require.js',
+  './blade/libs/zepto.js',
+  './blade/libs/underscore.js',
+  './blade/libs/underscore.extend.js',
+  // './blade/libs/require.text.js',
+  './blade/libs/zepto-adapter.js',
+  './blade/libs/fastclick.js',
+  './blade/common.js',
+];
+var options = {};
+
+/*
+JS 文件划分成几部分，由于有依赖，需要特殊处理
+
+blade
+  libs 核心部分
+  extend 扩展部分
+  amdConfig
+hsq
+  js 部分
+  template 部分
+*/
+
+var libsConfig = requireConfig.libs.options;
+var bladeConfig = requireConfig.blade.options;
+
+// var requireConfig = require('./blade/common');
+
+// console.log(libsConfig)
+
+
+// 编译 JS
+gulp.task('libs', ['copy', 'html'], function () {
+  var s = (gulp.src(jsFiles)
+      // gulp.src('src/*.js', {base: requireConfig.baseUrl})
+      // .pipe(tap(function (file, t){
+      //     addJSIndent (file, t);
+      // }))
+      // .pipe($.jshint())
+      // .pipe($.jshint.reporter(stylish)) //'default'
+      // .pipe($.sourcemaps.init())
+      // .pipe(amdOptimize(requireConfig, options))
+      //注意要用;间隔一下，不然闭包成()()()之类的，会报错？？？
+      .pipe($.concat('libs.js', {newLine: ';'}))  //合并成为一个文件，顺序从前到后，
+      // .pipe($.header(f7.banner, { pkg : f7.pkg, date: f7.date } ))
+      // .pipe($.sourcemaps.write())
+      .pipe(gulp.dest(paths.dist.js))
+      .pipe(gulp.dest(paths.dist.libs))
+      .pipe($.size({title: 'libs'}))
+    );
+    // .pipe(connectReload)
+    // .on('end', function () {
+    //     cb();
+    // }));
+
+  return !isProduction ? s : s.pipe($.uglify())
+      .pipe($.rename({suffix: '.min'}))
+      .pipe(md5(10, paths.quoteSrc))
+      .pipe(gulp.dest(paths.dist.js))
+      .pipe($.size({
+        title: 'libs minify'
+      }));
+});
+
 
 // 打包 Common JS 模块
 // var b = browserify({
@@ -203,10 +299,10 @@ vinyl-buffer用于将vinyl流转化为buffered vinyl文件（gulp-sourcemaps及�
 
 // 压缩 HTML
 gulp.task('html', function () {
-  return gulp.src('app/**/*.html')
+  return gulp.src(paths.entry.html)
     //.pipe($.minifyHtml())
     .pipe($.replace(/\{\{__VERSION__\}\}/g, isProduction ? '.min' : ''))
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest(paths.dist.html))
     .pipe($.size({title: 'html'}));
 });
 
@@ -255,11 +351,13 @@ gulp.task('dev', ['default', 'watch'], function () {
   gulp.watch(['blade/**/*'], reload);
 });
 
+
+
 // 默认任务
 gulp.task('default', function (cb) {
   console.log('生产环境：' + isProduction);
   //runSequence('clean', ['styles', 'jshint', 'html', 'images', 'copy', 'browserify'], cb);
-  runSequence('clean', ['copy', 'styles'], cb);
+  runSequence('clean', ['copy', 'html', 'styles', 'libs'], cb);
   // runSequence('clean', ['styles', 'html', 'images', 'copy', 'browserify'], cb);
 });
 

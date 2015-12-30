@@ -148,10 +148,21 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
       },
       countDownPrice: function(data){
         var scope = this;
-        setInterval(function(){
-          var _format_price = scope.dealPrice(data, true)._format_price;
-          scope.$priceDom.html(_format_price);
-          data.timestamp += 1;
+        var _deal_price;// = data._deal_price;
+        var timer = setInterval(function(){
+          //拿到数据之后，只要未下架且当前价格大于最低价时，就可以操作
+          _deal_price = data._deal_price;
+          if( (_deal_price > data.lowest_price) && data._diff_m_price){
+            _deal_price = (_deal_price - data._diff_m_price);//.toFixed(6);
+            if(_deal_price < data.lowest_price){
+              clearInterval(timer);
+            }
+            var _format_price = scope.formatPrice(_deal_price, 6, 4);
+            data._deal_price = _deal_price;
+            data._format_price = _format_price;
+            scope.$priceDom.html(_format_price);
+            data.timestamp += 1;
+          }
         },1000);
       },
       countDownStock: function(data){
@@ -245,11 +256,13 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
           开售时间 seller_time
         */
 
-        if(countType && data._diff_m_price && data._deal_price){
-          data._deal_price = (data._deal_price - data._diff_m_price).toFixed(6);
-          data._format_price = this.formatPrice(data._deal_price, 6, 4);
-          return data;
-        }
+        // if(countType && data._diff_m_price && data._deal_price){
+        //   data._deal_price = (data._deal_price - data._diff_m_price).toFixed(6);
+        //   data._format_price = this.formatPrice(data._deal_price, 6, 4);
+        //   return data;
+        // }
+
+
         //(price - cur_price) / (cur_price - lowest_price)
         // = (timestamp - seller_time)/(_offline_times - timestamp)
         var _diff_all_price = data.price - data.lowest_price;

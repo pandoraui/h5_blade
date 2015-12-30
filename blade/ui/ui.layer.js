@@ -4,7 +4,7 @@
 所有弹出层的基类，用于继承的类，默认会自动垂直居中
 
 */
-define(['UIView', 'UIMask', 'text!C_UILayer'], function (UIView, UIMask, style) {
+define(['UIView', 'UIMask'], function (UIView, UIMask) {
   'use strict';
 
   return _.inherit(UIView, {
@@ -23,7 +23,7 @@ define(['UIView', 'UIMask', 'text!C_UILayer'], function (UIView, UIMask, style) 
 
     resetDefaultProperty: function () {
       //继承基类
-      this.addUIStyle(style);
+      // this.addUIStyle(style);
 
       this.mask.resetDefaultProperty();
 

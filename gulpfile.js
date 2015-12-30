@@ -33,6 +33,33 @@ var amdOptimize = require('amd-optimize');
 
 var isProduction = process.env.NODE_ENV === "production";
 
+/**
+关于从命令行传递参数，也可以这样写
+//npm install --save-dev gulp gulp-if gulp-uglify minimist
+
+var gulp = require('gulp');
+var gulpif = require('gulp-if');
+var uglify = require('gulp-uglify');
+
+var minimist = require('minimist');
+
+var knownOptions = {
+  string: 'env',
+  default: { env: process.env.NODE_ENV || 'production' }
+};
+
+var options = minimist(process.argv.slice(2), knownOptions);
+
+gulp.task('scripts', function() {
+  return gulp.src('*.js')
+    .pipe(gulpif(options.env === 'production', uglify())) // 仅在生产环境时候进行压缩
+    .pipe(gulp.dest('dist'));
+});
+
+使用如下：
+gulp scripts --env development
+*/
+
 var requireConfig = require('./blade/gulpcfg').requirejs;
 
 var styleThemes = 'src/styles/themes/';
@@ -233,8 +260,10 @@ gulp.task('libs', ['copy', 'html'], function () {
       }));
 });
 
+// 使用 watchify 加速 browserify 编译 http://www.gulpjs.com.cn/docs/recipes/fast-browserify-builds-with-watchify/
 
 // 打包 Common JS 模块
+// 在这里添加自定义 browserify 选项
 // var b = browserify({
 //   cache: {},
 //   packageCache: {},
@@ -260,22 +289,26 @@ vinyl-buffer用于将vinyl流转化为buffered vinyl文件（gulp-sourcemaps及�
  */
 
 //
+//
 // if (!isProduction) {
 //   b = watchify(b);
 // }
 //
 // // 如果想把 React 打包进去，可以把下面一行注释掉
+// // 在这里加入变换操作
 // b.transform('browserify-shim', {global: true});
 //
 //
 // var bundle = function() {
 //   var s = (
 //     b.bundle()
-//       .on('error', $.util.log.bind($.util, 'Browserify Error'))
+//       .on('error', $.util.log.bind($.util, 'Browserify Error'))   // 如果有错误发生，记录这些错误
 //       .pipe(source('app.js'))
-//       .pipe(buffer())
-//       // .pipe($.sourcemaps.init())
-//       // .pipe($.sourcemaps.write("."))
+//       .pipe(buffer())    //可选项，如果你不需要缓存文件内容，就删除
+//       // .pipe($.sourcemaps.init())      // 可选项，如果你不需要 sourcemaps，就删除
+//          // 从 browserify 文件载入 map
+//          // 在这里将变换操作加入管道
+//       // .pipe($.sourcemaps.write("."))  // 写入 .map 文件
 //       .pipe(gulp.dest(paths.dist.js))
 //       .pipe($.size({title: 'script'}))
 //   );
@@ -291,7 +324,8 @@ vinyl-buffer用于将vinyl流转化为buffered vinyl文件（gulp-sourcemaps及�
 //
 // gulp.task('browserify', function() {
 //   if (!isProduction) {
-//     b.on('update', bundle).on('log', $.util.log);
+//     b.on('update', bundle)     // 当任何依赖发生改变的时候，运行打包工具
+//      .on('log', $.util.log);   // 输出编译日志到终端
 //   }
 //
 //   return bundle();
@@ -312,18 +346,23 @@ gulp.task('clean', function(cb) {
     'dist/*',
     //'!dist/fonts',
     '!dist/venders',
-    // '!dist/blade',
-    '!dist/.git'
+    // '!dist/assets/js/libs.js',
+    '!dist/assets',
+    // '!dist/blade/libs/*.min_*',
+  ], {dot: true}, cb);
+});
+gulp.task('clean:all', function(cb) {
+  return del([
+    'dist/*',
   ], {dot: true}, cb);
 });
 
 // 监视源文件变化自动cd编译
 gulp.task('watch', function() {
   // gulp.watch(appPath + '/**/*.html', ['html']);
-  gulp.watch('blade/**/*', ['copy']);
-  gulp.watch(appPath + '/**/*', ['copy']);
-  gulp.watch(appPath + '/scss/**/*.scss', ['styles']);
-  gulp.watch('src/styles/**/*.scss', ['styles']);
+  gulp.watch('blade/libs/*', ['libs']);
+  gulp.watch([appPath + '/**/*', 'blade/**/*'], ['copy']);
+  gulp.watch([appPath + '/scss/**/*.scss', 'src/styles/**/*.scss'], ['styles']);
   // gulp.watch(appPath + '/img/**/*', ['images']);
 });
 
@@ -349,8 +388,14 @@ gulp.task('dev', ['default', 'watch'], function () {
 
   gulp.watch(['dist/**/*'], reload);
   gulp.watch(['blade/**/*'], reload);
+  // gulp.watch(['app/scss/*.scss'], {cwd: 'app'}, ['sass']);
 });
 
+// gulp.task('sass', function() {
+//   return sass('scss/styles.scss')
+//     .pipe(gulp.dest('app/css'))
+//     .pipe(reload({ stream:true }));
+// });
 
 
 // 默认任务
@@ -360,6 +405,11 @@ gulp.task('default', function (cb) {
   runSequence('clean', ['copy', 'html', 'styles', 'libs'], cb);
   // runSequence('clean', ['styles', 'html', 'images', 'copy', 'browserify'], cb);
 });
+
+
+
+// gulp-git 改变版本号以及创建一个 git tag
+// http://www.gulpjs.com.cn/docs/recipes/bump-version-and-create-git-tag/
 
 
 // 转为 twig 格式发布

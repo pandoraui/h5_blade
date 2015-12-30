@@ -13,8 +13,6 @@ node_modules
 
 dest
 dest/*
-dist
-dist/*
 .tag*
 # Cache and logs
 logs/*

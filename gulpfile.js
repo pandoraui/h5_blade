@@ -177,6 +177,7 @@ gulp.task('copy', ['copy:venders'], function () {
   var copyPaths = [
       {src: 'blade/**/*', dest: appDist + 'blade/'},
       // {src: appPath + 'index.html', dest: appDist},
+      // {src: '.gitignore', dest: appDist},
       {src: appPath + 'd.html', dest: appDist},
       {src: appPath + 'main.js', dest: appDist},
       {src: appPath + 'favicon.*', dest: appDist},

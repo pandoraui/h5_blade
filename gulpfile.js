@@ -474,6 +474,7 @@ gulp.task('publish', $.shell.task([
 //     .pipe(gulp.dest('./'));
 // });
 
+//git push origin 推送当前分支到 origin 主机对应分支
 gulp.task('push-changes', function (cb) {
   $.git.push('origin', 'dev', cb);
 });

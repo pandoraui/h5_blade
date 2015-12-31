@@ -484,8 +484,8 @@ var ghPages = require('gulp-gh-pages');
 gulp.task('deploy', ['releaseBuild'], function() {
   return gulp.src('./dist/**/*')
     .pipe(ghPages({
-      //默认发送当前分支的 dist 到 gh-pages 分支
-      //为什么是 master，我需要发送当前分支，而且当前分支必须为 dev 分支
+      //默认发送当前分支的 dist 到远程 gh-pages 分支(如果此分支没有，则在远程创建一个)
+      //我需要发送到远程的特淡定 branch 分支，比如 release 分支，但现在不行
       origin: 'origin',
       branch: 'gh-pages',//'release', //'gh-pages'
     }));

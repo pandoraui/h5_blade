@@ -65,7 +65,7 @@ NODE_ENV=production gulp
 2. 将当前开发分支提交到 release 分支;         //未完成
 3. 将刚构建的 `dist` 目录提交到 publish 分支;
 4. 给 release、publish 分支打最新发布的标签;  //未完成
-5. 调用 `cap deploy` 命令真正发布到服务器。   //这步命令目前调不到
+5. 调用外部命令 `cap deploy` 真正发布到服务器。   //这步命令目前调不到
 
 注：标签格式为 release_20151231，自动化程序每天最多一个，并标注在操作的最后一个版本上。
 

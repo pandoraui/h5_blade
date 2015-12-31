@@ -482,7 +482,7 @@ gulp.task('deploy', function() {
       //默认发送了 master 的 dist 到 gh-pages 分支
       //为什么是 master，我需要发送当前分支，而且当前分支必须为 dev 分支
       origin: 'origin',
-      branch: 'release', //'gh-pages'
+      branch: 'gh-pages',//'release', //'gh-pages'
     }));
 });
 

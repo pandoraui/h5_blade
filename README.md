@@ -10,22 +10,26 @@ dist
   d.html
   favicon.png
 
-  static/
-    |- common/
+  assets/
+    |- common/       // 公共部分
     |  |- libs.js    // 外部依赖打包为 libs
     |  |- blade.js   // blade框架部分 打包为 blade
-    |  |- app.css    // scss模块部分
+    |  |- hsqapp.css    // scss模块部分
     |
     |- js             |- main.js |
     |  |- hsq.js  ----|- views/  |---- 合并成 hsq.js
     |                 |- model/  |
     |- css
-    |  |- hsq.css    //自定义 css
+    |  |- hsq.css    //hsq的自定义 css
     |
     |- img/          //logo等图片
 ```
 
-整体发布结构大体就这样了，不过都需要打包上 md5 哈希值，使用增量发布。
+整体发布结构大体就这样了，不过都需要打包上 md5 哈希值，使用增量发布(上一次压缩输出的 hash 文件不立即删除，隔段时间后删除)。
+
+## 问题
+
+目前 hsq.js 和 blade.js 的模块是按需加载的，还未打包到一起，正在处理中...
 
 
 ## 使用说明

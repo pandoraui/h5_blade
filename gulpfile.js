@@ -465,6 +465,11 @@ gulp.task('publish', $.shell.task([
   'cap deploy'
 ]));
 
+gulp.task('releaseBuild', $.shell.task([
+  'NODE_ENV=production gulp'
+]));
+
+
 // gulp.task('bump-version', function () {
 // // 注意：这里我硬编码了更新类型为 'patch'，但是更好的做法是用
 // //      minimist (https://www.npmjs.com/package/minimist) 通过检测一个命令行参数来判断你正在做的更新是
@@ -476,10 +481,10 @@ gulp.task('publish', $.shell.task([
 
 //还可以这样啊，哈哈
 var ghPages = require('gulp-gh-pages');
-gulp.task('deploy', function() {
+gulp.task('deploy', ['releaseBuild'], function() {
   return gulp.src('./dist/**/*')
     .pipe(ghPages({
-      //默认发送了 master 的 dist 到 gh-pages 分支
+      //默认发送当前分支的 dist 到 gh-pages 分支
       //为什么是 master，我需要发送当前分支，而且当前分支必须为 dev 分支
       origin: 'origin',
       branch: 'gh-pages',//'release', //'gh-pages'
@@ -499,6 +504,8 @@ gulp.task('create-new-tag', function (cb) {
     }
     $.git.push('origin', 'master', {args: '--tags'}, cb);
   });
+
+  //这里使用 release_20151231 格式即可，若标签已存在，则移动到最新提交上
 
   function getPackageJsonVersion () {
     // 这里我们直接解析 json 文件而不是使用 require，这是因为 require 会缓存多次调用，这会导致版本号不会被更新掉

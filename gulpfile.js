@@ -6,6 +6,8 @@
 npm install gulp gulp-load-plugins gulp-md5-plus del run-sequence browser-sync browserify watchify vinyl-source-stream vinyl-buffer gulp-sass gulp-cache gulp-rename gulp-autoprefixer gulp-size gulp-csso gulp-replace gulp-copy2  --save-dev
 
 npm install fs gulp-concat gulp-jshint jshint-stylish gulp-amd-optimizer gulp-uglify --save-dev
+
+npm install gulp-shell gulp-git --save-dev
 */
 
 'use strict';
@@ -452,6 +454,61 @@ var publish = {
   assets: '~/github/iqg/iqianggou_php/src/DWD/WebBundle/Resources/public/stats',
   twig: '~/github/iqg/iqianggou_php/src/DWD/WebBundle/Resources/views/Stats'
 };
+
+
+
+
+
+
+gulp.task('publish', $.shell.task([
+  'NODE_ENV=production gulp',
+  'cap deploy'
+]));
+
+// gulp.task('bump-version', function () {
+// // 注意：这里我硬编码了更新类型为 'patch'，但是更好的做法是用
+// //      minimist (https://www.npmjs.com/package/minimist) 通过检测一个命令行参数来判断你正在做的更新是
+// //      一个 'major'， 'minor' 还是一个 'patch'。
+//   return gulp.src(['./bower.json', './package.json'])
+//     .pipe(bump({type: "patch"}).on('error', gutil.log))
+//     .pipe(gulp.dest('./'));
+// });
+
+gulp.task('push-changes', function (cb) {
+  $.git.push('origin', 'master', cb);
+});
+
+gulp.task('create-new-tag', function (cb) {
+  var version = getPackageJsonVersion();
+  $.git.tag(version, 'Created Tag for version: ' + version, function (error) {
+    if (error) {
+      return cb(error);
+    }
+    $.git.push('origin', 'master', {args: '--tags'}, cb);
+  });
+
+  function getPackageJsonVersion () {
+    // 这里我们直接解析 json 文件而不是使用 require，这是因为 require 会缓存多次调用，这会导致版本号不会被更新掉
+    return JSON.parse(fs.readFileSync('./package.json', 'utf8')).version;
+  }
+});
+
+gulp.task('release', function (cb) {
+  runSequence(
+    // 'bump-version',
+    'commit-changes',
+    'push-changes',
+    'create-new-tag',
+    function (error) {
+      if (error) {
+        console.log(error.message);
+      } else {
+        console.log('RELEASE FINISHED SUCCESSFULLY');
+      }
+      cb(error);
+    });
+});
+
 
 /*
 $.rename({

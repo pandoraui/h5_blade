@@ -61,7 +61,9 @@ NODE_ENV=production gulp
 
 ### 发布
 
-发布到服务器。
+计划中，暂还不能正常工作
+
+自动构建生成包 `NODE_ENV=production gulp` 并提交到 publish 分支 ``，然后调用 `cap deploy` 命令发布到服务器。
 
 //由于现有服务端用的 php 路由以及 twig 模板，需要转化为 twig 格式形式发布到生产。
 

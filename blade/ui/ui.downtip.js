@@ -15,9 +15,20 @@ define([], function () {
 
 
   var store = window.localStorage;
-  var closeShowDownTip = store.getItem('closeShowDownTip') || 0;
+  // var closeShowDownTip = store.getItem('closeShowDownTip') || 0;
 
-  var downUrl = '###';
+  var downUrl = '';
+
+  if($.os.ios){
+    downUrl = 'http://pre.im/hsq1';
+  }else if($.os.android){
+    downUrl = 'http://pre.im/hsq2';
+  } else {
+    downUrl = '';
+  }
+
+  //ios     http://pre.im/hsq1
+  //android http://pre.im/hsq2
 
   return _.inherit({
     propertys: function () {
@@ -30,14 +41,18 @@ define([], function () {
     },
     checkStatus: function(){
       this.$downTipDom = $('#J_down_tip');
-      if(!closeShowDownTip){
+      // if(!closeShowDownTip){
         this.show();
-      }else{
-        this.hide();
-      }
+      // }else{
+      //   this.hide();
+      // }
     },
     show: function(){
       var scope = this;
+
+      if(!downUrl){
+        return;
+      }
       var html = _.template(this.template)({url: downUrl});
 
       if(!this.$downTipDom.length){
@@ -45,7 +60,6 @@ define([], function () {
       }else{
         this.$downTipDom.show();
       }
-
       this.$downTipDom.find('.close').click(function(e){
         scope.hide();
       });
@@ -53,7 +67,7 @@ define([], function () {
     hide: function(){
       if(this.$downTipDom.length){
         this.$downTipDom.hide();
-        store.setItem('closeShowDownTip', 1);
+        // store.setItem('closeShowDownTip', 1);
       }
     },
   });

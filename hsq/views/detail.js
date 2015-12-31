@@ -71,7 +71,7 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
         var params = _.getUrlParam();
 
         ajaxGetDetailDesc.param = {
-          productId: params.id,
+          productId: params.pid,
           skuId: params.sid,
         };
 

@@ -7,7 +7,7 @@ npm install gulp gulp-load-plugins gulp-md5-plus del run-sequence browser-sync b
 
 npm install fs gulp-concat gulp-jshint jshint-stylish gulp-amd-optimizer gulp-uglify --save-dev
 
-npm install gulp-shell gulp-git --save-dev
+npm install gulp-shell gulp-git gulp-gh-pages --save-dev
 */
 
 'use strict';
@@ -474,7 +474,16 @@ gulp.task('publish', $.shell.task([
 //     .pipe(gulp.dest('./'));
 // });
 
-//test
+//还可以这样啊，哈哈
+var ghPages = require('gulp-gh-pages');
+gulp.task('deploy', function() {
+  return gulp.src('./dist/**/*')
+    .pipe(ghPages({
+      //默认发送 master 的 dist 到 gh-pages 分支
+      origin: 'origin',
+      branch: 'release', //'gh-pages'
+    }));
+});
 
 //git push origin 推送当前分支到 origin 主机对应分支
 gulp.task('push-changes', function (cb) {

@@ -475,7 +475,7 @@ gulp.task('publish', $.shell.task([
 // });
 
 gulp.task('push-changes', function (cb) {
-  $.git.push('origin', 'master', cb);
+  $.git.push('origin', 'dev', cb);
 });
 
 gulp.task('create-new-tag', function (cb) {

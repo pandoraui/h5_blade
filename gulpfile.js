@@ -466,7 +466,7 @@ gulp.task('publish', $.shell.task([
   'cap deploy'
 ]));
 
-gulp.task('releaseBuild', $.shell.task([
+gulp.task('pro', $.shell.task([
   'NODE_ENV=production gulp'
 ]));
 
@@ -482,7 +482,7 @@ gulp.task('releaseBuild', $.shell.task([
 
 //还可以这样啊，哈哈
 var ghPages = require('gulp-gh-pages');
-gulp.task('deploy', ['releaseBuild'], function() {
+gulp.task('deploy', ['pro'], function() {
   return gulp.src('./dist/**/*')
     .pipe(ghPages({
       //默认发送当前分支的 dist 到远程 gh-pages 分支(如果此分支没有，则在远程创建一个)

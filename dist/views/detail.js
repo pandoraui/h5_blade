@@ -273,13 +273,6 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
           开售时间 seller_time
         */
 
-        // if(countType && data._diff_m_price && data._deal_price){
-        //   data._deal_price = (data._deal_price - data._diff_m_price).toFixed(6);
-        //   data._format_price = this.formatPrice(data._deal_price, 6, 4);
-        //   return data;
-        // }
-
-
         //(price - cur_price) / (cur_price - lowest_price)
         // = (timestamp - seller_time)/(_offline_times - timestamp)
         var _diff_all_price = data.price - data.lowest_price;
@@ -296,14 +289,14 @@ define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail'
         var _deal_price = (data.price - _diff_price).toFixed(6);
         var _format_price = this.formatPrice(_deal_price, 6, 4);
 
-        data._diff_m_price = _diff_m_price;
+        data._diff_m_price = _diff_m_price*0.01;
         data._deal_price = _deal_price;
         data._format_price = _format_price;
 
         return data;
       },
       formatPrice: function(_price, needCount){
-        var price = parseFloat(_price);
+        var price = parseFloat(_price)*0.01;
         if(isNaN(price)) return _price;
         var is0 = price < 1 && price >= 0;
         if(is0) price += 1;

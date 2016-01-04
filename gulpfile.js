@@ -273,6 +273,14 @@ for(var key in bladeConfig.paths){
   hsqjsConfig.paths[key] =  ('../blade/' + bladeConfig.paths[key]);
 }
 
+hsqjsConfig.exclude = bladeConfig.include;
+
+hsqjsConfig.exclude.forEach(function(item, i){
+  if( /^text!/.test(item) ){
+    hsqjsConfig.exclude[i] = hsqjsConfig.exclude[i].replace(/text!(.*)/g, 'text!../blade/$1');
+  }
+});
+
 gulp.task('hsqjs', function () {
   var s = (gulp.src('./hsq/main.js')
       // gulp.src('src/*.js', {base: requireConfig.baseUrl})

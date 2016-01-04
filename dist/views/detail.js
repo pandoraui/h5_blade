@@ -16,15 +16,14 @@ define(['View', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePat
           'click .swiper-wrapper': 'demo02'
         });
       },
+      hashChangeParamsRefresh: true,
       addEvent: function ($super) {
         $super();
         //在页面显示后做的事情
       },
       render: function(){
-        console.log(333);
       },
       initElement: function(){
-        console.log(111);
 
         this.$el.html(viewhtml);
         this.$el.$errorDom = this.$el.find('.J_error_box');
@@ -167,20 +166,25 @@ define(['View', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePat
       },
       countDownPrice: function(data){
         var scope = this;
-        var _deal_price;// = data._deal_price;
-        var timer = setInterval(function(){
+        var _deal_price = data._deal_price;
+        scope.clear_price_countdown = setTimeout(function(){
           //拿到数据之后，只要未下架且当前价格大于最低价时，就可以操作
           _deal_price = data._deal_price;
+          var _format_price;
           if( (_deal_price > data.lowest_price) && data._diff_m_price){
             _deal_price = (_deal_price - data._diff_m_price);//.toFixed(6);
             if(_deal_price < data.lowest_price){
-              clearInterval(timer);
+              clearTimeout(scope.clear_price_countdown);
+              _format_price = scope.formatPrice(data.lowest_price, 6, 4);
+              scope.$priceDom.html(_format_price);
             }
-            var _format_price = scope.formatPrice(_deal_price, 6, 4);
+            _format_price = scope.formatPrice(_deal_price, 6, 4);
             data._deal_price = _deal_price;
             data._format_price = _format_price;
             scope.$priceDom.html(_format_price);
             data.timestamp += 1;
+
+            scope.countDownPrice(data);
           }
         },1000);
       },
@@ -200,7 +204,7 @@ define(['View', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePat
         scope.$stockDom.html(_deal_stock);
 
         //开启倒计时
-        setTimeout(function(){//clearInterval
+        scope.clear_stock_countdown = setTimeout(function(){//clearInterval
           if( (data._left_times < 0) || !scope.need_countdown_stock){
             clearTimeout(scope.clear_stock_countdown);
             return;
@@ -285,13 +289,13 @@ define(['View', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePat
           _diff_m_price = 0;
           _diff_price = _diff_all_price;
         }else{
-          _diff_m_price = 1/(data._offline_times - data.seller_time);
-          _diff_price = _diff_all_price * (data.timestamp - data.seller_time)*_diff_m_price;
+          _diff_m_price = _diff_all_price * 1/(data._offline_times - data.seller_time);
+          _diff_price = (data.timestamp - data.seller_time)*_diff_m_price;
         }
         var _deal_price = (data.price - _diff_price).toFixed(6);
         var _format_price = this.formatPrice(_deal_price, 6, 4);
 
-        data._diff_m_price = _diff_m_price*0.01;
+        data._diff_m_price = _diff_m_price;
         data._deal_price = _deal_price;
         data._format_price = _format_price;
 

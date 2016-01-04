@@ -126,6 +126,7 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
 
       viewId = viewId || this.defaultView;
       this.viewId = viewId;
+      this.viewPrevUrlPath = url;
 
       this.request = {
         viewId: viewId,
@@ -158,6 +159,14 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
         //如果当前要跳转的view就是当前view的话便不予处理
         //这里具体处理逻辑要改*************************************
         if (curView == this.curView) {
+          //这里要暴露一个方法，让具体 view 可以操作当前 view 参数变化时做什么，比如可以去刷新当前 view
+
+          if( curView.hashChangeParamsRefresh ){
+            if(curView._urlHash !== window.location.hash){
+              curView.trigger('onShow');
+              curView._urlHash = window.location.hash;
+            }
+          }
           return;
         }
 
@@ -171,6 +180,7 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
 
         //重来没有加载过view的话需要异步加载文件
         //此处快速切换可能导致view文件未加载结束，而已经开始执行其它view的逻辑而没有加入dom结构
+        //为了便于当前 view 参数是否变化，特加 page-url-params 属性
         this.loadView(path, function (View) {
           if ($('[page-url="' + id + '"]').length > 0) {
             return;
@@ -180,6 +190,8 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
             APP: this,
             wrapper: this.$viewport
           });
+
+          this.curView._urlHash = window.location.hash;
 
           //设置网页上的view标志
           this.curView.$root.attr('page-url', id).addClass('page-view-'+id);

@@ -19,25 +19,24 @@ define(['View', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePat
       addEvent: function ($super) {
         $super();
         //在页面显示后做的事情
-        this.on('onShow', function () {
+      },
+      render: function(){
+        console.log(333);
+      },
+      initElement: function(){
+        console.log(111);
 
-          console.log(111);
-
-          this.$el.html(viewhtml);
-          this.$el.$errorDom = this.$el.find('.J_error_box');
-          this.$el.$showViewDom = this.$el.find('.J_showview_box');
-          this.$tplbox = {
-            detail_desc: this.$el.find('#tplbox_detail'),
-            detail_article: this.$el.find('#tplbox_detail_article'),
-          };
-          this.$tpl = {
-            detail_desc: this.$el.find('#tpl_detail').html(),
-            detail_article: this.$el.find('#tpl_detail_article').html(),
-          };
-
-          this.initPage();
-
-        });
+        this.$el.html(viewhtml);
+        this.$el.$errorDom = this.$el.find('.J_error_box');
+        this.$el.$showViewDom = this.$el.find('.J_showview_box');
+        this.$tplbox = {
+          detail_desc: this.$el.find('#tplbox_detail'),
+          detail_article: this.$el.find('#tplbox_detail_article'),
+        };
+        this.$tpl = {
+          detail_desc: this.$el.find('#tpl_detail').html(),
+          detail_article: this.$el.find('#tpl_detail_article').html(),
+        };
       },
       initHeader: function () {
         var scope = this;
@@ -49,6 +48,9 @@ define(['View', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePat
           // }
         });
         Blade.header.show();
+      },
+      onShow: function(){
+        this.initPage();
       },
       dealParams: function(params){
         for(var key in params){

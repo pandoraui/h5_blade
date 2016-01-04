@@ -32,7 +32,9 @@ module.exports = {
     "blade": {
       "options": {
         "baseUrl": srcDir,
+        // "optimize": "none",
         "uglify": {
+          // 丑化，以下情况除外
           "except": ["$super"]
         },
         // "modules": [],

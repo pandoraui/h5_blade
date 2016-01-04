@@ -229,7 +229,7 @@ hsq
 var libsConfig = requireConfig.libs.options;
 var bladeConfig = requireConfig.blade.options;
 // var jsFiles = './blade/**.js';
-var jsFiles = './blade/*.js';
+var jsFiles = './blade/common.js';
 // var requireConfig = require('./blade/common');
 // console.log(libsConfig)
 
@@ -270,12 +270,11 @@ gulp.task('blade', function () {
 // hsqjsConfig.paths = _.extend({}, hsqjsConfig.paths, bladeConfig.paths );
 // 打包 hsqjs 时，需要依赖 blade 的模块，提示找不到？怎么办，暂时先把 blade 的 config 引入进来，这样 paths中就有了
 for(var key in bladeConfig.paths){
-  console.log(key)
   hsqjsConfig.paths[key] =  ('../blade/' + bladeConfig.paths[key]);
 }
 
 gulp.task('hsqjs', function () {
-  var s = (gulp.src('./hsq/*.js')
+  var s = (gulp.src('./hsq/main.js')
       // gulp.src('src/*.js', {base: requireConfig.baseUrl})
       // .pipe(tap(function (file, t){
       //     addJSIndent (file, t);
@@ -312,7 +311,7 @@ gulp.task('hsqjs', function () {
     //     cb();
     // }));
 
-  return !isProduction ? s : s//.pipe($.uglify())
+  return !isProduction ? s : s //.pipe($.uglify())
       .pipe($.rename({suffix: '.min'}))
       .pipe(md5(10, paths.quoteSrc))
       .pipe(gulp.dest(paths.dist.js))

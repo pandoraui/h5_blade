@@ -28,10 +28,24 @@ define(['UIView', 'UIDownTip'], function (AbstractView, UIDownTip) {
     addEvent: function ($super) {
       $super();
 
+      this.on('onCreate', function () {
+        this.onCreate && this.onCreate();
+      });
+
       this.on('onShow', function () {
-          this.initHeader();
-          var downTip = new UIDownTip();
-          downTip.checkStatus();
+        console.log(1234);
+        this.initHeader();
+        var downTip = new UIDownTip();
+        downTip.checkStatus();
+        this.onShow && this.onShow();
+      });
+
+      this.on('onHide', function () {
+        this.mask.hide();
+      });
+
+      this.on('onDestroy', function () {
+        this.mask.destroy();
       });
 
     },

@@ -11,10 +11,13 @@ var blade = "/blade/";
 module.exports = {
   "baseUrl": srcDir,
   "uglify": {
+    // 丑化，以下情况除外
     "except": ["$super"]
   },
+  removeCombined: true,
   // "modules": [],
   "paths": {
+    "lib": "../blade/js/libs",
     // "text": "../blade/libs/require.text",
     "View": "ex_mvc/view",
     "ApiConfig": "model/config",

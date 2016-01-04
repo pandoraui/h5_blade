@@ -5,6 +5,15 @@ define([], function () {
     'json': 'application/json; charset=utf-8',
     'jsonp': 'application/json'
   };
+  
+  function _getCommonOpt(url, data, callback, error) {
+    return {
+      url: url,
+      data: data,
+      callback: callback,
+      error: error
+    };
+  }
 
   var _getContentType = function (contentType) {
     if (contentType) contentType = contentTypeMap[contentType] ? contentTypeMap[contentType] : contentType;
@@ -113,15 +122,6 @@ define([], function () {
     //是否是跨域则加上这条
     if (opt.url.indexOf(window.location.host) === -1) obj.crossDomain = !!opt.crossDomain;
     return $.ajax(obj);
-  }
-
-  function _getCommonOpt(url, data, callback, error) {
-    return {
-      url: url,
-      data: data,
-      callback: callback,
-      error: error
-    };
   }
 
   return {

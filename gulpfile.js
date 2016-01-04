@@ -7,7 +7,7 @@ npm install gulp gulp-load-plugins gulp-md5-plus del run-sequence browser-sync b
 
 npm install fs gulp-concat gulp-jshint jshint-stylish gulp-amd-optimizer gulp-uglify --save-dev
 
-npm install gulp-shell gulp-git gulp-gh-pages --save-dev
+npm install gulp-shell gulp-git gulp-gh-pages lodash --save-dev
 */
 
 'use strict';
@@ -27,6 +27,7 @@ var reload = browserSync.reload;
 
 // var git = require("gulp-git");
 var fs = require('fs');
+var _ = require('lodash');
 var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
@@ -64,6 +65,7 @@ gulp scripts --env development
 */
 
 var requireConfig = require('./blade/gulpcfg').requirejs;
+var hsqjsConfig = require('./hsq/gulpcfg');
 
 var styleThemes = 'src/styles/themes/';
 
@@ -231,7 +233,7 @@ var jsFiles = './blade/*.js';
 // var requireConfig = require('./blade/common');
 // console.log(libsConfig)
 
-gulp.task('js', function () {
+gulp.task('blade', function () {
   var s = (gulp.src(jsFiles)
       // gulp.src('src/*.js', {base: requireConfig.baseUrl})
       // .pipe(tap(function (file, t){
@@ -239,14 +241,14 @@ gulp.task('js', function () {
       // }))
       // .pipe($.jshint())
       // .pipe($.jshint.reporter(stylish)) //'default'
-      .pipe($.sourcemaps.init())
+      // .pipe($.sourcemaps.init())
       // .pipe(amdOptimize(requireConfig, options))
       // .pipe(amdOptimize('common', bladeConfig))
       .pipe(requirejsOptimize(bladeConfig))
       //注意要用;间隔一下，不然闭包成()()()之类的，会报错？？？
       .pipe($.concat('blade.js', {newLine: ';'}))  //合并成为一个文件，顺序从前到后，
       // .pipe($.header(f7.banner, { pkg : f7.pkg, date: f7.date } ))
-      .pipe($.sourcemaps.write())
+      // .pipe($.sourcemaps.write())
       .pipe(gulp.dest(paths.dist.js))
       .pipe($.size({title: 'blade'}))
     );
@@ -255,7 +257,7 @@ gulp.task('js', function () {
     //     cb();
     // }));
 
-  return !isProduction ? s : s.pipe($.uglify())
+  return !isProduction ? s : s//.pipe($.uglify())
       .pipe($.rename({suffix: '.min'}))
       .pipe(md5(10, paths.quoteSrc))
       .pipe(gulp.dest(paths.dist.js))
@@ -264,6 +266,60 @@ gulp.task('js', function () {
       }));
 });
 
+
+// hsqjsConfig.paths = _.extend({}, hsqjsConfig.paths, bladeConfig.paths );
+// 打包 hsqjs 时，需要依赖 blade 的模块，提示找不到？怎么办，暂时先把 blade 的 config 引入进来，这样 paths中就有了
+for(var key in bladeConfig.paths){
+  console.log(key)
+  hsqjsConfig.paths[key] =  ('../blade/' + bladeConfig.paths[key]);
+}
+
+gulp.task('hsqjs', function () {
+  var s = (gulp.src('./hsq/*.js')
+      // gulp.src('src/*.js', {base: requireConfig.baseUrl})
+      // .pipe(tap(function (file, t){
+      //     addJSIndent (file, t);
+      // }))
+      // .pipe($.jshint())
+      // .pipe($.jshint.reporter(stylish)) //'default'
+      // .pipe($.sourcemaps.init())
+      // .pipe(amdOptimize(requireConfig, options))
+      // .pipe(amdOptimize('common', bladeConfig))
+      .pipe(requirejsOptimize(hsqjsConfig))
+      // .pipe(requirejsOptimize({
+      //   baseUrl: "./hsq/",
+      //   dir: "../dist/assets/js/",
+      //   optimize: "uglify",
+      //   // optimizeCss: "standard.keepLines",
+      //   mainConfigFile: "./hsq/main.js",
+      //   // removeCombined: true,
+      //   fileExclusionRegExp: /^\./,
+      //   shim: {},
+      //   paths: {},
+      //   modules: [],
+      //   include: [],
+      //   exclude: [],
+      // }))
+      //注意要用;间隔一下，不然闭包成()()()之类的，会报错？？？
+      .pipe($.concat('hsq.js', {newLine: ';'}))  //合并成为一个文件，顺序从前到后，
+      // .pipe($.header(f7.banner, { pkg : f7.pkg, date: f7.date } ))
+      // .pipe($.sourcemaps.write())
+      .pipe(gulp.dest(paths.dist.js))
+      .pipe($.size({title: 'hsq:js'}))
+    );
+    // .pipe(connectReload)
+    // .on('end', function () {
+    //     cb();
+    // }));
+
+  return !isProduction ? s : s//.pipe($.uglify())
+      .pipe($.rename({suffix: '.min'}))
+      .pipe(md5(10, paths.quoteSrc))
+      .pipe(gulp.dest(paths.dist.js))
+      .pipe($.size({
+        title: 'hsq:js minify'
+      }));
+});
 
 // 编译 JS
 gulp.task('libs', ['copy', 'html'], function () {
@@ -405,8 +461,7 @@ gulp.task('watch', function() {
 });
 
 // 启动预览服务，并监视 Dist 目录变化自动刷新浏览器
-var times = 0;
-gulp.task('dev', ['default', 'watch'], function () {
+gulp.task('serve', ['watch'], function () {
   browserSync({
     // port: 5000, //默认3000
     // ui: {    //更改默认端口weinre 3001
@@ -420,7 +475,7 @@ gulp.task('dev', ['default', 'watch'], function () {
     // },
     open: "local", //external
     notify: false,
-    logPrefix: 'happyCoding' + times++,
+    logPrefix: 'happyCoding',
     server: 'dist'
   });
 
@@ -428,19 +483,26 @@ gulp.task('dev', ['default', 'watch'], function () {
   gulp.watch(['blade/**/*'], reload);
   // gulp.watch(['app/scss/*.scss'], {cwd: 'app'}, ['sass']);
 });
+gulp.task('dev', ['default'], function (cb) {
+  runSequence('serve', cb);
+});
 
 // gulp.task('sass', function() {
 //   return sass('scss/styles.scss')
 //     .pipe(gulp.dest('app/css'))
 //     .pipe(reload({ stream:true }));
 // });
+gulp.task('scripts', function (cb) {
+  runSequence('libs', 'blade', 'hsqjs', cb);
+  // runSequence('libs', 'blade', cb);
+});
 
 
 // 默认任务
 gulp.task('default', function (cb) {
   console.log('生产环境：' + isProduction);
   //runSequence('clean', ['styles', 'jshint', 'html', 'images', 'copy', 'browserify'], cb);
-  runSequence('clean:dev', ['copy', 'html', 'styles', 'libs'], cb);
+  runSequence('clean', ['copy', 'html', 'styles', 'scripts'], cb);
   // runSequence('clean', ['styles', 'html', 'images', 'copy', 'browserify'], cb);
 });
 
@@ -467,7 +529,7 @@ gulp.task('publish', $.shell.task([
 ]));
 
 gulp.task('pro', $.shell.task([
-  'NODE_ENV=production gulp'
+  'NODE_ENV=production gulp dev'
 ]));
 
 

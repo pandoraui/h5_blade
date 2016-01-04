@@ -1,5 +1,5 @@
-define(['View', 'AppModel', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail')],
-  function (View, AppModel, UISwiper, LazyLoad, viewhtml){
+define(['View', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail')],
+  function (View, AppModel, Swiper, UISwiper, LazyLoad, viewhtml){
 
     // var ajaxTest = AppModel.getTestPage.getInstance();
     var ajaxGetDetailDesc = AppModel.getDetailDesc.getInstance();

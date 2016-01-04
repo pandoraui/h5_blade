@@ -43,7 +43,7 @@
       // "_": srcDir + "libs/underscore",
       // // "B": srcDir + "libs/backbone",
       // "F": srcDir + "libs/fastclick",
-      // "libs": srcDir + "libs/libs",
+      "libs": srcDir + "libs/libs",
       // "text": srcDir + "libs/require.text",
       // "cInherit": srcDir + "common/c.class.inherit",
 

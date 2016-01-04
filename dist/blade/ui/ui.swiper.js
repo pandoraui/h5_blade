@@ -1,8 +1,6 @@
-/*
-******bug******
-容器类组件，css传递是一个痛点
-*/
-define(['Swiper'], function (Swiper) {
+
+// 依赖 Swiper
+define([''], function () {
   var template = [
 '    <div class="swiper-wrapper">',
 '      <%list.forEach(function(imgurl){%>',

@@ -1,6 +1,7 @@
 
 (function () {
   var project = './';
+  var blade = './blade/';
 
   window.getViewTemplatePath = function (path) {
     return 'text!' + project + path + '.html';
@@ -13,10 +14,10 @@
     paths: {  //路径别名
       'View': project + 'ex_mvc/view',
       'ApiConfig': project + 'model/config',
+      'Swiper': blade + 'function/swiper',
+      'AppModel': project + 'model/model',
       // 'AppCommonStore': project + 'model/commonStore',
       // 'AppStore': project + 'model/store',
-      'AppModel': project + 'model/model',
-      // 'Swiper': 'blade/function/swiper',
       // 'SwiperInit': 'blade/function/swiper-init',
     }
   });

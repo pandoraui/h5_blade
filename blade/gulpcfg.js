@@ -46,7 +46,7 @@ module.exports = {
           // "cInherit": "common/c.inherit",
           "AbstractApp": "mvc/abstract.app",
           "AbstractModel": "mvc/abstract.model",
-          "AbstractView": "mvc/abstract.view",
+          // "AbstractView": "mvc/abstract.view",
           // "AbstractStore": "mvc/abstract.store",
 
           //抽象view
@@ -111,10 +111,40 @@ module.exports = {
           // "T_UIToast": "ui/ui.toast.html"
         },
         "include": [
+          //项目模块
+          // "./common",            //: "mvc/c.ajax",
+          "cAjax",            //: "mvc/c.ajax",
+          "AbstractApp",      //: "mvc/abstract.app",
+          "AbstractModel",    //: "mvc/abstract.model",
+          // "AbstractView",     //: "mvc/abstract.view",
+          // "AbstractStore",    //: "mvc/abstract.store",
+
+          //抽象view
+          "UIView",         //: "ui/core.abstract.view",
+
+          //头部组件
+          "UIHeader",       //: "ui/core.header",
           "text!ui/core.header.html",
-          // "text!ui/ui.mask.html",
-          // "text!ui/ui.layer.html",
+          // "T_UIHeader",     //: "ui/core.header.html",
+
+
+          //基础组件部分
+          "LazyLoad",       //: "function/lazyload",
+          // "Swiper",         //: "function/swiper", //extend
+          "UISwiper",       //: "ui/ui.swiper",
+          "UIDownTip",      //: "ui/ui.downtip",
+
+          //蒙版
+          "UIMask",         //: "ui/ui.mask",
+
+          //弹出层基类
+          "UILayer",        //: "ui/ui.layer",
+
+          //loading弹出层
+          "UILoadingLayer",    //: "ui/ui.loading.layer",
           "text!ui/ui.loading.layer.html",
+          // "T_UILoadingLayer",  //: "ui/ui.loading.layer.html",
+
           // "text!ui/ui.toast.html",
 
           // "text!ui/ui.alert.html",

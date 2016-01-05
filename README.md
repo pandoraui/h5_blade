@@ -1,6 +1,10 @@
-# hsq
+# 好食期
 
-好食期
+注意，好食期项目依赖 smacss-extend 的项目，因为暂时是非稳定版本，使用软链接引入使用
+
+    //命令如下：
+    //ln –s 源文件 目标文件
+    ln -s ~/github/.../smacss-extend/src ./src
 
 ## 结构划分
 
@@ -57,21 +61,24 @@ gulp dev
 
 ```
 NODE_ENV=production gulp
+
+//由于集成了命令自动化任务，可以直接使用
+gulp pro
 ```
 
 ### 发布
 
 1. 自动调用 `NODE_ENV=production gulp` 构建生产环境代码到 `dist` 目录;
-2. 将刚构建的 `dist` 目录提交到 `gh-pages` 分支;
-3. 将当前开发分支提交到 `release` 分支;            //待完成
-4. 给 `release`、`gh-pages` 分支打最新发布的标签;  //待完成
-5. 调用外部命令 `cap deploy` 发布到生产服务器。     //待完成
+2. 使用 `gulp publish` 将刚构建的 `dist` 目录提交到 gh-pages 分支;
+3. 将当前开发分支提交到 release 分支;            //待完成
+4. 给 release、gh-pages 分支打最新发布的标签;  //待完成
+5. 使用 `gulp cap:deploy` 调用外部命令 `cap deploy` 将 gh-pages 分支发布到生产服务器。
 
 注：标签格式为 `release_20151231`，每次稳定的发布都要打标签，非稳定发布，要适时移除或更新标签。
 
 只给 `gh-pages` 发布版本打标签是不 OK 的（非开发版无意义，只能回滚使用），必须对应稳定的开发版本，每次发布要提交到 `release` 分支并要打标签。
 
 ```
-<!-- gulp publish -->
+//这个操作需谨慎，会直接发布到生产服务器
 gulp deploy
 ```

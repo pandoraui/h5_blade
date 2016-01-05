@@ -13,7 +13,7 @@
           <p class="info-line">
             <span id="J_stock_box" class="num fr"><%=_deal_stock%></span>
             <dfn class="price">&yen; <span class="price_num" id="J_price_box"><%=_format_price%></span></dfn>
-            <del><%=market_price*0.01%></del>
+            <del><%=(market_price*0.01).toFixed(2)%></del>
           </p>
         </li>
         <li><span class="label">保质期至：<%=_.dateUtil.format(expired_date*1000, {format: 'Y年M月D日'})%></span></li>

@@ -49,6 +49,8 @@ define(['View', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePat
         Blade.header.show();
       },
       onShow: function(){
+        //倒计时功能需要更新时清除下，不然会有闭包问题
+        this.clearCountdown();
         this.initPage();
       },
       dealParams: function(params){
@@ -163,6 +165,14 @@ define(['View', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePat
         });
 
         return result.replace(this.today, '今天');
+      },
+      clearCountdown: function(){
+        if(this.clear_price_countdown){
+          clearTimeout(this.clear_price_countdown);
+        }
+        if(this.clear_stock_countdown){
+          clearTimeout(this.clear_stock_countdown);
+        }
       },
       countDownPrice: function(data){
         var scope = this;

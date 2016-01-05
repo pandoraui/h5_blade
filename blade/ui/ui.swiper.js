@@ -2,15 +2,15 @@
 // 依赖 Swiper
 define([''], function () {
   var template = [
-'    <div class="swiper-wrapper">',
-'      <%list.forEach(function(imgurl){%>',
-'        <div class="swiper-slide">',
-'          <img class="swiper-lazy" data-src="<%=imgurl%>" style="width: 100%">',
-'          <div class="preloader"></div>',
-'        </div>',
-'      <%})%>',
-'    </div>',
-'    <div class="swiper-pagination"></div>'
+    '<div class="swiper-wrapper">',
+    '  <%list.forEach(function(imgurl){%>',
+    '    <div class="swiper-slide">',
+    '      <img class="swiper-lazy" data-src="<%=imgurl%>" style="width: 100%">',
+    '      <div class="preloader"></div>',
+    '    </div>',
+    '  <%})%>',
+    '</div>',
+    '<div class="swiper-pagination"></div>'
   ].join('');
 
   return _.inherit({
@@ -46,8 +46,10 @@ define([''], function () {
           // Enable lazy loading
           lazyLoading: true
         };
+
         var swiper = new $.Swiper(swiperContainer, params);
-        return swiper;
+        _.extend(this, swiper);
+        return this;
       }else{
         html = '<img src="' + imgList[0] + '" style="width: 100%">';
         swiperContainer.html(html);

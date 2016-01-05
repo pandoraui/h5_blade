@@ -50,7 +50,7 @@ define(['View', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePat
       },
       onShow: function(){
         //倒计时功能需要更新时清除下，不然会有闭包问题
-        this.clearCountdown();
+        this.clearPreInit();
         this.initPage();
       },
       dealParams: function(params){
@@ -143,7 +143,7 @@ define(['View', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePat
         if(imgList.length > 5){
           imgList.length = 5;
         }
-        var swiper = new UISwiper(container, imgList);
+        this.swiper = new UISwiper(container, imgList);
 
         var html_desc = _.template(this.$tpl.detail_desc)(data);
         this.$tplbox.detail_desc.html(html_desc);
@@ -166,7 +166,10 @@ define(['View', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePat
 
         return result.replace(this.today, '今天');
       },
-      clearCountdown: function(){
+      clearPreInit: function(){
+        if(this.swiper){
+          this.swiper.destroy();
+        }
         if(this.clear_price_countdown){
           clearTimeout(this.clear_price_countdown);
         }

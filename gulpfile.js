@@ -28,12 +28,14 @@ var reload = browserSync.reload;
 // var git = require("gulp-git");
 var fs = require('fs');
 var _ = require('lodash');
-var concat = require('gulp-concat');
-var jshint = require('gulp-jshint');
+// var concat = require('gulp-concat');
+// var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 // var amdOptimize = require('gulp-amd-optimizer');
 var amdOptimize = require('amd-optimize');
 var requirejsOptimize = require('gulp-requirejs-optimize');
+var minifyCss = require('gulp-minify-css');
+
 
 var isProduction = process.env.NODE_ENV === "production";
 
@@ -196,14 +198,19 @@ gulp.task('copy', ['copy:venders'], function () {
 gulp.task('styles', function () {
   var s = (
     gulp.src(paths.entry.css)
-    .pipe($.sourcemaps.init())
+    .pipe( $.if(!isProduction, $.sourcemaps.init() ) )
     //.pipe($.plumber())  //自动处理全部错误信息防止因为错误而导致 watch 不正常工作
     .pipe($.sass())
     .pipe($.autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))
-    .pipe($.sourcemaps.write())
+    .pipe( $.if(!isProduction, $.sourcemaps.write() ) )
     .pipe(gulp.dest(paths.dist.css))
   );
-  return !isProduction ? s : s.pipe($.csso())
+  return !isProduction ? s : s
+  // 这个 csso 压缩 css 出问题了，莫名的问题，到时 swiper  组件在部分浏览器下出 bug
+  // 因为 csso 把老代码干掉了(但传入空对象参数，就 OK 了，奇怪？？，具体参数觉得应该是property，重复的属性是否合并)
+  // 如.swiper-wrapper: display: flex; 由autoprefixer 转化的 display: -webkit-box;给删除了，手动书写的，也会删除
+    .pipe($.csso({}))
+    // .pipe(minifyCss())
     .pipe($.rename({suffix: '.min'}))
     .pipe(md5(10, paths.quoteSrc))
     .pipe(gulp.dest(paths.dist.css))

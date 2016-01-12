@@ -62,7 +62,7 @@ gulp dev
 ```
 NODE_ENV=production gulp
 
-//由于集成了命令自动化任务，可以直接使用
+//由于集成了命令自动化任务，可以直接使用，效果同上
 gulp pro
 ```
 
@@ -71,8 +71,8 @@ gulp pro
 1. 自动调用 `NODE_ENV=production gulp` 构建生产环境代码到 `dist` 目录;
 2. 使用 `gulp publish` 将刚构建的 `dist` 目录提交到 gh-pages 分支;
 3. 将当前开发分支提交到 release 分支;            //待完成
-4. 给 release、gh-pages 分支打最新发布的标签;  //待完成
-5. 使用 `gulp cap:deploy` 调用外部命令 `cap deploy` 将 gh-pages 分支发布到生产服务器。
+4. 给 release、gh-pages 分支打最新发布的标签;    //待完成
+5. 使用 `gulp cap:deploy` 调用外部命令 `cap deploy` 将 gh-pages 分支发布到生产服务器（需要授权 ssh-key）。
 
 注：标签格式为 `release_20151231`，每次稳定的发布都要打标签，非稳定发布，要适时移除或更新标签。
 

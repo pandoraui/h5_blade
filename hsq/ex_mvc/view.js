@@ -1,4 +1,4 @@
-﻿define(['UIView', 'UIDownTip'], function (AbstractView, UIDownTip) {
+﻿define(['UIView', 'UIDownTip', 'UILoadingLayer'], function (AbstractView, UIDownTip, UILoadingLayer) {
 
   return _.inherit(AbstractView, {
 
@@ -51,7 +51,6 @@
     },
 
     initHeader: function () {
-
       Blade.header.set({
         back: {
           tagname: 'back',
@@ -64,10 +63,19 @@
       Blade.header.show();
 
     },
-
+    updateTitle: function(title){
+      document.title = title || '好食期';
+    },
     closeDownTip: function(e){
       var target = $(e.currentTarget);
       target.hide();
+    },
+
+    showLoading: function(tip){
+      Blade.loading.show();
+    },
+    hideLoading: function(tip){
+      Blade.loading.hide();
     },
     // formatCode: function () {
     //   window.sss = this;

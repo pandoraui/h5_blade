@@ -80,7 +80,9 @@ define(['View', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePat
 
         this.dealParams(ajaxGetDetailDesc.param);
 
+        this.showLoading();
         ajaxGetDetailDesc.execute(function(res){
+          this.hideLoading();
           //成功
           console.log(res);
 
@@ -126,6 +128,7 @@ define(['View', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePat
       },
       renderPage: function(data){
         console.log('渲染页面');
+        this.updateTitle(data.name);
 
         //注意，自己自定义的挂在 data 上的变量，使用_开头，避免后期服务器端修改，导致数据冲突
         data._deal_stock = this.dealStock(data)._deal_stock;

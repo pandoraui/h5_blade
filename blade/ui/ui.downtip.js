@@ -2,13 +2,15 @@
   down-tip 组件
 */
 define([], function () {
+  var imgLogoSrc = "assets/img/logo.png";
+
   var template = [
     '<div id="J_down_tip" class="down-tip">',
     '  <div class="tip-bg"></div>',
     '  <span class="close">×</span>',
     '  <p>',
-    '    <img src="favicon.png" alt="">',
-    '    <a href="<%=url%>"><span class="btn fr">立即体验</span>限时限量，下载好食期购买吧！</a>',
+    ('    <img src="'+ imgLogoSrc +'" width="32" height="32" alt="logo">'),
+    '    <a href="<%=url%>"><span class="btn fr">立即体验</span><span class="text">限时限量，下载好食期购买吧！</span></a>',
     '  </p>',
     '</div>'
   ].join('');

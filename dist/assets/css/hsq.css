@@ -849,15 +849,15 @@ dfn.price {
     position: relative;
     z-index: 2;
     margin: 0;
-    padding: 1px 0 2px 1.25rem; }
+    padding: 1px 0 2px 1.5625rem; }
   .down-tip .text {
     display: block; }
   .down-tip .btn {
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
     padding: 0 0.625rem;
-    line-height: 1.875rem;
-    height: 1.875rem;
+    line-height: 1.75rem;
+    height: 1.75rem;
     color: #FFEE11;
     background: none;
     border: 1px solid #FFEE11;
@@ -879,5 +879,5 @@ dfn.price {
   .down-tip a {
     display: block;
     overflow: hidden;
-    padding: 0.3125rem 0.625rem 0.3125rem 0.625rem;
+    padding: 0.3125rem 0.625rem 0.3125rem 0.3125rem;
     color: #fff; }

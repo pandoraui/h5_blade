@@ -10,7 +10,7 @@ define([], function () {
     '  <span class="close">×</span>',
     '  <p>',
     ('    <img src="'+ imgLogoSrc +'" width="32" height="32" alt="logo">'),
-    '    <a href="<%=url%>"><span class="btn fr">立即体验</span><span class="text">限时限量，下载好食期购买吧！</span></a>',
+    '    <a href="<%=url%>"><span class="btn fr">立即体验</span><span class="text">专做食品特卖，立即下载抢购吧！</span></a>',
     '  </p>',
     '</div>'
   ].join('');

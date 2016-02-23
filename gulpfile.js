@@ -7,7 +7,8 @@ npm install gulp gulp-load-plugins gulp-md5-plus del run-sequence browser-sync b
 
 npm install fs gulp-concat gulp-jshint jshint-stylish gulp-amd-optimizer gulp-uglify --save-dev
 
-npm install gulp-shell gulp-git gulp-gh-pages lodash --save-dev
+npm install gulp-shell gulp-git gulp-gh-pages lodash gulp-qndn --save-dev
+
 */
 
 'use strict';
@@ -19,11 +20,12 @@ var md5 = require('gulp-md5-plus');
 var del = require('del');
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
+var reload = browserSync.reload;
+
 var browserify = require('browserify');
 var watchify = require('watchify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
-var reload = browserSync.reload;
 
 // var git = require("gulp-git");
 var fs = require('fs');

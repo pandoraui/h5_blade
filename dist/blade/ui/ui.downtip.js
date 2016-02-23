@@ -22,9 +22,9 @@ define([], function () {
   var downUrl = '';
 
   if($.os.ios){
-    downUrl = 'http://pre.im/hsq1';
+    downUrl = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.doweidu.android.haoshiqi';
   }else if($.os.android){
-    downUrl = 'http://pre.im/hsq2';
+    downUrl = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.doweidu.android.haoshiqi';
   } else {
     downUrl = '';
   }

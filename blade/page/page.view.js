@@ -179,7 +179,7 @@ define(['UIHeader'], function (Header) {
        * @param url
        */
       forward: function (url, opt) {
-        Lizard.forward.apply(null, arguments);
+        Blade.forward.apply(null, arguments);
       },
       /**
        * 回退至前一页面
@@ -187,7 +187,7 @@ define(['UIHeader'], function (Header) {
        * @param url
        */
       back: function (url, opt) {
-        Lizard.back.apply(null, arguments);
+        Blade.back.apply(null, arguments);
       },
 
       /**
@@ -212,7 +212,7 @@ define(['UIHeader'], function (Header) {
        * @returns {string} value 返回值
        */
       getQuery: function (key) {
-        return Lizard.P(key);
+        return Blade.P(key);
       },
       /**
        * 保存滚动条位置
@@ -244,14 +244,14 @@ define(['UIHeader'], function (Header) {
        * @param title 标题
        */
       showMessage: function (params) {
-        Lizard.showMessage(params);
+        Blade.showMessage(params);
       },
 
       /**
        * 隐藏Alert框
        */
       hideMessage: function () {
-        Lizard.hideMessage();
+        Blade.hideMessage();
       },
 
       /**
@@ -264,14 +264,14 @@ define(['UIHeader'], function (Header) {
        * @param cancelTxt 按钮2文本
        */
       showConfirm: function (params) {
-        Lizard.showConfirm(params);
+        Blade.showConfirm(params);
       },
 
       /**
        * 隐藏confirm对话框
        */
       hideConfirm: function () {
-        Lizard.hideConfirm();
+        Blade.hideConfirm();
       },
 
 
@@ -280,7 +280,7 @@ define(['UIHeader'], function (Header) {
        *
        */
       showWarning404: function (params) {
-        Lizard.showWarning404(params);
+        Blade.showWarning404(params);
 
       },
 
@@ -288,7 +288,7 @@ define(['UIHeader'], function (Header) {
        * 隐藏waring404组件
        */
       hideWarning404: function () {
-        Lizard.hideWarning404();
+        Blade.hideWarning404();
       },
 
       /**
@@ -301,7 +301,7 @@ define(['UIHeader'], function (Header) {
        * @param {boolean} params.clickToHide 是否允许点击界面任一处,隐藏Toast
        */
       showToast: function (params) {
-        Lizard.showToast(params);
+        Blade.showToast(params);
       },
 
       /**
@@ -309,7 +309,7 @@ define(['UIHeader'], function (Header) {
        * @method View.cPageView.hideToast
        */
       hideToast: function () {
-        Lizard.hideToast();
+        Blade.hideToast();
       },
 
       /**
@@ -317,7 +317,7 @@ define(['UIHeader'], function (Header) {
        * @method View.cPageView.showLoading
        */
       showLoading: function (params) {
-        Lizard.showLoading(params);
+        Blade.showLoading(params);
 //        this.loading.firer = this;
       },
 
@@ -327,7 +327,7 @@ define(['UIHeader'], function (Header) {
        */
       hideLoading: function () {
 //        if (!this.loading.firer || this.loading.firer == this)
-        Lizard.hideLoading();
+        Blade.hideLoading();
       },
 
 
@@ -341,47 +341,47 @@ define(['UIHeader'], function (Header) {
       },
 
 
-      /**
-       * 发送UBT统计代码
-       * @method View.cPageView.sendUbt
-       */
-      sendUbt: function (retry) {
-        var view = this;
-        if (!window.__bfi) window.__bfi = [];
-        var url = this.$el.attr('page-url'),
-            pageId = Lizard.isHybrid?view.hpageid:view.pageid,
-            orderid = Lizard.P("orderid") || Lizard.P("oid") || "";
-        if (pageId === 0) {
-          return;
-        }
-        $('#bf_ubt_orderid').val(orderid);
-        var ubtURL = window.location.protocol + '//' + window.location.host + url;
-        var refererView = Lizard.instance.views[this.referrer];
-        window.__bfi.push(['_asynRefresh', {
-          page_id: pageId,
-          orderid: orderid,
-          url: this._hybridUrl(ubtURL),
-          refer: refererView?refererView._hybridUrl(window.location.protocol + '//' + window.location.host + refererView.$el.attr('page-url')):document.referrer
-        }]);
-      },
-
-
-      /**
-       * 获得页面Url,hyrbid会增加一个虚拟域名
-       */
-      _getViewUrl: function () {
-        var url = this._hybridUrl(location.href);
-        return url;
-      },
-
-      _hybridUrl: function(url) {
-        if (Lizard.isInCtripApp)
-        {
-          return 'http://hybridm.ctrip.com' + this.$el.attr('page-url');
-        } else {
-          return url;
-        }
-      }
+      // /**
+      //  * 发送UBT统计代码
+      //  * @method View.cPageView.sendUbt
+      //  */
+      // sendUbt: function (retry) {
+      //   var view = this;
+      //   if (!window.__bfi) window.__bfi = [];
+      //   var url = this.$el.attr('page-url'),
+      //       pageId = Blade.isHybrid?view.hpageid:view.pageid,
+      //       orderid = Blade.P("orderid") || Blade.P("oid") || "";
+      //   if (pageId === 0) {
+      //     return;
+      //   }
+      //   $('#bf_ubt_orderid').val(orderid);
+      //   var ubtURL = window.location.protocol + '//' + window.location.host + url;
+      //   var refererView = Blade.instance.views[this.referrer];
+      //   window.__bfi.push(['_asynRefresh', {
+      //     page_id: pageId,
+      //     orderid: orderid,
+      //     url: this._hybridUrl(ubtURL),
+      //     refer: refererView?refererView._hybridUrl(window.location.protocol + '//' + window.location.host + refererView.$el.attr('page-url')):document.referrer
+      //   }]);
+      // },
+      //
+      //
+      // /**
+      //  * 获得页面Url,hyrbid会增加一个虚拟域名
+      //  */
+      // _getViewUrl: function () {
+      //   var url = this._hybridUrl(location.href);
+      //   return url;
+      // },
+      //
+      // _hybridUrl: function(url) {
+      //   if (Blade.isInCtripApp)
+      //   {
+      //     return 'http://hybridm.ctrip.com' + this.$el.attr('page-url');
+      //   } else {
+      //     return url;
+      //   }
+      // }
     })
     return PageView;
 

@@ -130,9 +130,13 @@ define(['UIView', 'UIMask'], function (UIView, UIMask) {
       });
 
       this.on('onShow', function () {
+        var self = this;
         this.setzIndexTop();
-        if (this.needReposition) this.reposition();
 
+        // setTimeout(function(){
+        //   self.reposition();
+        // }, 200)
+        if (this.needReposition) this.reposition();
       });
 
       this.on('onHide', function () {
@@ -147,16 +151,18 @@ define(['UIView', 'UIMask'], function (UIView, UIMask) {
 
     reposition: function () {
 
+      var minWidth = this.$el.width(); //Math.max(this.$el.width(), 60);
       this.$root.css({
-        'width': '280px'
+        'width': minWidth + 'px'
       });
 
+      // var $realDom = this.$root.find('.cui-layer');
       this.$root.css({
         'position': 'fixed',
         'left': '50%',
         'top': '50%',
-        'margin-left': -(this.$root.width() / 2) + 'px',
-        'margin-top': -(this.$root.height() / 2) + 'px'
+        'margin-left': -(minWidth / 2) + 'px',
+        'margin-top': -(this.$el.height() / 2) + 'px'
       });
     }
 

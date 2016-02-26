@@ -194,6 +194,7 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
           this.curView._urlHash = window.location.hash;
 
           //设置网页上的view标志
+          // this.curView.$el.attr('page-url', id).addClass('page-view-'+id);
           this.curView.$root.attr('page-url', id).addClass('page-view-'+id);
 
           //保存至队列

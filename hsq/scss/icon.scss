@@ -61,8 +61,9 @@
 .icon-link:before {
   content: "\e614";
 }
-// .icon-back:before {
-//   content: "\e606";
-// }
+.icon-back:before {
+  content: "\e606";
+  color: $mainColor;
+}
 
 img.icon-label{display: inline-block; height: fontsize(15); }

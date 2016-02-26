@@ -38,6 +38,10 @@ module.exports = {
     // "../blade/function/swiper",
 
     //views
+    "views/index",
+    "text!views/index.html",
+    "views/list",
+    "text!views/list.html",
     "views/detail",
     "text!views/detail.html",
 

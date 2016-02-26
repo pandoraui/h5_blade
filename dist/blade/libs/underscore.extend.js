@@ -320,7 +320,7 @@
       if(options.type === 'countdown' && !options.format){
         options.format = 'H时F分S秒';
       }
-      
+
       var format = options.format;
 
       if(options.type === 'countdown'){

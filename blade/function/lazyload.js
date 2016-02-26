@@ -77,4 +77,4 @@
     //滚动执行
     params.container.bind("scroll", loading);
   };
-})(Zepto);
+})($);

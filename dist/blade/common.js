@@ -7,45 +7,45 @@
   require.config({
     // baseUrl: srcDir,
     shim: {
-      // $: {
-      //   exports: "Zepto"
-      // },
-      // _: {
-      //   exports: "_"
-      // },
-      // // B: {
-      // //   deps: ["_", "$"],
-      // //   exports: "Backbone"
-      // // },
-      // F: {
-      //   deps: ["$"],
-      //   exports: "Fastclick"
-      // },
-      // libs: {
-      //   deps: ["_", "$", "F"],
-      //   exports: "libs"
-      // },
-      // common: {
-      //   deps: ["libs"]
-      // },
-      // cAjax: {
-      //   exports: "cAjax"
-      // },
-      // UIView: {
-      //   deps: ["B"],
-      //   exports: "UIView"
-      // },
+      $: {
+        exports: "Zepto"
+      },
+      _: {
+        exports: "_"
+      },
+      B: {
+        deps: ["_", "$"],
+        exports: "Backbone"
+      },
+      F: {
+        deps: ["$"],
+        exports: "Fastclick"
+      },
+      libs: {
+        deps: ["_", "$", "B"],
+        exports: "libs"
+      },
+      common: {
+        deps: ["libs"]
+      },
+      cAjax: {
+        exports: "cAjax"
+      },
+      UIView: {
+        deps: ["B"],
+        exports: "UIView"
+      },
     },
     paths: {
       //依赖部分
-      // "R": srcDir + "libs/require",
-      // "$": srcDir + "libs/zepto",
-      // "_": srcDir + "libs/underscore",
-      // // "B": srcDir + "libs/backbone",
-      // "F": srcDir + "libs/fastclick",
+      "R": srcDir + "libs/require",
+      "$": srcDir + "libs/zepto",
+      "_": srcDir + "libs/underscore",
+      "B": srcDir + "libs/backbone",
+      "F": srcDir + "libs/fastclick",
       "libs": srcDir + "libs/libs",
       // "text": srcDir + "libs/require.text",
-      // "cInherit": srcDir + "common/c.class.inherit",
+      // "cInherit": srcDir + "common/c.inherit",
 
       //核心部分：
 
@@ -66,6 +66,8 @@
       "T_UIHeader": srcDir + "ui/core.header.html",
       "C_UIHeader": srcDir + "ui/core.header.css",
 
+      "cPageView": srcDir + "page/page.view",
+      // "cPageList": srcDir + "page/c.page.list",
 
       //基础组件部分
 
@@ -88,9 +90,9 @@
       "T_UILoadingLayer": srcDir + "ui/ui.loading.layer.html",
       // "C_UILoadingLayer": srcDir + "ui/ui.loading.layer.css",
 
-      // //toast提升
-      // "UIToast": srcDir + "ui/ui.toast",
-      // "T_UIToast": srcDir + "ui/ui.toast.html",
+      //toast提升
+      "UIToast": srcDir + "ui/ui.toast",
+      "T_UIToast": srcDir + "ui/ui.toast.html",
       // "C_UIToast": srcDir + "ui/ui.toast.css",
       //
       // //404提示

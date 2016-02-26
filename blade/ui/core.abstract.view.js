@@ -17,7 +17,7 @@
 * @namespace UIView
 */
 // define(['text!C_UIView'], function (style) {
-define([], function () {
+define([], function() {
   'use strict';
 
   /**
@@ -380,14 +380,17 @@ define([], function () {
       if (this.status != 'hide') this.show();
       this.trigger('onRefresh');
     },
-
     /**
     * @description 组件显示方法，首次显示会将ui对象实际由内存插入包裹层
     * @method initialize
     * @param {Object} opts
     */
     show: function () {
+      // fix ios 页面切换键盘不消失的bug shbzhang 2014-10-22 10:44:29
+      document.activeElement && document.activeElement.blur();
+
       if (!this.wrapper[0] || !this.$root[0]) return;
+
       //如果包含就不要乱搞了，这里可以这样判断，也可以以type方式判断，为防止用户手动情况dom，还是这么判断吧......
       if (!$.contains(this.wrapper[0], this.$root[0])) {
         //如果需要清空容器的话便清空

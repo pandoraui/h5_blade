@@ -2705,4 +2705,4 @@ Swiper
     plugins: {}
   };
   $.Swiper = Swiper;
-}(Zepto);
+}($);

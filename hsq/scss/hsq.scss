@@ -1,7 +1,9 @@
 
 
 @import "../../src/styles/themes/hsq/helper";
+@import "var";
 @import "temp";
+@import "ui.layer";
 @import "icon";
 
 .cm-loading .preloader{
@@ -75,9 +77,9 @@ html,body,
   .cm-page-title,
   .title{
     font-size: fontsize(18);
-    color: #6A3905;
+    color: $mainColor;
   }
-  .button-link{color:#6A3905;}
+  .button-link{color:$mainColor;}
   .button-link:active{background-color: #F7E405;}
 }
 

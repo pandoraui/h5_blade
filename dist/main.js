@@ -86,7 +86,7 @@
     var app = new App({
       //选择pushState还是hashChange
       hasPushState: false,
-      'defaultView': 'detail',
+      'defaultView': 'index',
       'viewRootPath': '' + project + 'views/',
       animations: animations
     });

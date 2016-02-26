@@ -1,6 +1,7 @@
 
 // 依赖 Swiper
-define([''], function () {
+// define(['libs', 'Swiper'], function (libs, Swiper) {
+define([], function () {
   var template = [
     '<div class="swiper-wrapper">',
     '  <%list.forEach(function(imgurl){%>',

@@ -21,8 +21,6 @@ define(['View', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePat
         $super();
         //在页面显示后做的事情
       },
-      render: function(){
-      },
       initElement: function(){
 
         this.$el.html(viewhtml);
@@ -38,15 +36,21 @@ define(['View', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePat
         };
       },
       initHeader: function () {
-        var scope = this;
-        Blade.header.set({
-          back: false,
-          title: '商品详情',
-          // callback: function(){
-          //   scope.back();
-          // }
-        });
-        Blade.header.show();
+        var self = this;
+        var headerData = {
+          center: {
+            tagname: 'title',
+            value: ['商品详情']
+          },
+          back: {
+            tagname: 'back',
+            callback: function() {
+              self.back('list');
+            }
+          }
+        };
+        this.header.set(headerData);
+        this.header.show();
       },
       onShow: function(){
         //倒计时功能需要更新时清除下，不然会有闭包问题

@@ -13,16 +13,18 @@ module.exports = {
         "baseUrl": srcDir + "libs",
         "paths": {
           "$": "zepto",
+          "B": "backbone",
           "$_a": "zepto-adapter",
           "_": "underscore",
-          "_e": "underscore.extend",
+          // "_e": "underscore.extend",
           "F": "fastclick"
         },
         "include": [
           "$",
+          "B",
           "$_a",
           "_",
-          "_e",
+          // "_e",
           "F"
         ],
         "out": distDir + "out/libs.js"
@@ -45,6 +47,7 @@ module.exports = {
 
           "text": "libs/require.text",
           "cAjax": "mvc/c.ajax",
+          "libs": "libs/libs",
           // "cInherit": "common/c.inherit",
           "AbstractApp": "mvc/abstract.app",
           "AbstractModel": "mvc/abstract.model",
@@ -60,6 +63,8 @@ module.exports = {
           "T_UIHeader": "ui/core.header.html",
           // "C_UIHeader": "ui/core.header.css",
 
+          "cPageView": "page/page.view",
+          // "cPageList": "page/page.list",
 
           //基础组件部分
 
@@ -94,7 +99,7 @@ module.exports = {
           // "UIMask": "ui/ui.mask",
           // "UILoading": "ui/ui.loading",
           // "UILoadingLayer": "ui/ui.loading.layer",
-          // "UIToast": "ui/ui.toast",
+          "UIToast": "ui/ui.toast",
           // "UIInlineView": "ui/ui.inline.view",
           // "UINum": "ui/ui.num",
           // "UISwitch": "ui/ui.switch",
@@ -110,7 +115,7 @@ module.exports = {
           // "UICalendar": "ui/ui.calendar",
           // "UISlider": "ui/ui.slider",
           // "UIWarning404": "ui/ui.warning404",
-          // "T_UIToast": "ui/ui.toast.html"
+          "T_UIToast": "ui/ui.toast.html"
         },
         "include": [
           //项目模块
@@ -147,7 +152,7 @@ module.exports = {
           "text!ui/ui.loading.layer.html",
           // "T_UILoadingLayer",  //: "ui/ui.loading.layer.html",
 
-          // "text!ui/ui.toast.html",
+          "text!ui/ui.toast.html",
 
           // "text!ui/ui.alert.html",
           // "text!ui/ui.bubble.layer.html",

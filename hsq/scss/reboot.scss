@@ -1,0 +1,51 @@
+
+
+html,body,
+.h100,#main {
+  height:100%
+}
+.fl {
+  float:left
+}
+.fr {
+  float:right
+}
+.main-frame {
+  min-width:240px;
+  height:100%
+}
+.main-viewport {
+  position:relative;
+  height:100%
+}
+.sub-viewport {
+  position:relative;
+  overflow-x:hidden;
+  min-height:100%
+}
+p{margin-bottom: fontsize(10);}
+dl,dt,dd{margin: 0;}
+
+body{font-size: fontsize(14);overflow-y: scroll; background: $bodyBg;}
+#root,
+.viewport-wrapper{height: 100%; box-sizing: border-box;}
+.header-wrapper{position: fixed; z-index: 100;top:0;}
+.viewport-wrapper > .view{padding: fontsize(44) 0 0;}
+
+.J_error_box p{
+  margin: 1rem;
+}
+
+.cm-loading .preloader{
+  width: 2.5rem;
+  height: 2.5rem;
+
+  ~ p {
+    margin: 0.4rem 0 0.4rem;
+  }
+}
+
+.bar-nav ~ .content{top: 0; padding-top: 2.2rem;}
+.mb10{margin-bottom: fontsize(10);}
+
+.v-line{display: inline-block; overflow: hidden; margin: 0 fontsize(5); border-left: 1px solid $hsq-border-line; width: 0; height: 15px; vertical-align: middle;}

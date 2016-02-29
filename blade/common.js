@@ -101,8 +101,8 @@
       // "C_UIWarning404": srcDir + "ui/ui.warning404.css",
 
       //alert组件
-      // "UIAlert": srcDir + "ui/ui.alert",
-      // "T_UIAlert": srcDir + "ui/ui.alert.html",
+      "UIAlert": srcDir + "ui/ui.alert",
+      "T_UIAlert": srcDir + "ui/ui.alert.html",
       //
       // //扩展组件部分
       // //

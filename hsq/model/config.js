@@ -9,9 +9,9 @@ define([], function() {
 
   var hosts = {
     test: 'm.ctrip.com/restapi/soa2/10184',
-    local: '10.0.0.193:9502',
-    dev: '10.0.0.193:9502',
-    staging: '10.0.0.193:9502',
+    local: 'm.devapi.haoshiqi.net:9502',
+    dev: 'm.devapi.haoshiqi.net:9502',
+    staging: 'm.devapi.haoshiqi.net:9502',
     pro: 'm.api.haoshiqi.net',
   };
   var config = {

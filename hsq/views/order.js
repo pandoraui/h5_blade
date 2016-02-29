@@ -1,8 +1,8 @@
-define(['PageView', getViewTemplatePath('list')],
+define(['PageView', getViewTemplatePath('order')],
   function (PageView, viewhtml){
 
     return _.inherit(PageView, {
-      pageName: 'list',
+      pageName: 'order',
       onCreate: function(){
         this.$el.html(viewhtml);
         //元素集合

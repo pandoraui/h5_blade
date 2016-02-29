@@ -1,0 +1,91 @@
+
+
+/* 下单成功页面 */
+.order-success{
+  background: #fff;
+  .tips{
+    padding: fontsize(25) fontsize(10) 0;
+    h3{
+      margin-bottom: fontsize(10);
+      font-size: fontsize(18);
+      text-align: center;
+      font-weight: normal;
+    }
+    p{
+      color: $hsq-gray;
+    }
+  }
+  .order-info{
+    margin: fontsize(10) 0;
+    border-top: 1px solid $hsq-border-line;
+
+    .info-item{
+      padding: fontsize(16) fontsize(10);
+    }
+
+    .img{
+      margin-right: fontsize(10);
+      img{
+        width: fontsize(50);
+        height: fontsize(50);
+      }
+    }
+    dd.oper{
+      width: fontsize(80);
+      text-align: right;
+      p{
+        margin: 0;
+      }
+      .price{
+        display: block;
+        height: fontsize(32);
+        font-size: fontsize(16);
+      }
+    }
+    dd.text{
+      font-size: fontsize(12);
+      overflow: hidden;
+      h5{
+        height: fontsize(32);
+        margin: 0 0 fontsize(4);
+        font-weight: normal;
+        line-height: 1.4;
+        color: #000;
+        overflow: hidden;
+      }
+      p{
+        color: $hsq-gray;
+      }
+    }
+  }
+}
+
+.more-tips{
+  margin-top: fontsize(10);
+  padding: fontsize(25) fontsize(10);
+  background: #fff;
+  text-align: center;
+
+  h4{
+    margin-bottom: fontsize(25);
+    font-size: fontsize(16);
+    font-weight: normal;
+  }
+
+  .btn{
+    display: inline-block;
+    padding: 0 fontsize(20);
+    height: fontsize(40);
+    font-size: fontsize(16);
+    line-height: fontsize(40);
+    border-radius: fontsize(4);
+  }
+  .btn-blue{
+    background: #4e92df;
+    color: #fff;
+  }
+  p{
+    margin: fontsize(25) 0 0;
+    color: $hsq-gray;
+  }
+}

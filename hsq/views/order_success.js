@@ -1,9 +1,14 @@
-define(['PageView', getViewTemplatePath('list')],
+define(['PageView', getViewTemplatePath('test')],
   function (PageView, viewhtml){
 
+    // var viewhtml = '下单成功';
+
+    // 此订单需要请求 ajax，获取对应的订单相关信息。
+
     return _.inherit(PageView, {
-      pageName: 'list',
+      pageName: 'order_success',
       onCreate: function(){
+        // var viewhtml = '下单成功';
         this.$el.html(viewhtml);
         //元素集合
         this.els = {
@@ -22,8 +27,14 @@ define(['PageView', getViewTemplatePath('list')],
         var headerData = {
           center: {
             tagname: 'title',
-            value: ['列表页']
+            value: ['付款成功']
           },
+          // backtext: '返回',
+          // events: {
+          //   returnHandler: function(){
+          //     self.back('list');
+          //   },
+          // },
           back: {
             tagname: 'back',
             value: '返回',

@@ -1,11 +1,11 @@
-define(['View', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail')],
-  function (View, AppModel, Swiper, UISwiper, LazyLoad, viewhtml){
+define(['PageView', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail')],
+  function (PageView, AppModel, Swiper, UISwiper, LazyLoad, viewhtml){
 
     // var ajaxTest = AppModel.getTestPage.getInstance();
     var ajaxGetDetailDesc = AppModel.getDetailDesc.getInstance();
     var ajaxGetDetailArticle = AppModel.getDetailArticle.getInstance();
 
-    return _.inherit(View, {
+    return _.inherit(PageView, {
       propertys: function ($super) {
         $super();
 
@@ -44,6 +44,7 @@ define(['View', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePat
           },
           back: {
             tagname: 'back',
+            value: '返回',
             callback: function() {
               self.back('list');
             }

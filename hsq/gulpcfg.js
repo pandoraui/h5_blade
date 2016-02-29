@@ -19,7 +19,7 @@ module.exports = {
   "paths": {
     "lib": "../blade/js/libs",
     // "text": "../blade/libs/require.text",
-    "View": "ex_mvc/view",
+    "PageView": "ex_mvc/view",
     "ApiConfig": "model/config",
     "AppModel": "model/model",
   },
@@ -34,7 +34,7 @@ module.exports = {
     "Swiper",
 
     //抽象view
-    "View",
+    "PageView",
     // "../blade/function/swiper",
 
     //views
@@ -44,6 +44,14 @@ module.exports = {
     "text!views/list.html",
     "views/detail",
     "text!views/detail.html",
+    "views/order",
+    "text!views/order.html",
+    "views/address",
+    // "text!views/address.html",
+    "views/address_update",
+    // "text!views/address_edit.html",
+    "views/order_success",
+    "text!views/test.html",
 
   ],
   "exclude": [],

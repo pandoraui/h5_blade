@@ -1,9 +1,10 @@
-define(['PageView', getViewTemplatePath('list')],
-  function (PageView, viewhtml){
+define(['PageView'],
+  function (PageView){
 
     return _.inherit(PageView, {
-      pageName: 'list',
+      pageName: 'address_edit',
       onCreate: function(){
+        var viewhtml = '更新地址';
         this.$el.html(viewhtml);
         //元素集合
         this.els = {
@@ -19,10 +20,12 @@ define(['PageView', getViewTemplatePath('list')],
       },
       onShow: function(){
         var self = this;
+        var type = 'add';
+        var title = type === 'add' ? '新增地址' : '修改地址';
         var headerData = {
           center: {
             tagname: 'title',
-            value: ['列表页']
+            value: [title]
           },
           back: {
             tagname: 'back',

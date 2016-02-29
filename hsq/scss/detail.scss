@@ -1,0 +1,199 @@
+/* 详情页 */
+.page-view-detail,
+.page-detail {
+  .swiper-container {
+    height: 15rem;
+    background: #fff;
+  }
+  .swiper-slide img {
+    width: 100%;
+  }
+}
+.swiper-pagination-bullet{background: none; border: 1px solid #fff; opacity: 1;}
+.swiper-pagination-bullet-active{background: #fff;}
+
+#page-detail .bar-header,
+.cm-header {
+  background-color: rgba(255, 238, 17, 0.9);
+  color: $mainColor;
+  .cm-page-title,
+  .title{
+    font-size: fontsize(18);
+  }
+  .button-link{color:$mainColor;}
+  .button-link:active{background-color: #F7E405;}
+}
+.cm-header .cm-header-icon:active,
+.cm-header .cm-header-btn:active {
+    background-color: #F7E405;
+}
+
+.hsq-card{
+  background: #fff;
+  font-size: fontsize(14);
+  p{
+    margin: 0
+  }
+  .card-title {
+    padding: fontsize(10);
+    height: fontsize(36);
+    border-bottom: 1px solid $hsq-border-line;
+
+    .tit{
+      font-size: fontsize(16);
+      line-height: 1;
+    }
+  }
+  .link-more {
+    font-size: fontsize(12);
+    color: $hsq-gray;
+  }
+}
+
+dfn.price{
+  display: inline-block;
+  font-style: normal;
+  font-size: fontsize(20);
+  color:#FF5555;
+  i{
+    font-size: fontsize(14);
+    font-style: normal;
+  }
+}
+
+/*详情页*/
+.tplbox_box{
+  // padding-bottom: 1px;
+  // background: #efefef;
+}
+.page-view-detail{
+  color: #252525;
+}
+
+// .page-view-detail .J_showview_box{
+//   background: #efefef;
+// }
+.group-list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li{
+    min-height: fontsize(18);
+    margin: -1px 0 0 0;
+    line-height: fontsize(18);
+    padding: fontsize(10);
+  }
+}
+.solid_line,
+.group-list li{
+  border-top: 1px solid $hsq-border-line;
+}
+
+.detail-desc {
+  .group-list .tit{
+    font-size: fontsize(16);
+    line-height: fontsize(18);
+    margin:0 0 fontsize(10) 0;
+  }
+  .price{
+    margin-right: fontsize(10);
+  }
+  del{
+    color: $hsq-grayer;
+  }
+  .num{
+    font-size: fontsize(12);
+    color: $hsq-gray;
+  }
+  .label{
+    color: $hsq-gray;
+  }
+  .ib-label{
+    display: inline-block;
+    margin-right: fontsize(10);
+  }
+  .icon-label{margin-top: -2px;}
+}
+
+.card-comments {
+  .list-comments{
+    padding: 0 0 0 fontsize(10);
+  }
+  .list-comments li{
+    padding: fontsize(10) fontsize(10) fontsize(10) 0;
+  }
+  .c-info{
+    margin-bottom: fontsize(5);
+    font-size: fontsize(12);
+    color: $hsq-gray;
+
+    .author,
+    .time {
+      display: inline-block;
+      margin-right: fontsize(10);
+    }
+  }
+  .stars{
+    color: rgba(254, 196, 70, 1);
+
+    .icon-star:before{
+      font-size: fontsize(12);
+    }
+  }
+  img {
+    display: inline-block;
+    margin-right: fontsize(5);
+    width: fontsize(45);
+    height: fontsize(45);
+  }
+  .imgbox{
+    margin-top: fontsize(8);
+  }
+}
+
+.main-article {
+  min-height: 10rem;
+  padding-bottom: 1px;
+  img{
+    display: block;
+    margin: 0 auto;
+    min-height: fontsize(100);
+    // max-width: 100%;
+    width: 100%;
+  }
+  // p{
+  //   margin:fontsize(10) 0;
+  //   padding: 0 fontsize(10);
+  // }
+}
+.stars-score-0 {
+  i.icon-star:nth-of-type(n+1){
+    color: rgba(216, 216, 216, 1);
+  }
+}
+.stars-score-1 {
+  i.icon-star:nth-of-type(n+2){
+    color: rgba(216, 216, 216, 1);
+  }
+}
+.stars-score-2 {
+  i.icon-star:nth-of-type(n+3){
+    color: rgba(216, 216, 216, 1);
+  }
+}
+.stars-score-3 {
+  i.icon-star:nth-of-type(n+4){
+    color: rgba(216, 216, 216, 1);
+  }
+}
+.stars-score-4 {
+  i.icon-star:nth-of-type(n+5){
+    color: rgba(216, 216, 216, 1);
+  }
+}
+.stars-score-5 {
+  i.icon-star:nth-of-type(n+6){
+    color: rgba(216, 216, 216, 1);
+  }
+}

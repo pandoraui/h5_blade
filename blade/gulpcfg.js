@@ -95,7 +95,7 @@ module.exports = {
           //
           // // "UIView": "ui/ui.abstract.view",
           // "UILayer": "ui/ui.layer",
-          // "UIAlert": "ui/ui.alert",
+          "UIAlert": "ui/ui.alert",
           // "UIMask": "ui/ui.mask",
           // "UILoading": "ui/ui.loading",
           // "UILoadingLayer": "ui/ui.loading.layer",
@@ -154,7 +154,7 @@ module.exports = {
 
           "text!ui/ui.toast.html",
 
-          // "text!ui/ui.alert.html",
+          "text!ui/ui.alert.html",
           // "text!ui/ui.bubble.layer.html",
           // "text!ui/ui.calendar.html",
           // "text!ui/ui.group.list.html",

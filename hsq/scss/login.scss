@@ -1,0 +1,59 @@
+
+.quick-login{
+  .top {
+    position: relative;
+
+    h3{
+      position: absolute;
+      width: 100%;
+      top: 34%;
+      text-align: center;
+      font-size: fontsize(24);
+      color: #fff;
+      font-weight: normal;
+    }
+  }
+}
+
+.quick-form{
+  .group-list{
+    background: #fff;
+    font-size: fontsize(16);
+  }
+
+  .code-box{
+    position: absolute;
+    right: 0;
+    z-index: 10;
+    float: right;
+    display: inline;
+    height: fontsize(44);
+    line-height: fontsize(44);
+    padding-right: fontsize(16);
+  }
+
+  .v-line {
+    height: fontsize(27);
+    margin: 0 fontsize(10);
+  }
+
+  input.input-text {
+    width: 100%;
+  }
+
+  .other {
+    padding: fontsize(10) fontsize(16);
+  }
+
+  .protocol {
+    color: $hsq-gray;
+
+    label{
+      padding: fontsize(6) 0;
+    }
+  }
+  .btn-yellow {
+    margin-top: fontsize(24);
+    font-size: fontsize(18);
+  }
+}

@@ -24,7 +24,7 @@ html,body,
   min-height:100%
 }
 p{margin-bottom: fontsize(10);}
-dl,dt,dd{margin: 0;}
+dl,dt,dd,ul,ol{margin: 0; padding: 0;}
 
 body{font-size: fontsize(14);overflow-y: scroll; background: $bodyBg;}
 #root,
@@ -32,20 +32,6 @@ body{font-size: fontsize(14);overflow-y: scroll; background: $bodyBg;}
 .header-wrapper{position: fixed; z-index: 100;top:0;}
 .viewport-wrapper > .view{padding: fontsize(44) 0 0;}
 
-.J_error_box p{
-  margin: 1rem;
-}
 
-.cm-loading .preloader{
-  width: 2.5rem;
-  height: 2.5rem;
 
-  ~ p {
-    margin: 0.4rem 0 0.4rem;
-  }
-}
-
-.bar-nav ~ .content{top: 0; padding-top: 2.2rem;}
-.mb10{margin-bottom: fontsize(10);}
-
-.v-line{display: inline-block; overflow: hidden; margin: 0 fontsize(5); border-left: 1px solid $hsq-border-line; width: 0; height: 15px; vertical-align: middle;}
+img.hsq-img{width: 100%;}

@@ -1,10 +1,10 @@
-define(['PageView', getViewTemplatePath('address')],
+define(['PageView', getViewTemplatePath('quick_login')],
   function (PageView, viewhtml){
 
     return _.inherit(PageView, {
-      pageName: 'address',
+      pageName: 'quick_login',
       onCreate: function(){
-        // var viewhtml = '地址列表';
+        // var viewhtml = '下单成功';
         this.$el.html(viewhtml);
         //元素集合
         this.els = {
@@ -23,23 +23,16 @@ define(['PageView', getViewTemplatePath('address')],
         var headerData = {
           center: {
             tagname: 'title',
-            value: ['地址管理']
+            value: ['手机号快捷登录']
           },
           back: {
             tagname: 'back',
             value: '返回',
             callback: function() {
-              self.back('index');
-            }
-          },
-          right: [{
-            tagname: 'address-add',
-            value: '新建地址',
-            callback: function() {
               //这里返回订单详情页
-               console.log('新建地址');
+              self.back();
             }
-          }]
+          }
         };
         this.header.set(headerData);
         this.header.show();

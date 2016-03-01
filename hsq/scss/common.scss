@@ -1,0 +1,130 @@
+.J_error_box p{
+  margin: 1rem;
+}
+
+.cm-loading .preloader{
+  width: 2.5rem;
+  height: 2.5rem;
+
+  ~ p {
+    margin: 0.4rem 0 0.4rem;
+  }
+}
+
+.bar-nav ~ .content{top: 0; padding-top: 2.2rem;}
+.mb10{margin-bottom: fontsize(10);}
+.block{ display: block;}
+.list{ list-style: none;}
+
+.v-line{display: inline-block; overflow: hidden; margin: 0 fontsize(5); border-left: 1px solid $hsq-border-line; width: 0; height: 15px; vertical-align: middle;}
+
+#page-detail .bar-header,
+.cm-header {
+  background-color: rgba(255, 238, 17, 0.9);
+  color: $mainColor;
+  .cm-page-title,
+  .title{
+    font-size: fontsize(18);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .button-link{color:$mainColor;}
+  .button-link:active{background-color: #F7E405;}
+}
+.cm-header .cm-header-icon:active,
+.cm-header .cm-header-btn:active {
+    background-color: #F7E405;
+}
+
+dfn.price{
+  display: inline-block;
+  font-style: normal;
+  font-size: fontsize(20);
+  color:#FF5555;
+  i{
+    font-size: fontsize(14);
+    font-style: normal;
+  }
+}
+
+.hsq-card{
+  background: #fff;
+  font-size: fontsize(14);
+  p{
+    margin: 0
+  }
+  .card-title {
+    padding: fontsize(10);
+    height: fontsize(36);
+    border-bottom: 1px solid $hsq-border-line;
+
+    .tit{
+      font-size: fontsize(16);
+      line-height: 1;
+    }
+  }
+  .link-more {
+    font-size: fontsize(12);
+    color: $hsq-gray;
+  }
+}
+.group-list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li{
+    min-height: fontsize(18);
+    margin: -1px 0 0 0;
+    line-height: fontsize(18);
+  }
+}
+.solid_line,
+.group-list li{
+  border-top: 1px solid $hsq-border-line;
+}
+
+
+.btn{
+  display: inline-block;
+  text-align: center;
+  padding: 0 fontsize(20);
+  height: fontsize(40);
+  font-size: fontsize(16);
+  line-height: fontsize(40);
+  border-radius: fontsize(4);
+}
+.btn-blue{
+  background: #4e92df;
+  color: #fff;
+}
+.btn-yellow{
+  background: #feec39;
+  color: $mainColor;
+}
+.btn-block{
+  box-sizing: border-box;
+  display: block;
+}
+
+.form-base{
+  li{
+    position: relative;
+    min-height: fontsize(44);
+    line-height: fontsize(44);
+    padding-bottom: 1px;
+  }
+  label{
+    margin: 0;
+    color: $hsq-gray;
+  }
+  input.input-text {
+    position: relative;
+    z-index: 9;
+    border: none;
+    box-sizing: border-box;
+    height: fontsize(44);
+    padding: fontsize(3) fontsize(16);
+  }
+}

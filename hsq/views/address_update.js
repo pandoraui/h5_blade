@@ -1,10 +1,10 @@
-define(['PageView'],
-  function (PageView){
+define(['PageView', getViewTemplatePath('address_update')],
+  function (PageView, viewhtml){
 
     return _.inherit(PageView, {
       pageName: 'address_edit',
       onCreate: function(){
-        var viewhtml = '更新地址';
+        // var viewhtml = '更新地址';
         this.$el.html(viewhtml);
         //元素集合
         this.els = {
@@ -21,7 +21,7 @@ define(['PageView'],
       onShow: function(){
         var self = this;
         var type = 'add';
-        var title = type === 'add' ? '新增地址' : '修改地址';
+        var title = type === 'add' ? '新增收获地址' : '修改地址';
         var headerData = {
           center: {
             tagname: 'title',
@@ -33,7 +33,15 @@ define(['PageView'],
             callback: function() {
               self.back('index');
             }
-          }
+          },
+          right: [{
+            tagname: 'address-save',
+            value: '保存',
+            callback: function() {
+              //这里返回订单详情页
+               console.log('保存');
+            }
+          }]
         };
         this.header.set(headerData);
         this.header.show();

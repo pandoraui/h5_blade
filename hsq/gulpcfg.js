@@ -49,8 +49,14 @@ module.exports = {
     "views/address",
     // "text!views/address.html",
     "views/address_update",
-    // "text!views/address_edit.html",
+    "text!views/address_update.html",
     "views/order_success",
+    "text!views/order_success.html",
+
+
+    "views/quick_login",
+    "text!views/quick_login.html",
+
     "text!views/test.html",
 
   ],

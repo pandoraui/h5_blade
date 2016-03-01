@@ -1,4 +1,4 @@
-define(['PageView', getViewTemplatePath('test')],
+define(['PageView', getViewTemplatePath('order_success')],
   function (PageView, viewhtml){
 
     // var viewhtml = '下单成功';
@@ -29,16 +29,11 @@ define(['PageView', getViewTemplatePath('test')],
             tagname: 'title',
             value: ['付款成功']
           },
-          // backtext: '返回',
-          // events: {
-          //   returnHandler: function(){
-          //     self.back('list');
-          //   },
-          // },
           back: {
             tagname: 'back',
             value: '返回',
             callback: function() {
+              //这里返回订单详情页
               self.back('index');
             }
           }

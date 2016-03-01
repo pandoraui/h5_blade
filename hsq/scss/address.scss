@@ -1,0 +1,48 @@
+
+// 地址管理
+.address-list{
+  li {
+    margin-bottom: fontsize(10);
+    padding: fontsize(16) fontsize(10);
+    background: #fff;
+  }
+  p{
+    margin-bottom: 0;
+  }
+  h4{
+    font-weight: normal;
+  }
+  span.name{
+    font-size: fontsize(16);
+    display: inline-block;
+    min-width: fontsize(80);
+  }
+  p{color: $hsq-gray;}
+}
+
+//新增、编辑地址
+.address-update{
+  background: #fff;
+
+  label{
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+  }
+
+  .tit{
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    display: inline-block;
+    width: fontsize(86);
+    padding-left: fontsize(16);
+  }
+
+  input.input-text{
+    display: block;
+    width: 100%;
+    padding-left: fontsize(90);
+  }
+}

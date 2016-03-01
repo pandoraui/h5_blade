@@ -72,18 +72,6 @@
     font-weight: normal;
   }
 
-  .btn{
-    display: inline-block;
-    padding: 0 fontsize(20);
-    height: fontsize(40);
-    font-size: fontsize(16);
-    line-height: fontsize(40);
-    border-radius: fontsize(4);
-  }
-  .btn-blue{
-    background: #4e92df;
-    color: #fff;
-  }
   p{
     margin: fontsize(25) 0 0;
     color: $hsq-gray;

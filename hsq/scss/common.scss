@@ -16,7 +16,7 @@
 .block{ display: block;}
 .list{ list-style: none;}
 
-.v-line{display: inline-block; overflow: hidden; margin: 0 fontsize(5); border-left: 1px solid $hsq-border-line; width: 0; height: 15px; vertical-align: middle;}
+.v-line{display: inline-block; overflow: hidden; margin: 0 fontsize(5); border-left: 1px solid $hsq-lighter; width: 0; height: 15px; vertical-align: middle;}
 
 #page-detail .bar-header,
 .cm-header {
@@ -30,11 +30,11 @@
     overflow: hidden;
   }
   .button-link{color:$mainColor;}
-  .button-link:active{background-color: #F7E405;}
+  .button-link:active{background-color: $yellow-active;}
 }
 .cm-header .cm-header-icon:active,
 .cm-header .cm-header-btn:active {
-    background-color: #F7E405;
+    background-color: $yellow-active;
 }
 
 dfn.price{
@@ -57,7 +57,7 @@ dfn.price{
   .card-title {
     padding: fontsize(10);
     height: fontsize(36);
-    border-bottom: 1px solid $hsq-border-line;
+    border-bottom: 1px solid $hsq-lighter;
 
     .tit{
       font-size: fontsize(16);
@@ -82,7 +82,7 @@ dfn.price{
 }
 .solid_line,
 .group-list li{
-  border-top: 1px solid $hsq-border-line;
+  border-top: 1px solid $hsq-lighter;
 }
 
 
@@ -100,14 +100,16 @@ dfn.price{
   color: #fff;
 }
 .btn-yellow{
-  background: #feec39;
+  background: $yellow;
   color: $mainColor;
 }
 .btn-block{
   box-sizing: border-box;
   display: block;
 }
-
+.btn-yellow:active{
+  background: $yellow-active;
+}
 .form-base{
   li{
     position: relative;

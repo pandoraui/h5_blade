@@ -5,6 +5,13 @@
     margin-bottom: fontsize(10);
     padding: fontsize(16) fontsize(10);
     background: #fff;
+
+    &.icon-check:before{
+      position: absolute;
+      right: fontsize(8);
+      top: 50%;
+      margin-top: fontsize(-24);
+    }
   }
   span.name{
     font-size: fontsize(16);

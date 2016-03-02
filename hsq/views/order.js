@@ -22,7 +22,7 @@ define(['PageView', getViewTemplatePath('order')],
         var headerData = {
           center: {
             tagname: 'title',
-            value: ['列表页']
+            value: ['订单支付']
           },
           back: {
             tagname: 'back',

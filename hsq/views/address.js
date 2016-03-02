@@ -29,7 +29,7 @@ define(['PageView', getViewTemplatePath('address')],
             tagname: 'back',
             value: '返回',
             callback: function() {
-              self.back('index');
+              self.back();
             }
           },
           right: [{
@@ -37,7 +37,7 @@ define(['PageView', getViewTemplatePath('address')],
             value: '新建地址',
             callback: function() {
               //这里返回订单详情页
-               console.log('新建地址');
+              self.forward('address_update');
             }
           }]
         };

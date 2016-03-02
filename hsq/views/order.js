@@ -28,7 +28,7 @@ define(['PageView', getViewTemplatePath('order')],
             tagname: 'back',
             value: '返回',
             callback: function() {
-              self.back('index');
+              self.back();
             }
           }
         };

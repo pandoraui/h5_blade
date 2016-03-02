@@ -6,42 +6,46 @@
     padding: fontsize(16) fontsize(10);
     background: #fff;
   }
-  p{
-    margin-bottom: 0;
-  }
-  h4{
-    font-weight: normal;
-  }
   span.name{
     font-size: fontsize(16);
     display: inline-block;
     min-width: fontsize(80);
   }
-  p{color: $hsq-gray;}
+}
+.address-list li,
+.address-using{
+  position: relative;
+
+  &.selected{
+    background: $hsq-lighter;
+  }
+  h4{
+    font-weight: normal;
+    font-size: fontsize(16);
+  }
+  p{
+    margin-bottom: 0;
+    color: $hsq-gray;
+  }
+}
+.address-using {
+  padding: fontsize(16) fontsize(10) fontsize(10);
+  &:before{
+    position: absolute;
+    right: 0;
+    top:50%;
+    display: inline-block;
+    width: fontsize(30);
+    height: fontsize(40);
+    margin-top: fontsize(-10);
+    font-size: fontsize(20);
+    color: $hsq-gray;
+  }
 }
 
 //新增、编辑地址
 .address-update{
-
-  label{
-    display: block;
-    box-sizing: border-box;
-    width: 100%;
-    position: relative;
-  }
-
-  .tit{
-    position: absolute;
-    z-index: 10;
-    left: 0;
-    display: inline-block;
-    width: fontsize(86);
-    padding-left: fontsize(16);
-  }
-
-  input.input-text{
-    display: block;
-    width: 100%;
+  input.input-text {
     padding-left: fontsize(90);
   }
 }

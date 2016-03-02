@@ -1,4 +1,5 @@
 ﻿define(['UIView', 'UIHeader', 'UIDownTip', 'UILoadingLayer', 'UIToast'], function (AbstractView, UIHeader, UIDownTip, UILoadingLayer, UIToast) {
+  var $header = $('.header-wrapper');
 
   return _.inherit(AbstractView, {
     header: null,
@@ -37,38 +38,40 @@
       });
 
       this.on('onShow', function () {
-        console.log(1234);
-
         //生成头部
         this._createHeader();
 
-        this.initHeader();
-        var downTip = new UIDownTip();
-        downTip.checkStatus();
+        this.setHeader();
+
         this.onShow && this.onShow();
-
-
       });
 
       this.on('onHide', function () {
         this.mask && this.mask.hide();
+        this.onHide && this.onHide();
       });
 
       this.on('onDestroy', function () {
         this.mask && this.mask.destroy();
+        this.onDestroy && this.onDestroy();
       });
 
+    },
+    downTipCheckStatus: function(){
+      var downTip = new UIDownTip();
+      downTip.checkStatus();
+      return downTip;
     },
     /**
      * 生成头部
      */
     _createHeader: function () {
-      var $header = $('.header-wrapper');
+
       this.header = new UIHeader({
         wrapper: $header
       });
     },
-    initHeader: function () {
+    setHeader: function () {
       var self = this;
       // var headerData = {
       //   center: {
@@ -78,6 +81,13 @@
       // };
       // this.header.set(headerData);
       // this.header.show();
+
+      setTimeout(function(){
+        if(self.header && self.header.center.value && self.header.center.value[0]){
+          var title = self.header.center.value[0];
+          self.updateTitle(title);
+        }
+      },100)
     },
     updateTitle: function(title){
       document.title = title || '好食期';
@@ -86,7 +96,6 @@
       var target = $(e.currentTarget);
       target.hide();
     },
-
     showLoading: function(tip){
       Blade.loading.show();
     },

@@ -6,24 +6,10 @@ define(['PageView', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplat
     var ajaxGetDetailArticle = AppModel.getDetailArticle.getInstance();
 
     return _.inherit(PageView, {
-      propertys: function ($super) {
-        $super();
-
-        // this.template = viewhtml;
-        // this.$el.html(viewhtml);
-        this.addEvents({
-          // 'click #J_down_tip': 'closeDownTip',
-          'click .swiper-wrapper': 'demo02'
-        });
-      },
-      hashChangeParamsRefresh: true,
-      addEvent: function ($super) {
-        $super();
-        //在页面显示后做的事情
-      },
-      initElement: function(){
-
+      pageName: 'detail',
+      onCreate: function(){
         this.$el.html(viewhtml);
+
         this.$el.$errorDom = this.$el.find('.J_error_box');
         this.$el.$showViewDom = this.$el.find('.J_showview_box');
         this.$tplbox = {
@@ -35,8 +21,12 @@ define(['PageView', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplat
           detail_article: this.$el.find('#tpl_detail_article').html(),
         };
       },
-      initHeader: function () {
+      onShow: function(){
         var self = this;
+
+        //倒计时功能需要更新时清除下，不然会有闭包问题
+        this.clearPreInit();
+
         var headerData = {
           center: {
             tagname: 'title',
@@ -46,17 +36,18 @@ define(['PageView', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplat
             tagname: 'back',
             value: '返回',
             callback: function() {
-              self.back('list');
+              self.back('index');
             }
           }
         };
         this.header.set(headerData);
         this.header.show();
-      },
-      onShow: function(){
-        //倒计时功能需要更新时清除下，不然会有闭包问题
-        this.clearPreInit();
+
         this.initPage();
+        this.downTip = this.downTipCheckStatus();
+      },
+      onHide: function(){
+        this.downTip.hide();
       },
       dealParams: function(params){
         for(var key in params){
@@ -76,6 +67,16 @@ define(['PageView', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplat
         //     return new $.Swiper(container, params);
         // };
 
+        this.ajaxRequest();
+
+        // if(params.id){
+        //   this.productId = params.id;
+        //   this.getDetailArticle();
+        // }
+        // $(".swiper-container").swiper(config)
+      },
+      ajaxRequest: function(){
+        var scope = this;
         var params = _.getUrlParam();
 
         ajaxGetDetailDesc.param = {
@@ -113,12 +114,6 @@ define(['PageView', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplat
           console.log(error);
           this.errorTip(error.errmsg);
         },this);
-
-        // if(params.id){
-        //   this.productId = params.id;
-        //   this.getDetailArticle();
-        // }
-        // $(".swiper-container").swiper(config)
       },
       errorTip: function(msg){
         var html = '';
@@ -133,7 +128,6 @@ define(['PageView', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplat
       },
       renderPage: function(data){
         console.log('渲染页面');
-        this.updateTitle(data.name);
 
         //注意，自己自定义的挂在 data 上的变量，使用_开头，避免后期服务器端修改，导致数据冲突
         data._deal_stock = this.dealStock(data)._deal_stock;

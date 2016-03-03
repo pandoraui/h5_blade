@@ -1,5 +1,5 @@
-define(['PageView', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplatePath('detail')],
-  function (PageView, AppModel, Swiper, UISwiper, LazyLoad, viewhtml){
+define(['PageView', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', 'Detect', getViewTemplatePath('detail')],
+  function (PageView, AppModel, Swiper, UISwiper, LazyLoad, Detect, viewhtml){
 
     // var ajaxTest = AppModel.getTestPage.getInstance();
     var ajaxGetDetailDesc = AppModel.getDetailDesc.getInstance();
@@ -7,14 +7,25 @@ define(['PageView', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplat
 
     return _.inherit(PageView, {
       pageName: 'detail',
+      events: {
+        'click .pay-btn': 'goOrder',
+        'click .oper-number>[data-oper]:not(.disabled)': 'operNumber',
+      },
       onCreate: function(){
         this.$el.html(viewhtml);
 
         this.$el.$errorDom = this.$el.find('.J_error_box');
         this.$el.$showViewDom = this.$el.find('.J_showview_box');
+        this.els = {
+          operNumber: this.$el.find('.oper-number'),
+          operNumberMinus: this.$el.find('.oper-number>.icon-minus'),
+          operNumberValue: this.$el.find('.oper-number>input'),
+          operNumberPlus: this.$el.find('.oper-number>.icon-plus'),
+        };
         this.$tplbox = {
           detail_desc: this.$el.find('#tplbox_detail'),
           detail_article: this.$el.find('#tplbox_detail_article'),
+          fexed_footer: this.$el.find('.fexed_footer'),
         };
         this.$tpl = {
           detail_desc: this.$el.find('#tpl_detail').html(),
@@ -44,10 +55,16 @@ define(['PageView', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplat
         this.header.show();
 
         this.initPage();
-        this.downTip = this.downTipCheckStatus();
+
+        if(!!Detect.isWifiKey){
+          this.downTip = this.downTipCheckStatus();
+        }else{
+          this.supportOrder = true;
+          this.$tplbox.fexed_footer.show();
+        }
       },
       onHide: function(){
-        this.downTip.hide();
+        this.downTip && this.downTip.hide();
       },
       dealParams: function(params){
         for(var key in params){
@@ -136,11 +153,6 @@ define(['PageView', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplat
         var container = this.$el.find('.swiper-container');
         container.css({'height': this.fullWidth});
         var imgList = data.pics || [];
-        // [
-        //   'http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1n3rZHFXXXXX9XFXXXXXXXXXX_!!0-item_pic.jpg_640x640q60.jpg',
-        //   'http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i4/TB10rkPGVXXXXXGapXXXXXXXXXX_!!0-item_pic.jpg_640x640q60.jpg',
-        //   'http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1kQI3HpXXXXbSXFXXXXXXXXXX_!!0-item_pic.jpg_640x640q60.jpg'
-        // ];
 
         if(imgList.length > 5){
           imgList.length = 5;
@@ -367,6 +379,36 @@ define(['PageView', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', getViewTemplat
         $('img.lazy').scrollLoading({
           // container: $('.viewport-wrapper'),
         });
+      },
+      operNumber: function(e){
+        var target = $(e.currentTarget);
+        var oper = target.data('oper');
+        var maxNum = parseInt(target.parent().data('max'));
+        this.curNum = parseInt(this.els.operNumberValue.val());
+
+        switch(oper){
+          case 'minus':
+            this.curNum--;
+            if(this.curNum == 1){
+              this.els.operNumberMinus.addClass('disabled');
+            }
+            this.els.operNumberValue.val(this.curNum);
+            this.els.operNumberPlus.removeClass('disabled');
+            break;
+          case 'plus':
+          default:
+            this.curNum++;
+            if(this.curNum >= maxNum){
+              this.els.operNumberPlus.addClass('disabled');
+            }
+            this.els.operNumberValue.val(this.curNum);
+            this.els.operNumberMinus.removeClass('disabled');
+            break;
+        }
+        console.log(this.curNum)
+      },
+      goOrder: function(){
+        console.log('去下单');
       },
     });
 });

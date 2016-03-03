@@ -1,4 +1,18 @@
 
+//详情页下单
+.order-buy{
+  box-sizing: content-box;
+  padding: fontsize(4) fontsize(10) fontsize(5);
+  height: fontsize(40);
+  line-height: fontsize(40);
+  background: $hsq-lightest;
+
+  .pay-btn{
+    height: fontsize(40);
+    line-height: fontsize(40);
+    border-radius: 2px;
+  }
+}
 
 //下单页面
 .page-view-order{
@@ -124,14 +138,7 @@
   background: #fff;
 
   .pay-btn{
-    float: right;
-    display: inline-block;
     height: 100%;
-    line-height: fontsize(48);
-    font-size: fontsize(18);
-    padding: 0 fontsize(20);
-    background: $pink;
-    color: #fff;
   }
   .pay-countdown{
     display: inline-block;

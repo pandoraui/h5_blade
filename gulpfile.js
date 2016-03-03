@@ -191,6 +191,7 @@ gulp.task('copy', ['copy:venders'], function () {
       {src: appPath + 'images/*', dest: appDist + 'images/'},
       {src: appPath + 'img/*', dest: appDist + 'assets/img/'},
       {src: appPath + 'ex_mvc/*', dest: appDist + 'ex_mvc/'},
+      {src: appPath + 'common/*', dest: appDist + 'common/'},
       {src: appPath + 'views/*', dest: appDist + 'views/'},
       {src: appPath + 'model/*', dest: appDist + 'model/'},
   ];

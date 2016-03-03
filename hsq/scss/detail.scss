@@ -1,4 +1,8 @@
 /* 详情页 */
+.page-view-detail{
+  // padding-bottom: fontsize(50) !important;
+}
+
 .page-view-detail,
 .page-detail {
   .swiper-container {
@@ -90,7 +94,10 @@
     margin-top: fontsize(8);
   }
 }
-
+.detail-article{
+  margin-bottom: 0;
+  padding-bottom: fontsize(40);
+}
 .main-article {
   min-height: 10rem;
   padding-bottom: 1px;

@@ -16,6 +16,7 @@
       'ApiConfig': project + 'model/config',
       'Swiper': blade + 'function/swiper',
       'AppModel': project + 'model/model',
+      'Detect': project + 'common/detect',
       // 'AppCommonStore': project + 'model/commonStore',
       // 'AppStore': project + 'model/store',
       // 'SwiperInit': 'blade/function/swiper-init',

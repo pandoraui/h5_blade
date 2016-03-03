@@ -1,7 +1,7 @@
 /*
   down-tip 组件
 */
-define([], function () {
+define(['UIView'], function (UIView) {
   var imgLogoSrc = "assets/img/logo.png";
 
   var template = [
@@ -19,28 +19,35 @@ define([], function () {
   var store = window.localStorage;
   // var closeShowDownTip = store.getItem('closeShowDownTip') || 0;
 
-  var downUrl = '';
+  var downUrl = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.doweidu.android.haoshiqi';
 
-  if($.os.ios){
-    downUrl = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.doweidu.android.haoshiqi';
-  }else if($.os.android){
-    downUrl = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.doweidu.android.haoshiqi';
-  } else {
-    downUrl = '';
-  }
+  // if($.os.ios){
+  //   downUrl = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.doweidu.android.haoshiqi';
+  // }else if($.os.android){
+  //   downUrl = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.doweidu.android.haoshiqi';
+  // } else {
+  //   downUrl = '';
+  // }
 
   //ios     http://pre.im/hsq1
   //android http://pre.im/hsq2
 
-  return _.inherit({
-    propertys: function () {
+  return _.inherit(UIView, {
+    propertys: function ($super) {
+      $super();
       this.template = template;
+
+      // this.addEvents({
+      //   'click #J_down_tip': 'hide',
+      // });
     },
     initialize: function (swiperContainer, imgList) {
       this.propertys();
+
       //根据参数重置属性
       this.checkStatus();
     },
+
     checkStatus: function(){
       this.$downTipDom = $('#J_down_tip');
       // if(!closeShowDownTip){
@@ -59,12 +66,14 @@ define([], function () {
 
       if(!this.$downTipDom.length){
         $('body').append(html);
+        this.$downTipDom = $('#J_down_tip');
+
+        this.$downTipDom.on('click', '.close', $.proxy(this.hide, this));
+
       }else{
         this.$downTipDom.show();
       }
-      this.$downTipDom.find('.close').click(function(e){
-        scope.hide();
-      });
+
     },
     hide: function(){
       if(this.$downTipDom.length){

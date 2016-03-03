@@ -4,11 +4,9 @@
   return _.inherit(AbstractView, {
     header: null,
     propertys: function ($super) {
+      this.addEvents(this.events);
       $super();
       this.openShadowDom = false;
-
-      var events = $.extend({}, this.commonEvents, this.events);
-      this.addEvents(events);
     },
 
     resetPropery: function ($super) {
@@ -24,9 +22,7 @@
       }
 
     },
-
-    commonEvents: {
-      'click #J_down_tip': 'closeDownTip',
+    events: {
       'click [data-link]': 'goLink',
     },
 
@@ -58,9 +54,9 @@
 
     },
     downTipCheckStatus: function(){
-      var downTip = new UIDownTip();
-      downTip.checkStatus();
-      return downTip;
+      this.downTip = new UIDownTip();
+      this.downTip.checkStatus();
+      return this.downTip;
     },
     /**
      * 生成头部
@@ -83,7 +79,7 @@
       // this.header.show();
 
       setTimeout(function(){
-        if(self.header && self.header.center.value && self.header.center.value[0]){
+        if(self.header && self.header.center && self.header.center.value && self.header.center.value[0]){
           var title = self.header.center.value[0];
           self.updateTitle(title);
         }
@@ -93,8 +89,8 @@
       document.title = title || '好食期';
     },
     closeDownTip: function(e){
-      var target = $(e.currentTarget);
-      target.hide();
+      this.downTip.hide();
+      // target.hide();
     },
     showLoading: function(tip){
       Blade.loading.show();

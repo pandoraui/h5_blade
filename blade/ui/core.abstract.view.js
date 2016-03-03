@@ -69,7 +69,10 @@ define([], function() {
       //模板字符串，各个组件不同，现在加入预编译机制
       this.template = '';
       //事件机制
-      this.events = {};
+      if(!this.events){
+        this.events = {};
+      }
+      // this.events = {};
 
       //自定义事件
       //此处需要注意mask 绑定事件前后问题，考虑scroll.radio插件类型的mask应用，考虑组件通信

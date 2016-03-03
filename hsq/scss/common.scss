@@ -115,7 +115,14 @@ dfn.price{
 .btn-yellow:active{
   background: $yellow-active;
 }
-
+.pay-btn{
+  display: inline-block;
+  line-height: fontsize(48);
+  font-size: fontsize(18);
+  padding: 0 fontsize(20);
+  background: $pink;
+  color: #fff;
+}
 
 .label-line{
   position: relative;

@@ -19,9 +19,10 @@ module.exports = {
   "paths": {
     "lib": "../blade/js/libs",
     // "text": "../blade/libs/require.text",
-    "PageView": "ex_mvc/view",
     "ApiConfig": "model/config",
+    "Detect": "common/detect",
     "AppModel": "model/model",
+    "PageView": "ex_mvc/view",
   },
   // "viewsExclude": [
   //   "views/*.html"
@@ -30,6 +31,7 @@ module.exports = {
     //项目基础部分
     "./main",
     "ApiConfig",
+    "Detect",
     "AppModel",
     "Swiper",
 

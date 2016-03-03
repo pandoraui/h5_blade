@@ -3,14 +3,15 @@
 
     // return cPageView.extend({
     return _.inherit(PageView, {
-      propertys: function ($super) {
-        $super();
-
-        this.addEvents(this._events);
-        // this.template = viewhtml;
-      },
+      // propertys: function ($super) {
+      //   $super();
+      //
+      //   console.log(this.events);
+      //   // this.addEvents(this.events);
+      //   // this.template = viewhtml;
+      // },
       pageName: 'index',
-      _events: {
+      events: {
         'click .j_test': 'jTest',
       },
       onCreate: function(){

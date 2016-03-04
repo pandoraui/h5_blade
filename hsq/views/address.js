@@ -1,8 +1,33 @@
 define(['PageView', getViewTemplatePath('address')],
   function (PageView, viewhtml){
 
+    var addressList = [
+      {
+        id: 1,
+        name: '徐某某',
+        mobile: '134****3245',
+        address: '上海徐汇区城区钦州路100号2号楼XXX室'
+      },
+      {
+        id: 2,
+        name: '徐某某',
+        mobile: '134****3245',
+        address: '上海徐汇区城区钦州路100号2号楼XXX室'
+      },
+      {
+        id: 3,
+        name: '徐某某',
+        mobile: '134****3245',
+        address: '上海徐汇区城区钦州路100号2号楼XXX室'
+      },
+    ];
+    var tempArr = [];
+
     return _.inherit(PageView, {
       pageName: 'address',
+      events: {
+        'click .address-list li': 'checkedAddress',
+      },
       onCreate: function(){
         // var viewhtml = '地址列表';
         this.$el.html(viewhtml);
@@ -51,10 +76,21 @@ define(['PageView', getViewTemplatePath('address')],
       initPage: function(){
         var scope = this;
 
+        tempArr = _.indexBy(addressList, 'id');
       },
       ajaxRequest: function(){},
-      renderPage: function(){
+      renderPage: function(data){
 
+      },
+      checkedAddress: function(e){
+        var target = $(e.currentTarget);
+        var curId = target.data('id');
+        target.addClass('icon-check').siblings().removeClass('icon-check');
+        this.curAddress = tempArr[curId] || {};
+
+        console.log(this.curAddress);
+
+        this.back();
       },
     });
 });

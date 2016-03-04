@@ -62,7 +62,9 @@
             this.showToast('测试：' + testNum++);
             break;
           case 'alert':
-            // this.showAlert('测试');
+            this.showAlert({
+              title: 'alert测试' + testNum++
+            });
             break;
           case 'show404':
             this.show404();

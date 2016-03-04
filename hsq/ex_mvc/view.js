@@ -1,4 +1,4 @@
-﻿define(['UIView', 'UIHeader', 'UIDownTip', 'UILoadingLayer', 'UIToast'], function (AbstractView, UIHeader, UIDownTip, UILoadingLayer, UIToast) {
+﻿define(['UIView', 'UIHeader', 'UIDownTip', 'UILoadingLayer', 'UIToast', 'UIAlert'], function (AbstractView, UIHeader, UIDownTip, UILoadingLayer, UIToast, UIAlert) {
   var $header = $('.header-wrapper');
 
   var warning404 = [
@@ -125,6 +125,37 @@
         this.__toast.refresh();
       }
       this.__toast.show();
+    },
+    showAlert: function(opts){
+      var _default = {
+        title: '提醒',
+        content: '确认要这样操作吗？',
+        btns: [
+          { name: '取消', className: 'cui-btns-no' },
+          { name: '确定', className: 'cui-btns-ok' }
+        ],
+        events: {
+          'click .cui-btns-no': 'noAction',
+          'click .cui-btns-ok': 'okAction',
+        },
+        noAction: function() {
+          this.hide();
+        },
+        okAction: function() {
+          this.hide();
+        }
+      };
+      var options = $.extend({}, _default, opts || {});
+
+      if(!this.__alert){
+        this.__alert = new UIAlert(options);
+      }else{
+        //怎么更新内容呢？
+        this.__alert = $.extend(this.__alert, options);
+
+        this.__alert.refresh();
+      }
+      this.__alert.show();
     },
     // formatCode: function () {
     //   window.sss = this;

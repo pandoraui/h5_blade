@@ -95,11 +95,13 @@ module.exports = {
           //
           // // "UIView": "ui/ui.abstract.view",
           // "UILayer": "ui/ui.layer",
-          "UIAlert": "ui/ui.alert",
           // "UIMask": "ui/ui.mask",
           // "UILoading": "ui/ui.loading",
           // "UILoadingLayer": "ui/ui.loading.layer",
           "UIToast": "ui/ui.toast",
+          "T_UIToast": "ui/ui.toast.html",
+          "UIAlert": "ui/ui.alert",
+          "T_UIAlert": "ui/ui.alert.html",
           // "UIInlineView": "ui/ui.inline.view",
           // "UINum": "ui/ui.num",
           // "UISwitch": "ui/ui.switch",
@@ -115,7 +117,6 @@ module.exports = {
           // "UICalendar": "ui/ui.calendar",
           // "UISlider": "ui/ui.slider",
           // "UIWarning404": "ui/ui.warning404",
-          "T_UIToast": "ui/ui.toast.html"
         },
         "include": [
           //项目模块

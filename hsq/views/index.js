@@ -1,6 +1,7 @@
 // ﻿define(['cPageView', getViewTemplatePath('index')], function (cPageView, viewhtml){
 ﻿define(['PageView', getViewTemplatePath('index')], function (PageView, viewhtml){
 
+    var testNum = 0;
     // return cPageView.extend({
     return _.inherit(PageView, {
       // propertys: function ($super) {
@@ -58,7 +59,7 @@
 
         switch (type) {
           case 'toast':
-            this.showToast('测试');
+            this.showToast('测试：' + testNum++);
             break;
           case 'alert':
             // this.showAlert('测试');

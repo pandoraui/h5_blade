@@ -83,7 +83,7 @@ define(['PageView', getViewTemplatePath('quick_login'), 'BtnGetCode'],
         //进入页面，先检查，是否可以发送验证码
         if(this.countDownTimeStamp){
           var now = +new Date();
-          var diffSecond = 30 - Math.round((now - this.countDownTimeStamp)/1000);
+          var diffSecond = 60 - Math.round((now - this.countDownTimeStamp)/1000);
           this.btnGetCode.startCountDown(diffSecond);
         }
       },
@@ -112,7 +112,7 @@ define(['PageView', getViewTemplatePath('quick_login'), 'BtnGetCode'],
         return false;
       },
       getMobileCode: function(){
-        this.btnGetCode.startCountDown(6);
+        this.btnGetCode.startCountDown();
 
         //ajax去发送短信
         this.showToast('发送手机校验码成功！');

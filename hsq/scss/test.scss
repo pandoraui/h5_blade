@@ -1,0 +1,15 @@
+
+
+.link-list{
+  line-height: fontsize(30);
+  li{
+    padding: 0 fontsize(10);
+
+    &:hover{
+      background: $hsq-lighter;
+    }
+    &:active{
+      background: $hsq-light;
+    }
+  }
+}

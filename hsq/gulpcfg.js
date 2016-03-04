@@ -21,8 +21,11 @@ module.exports = {
     // "text": "../blade/libs/require.text",
     "ApiConfig": "model/config",
     "Detect": "common/detect",
+    "BtnGetCode": "common/btnGetCode",
+
     "AppModel": "model/model",
     "PageView": "ex_mvc/view",
+
   },
   // "viewsExclude": [
   //   "views/*.html"
@@ -32,6 +35,7 @@ module.exports = {
     "./main",
     "ApiConfig",
     "Detect",
+    "BtnGetCode",
     "AppModel",
     "Swiper",
 

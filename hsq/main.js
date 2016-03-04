@@ -16,7 +16,10 @@
       'ApiConfig': project + 'model/config',
       'Swiper': blade + 'function/swiper',
       'AppModel': project + 'model/model',
+
+      //组件
       'Detect': project + 'common/detect',
+      'BtnGetCode': project + 'common/btnGetCode',
       // 'AppCommonStore': project + 'model/commonStore',
       // 'AppStore': project + 'model/store',
       // 'SwiperInit': 'blade/function/swiper-init',

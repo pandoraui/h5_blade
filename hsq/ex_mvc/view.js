@@ -4,9 +4,9 @@
   return _.inherit(AbstractView, {
     header: null,
     propertys: function ($super) {
-      this.addEvents(this.events);
       $super();
       this.openShadowDom = false;
+      this.addEvents(this.events);
     },
 
     resetPropery: function ($super) {
@@ -100,7 +100,7 @@
     },
     showToast: function(content, timer){
       var content = content || '正在处理中...';
-      var timer = timer || 2000;
+      var timer = timer || 1500;
 
       if(!this.__toast){
         this.__toast = new UIToast({
@@ -110,6 +110,8 @@
       }else{
         this.__toast.content = content;
         this.__toast.hideSec = timer;
+
+        this.__toast.refresh();
       }
       this.__toast.show();
     },

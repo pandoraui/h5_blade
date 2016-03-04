@@ -19,15 +19,15 @@ define(['UIView'], function (UIView) {
   var store = window.localStorage;
   // var closeShowDownTip = store.getItem('closeShowDownTip') || 0;
 
-  var downUrl = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.doweidu.android.haoshiqi';
+  // var downUrl = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.doweidu.android.haoshiqi';
 
-  // if($.os.ios){
-  //   downUrl = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.doweidu.android.haoshiqi';
-  // }else if($.os.android){
-  //   downUrl = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.doweidu.android.haoshiqi';
-  // } else {
-  //   downUrl = '';
-  // }
+  if($.os.ios){
+    downUrl = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.doweidu.android.haoshiqi';
+  }else if($.os.android){
+    downUrl = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.doweidu.android.haoshiqi';
+  } else {
+    downUrl = '';
+  }
 
   //ios     http://pre.im/hsq1
   //android http://pre.im/hsq2
@@ -41,7 +41,7 @@ define(['UIView'], function (UIView) {
       //   'click #J_down_tip': 'hide',
       // });
     },
-    initialize: function (swiperContainer, imgList) {
+    initialize: function () {
       this.propertys();
 
       //根据参数重置属性

@@ -25,6 +25,7 @@ html,body,
 }
 p{margin-bottom: fontsize(10);}
 dl,dt,dd,ul,ol{margin: 0; padding: 0;}
+dfn,i{font-style: normal;}
 
 body{font-size: fontsize(14);overflow-y: scroll; background: $bodyBg; }
 #root,

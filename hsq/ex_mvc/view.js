@@ -1,6 +1,16 @@
 ﻿define(['UIView', 'UIHeader', 'UIDownTip', 'UILoadingLayer', 'UIToast'], function (AbstractView, UIHeader, UIDownTip, UILoadingLayer, UIToast) {
   var $header = $('.header-wrapper');
 
+  var warning404 = [
+    '<div class="warning404">',
+    '  <div class="fun">',
+    '    <img src="https://placeholdit.imgix.net/~text?txtsize=23&txt=240%C3%97240&w=240&h=240" alt="">',
+    '  </div>',
+    '  <p>加载失败，请稍后重新加载</p>',
+    '  <p><span class="btn btn-pink refreshPage">刷新试试</span></p>',
+    '</div>'
+  ].join('');
+
   return _.inherit(AbstractView, {
     header: null,
     propertys: function ($super) {
@@ -24,6 +34,7 @@
     },
     events: {
       'click [data-link]': 'goLink',
+      'click .refreshPage': 'refreshPage'
     },
 
     addEvent: function ($super) {
@@ -124,8 +135,12 @@
           link = target.data('link');
 
       Blade.forward(link);
-
-
+    },
+    show404: function(type){
+      this.$el.html(warning404);
+    },
+    refreshPage: function(){
+      window.location.reload();
     },
   });
 

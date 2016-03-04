@@ -1,5 +1,5 @@
-define(['PageView', getViewTemplatePath('quick_login'), 'BtnGetCode'],
-  function (PageView, viewhtml, BtnGetCode){
+define(['PageView', getViewTemplatePath('quick_login'), 'CountDown'],
+  function (PageView, viewhtml, CountDown){
 
     var FORMAT = {
       mobile: {
@@ -77,14 +77,14 @@ define(['PageView', getViewTemplatePath('quick_login'), 'BtnGetCode'],
 
       },
       checkBtnCode: function(){
-        this.btnGetCode = new BtnGetCode({
+        this.CountDown = new CountDown({
           node: this.els.$nodeBtnCode,
         });
         //进入页面，先检查，是否可以发送验证码
         if(this.countDownTimeStamp){
           var now = +new Date();
           var diffSecond = 60 - Math.round((now - this.countDownTimeStamp)/1000);
-          this.btnGetCode.startCountDown(diffSecond);
+          this.CountDown.start(diffSecond);
         }
       },
       clickBtnCode: function(e){
@@ -93,7 +93,7 @@ define(['PageView', getViewTemplatePath('quick_login'), 'BtnGetCode'],
         e.preventDefault();
         var target = $(e.currentTarget);
 
-        if(this.btnGetCode.isDisabled) return;
+        if(this.CountDown.isDisabled) return;
 
         if(this.checkMobile()){
           if(!this.isNeedImgCode()){
@@ -112,7 +112,7 @@ define(['PageView', getViewTemplatePath('quick_login'), 'BtnGetCode'],
         return false;
       },
       getMobileCode: function(){
-        this.btnGetCode.startCountDown();
+        this.CountDown.start();
 
         //ajax去发送短信
         this.showToast('发送手机校验码成功！');

@@ -18,8 +18,8 @@
       'AppModel': project + 'model/model',
 
       //组件
-      'Detect': project + 'common/detect',
-      'BtnGetCode': project + 'common/btnGetCode',
+      'Detect': project + 'common/Detect',
+      'CountDown': project + 'common/CountDown',
       // 'AppCommonStore': project + 'model/commonStore',
       // 'AppStore': project + 'model/store',
       // 'SwiperInit': 'blade/function/swiper-init',

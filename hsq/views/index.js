@@ -64,6 +64,9 @@
           case 'alert':
             // this.showAlert('测试');
             break;
+          case 'show404':
+            this.show404();
+            break;
           default:
 
         }

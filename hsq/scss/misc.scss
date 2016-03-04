@@ -75,3 +75,24 @@
     box-shadow: none;
   }
 }
+
+// 404界面
+.warning404{
+  padding: 20% fontsize(10) fontsize(10);
+  text-align: center;
+
+  .fun {
+    margin-bottom: fontsize(30);
+
+    img{
+      width: fontsize(120);
+      height: fontsize(120);
+    }
+  }
+
+  .btn{
+    border-radius: fontsize(4);
+    height: fontsize(33);
+    line-height: fontsize(33);
+  }
+}

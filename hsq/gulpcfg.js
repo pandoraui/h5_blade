@@ -20,8 +20,8 @@ module.exports = {
     "lib": "../blade/js/libs",
     // "text": "../blade/libs/require.text",
     "ApiConfig": "model/config",
-    "Detect": "common/detect",
-    "BtnGetCode": "common/btnGetCode",
+    "Detect": "common/Detect",
+    "CountDown": "common/CountDown",
 
     "AppModel": "model/model",
     "PageView": "ex_mvc/view",
@@ -35,7 +35,7 @@ module.exports = {
     "./main",
     "ApiConfig",
     "Detect",
-    "BtnGetCode",
+    "CountDown",
     "AppModel",
     "Swiper",
 

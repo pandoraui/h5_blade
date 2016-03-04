@@ -1,5 +1,5 @@
 /*
-  down-tip 组件
+  CountDown 倒计时插件
 */
 define(['UIView'], function (UIView) {
 
@@ -27,7 +27,7 @@ define(['UIView'], function (UIView) {
       this.maxCount = opts.maxCount || 60;
     },
     // 开始倒计时
-    startCountDown: function(count){
+    start: function(count){
       var self = this;
 
       if(count > self.maxCount || count <= 0) return;
@@ -41,12 +41,12 @@ define(['UIView'], function (UIView) {
         if(self.count > 0) {
           setTimeout(onTimeout, 1000);
         } else{
-          self.stopCountDown();
+          self._stop();
         }
       }
       setTimeout(onTimeout, 1000);
     },
-    stopCountDown: function(){
+    _stop: function(){
       this._setCount(null);
       this._enable();
     },

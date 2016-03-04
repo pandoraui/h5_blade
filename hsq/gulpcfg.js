@@ -21,6 +21,7 @@ module.exports = {
     // "text": "../blade/libs/require.text",
     "ApiConfig": "model/config",
     "Detect": "common/Detect",
+    "FormatReg": "common/FormatReg",
     "CountDown": "common/CountDown",
 
     "AppModel": "model/model",
@@ -35,6 +36,7 @@ module.exports = {
     "./main",
     "ApiConfig",
     "Detect",
+    "FormatReg",
     "CountDown",
     "AppModel",
     "Swiper",

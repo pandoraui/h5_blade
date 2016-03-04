@@ -19,6 +19,7 @@
 
       //组件
       'Detect': project + 'common/Detect',
+      'FormatReg': project + 'common/FormatReg',
       'CountDown': project + 'common/CountDown',
       // 'AppCommonStore': project + 'model/commonStore',
       // 'AppStore': project + 'model/store',

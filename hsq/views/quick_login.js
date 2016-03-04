@@ -1,23 +1,5 @@
-define(['PageView', getViewTemplatePath('quick_login'), 'CountDown'],
-  function (PageView, viewhtml, CountDown){
-
-    var FORMAT = {
-      mobile: {
-        /*
-          130~139
-          145、147
-          15*（没有154）
-          170、176、177、178
-          180-189
-        */
-        reg: /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17(0|[6-8]))|(18([0-9])))\d{8}$/,
-        tip: '手机格式不正确'
-      },
-      code: {
-        reg: '',
-        tip: '验证码有误'
-      }
-    };
+define(['PageView', getViewTemplatePath('quick_login'), 'CountDown', 'FormatReg'],
+  function (PageView, viewhtml, CountDown, FormatReg){
 
     return _.inherit(PageView, {
       pageName: 'quick_login',
@@ -127,8 +109,8 @@ define(['PageView', getViewTemplatePath('quick_login'), 'CountDown'],
           this.showToast('请输入手机号');
           this.focusInput(this.els.$nodeMobile);
           return;
-        }else if( !FORMAT.mobile.reg.test(mobile) ){
-          this.showToast(FORMAT.mobile.tip);
+        }else if( !FormatReg.mobile.reg.test(mobile) ){
+          this.showToast(FormatReg.mobile.tip);
           // this.focusInput(this.els.$nodeMobile);
         }else{
           bool = true;

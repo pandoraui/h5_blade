@@ -102,6 +102,8 @@ var paths = {
       './blade/libs/underscore.js',
       // './blade/libs/require.text.js',
       './blade/libs/zepto-adapter.js',
+      './blade/libs/zepto-stack.js',
+
       './blade/libs/backbone.js',
       // './blade/libs/underscore.extend.js',
       './blade/libs/fastclick.js',

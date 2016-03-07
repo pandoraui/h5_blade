@@ -453,7 +453,8 @@ define([], function () {
         return applyCallback(servertime);
       };
 
-      return Lizard.isHybrid ? hybridCallback() : webCallback();
+      // return Lizard.isHybrid ? hybridCallback() : webCallback();
+      return webCallback();
     }
   });
 

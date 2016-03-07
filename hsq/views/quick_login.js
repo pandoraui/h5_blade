@@ -1,5 +1,7 @@
-define(['PageView', getViewTemplatePath('quick_login'), 'CountDown', 'FormatReg'],
-  function (PageView, viewhtml, CountDown, FormatReg){
+define(['PageView', getViewTemplatePath('quick_login'), 'CountDown', 'FormatReg', 'AppStore'],
+  function (PageView, viewhtml, CountDown, FormatReg, AppStore){
+
+    var storeCommonShort = AppStore.CommonShort.getInstance();
 
     return _.inherit(PageView, {
       pageName: 'quick_login',
@@ -63,11 +65,11 @@ define(['PageView', getViewTemplatePath('quick_login'), 'CountDown', 'FormatReg'
           node: this.els.$nodeBtnCode,
         });
         //进入页面，先检查，是否可以发送验证码
-        if(this.countDownTimeStamp){
-          var now = +new Date();
-          var diffSecond = 60 - Math.round((now - this.countDownTimeStamp)/1000);
-          this.CountDown.start(diffSecond);
-        }
+        // if(this.countDownTimeStamp){
+        //   var now = +new Date();
+        //   var diffSecond = 60 - Math.round((now - this.countDownTimeStamp)/1000);
+        //   this.CountDown.start(diffSecond);
+        // }
       },
       clickBtnCode: function(e){
         var self = this;

@@ -51,10 +51,17 @@ module.exports = {
           // "cInherit": "common/c.inherit",
           "AbstractApp": "mvc/abstract.app",
           "AbstractModel": "mvc/abstract.model",
-          // "AbstractView": "mvc/abstract.view",
-          // "AbstractStore": "mvc/abstract.store",
+
+          "cUtilDate": "util/c.util.date",
+          "cUtilObject": "util/c.util.object",
+          "cAbstractStorage": "data/storage/c.abstract.storage",
+          "cLocalStorage": "data/storage/c.local.storage",
+
+          "cAbstractStore": "data/store/c.abstract.store",
+          "cLocalStore": "data/store/c.local.store",
 
           //抽象view
+          // "AbstractView": "mvc/abstract.view",
           "UIView": "ui/core.abstract.view",
           // "C_UIView": "ui/core.abstract.view.css",
 
@@ -118,6 +125,14 @@ module.exports = {
           // "UISlider": "ui/ui.slider",
           // "UIWarning404": "ui/ui.warning404",
         },
+        "map": {
+          "*": {
+            // "cUtility": "cUtilCommon",
+            "cStore": "cLocalStore",
+            // "cGuider": "cGuiderService",
+            // "CommonStore":"cCommonStore"
+          }
+        },
         "include": [
           //项目模块
           // "./common",            //: "mvc/c.ajax",
@@ -125,7 +140,13 @@ module.exports = {
           "AbstractApp",      //: "mvc/abstract.app",
           "AbstractModel",    //: "mvc/abstract.model",
           // "AbstractView",     //: "mvc/abstract.view",
-          // "AbstractStore",    //: "mvc/abstract.store",
+          "cUtilDate",
+          "cUtilObject",
+          "cAbstractStorage",
+          "cLocalStorage",
+
+          "cAbstractStore",
+          "cLocalStore",
 
           //抽象view
           "UIView",         //: "ui/core.abstract.view",

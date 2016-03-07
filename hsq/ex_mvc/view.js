@@ -165,7 +165,7 @@
       var target = $(e.currentTarget),
           link = target.data('link');
 
-      Blade.forward(link);
+      this.forward(link);
     },
     show404: function(type){
       this.$el.html(warning404);

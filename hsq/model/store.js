@@ -1,18 +1,20 @@
 // define(["libs", "AbstractStore", "cInherit"], function(libs, AbstractStore, cInherit) {
 // define(["libs", "AbstractStore"], function(libs, AbstractStore) {
-define(["AbstractStore"], function(AbstractStore) {
+// define(["cStore"], function(cStore) {
+define(["cLocalStore"], function(cStore) {
   var _ret = {};
   _ret.CustomStore = function(key, lifeTime, defaultData) { //自定义
-    return _.inherit(AbstractStore, {
+    return _.inherit(cStore, {
       //默认属性
       __propertys__: function() {
+
         this.key = key;
         this.lifeTime = lifeTime; //D代表天，H代表小时，M代表分钟，S代表秒
         defaultData && (this.defaultData = defaultData);
       },
       initialize: function($super, options) {
-        this.__propertys__();
         $super(options);
+        // this.__propertys__();
       }
     });
   };
@@ -29,60 +31,23 @@ define(["AbstractStore"], function(AbstractStore) {
    *
    ********/
 
-  /******************
-   * @name : 公共长缓存
-   * @time : 1年
-   * @author : <鸿飞>
-   * @page : index
-   *
-   * @value :
-   *    {
-   *     from: "/webapp/tour/index.html"  //记录首页回退链接。避免丢失首页回退链接。
-   *     history: [{"id":74,"saillingid":1987}] //记录用户浏览记录.
-   *     backurls: {"detail":["list","/webapp/cruise/index","/webapp/xx/view"]} //记录用户回退列表.
-   *    }
-   ******************/
+  //公共长缓存
   _ret.CommonLong = _ret.CustomStore("HSQ_COMMON_LONG", "365D",{
 
   });
 
-  /******************
-   * @name : 公共短缓存
-   * @time : 1天
-   * @author : <鸿飞>
-   * @page : bookingnotice, addedit, passengerData
-   *
-   * @value :
-   *    {
-   *     "bookingnotice": 1,  //预订须知页面，记录tab位置
-   *     "passengerData":null //新增旅客和常旅列表页面，记录旅客列表
-   *    }
-   ******************/
-  _ret.CommonShort = _ret.CustomStore("HSQ_COMMON_SHORT", "1D",{
+  //公共短缓存
+  _ret.CommonShort = _ret.CustomStore("HSQ_COMMON_SHORT", "15M",{
 
   });
 
-  /******************
-   * @name : 地理定位存储
-   * @time : 1天
-   * @author : <田盛>
-   * @page : common,index,list,search,bookingstep3,bookingstep3.invoices
-   *
-   * @value :
-   *    {
-   *     name:"上海",   //定位城市
-   *     id: 2 ,    //城市id
-   *     lat:0,     //定位经度
-   *     lng:0,     //定位纬度
-   *     islocated:false
-   *    }
-   ******************/
+  //地理定位存储
   _ret.Location = _ret.CustomStore('HSQ_LOCATION_STORE','1D',{
     id: 2 ,
     name:"上海",
     lat: null,
     lng: null,
-    islocated:false
+    islocated: false
   });
 
   //详情页

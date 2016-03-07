@@ -20,29 +20,29 @@ define(['cUtilDate', 'cUtilObject'], function (CDate, cUtilObject) {
   var Store = _.inherit({
 
     __propertys__: function () {
-	    /*
-	     * 空对象
-	     * @var {object} Store.cAbstractStore.NULL
-	     */
+      /*
+       * 空对象
+       * @var {object} Store.cAbstractStore.NULL
+       */
       this.NULL = {};
-	    /**
-	     * Store键值
-	     * @var {String} Store.cAbstractStore.key
-	     */
+      /**
+       * Store键值
+       * @var {String} Store.cAbstractStore.key
+       */
       this.key = this.NULL;
 
-	    /**
-	     * 数据存活时间, 参数传递格式为“时间+时间单位",如30M
-	     * 时间单位有D:day,H:hour,M:minutes,S:secend,
-	     * 如过不传递时间单位,默认时间单位为M
-	     * @var {String} Store.cAbstractStore.lifeTime
-	     */
+      /**
+       * 数据存活时间, 参数传递格式为“时间+时间单位",如30M
+       * 时间单位有D:day,H:hour,M:minutes,S:secend,
+       * 如过不传递时间单位,默认时间单位为M
+       * @var {String} Store.cAbstractStore.lifeTime
+       */
       this.lifeTime = '30M';
 
-	    /**
-	     * 要否需要使用服务器时间
-	     * @var {boolean} Store.cAbstractStore.useServerTime
-	     */
+      /**
+       * 要否需要使用服务器时间
+       * @var {boolean} Store.cAbstractStore.useServerTime
+       */
       this.useServerTime = false;
 
       /**
@@ -51,10 +51,10 @@ define(['cUtilDate', 'cUtilObject'], function (CDate, cUtilObject) {
        */
       this.defaultData = null;
 
-	    /**
-	     * 本地存储对象
-	     * @var {object} Store.cAbstractStore.sProxy
-	     */
+      /**
+       * 本地存储对象
+       * @var {object} Store.cAbstractStore.sProxy
+       */
       this.sProxy = this.NULL;
 
       /**
@@ -183,7 +183,7 @@ define(['cUtilDate', 'cUtilObject'], function (CDate, cUtilObject) {
           }
         } else {
           if (obj && !result) result = {};
-          cCoreInherit.extend(result, obj);
+          _.extend(result, obj);
         }
       }
       for (var a in result) {
@@ -237,11 +237,11 @@ define(['cUtilDate', 'cUtilObject'], function (CDate, cUtilObject) {
       this.set(obj);
     },
 
-	  /**
+    /**
      * 返回失效时间
-	   * @method Store.cAbstractStore.getExpireTime
-	   * @returns {object} exprieTime 过期时间
-	   */
+     * @method Store.cAbstractStore.getExpireTime
+     * @returns {object} exprieTime 过期时间
+     */
     getExpireTime: function () {
       var result = null;
       try {

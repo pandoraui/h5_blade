@@ -16,15 +16,15 @@
       'ApiConfig': project + 'model/config',
       'Swiper': blade + 'function/swiper',
       'AppModel': project + 'model/model',
+      'AppStore': project + 'model/store',
 
       //组件
       'Detect': project + 'common/Detect',
       'FormatReg': project + 'common/FormatReg',
       'CountDown': project + 'common/CountDown',
       // 'AppCommonStore': project + 'model/commonStore',
-      // 'AppStore': project + 'model/store',
       // 'SwiperInit': 'blade/function/swiper-init',
-    }
+    },
   });
 
   var animations = {

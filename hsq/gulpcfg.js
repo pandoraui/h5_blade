@@ -20,11 +20,13 @@ module.exports = {
     "lib": "../blade/js/libs",
     // "text": "../blade/libs/require.text",
     "ApiConfig": "model/config",
+    "AppModel": "model/model",
+    "AppStore": "model/store",
+
     "Detect": "common/Detect",
     "FormatReg": "common/FormatReg",
     "CountDown": "common/CountDown",
 
-    "AppModel": "model/model",
     "PageView": "ex_mvc/view",
 
   },
@@ -39,6 +41,7 @@ module.exports = {
     "FormatReg",
     "CountDown",
     "AppModel",
+    "AppStore",
     "Swiper",
 
     //抽象view

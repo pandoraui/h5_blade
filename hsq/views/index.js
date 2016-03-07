@@ -1,5 +1,9 @@
 // ﻿define(['cPageView', getViewTemplatePath('index')], function (cPageView, viewhtml){
-﻿define(['PageView', getViewTemplatePath('index')], function (PageView, viewhtml){
+﻿define(['PageView', getViewTemplatePath('index'), 'AppStore'],
+  function (PageView, viewhtml, AppStore){
+
+    // var storeCommonLong = AppStore.CommonLong.getInstance();
+    var storeCommonShort = AppStore.CommonShort.getInstance();
 
     var testNum = 0;
     // return cPageView.extend({
@@ -69,9 +73,45 @@
           case 'show404':
             this.show404();
             break;
+          case 'storage':
+            this.testStorage(e);
+            break;
           default:
 
         }
+      },
+      testStorage: function(e){
+        var target = $(e.target);
+        var type = target.data('type');
+        console.log('缓存测试')
+        console.log(target);
+        var store;
+
+        switch (type) {
+          case 'save':
+            store = {
+              test: 'hello'
+            };
+            storeCommonShort.set(store);
+            break;
+          case 'update':
+            storeCommonShort.setAttr('test', 'good');
+            break;
+          case 'read':
+            store = storeCommonShort.get();
+            break;
+          case 'remove':
+            store = storeCommonShort.remove();
+            break;
+          case 'clear':
+
+            break;
+          default:
+
+        }
+
+        store = storeCommonShort.get();
+        console.log(store);
       },
     });
 });

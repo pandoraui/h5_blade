@@ -55,8 +55,17 @@
       "AbstractApp": srcDir + "mvc/abstract.app",
       "AbstractModel": srcDir + "mvc/abstract.model",
       "AbstractView": srcDir + "mvc/abstract.view",
-      // "AbstractStore": srcDir + "mvc/abstract.store",
 
+      //data
+      "cUtilDate": srcDir + "util/c.util.date",
+      "cUtilObject": srcDir + "util/c.util.object",
+      "cAbstractStorage": srcDir + "data/storage/c.abstract.storage",
+      "cLocalStorage": srcDir + "data/storage/c.local.storage",
+
+      "cAbstractStore": srcDir + "data/store/c.abstract.store",
+      "cLocalStore": srcDir + "data/store/c.local.store",
+
+      //UI 组件
       //抽象view
       "UIView": srcDir + "ui/core.abstract.view",
       "C_UIView": srcDir + "ui/core.abstract.view.css",
@@ -66,7 +75,7 @@
       "T_UIHeader": srcDir + "ui/core.header.html",
       "C_UIHeader": srcDir + "ui/core.header.css",
 
-      "cPageView": srcDir + "page/page.view",
+      // "cPageView": srcDir + "page/page.view",
       // "cPageList": srcDir + "page/c.page.list",
 
       //基础组件部分
@@ -172,6 +181,15 @@
       // "C_UITab": srcDir + "ui/ui.tab.css",
 
       //"cHighlight": srcDir + "common/c.highlight",
+    },
+    "map": {
+      // TODO：这个没起效果
+      "*": {
+        // "cUtility": "cUtilCommon",
+        "cStore": "cLocalStore",
+        // "cGuider": "cGuiderService",
+        // "CommonStore":"cCommonStore"
+      }
     }
 
   });

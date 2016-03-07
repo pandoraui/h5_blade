@@ -5291,6 +5291,7 @@ var Zepto = (function () {
 
     // 创建新类用于返回
     function klass() {
+      this.__propertys__();  //--
       if (_.isFunction(this.initialize))
         this.initialize.apply(this, arguments);
     }
@@ -5298,16 +5299,21 @@ var Zepto = (function () {
     klass.superclass = parent;
 
     // 父类的方法不做保留，直接赋给子类
-    // parent.subclasses = [];
+    klass.subclasses = []; //--
+
+    var sup__propertys__ = function () { }; //--
+    var sub__propertys__ = properties.__propertys__ || function () {  };  //--
 
     if (parent) {
+      if (parent.prototype.__propertys__) sup__propertys__ = parent.prototype.__propertys__; //--
+
       // 中间过渡类，防止parent的构造函数被执行
       var subclass = function () { };
       subclass.prototype = parent.prototype;
       klass.prototype = new subclass();
 
       // 父类的方法不做保留，直接赋给子类
-      // parent.subclasses.push(klass);
+      parent.subclasses.push(klass);  //--
     }
 
     var ancestor = klass.superclass && klass.superclass.prototype;
@@ -5350,7 +5356,13 @@ var Zepto = (function () {
       klass.prototype.initialize = function () { };
 
 
-    // //兼容代码，非原型属性也需要进行继承
+    //兼容现有框架，__propertys__方法直接重写
+    klass.prototype.__propertys__ = function () {
+      sup__propertys__.call(this);
+      sub__propertys__.call(this);
+    };
+
+    //兼容代码，非原型属性也需要进行继承
     for (key in parent) {
       if (parent.hasOwnProperty(key) && key !== 'prototype' && key !== 'superclass')
         klass[key] = parent[key];
@@ -6001,6 +6013,30 @@ var Zepto = (function () {
       });
     };
 })(Zepto);
+;//     Zepto.js
+//     (c) 2010-2016 Thomas Fuchs
+//     Zepto.js may be freely distributed under the MIT license.
+
+// Provides andSelf & end() chaining methods
+
+;(function($){
+  $.fn.end = function(){
+    return this.prevObject || $()
+  }
+
+  $.fn.andSelf = function(){
+    return this.add(this.prevObject || $())
+  }
+
+  'filter,add,not,eq,first,last,find,closest,parents,parent,children,siblings'.split(',').forEach(function(property){
+    var fn = $.fn[property]
+    $.fn[property] = function(){
+      var ret = fn.apply(this, arguments)
+      ret.prevObject = this
+      return ret
+    }
+  })
+})(Zepto)
 ;//     Backbone.js 1.1.2
 
 //     (c) 2010-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -8047,8 +8083,17 @@ var Zepto = (function () {
       "AbstractApp": srcDir + "mvc/abstract.app",
       "AbstractModel": srcDir + "mvc/abstract.model",
       "AbstractView": srcDir + "mvc/abstract.view",
-      // "AbstractStore": srcDir + "mvc/abstract.store",
 
+      //data
+      "cUtilDate": srcDir + "util/c.util.date",
+      "cUtilObject": srcDir + "util/c.util.object",
+      "cAbstractStorage": srcDir + "data/storage/c.abstract.storage",
+      "cLocalStorage": srcDir + "data/storage/c.local.storage",
+
+      "cAbstractStore": srcDir + "data/store/c.abstract.store",
+      "cLocalStore": srcDir + "data/store/c.local.store",
+
+      //UI 组件
       //抽象view
       "UIView": srcDir + "ui/core.abstract.view",
       "C_UIView": srcDir + "ui/core.abstract.view.css",
@@ -8058,7 +8103,7 @@ var Zepto = (function () {
       "T_UIHeader": srcDir + "ui/core.header.html",
       "C_UIHeader": srcDir + "ui/core.header.css",
 
-      "cPageView": srcDir + "page/page.view",
+      // "cPageView": srcDir + "page/page.view",
       // "cPageList": srcDir + "page/c.page.list",
 
       //基础组件部分
@@ -8164,6 +8209,15 @@ var Zepto = (function () {
       // "C_UITab": srcDir + "ui/ui.tab.css",
 
       //"cHighlight": srcDir + "common/c.highlight",
+    },
+    "map": {
+      // TODO：这个没起效果
+      "*": {
+        // "cUtility": "cUtilCommon",
+        "cStore": "cLocalStore",
+        // "cGuider": "cGuiderService",
+        // "CommonStore":"cCommonStore"
+      }
     }
 
   });

@@ -32,6 +32,7 @@ define([], function () {
 
       // 创建新类用于返回
       function klass() {
+        this.__propertys__();  //--
         if (_.isFunction(this.initialize))
           this.initialize.apply(this, arguments);
       }
@@ -39,16 +40,21 @@ define([], function () {
       klass.superclass = parent;
 
       // 父类的方法不做保留，直接赋给子类
-      // parent.subclasses = [];
+      parent.subclasses = []; //--
+
+      var sup__propertys__ = function () { }; //--
+      var sub__propertys__ = properties.__propertys__ || function () {  };  //--
 
       if (parent) {
+        if (parent.prototype.__propertys__) sup__propertys__ = parent.prototype.__propertys__; //--
+
         // 中间过渡类，防止parent的构造函数被执行
         var subclass = function () { };
         subclass.prototype = parent.prototype;
         klass.prototype = new subclass();
 
         // 父类的方法不做保留，直接赋给子类
-        // parent.subclasses.push(klass);
+        parent.subclasses.push(klass);  //--
       }
 
       var ancestor = klass.superclass && klass.superclass.prototype;
@@ -91,7 +97,14 @@ define([], function () {
         klass.prototype.initialize = function () { };
 
 
-      // //兼容代码，非原型属性也需要进行继承
+      //兼容现有框架，__propertys__方法直接重写
+      klass.prototype.__propertys__ = function () {
+        sup__propertys__.call(this);
+        sub__propertys__.call(this);
+      };
+
+
+      //兼容代码，非原型属性也需要进行继承
       // for (key in parent) {
       //   if (parent.hasOwnProperty(key) && key !== 'prototype' && key !== 'superclass')
       //     klass[key] = parent[key];

@@ -52,6 +52,7 @@ define(["cLocalStore"], function(cStore) {
 
   //详情页
   _ret.DetailIntro = _ret.CustomStore("HSQ_DETAIL_INTRO", "1D", {});
+  _ret.Address = _ret.CustomStore("HSQ_ADDRESS", "10D", {});
 
   _ret.Zhuti = _ret.CustomStore('HSQ_ZHUTI_STORE', '30M', {});
 

@@ -18,16 +18,17 @@ define(['PageView', getViewTemplatePath('quick_login'), 'CountDown', 'FormatReg'
           "$nodeMobile": this.$el.find('.J_phone'),
           "$nodeCode": this.$el.find('.J_code'),
           "$nodeChecked": this.$el.find('.J_checked'),
+          "hsq_box": this.$el.find('.hsq_box'),
         };
 
-        var tpl_hsq_box = this.$el.find('.tpl_hsq_box');
+        var tpl_hsq_box = this.$el.find('#tpl_hsq_box');
 
         this.tpls = {
-            'tpl_hsq_box': tpl_hsq_box.html(),
+            'hsq_box': tpl_hsq_box.html(),
         };
         tpl_hsq_box.remove();
       },
-      onShow: function(){
+      setHeader: function(){
         var self = this;
         var headerData = {
           center: {
@@ -45,7 +46,9 @@ define(['PageView', getViewTemplatePath('quick_login'), 'CountDown', 'FormatReg'
         };
         this.header.set(headerData);
         this.header.show();
-
+      },
+      onShow: function(){
+        
         this.initPage();
 
       },

@@ -1,5 +1,5 @@
-define(['PageView', getViewTemplatePath('order_success')],
-  function (PageView, viewhtml){
+define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'],
+  function (PageView, viewhtml, AppModel, AppStore){
 
     // var viewhtml = '下单成功';
 
@@ -12,17 +12,17 @@ define(['PageView', getViewTemplatePath('order_success')],
         this.$el.html(viewhtml);
         //元素集合
         this.els = {
-          // "tplbox_bs2_intro": this.$el.find('#'),
+          'hsq_box': this.$el.find('.hsq_box')
         };
 
-        var tpl_hsq_box = this.$el.find('.tpl_hsq_box');
+        var tpl_hsq_box = this.$el.find('#tpl_hsq_box');
 
         this.tpls = {
-            'tpl_hsq_box': tpl_hsq_box.html(),
+            'hsq_box': tpl_hsq_box.html(),
         };
         tpl_hsq_box.remove();
       },
-      onShow: function(){
+      setHeader: function(){
         var self = this;
         var headerData = {
           center: {
@@ -40,6 +40,8 @@ define(['PageView', getViewTemplatePath('order_success')],
         };
         this.header.set(headerData);
         this.header.show();
+      },
+      onShow: function(){
 
         this.initPage();
       },

@@ -1,6 +1,6 @@
 // ﻿define(['cPageView', getViewTemplatePath('index')], function (cPageView, viewhtml){
-﻿define(['PageView', getViewTemplatePath('index'), 'AppStore'],
-  function (PageView, viewhtml, AppStore){
+﻿define(['PageView', getViewTemplatePath('index'), 'AppModel', 'AppStore'],
+  function (PageView, viewhtml, AppModel, AppStore){
 
     // var storeCommonLong = AppStore.CommonLong.getInstance();
     var storeCommonShort = AppStore.CommonShort.getInstance();
@@ -34,13 +34,13 @@
         tpl_hsq_box.remove();
 
       },
-      onShow: function(){
+      setHeader: function(){
         var self = this;
         var headerData = {
           // back: false,
           center: {
             tagname: 'title',
-            value: ['好食期首页']
+            value: ['首页']
           },
           back: {
             tagname: 'back',
@@ -51,6 +51,8 @@
         };
         this.header.set(headerData);
         this.header.show();
+      },
+      onShow: function(){
 
         this.initPage();
       },
@@ -83,8 +85,7 @@
       testStorage: function(e){
         var target = $(e.target);
         var type = target.data('type');
-        console.log('缓存测试')
-        console.log(target);
+        console.log('缓存测试: ', type);
         var store;
 
         switch (type) {

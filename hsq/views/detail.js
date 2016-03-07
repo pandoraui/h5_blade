@@ -1,5 +1,5 @@
-define(['PageView', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', 'Detect', getViewTemplatePath('detail')],
-  function (PageView, AppModel, Swiper, UISwiper, LazyLoad, Detect, viewhtml){
+define(['PageView', 'AppModel', 'AppStore', 'Swiper', 'UISwiper', 'LazyLoad', 'Detect', getViewTemplatePath('detail')],
+  function (PageView, AppModel, AppStore, Swiper, UISwiper, LazyLoad, Detect, viewhtml){
 
     // var ajaxTest = AppModel.getTestPage.getInstance();
     var ajaxGetDetailDesc = AppModel.getDetailDesc.getInstance();
@@ -32,11 +32,8 @@ define(['PageView', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', 'Detect', getV
           detail_article: this.$el.find('#tpl_detail_article').html(),
         };
       },
-      onShow: function(){
+      setHeader: function(){
         var self = this;
-
-        //倒计时功能需要更新时清除下，不然会有闭包问题
-        this.clearPreInit();
 
         var headerData = {
           center: {
@@ -53,6 +50,10 @@ define(['PageView', 'AppModel', 'Swiper', 'UISwiper', 'LazyLoad', 'Detect', getV
         };
         this.header.set(headerData);
         this.header.show();
+      },
+      onShow: function(){
+        //倒计时功能需要更新时清除下，不然会有闭包问题
+        this.clearPreInit();
 
         this.initPage();
 

@@ -48,8 +48,6 @@
         //生成头部
         this._createHeader();
 
-        this.setHeader();
-
         this.onShow && this.onShow();
       });
 
@@ -73,10 +71,16 @@
      * 生成头部
      */
     _createHeader: function () {
-
       this.header = new UIHeader({
         wrapper: $header
       });
+
+      this.setHeader();
+
+      if(this.header && this.header.center && this.header.center.value && this.header.center.value[0]){
+        var title = this.header.center.value[0];
+        this.updateTitle(title + '-好食期');
+      }
     },
     setHeader: function () {
       var self = this;
@@ -88,13 +92,6 @@
       // };
       // this.header.set(headerData);
       // this.header.show();
-
-      setTimeout(function(){
-        if(self.header && self.header.center && self.header.center.value && self.header.center.value[0]){
-          var title = self.header.center.value[0];
-          self.updateTitle(title);
-        }
-      },100)
     },
     updateTitle: function(title){
       document.title = title || '好食期';

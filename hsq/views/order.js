@@ -1,5 +1,7 @@
-define(['PageView', getViewTemplatePath('order')],
-  function (PageView, viewhtml){
+define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
+  function (PageView, viewhtml, AppModel, AppStore){
+
+    var storeAddress = AppStore.Address.getInstance();
 
     return _.inherit(PageView, {
       pageName: 'order',
@@ -11,18 +13,17 @@ define(['PageView', getViewTemplatePath('order')],
         this.$el.html(viewhtml);
         //元素集合
         this.els = {
-          // "tplbox_bs2_intro": this.$el.find('#'),
-          // "select_invoice": this.$el.find('.J_select_invoice'),
+          'hsq_box': this.$el.find('.hsq_box')
         };
 
-        var tpl_hsq_box = this.$el.find('.tpl_hsq_box');
+        var tpl_hsq_box = this.$el.find('#tpl_hsq_box');
 
         this.tpls = {
-            'tpl_hsq_box': tpl_hsq_box.html(),
+            'hsq_box': tpl_hsq_box.html(),
         };
         tpl_hsq_box.remove();
       },
-      onShow: function(){
+      setHeader: function(){
         var self = this;
         var headerData = {
           center: {
@@ -39,6 +40,9 @@ define(['PageView', getViewTemplatePath('order')],
         };
         this.header.set(headerData);
         this.header.show();
+      },
+      onShow: function(){
+
 
         this.initPage();
       },
@@ -47,6 +51,8 @@ define(['PageView', getViewTemplatePath('order')],
       initPage: function(){
         var scope = this;
 
+        var curAddress = storeAddress.get();
+        console.log(curAddress);
       },
       ajaxRequest: function(){},
       renderPage: function(){
@@ -56,7 +62,6 @@ define(['PageView', getViewTemplatePath('order')],
         var target = $(e.currentTarget);
         var $header = target.find('.icon-select');
 
-        console.log(111);
         if(!this.useInvoice){
           $header.addClass('icon-selected');
           target.next().show();

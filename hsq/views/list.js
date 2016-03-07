@@ -1,5 +1,5 @@
-define(['PageView', getViewTemplatePath('list')],
-  function (PageView, viewhtml){
+define(['PageView', getViewTemplatePath('list'), 'AppModel', 'AppStore'],
+  function (PageView, viewhtml, AppModel, AppStore){
 
     return _.inherit(PageView, {
       pageName: 'list',
@@ -7,17 +7,17 @@ define(['PageView', getViewTemplatePath('list')],
         this.$el.html(viewhtml);
         //元素集合
         this.els = {
-          // "tplbox_bs2_intro": this.$el.find('#'),
+          'hsq_box': this.$el.find('.hsq_box')
         };
 
-        var tpl_hsq_box = this.$el.find('.tpl_hsq_box');
+        var tpl_hsq_box = this.$el.find('#tpl_hsq_box');
 
         this.tpls = {
-            'tpl_hsq_box': tpl_hsq_box.html(),
+            'hsq_box': tpl_hsq_box.html(),
         };
         tpl_hsq_box.remove();
       },
-      onShow: function(){
+      setHeader: function(){
         var self = this;
         var headerData = {
           center: {
@@ -34,6 +34,8 @@ define(['PageView', getViewTemplatePath('list')],
         };
         this.header.set(headerData);
         this.header.show();
+      },
+      onShow: function(){
 
         this.initPage();
       },

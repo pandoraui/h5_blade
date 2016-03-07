@@ -1,5 +1,5 @@
-define(['PageView', getViewTemplatePath('address_update')],
-  function (PageView, viewhtml){
+define(['PageView', getViewTemplatePath('address_update'), 'AppModel', 'AppStore'],
+  function (PageView, viewhtml, AppModel, AppStore){
 
     return _.inherit(PageView, {
       pageName: 'address_edit',
@@ -8,17 +8,17 @@ define(['PageView', getViewTemplatePath('address_update')],
         this.$el.html(viewhtml);
         //元素集合
         this.els = {
-          // "tplbox_bs2_intro": this.$el.find('#'),
+          'hsq_box': this.$el.find('.hsq_box')
         };
 
-        var tpl_hsq_box = this.$el.find('.tpl_hsq_box');
+        var tpl_hsq_box = this.$el.find('#tpl_hsq_box');
 
         this.tpls = {
-            'tpl_hsq_box': tpl_hsq_box.html(),
+            'hsq_box': tpl_hsq_box.html(),
         };
         tpl_hsq_box.remove();
       },
-      onShow: function(){
+      setHeader: function(){
         var self = this;
         var type = 'add';
         var title = type === 'add' ? '新增收获地址' : '修改地址';
@@ -45,7 +45,8 @@ define(['PageView', getViewTemplatePath('address_update')],
         };
         this.header.set(headerData);
         this.header.show();
-
+      },
+      onShow: function(){
         this.initPage();
       },
       onHide: function(){},

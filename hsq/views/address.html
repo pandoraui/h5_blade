@@ -1,17 +1,13 @@
 
 <div class="address-list">
-  <ul class="list">
-    <li data-id="1" class="iconfont icon-check">
-      <h4><span class="name">徐某某</span><span class="phone">185****3424</span></h4>
-      <p>上海徐汇区城区钦州路100号2号楼XXX室</p>
-    </li>
-    <li data-id="2" class="iconfont">
-      <h4><span class="name">徐某某</span><span class="phone">185****3424</span></h4>
-      <p>上海徐汇区城区钦州路100号2号楼XXX室</p>
-    </li>
-    <li data-id="3" class="iconfont">
-      <h4><span class="name">司马无情</span><span class="phone">185****3424</span></h4>
-      <p>上海徐汇区城区钦州路100号2号楼XXX室</p>
-    </li>
+  <ul class="list hsq_box">
+    <script type="text/template" id="tpl_hsq_box">
+    <%list.forEach(function(item){%>
+      <li data-id="<%=item.id%>" class="iconfont <%= curId==item.id ? 'icon-check' : '' %>">
+        <h4><span class="name"><%=item.name%></span><span class="phone"><%=item.mobile%></span></h4>
+        <p><%=item.address%></p>
+      </li>
+    <%})%>
+  </script>
   </ul>
 </div>

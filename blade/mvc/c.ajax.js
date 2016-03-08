@@ -5,7 +5,7 @@ define([], function () {
     'json': 'application/json; charset=utf-8',
     'jsonp': 'application/json'
   };
-  
+
   function _getCommonOpt(url, data, callback, error) {
     return {
       url: url,
@@ -40,7 +40,7 @@ define([], function () {
     opt.type = 'POST';
     opt.dataType = 'json';
     opt.timeout = 30000;
-    opt.contentType = _getContentType(contentType) || 'application/json';
+    opt.contentType = 'application/json';//_getContentType(contentType) || 'application/json';
     return _sendReq(opt);
   }
 
@@ -61,9 +61,9 @@ define([], function () {
   function cros(url, type, data, callback, error) {
     var contentType = data.contentType;
 
-    if (type.toLowerCase() !== 'get')
-    // data = JSON.stringify(data);
-      data = JSON.stringify(data);
+    if (type.toLowerCase() !== 'get'){
+      // data = JSON.stringify(data);
+    }
     var opt = _getCommonOpt(url, data, callback, error);
     opt.type = type;
     opt.dataType = 'json';

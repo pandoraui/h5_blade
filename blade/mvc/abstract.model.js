@@ -85,6 +85,8 @@
     * @param {Function} onAbort 可选，但取消时会调用的函数
     */
     execute: function (onComplete, onError, scope, onAbort, params) {
+      // @description 定义是否需要退出ajax请求
+      this.isAbort = false;
 
       // @description 请求数据的地址
       var url = this.buildurl();
@@ -116,11 +118,25 @@
       }, this);
 
       var __onError = $.proxy(function (e) {
+        if (self.isAbort) {
+          self.isAbort = false;
 
-        if (typeof onError === 'function') {
-          onError.call(scope || this, e);
+          if (typeof onAbort === 'function') {
+            return onAbort.call(scope || this, e);
+          } else {
+            return false;
+          }
         }
 
+        //发生错误，隐藏 loading 弹层
+        Blade.loading.hide();
+
+        var _scope = this;
+        if (typeof onError === 'function') {
+          setTimeout(function(){
+            onError.call(scope || _scope, e);
+          }, 300);
+        }
       }, this);
 
       // @description 从this.param中获得数据，做深copy
@@ -128,6 +144,8 @@
 
       //设置contentType无效BUG，改动一，将contentType保存
       params.contentType = this.contentType;
+
+      // cAjax.cros(url, this.method, params, __onComplete, __onError);
 
       if (this.contentType === 'json') {
         // @description 跨域请求
@@ -140,7 +158,14 @@
         cAjax.post(url, params, __onComplete, __onError);
       }
     },
-
+    /**
+     * 终止请求
+     * @method Model.cAbstractModel.abort
+     */
+    abort: function () {
+      this.isAbort = true;
+      this.ajax && this.ajax.abort && this.ajax.abort();
+    },
     // ajaxGet: function(onComplete, onError, scope, onAbort, params){
     //   params = params || {};
     //   params.method = 'GET';

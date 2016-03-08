@@ -1,9 +1,11 @@
-define(['PageView', 'AppModel', 'AppStore', 'Swiper', 'UISwiper', 'LazyLoad', 'Detect', getViewTemplatePath('detail')],
-  function (PageView, AppModel, AppStore, Swiper, UISwiper, LazyLoad, Detect, viewhtml){
+define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swiper', 'UISwiper', 'LazyLoad', 'Detect'],
+  function (PageView, viewhtml, AppModel, AppStore, Swiper, UISwiper, LazyLoad, Detect){
 
     // var ajaxTest = AppModel.getTestPage.getInstance();
     var ajaxGetDetailDesc = AppModel.getDetailDesc.getInstance();
     var ajaxGetDetailArticle = AppModel.getDetailArticle.getInstance();
+
+    var limitMax = 5;
 
     return _.inherit(PageView, {
       pageName: 'detail',
@@ -57,15 +59,12 @@ define(['PageView', 'AppModel', 'AppStore', 'Swiper', 'UISwiper', 'LazyLoad', 'D
 
         this.initPage();
 
-        if(!!Detect.isWifiKey){
-          this.downTip = this.downTipCheckStatus();
-        }else{
-          this.supportOrder = true;
-          this.$tplbox.fexed_footer.show();
-        }
+
       },
       onHide: function(){
         this.downTip && this.downTip.hide();
+
+        this.clearPreInit();
       },
       dealParams: function(params){
         for(var key in params){
@@ -85,6 +84,7 @@ define(['PageView', 'AppModel', 'AppStore', 'Swiper', 'UISwiper', 'LazyLoad', 'D
         //     return new $.Swiper(container, params);
         // };
 
+        this.params = _.getUrlParam();
         this.ajaxRequest();
 
         // if(params.id){
@@ -95,11 +95,10 @@ define(['PageView', 'AppModel', 'AppStore', 'Swiper', 'UISwiper', 'LazyLoad', 'D
       },
       ajaxRequest: function(){
         var scope = this;
-        var params = _.getUrlParam();
 
         ajaxGetDetailDesc.param = {
-          productId: params.pid,
-          skuId: params.sid,
+          productId: this.params.pid,
+          skuId: this.params.sid,
         };
 
         this.dealParams(ajaxGetDetailDesc.param);
@@ -119,6 +118,10 @@ define(['PageView', 'AppModel', 'AppStore', 'Swiper', 'UISwiper', 'LazyLoad', 'D
           }
 
           data._humanTimes = scope.humanTimes;
+
+          //当前库存
+          this.left_stock = data.left_stock;
+          this.skuId = data.skuId;
 
           this.renderPage(data);
 
@@ -167,6 +170,18 @@ define(['PageView', 'AppModel', 'AppStore', 'Swiper', 'UISwiper', 'LazyLoad', 'D
         this.$stockDom = this.$tplbox.detail_desc.find('#J_stock_box');
         this.countDownPrice(data);
         this.countDownStock(data);
+
+        //有库存且可售时，显示立即购买按钮栏（目前还限制在 wifi 万能钥匙 app 中才显示）
+        if(this.left_stock>0 && this.left_times>0 && !Detect.isWifiKey){
+          // this.supportOrder = true;
+          this.$tplbox.fexed_footer.show();
+          if(!this.curAmount){
+            this.curAmount = 1;
+          }
+        }else{
+          this.$tplbox.fexed_footer.hide();
+          this.downTip = this.downTipCheckStatus();
+        }
       },
       humanTimes: function(times){
         //如果是今天，显示 "今天 时分秒"，否则显示 'Y-M-D H:F:S' 格式
@@ -184,6 +199,7 @@ define(['PageView', 'AppModel', 'AppStore', 'Swiper', 'UISwiper', 'LazyLoad', 'D
       clearPreInit: function(){
         if(this.swiper){
           this.swiper.destroy();
+          this.swiper = null;
         }
         if(this.clear_price_countdown){
           clearTimeout(this.clear_price_countdown);
@@ -195,6 +211,9 @@ define(['PageView', 'AppModel', 'AppStore', 'Swiper', 'UISwiper', 'LazyLoad', 'D
       countDownPrice: function(data){
         var scope = this;
         var _deal_price = data._deal_price;
+        this.curPrice = _deal_price; //当前价格
+
+        // console.log(_deal_price);
         scope.clear_price_countdown = setTimeout(function(){
           //拿到数据之后，只要未下架且当前价格大于最低价时，就可以操作
           _deal_price = data._deal_price;
@@ -222,6 +241,7 @@ define(['PageView', 'AppModel', 'AppStore', 'Swiper', 'UISwiper', 'LazyLoad', 'D
         if( !bool ){
           return;
         }
+
         if(data._left_times >= 3660){
           blankTimes = 60000;
         }else{
@@ -238,6 +258,7 @@ define(['PageView', 'AppModel', 'AppStore', 'Swiper', 'UISwiper', 'LazyLoad', 'D
             return;
           }
           data._left_times -= blankTimes*0.001;
+
 
           scope.countDownStock(data);
 
@@ -274,6 +295,8 @@ define(['PageView', 'AppModel', 'AppStore', 'Swiper', 'UISwiper', 'LazyLoad', 'D
         }
 
         this.need_countdown_stock = false;
+        this.left_times = _left_times;
+
         if( (data.left_stock > 30) && (_left_times < 86400*7)){
           if(_left_times >= 86400){
             _deal_stock = _.dateUtil.format(_left_times*1000 ,{type: 'countdown', format: '剩D天H小时停售'});  //剩x天xx小时停售
@@ -285,10 +308,13 @@ define(['PageView', 'AppModel', 'AppStore', 'Swiper', 'UISwiper', 'LazyLoad', 'D
             _deal_stock = _.dateUtil.format(_left_times*1000 ,{type: 'countdown', format: '剩F分S秒停售'});  //剩xx分xx秒停售
           }else{
             _deal_stock = "已停售";   //已停售
+            this.left_stock = 0;
+            this.left_times = 0;
           }
         }else{
           if(data.left_stock < 1){
             _deal_stock = "已售完";
+            this.left_stock = 0;
           }else{
             _deal_stock = "仅剩" + data.left_stock + "件";
           }
@@ -329,19 +355,21 @@ define(['PageView', 'AppModel', 'AppStore', 'Swiper', 'UISwiper', 'LazyLoad', 'D
 
         return data;
       },
-      formatPrice: function(_price, needCount){
+      formatPrice: function(_price, needCount, smallCount){
         var price = parseFloat(_price)*0.01;
         if(isNaN(price)) return _price;
         var is0 = price < 1 && price >= 0;
         if(is0) price += 1;
         // 需要小数点后2位
         needCount = needCount || 2;
+        smallCount = smallCount || 2;
         var fn = fn || 'round';
         var numStr = Math[fn](price * Math.pow(10, needCount)).toString();
         var index = numStr.length - needCount;
         var intPart = numStr.substr(0, index);
         if(is0) intPart = parseInt(intPart) - 1;
-        return intPart + '.' + numStr.substr(index, 2) + '<i>' + numStr.substr(index+2) + '</i>';
+        var smallNum = smallCount ? ('<i>' + numStr.substr(index+2) + '</i>') : '';
+        return intPart + '.' + numStr.substr(index, 2) + smallNum;
       },
       //继续请求图文详情接口
       getDetailArticle: function(){
@@ -384,32 +412,44 @@ define(['PageView', 'AppModel', 'AppStore', 'Swiper', 'UISwiper', 'LazyLoad', 'D
       operNumber: function(e){
         var target = $(e.currentTarget);
         var oper = target.data('oper');
-        var maxNum = parseInt(target.parent().data('max'));
-        this.curNum = parseInt(this.els.operNumberValue.val());
+        var maxNum = Math.min(limitMax, this.left_stock);
+        this.curAmount = parseInt(this.els.operNumberValue.val());
 
         switch(oper){
           case 'minus':
-            this.curNum--;
-            if(this.curNum == 1){
+            this.curAmount--;
+            if(this.curAmount == 1){
               this.els.operNumberMinus.addClass('disabled');
             }
-            this.els.operNumberValue.val(this.curNum);
+            this.els.operNumberValue.val(this.curAmount);
             this.els.operNumberPlus.removeClass('disabled');
             break;
           case 'plus':
           default:
-            this.curNum++;
-            if(this.curNum >= maxNum){
+            this.curAmount++;
+            if(this.curAmount >= maxNum){
               this.els.operNumberPlus.addClass('disabled');
             }
-            this.els.operNumberValue.val(this.curNum);
+            this.els.operNumberValue.val(this.curAmount);
             this.els.operNumberMinus.removeClass('disabled');
             break;
-        }
-        console.log(this.curNum)
+        };
       },
       goOrder: function(){
-        console.log('去下单');
+
+        // 当前商品信息
+        var productId = this.params.pid ? this.params.pid : 0;
+        var curPrice = parseInt(this.curPrice);
+        var skusInfo = {
+          productId: productId,
+          skuId: this.skuId,
+          amount: this.curAmount,
+          price: curPrice
+        };
+        
+        var params = '?' + (productId ? ('pid=' + productId) : ('sid=' + this.skuId) );
+        params += ('&amount=' + this.curAmount) + '&price=' + curPrice;
+        this.forward('order' + params);
       },
     });
 });

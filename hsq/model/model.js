@@ -1,6 +1,3 @@
-// define(['libs', 'AbstractModel', 'AppStore', 'ApiConfig', 'AppCommonStore'], function(libs, AbstractModel, AppStore, ApiConfig, AppCommonStore) {
-// define(['libs', 'AbstractModel', 'AppStore', 'ApiConfig', 'AppCommonStore'], function(libs, AbstractModel, AppStore, ApiConfig, AppCommonStore) {
-// define(['AbstractModel', 'AppStore', 'ApiConfig', 'AppCommonStore'], function( AbstractModel, AppStore, ApiConfig, AppCommonStore) {
 
 //暂时不要 store 了
 define(['AbstractModel', 'ApiConfig'], function( AbstractModel, ApiConfig) {
@@ -101,12 +98,12 @@ define(['AbstractModel', 'ApiConfig'], function( AbstractModel, ApiConfig) {
    *  searchPageModel = CruiseModel.SearchPage.getInstance()
    *  locationStore   = CruiseStore.Location.getInstance()
    *  推荐的命名：(页面使用时采用小驼峰并追加Model/Store后缀，如：addCustomerModel)
-   *  _model.AddCustomer    //新增××
-   *  _model.UpdateCustomer   //更新××
-   *  _model.GetCustomerList  //获取××列表
-   *  _model.CancelOrder    //取消××
-   *  _model.RemovePriceRemind  //取消××（Remove or Cancel）
+   *  _model.AddCustomer        //新增××
+   *  _model.UpdateCustomer     //更新××
+   *  _model.GetCustomerList    //获取××列表
+   *  _model.CancelOrder        //取消××
    *  _model.SendOrderDocuments //发送××
+   *  _model.RemovePriceRemind  //移除××（Remove or Cancel）
    ********/
 
    /*
@@ -119,8 +116,38 @@ define(['AbstractModel', 'ApiConfig'], function( AbstractModel, ApiConfig) {
   //_model.CruiseHomePage = _model.CustomModel("/GetHomePage");
 
   _model.getTestPage = _model.CustomModel("/GetHomePage", {method: "GET"});
+
+  //详情页
   _model.getDetailDesc = _model.CustomModel("/product/iteminfo", {method: "GET"});
   _model.getDetailArticle = _model.CustomModel("/product/productdetail", {method: "GET"});
+
+  //快捷登录
+  _model.login = _model.CustomModel("/user/login", {method: "POST"});
+  _model.getMobileCode = _model.CustomModel("/common/getverifycode", {method: "GET"});
+
+  //初始化订单
+  _model.orderInit = _model.CustomModel("/order/orderinit", {method: "POST"});
+  //提交订单
+  _model.orderSubmit = _model.CustomModel("/order/submitorder", {method: "POST"});
+  //提交支付
+  _model.orderPay = _model.CustomModel("/order/orderpay", {method: "POST"});
+
+  //订单详情
+  _model.orderDetail = _model.CustomModel("/order/orderdetail", {method: "GET"});
+
+  //地址
+  _model.addressAdd = _model.CustomModel("/user/addaddress", {method: "POST"});
+  _model.addressList = _model.CustomModel("/user/addresslist", {method: "GET"});
+
+  //省市县三级数据
+    //获取省份列表
+  _model.provinceList = _model.CustomModel("/nation/provincelist", {method: "GET"});
+    //获取城市列表
+  _model.cityList = _model.CustomModel("/nation/citylist", {method: "GET"});
+    //获取行政区县列表
+  _model.districtList = _model.CustomModel("/nation/districtlist", {method: "GET"});
+
+
 
   //搜索项目获取列表，带缓存
   // _model.CruiseSearchPageModel = _model.CustomModel("/GetSearchItem",{

@@ -1,9 +1,8 @@
 define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'],
   function (PageView, viewhtml, AppModel, AppStore){
 
-    // var viewhtml = '下单成功';
-
     // 此订单需要请求 ajax，获取对应的订单相关信息。
+    
 
     return _.inherit(PageView, {
       pageName: 'order_success',

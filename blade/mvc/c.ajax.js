@@ -1,6 +1,15 @@
 
 define([], function () {
 
+  _compact = function(params){
+    for(var key in params){
+      if(!params[key]){
+        delete(params[key]);
+      }
+    }
+    return params;
+  };
+
   var contentTypeMap = {
     'json': 'application/json; charset=utf-8',
     'jsonp': 'application/json'
@@ -101,7 +110,7 @@ define([], function () {
       url: opt.url,
       type: opt.type,
       dataType: opt.dataType,
-      data: opt.data,
+      data: _compact(opt.data), //清除为空的参数
       contentType: opt.contentType,
       timeout: opt.timeout || 50000,
       success: function (res) {

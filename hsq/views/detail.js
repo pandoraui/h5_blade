@@ -58,21 +58,11 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
         this.clearPreInit();
 
         this.initPage();
-
-
       },
       onHide: function(){
         this.downTip && this.downTip.hide();
 
         this.clearPreInit();
-      },
-      dealParams: function(params){
-        for(var key in params){
-          if(!params[key]){
-            delete(params[key]);
-          }
-        }
-        return params;
       },
       //初始化页面
       initPage: function () {
@@ -101,11 +91,11 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
           skuId: this.params.sid,
         };
 
-        this.dealParams(ajaxGetDetailDesc.param);
+        // this.dealParams(ajaxGetDetailDesc.param);
 
         this.showLoading();
         ajaxGetDetailDesc.execute(function(res){
-          this.hideLoading();
+
           //成功
           console.log(res);
 
@@ -124,6 +114,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
           this.skuId = data.skuId;
 
           this.renderPage(data);
+          this.hideLoading();
 
           // if(!params.id){
             this.productId = data.product_id;
@@ -356,20 +347,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
         return data;
       },
       formatPrice: function(_price, needCount, smallCount){
-        var price = parseFloat(_price)*0.01;
-        if(isNaN(price)) return _price;
-        var is0 = price < 1 && price >= 0;
-        if(is0) price += 1;
-        // 需要小数点后2位
-        needCount = needCount || 2;
-        smallCount = smallCount || 2;
-        var fn = fn || 'round';
-        var numStr = Math[fn](price * Math.pow(10, needCount)).toString();
-        var index = numStr.length - needCount;
-        var intPart = numStr.substr(0, index);
-        if(is0) intPart = parseInt(intPart) - 1;
-        var smallNum = smallCount ? ('<i>' + numStr.substr(index+2) + '</i>') : '';
-        return intPart + '.' + numStr.substr(index, 2) + smallNum;
+        return _.formatPrice(_price, needCount, smallCount);
       },
       //继续请求图文详情接口
       getDetailArticle: function(){
@@ -446,7 +424,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
           amount: this.curAmount,
           price: curPrice
         };
-        
+
         var params = '?' + (productId ? ('pid=' + productId) : ('sid=' + this.skuId) );
         params += ('&amount=' + this.curAmount) + '&price=' + curPrice;
         this.forward('order' + params);

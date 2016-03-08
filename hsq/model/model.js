@@ -1,6 +1,5 @@
 
-//暂时不要 store 了
-define(['AbstractModel', 'ApiConfig'], function( AbstractModel, ApiConfig) {
+define(['AbstractModel', 'ApiConfig', 'AppStore'], function( AbstractModel, ApiConfig, AppStore) {
   var _model = {};
 
 
@@ -53,15 +52,57 @@ define(['AbstractModel', 'ApiConfig'], function( AbstractModel, ApiConfig) {
   //   clientInfo.ScreenDpiY = window.screen.deviceYDPI;
   //   }
   //   if ($.os.phone) {
-  //   if ($.os.iphone) {
-  //     clientInfo.DeviceType = "phone";
-  //   }
-  //   if ($.os.ipad) {
-  //     clientInfo.DeviceType = "pad";
-  //   }
+    //   if ($.os.iphone) {
+    //     clientInfo.DeviceType = "phone";
+    //   }
+    //   if ($.os.ipad) {
+    //     clientInfo.DeviceType = "pad";
+    //   }
   //   }
   //   return clientInfo;
   // };
+
+  //{"value":{"username":"138****1714","avatar":"","mobile":"13817131714","email":"","birthday":"0000-00-00","sex":0,"enabled":1,"token":"5f8facea123903bfa2e18340de673eef"},"timeout":"2016/06/16 11:09:55","savedate":"2016/03/08 11:09:55"}
+
+  var storeLogin = AppStore.Login.getInstance();
+  var loginInfo = storeLogin.get();
+
+
+  /*
+  API接口UserAgent规范:
+
+  Iphone: HSQIphone/版本号 (机型; 系统版本; Scale/像素与宽高比例): 举例: HSQIphone/1.0.0 (iPhone; iOS 9.1.0; Scale/3.00)
+  Android: HSQAndroid/版本号 (机型; 系统版本): 举例: HSQAndroid/1.0.0 (机型; 系统版本)
+
+  说明文档 https://worktile.com/share/pages/b1d17c75870545fea9aa76c26f12c3af
+  */
+
+  var deviceType = 'pc';
+  if ($.os.phone) {
+    deviceType = "phone";
+    if ($.os.iphone) {
+      deviceType = "iphone";
+    } else if($.os.android){
+      deviceType = "android";
+    } else if ($.os.ipad) {
+      deviceType = "pad";
+    }
+  }
+  var commonParams = {
+    token: loginInfo.token || '',  //用户登录时必传
+    device: deviceType,    //设备
+    uuid: '',    //用户唯一标志
+    udid: '',    //设备唯一标志
+    timestamp: '',    //时间
+    channel: '',    //渠道
+    location: '',    //地理位置
+    net: '',    //网络
+    v: '',    //应用版本号
+    swidth: window.screen.width,    //屏幕宽度
+    sheight: window.screen.height,  //屏幕高度
+    page: '',    //当前页面
+    zoneId: '',    //当前收货省份
+  };
 
   var buildurl = function() {
     var matchUrl = this.url;
@@ -75,6 +116,9 @@ define(['AbstractModel', 'ApiConfig'], function( AbstractModel, ApiConfig) {
         $super();
         var opt = opts || {};
         this.url = url;
+
+        this.commonParams = commonParams;
+        // var _params = $.extend({}, commonParams, opt.param);
         this.param = opt.param || {};
         opt.method && (this.method = opt.method);
         opt.result && (this.result = opt.result);

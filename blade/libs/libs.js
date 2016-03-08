@@ -5379,6 +5379,8 @@ var Zepto = (function () {
 //基础方法
 (function () {
 
+
+
   // 获取url参数
   // 这个方法还是有问题
   _.getUrlParam = function (url, key) {
@@ -5421,120 +5423,146 @@ var Zepto = (function () {
     return str.replace(/\s+/g, "");
   };
 
-  })();
+  _._compact = function(params){
+    for(var key in params){
+      if(!params[key]){
+        delete(params[key]);
+      }
+    }
+    return params;
+  };
+
+  _.formatPrice = function(_price, needCount, smallCount){
+    var price = parseFloat(_price)*0.01;
+    if(isNaN(price)) return _price;
+    var is0 = price < 1 && price >= 0;
+    if(is0) price += 1;
+    // 需要小数点后2位
+    needCount = needCount || 2;
+    smallCount = smallCount || 2;
+    var fn = fn || 'round';
+    var numStr = Math[fn](price * Math.pow(10, needCount)).toString();
+    var index = numStr.length - needCount;
+    var intPart = numStr.substr(0, index);
+    if(is0) intPart = parseInt(intPart) - 1;
+    var smallNum = smallCount ? ('<i>' + numStr.substr(index+2) + '</i>') : '';
+    return intPart + '.' + numStr.substr(index, 2) + smallNum;
+  };
+
+})();
 
 //l_wang flip手势工具
-  (function () {
+(function () {
 
-    //偏移步长
-    var step = 20;
+  //偏移步长
+  var step = 20;
 
-    var touch = {};
-    var down = 'touchstart';
-    var move = 'touchmove';
-    var up = 'touchend';
-    if (!('ontouchstart' in window)) {
-      down = 'mousedown';
-      move = 'mousemove';
-      up = 'mouseup';
-    }
+  var touch = {};
+  var down = 'touchstart';
+  var move = 'touchmove';
+  var up = 'touchend';
+  if (!('ontouchstart' in window)) {
+    down = 'mousedown';
+    move = 'mousemove';
+    up = 'mouseup';
+  }
 
-    //简单借鉴ccd思维做简要处理
-    function swipeDirection(x1, x2, y1, y2, sensibility) {
+  //简单借鉴ccd思维做简要处理
+  function swipeDirection(x1, x2, y1, y2, sensibility) {
 
-      //x移动的步长
-      var _x = Math.abs(x1 - x2);
-      //y移动步长
-      var _y = Math.abs(y1 - y2);
-      var dir = _x >= _y ? (x1 - x2 > 0 ? 'left' : 'right') : (y1 - y2 > 0 ? 'up' : 'down');
+    //x移动的步长
+    var _x = Math.abs(x1 - x2);
+    //y移动步长
+    var _y = Math.abs(y1 - y2);
+    var dir = _x >= _y ? (x1 - x2 > 0 ? 'left' : 'right') : (y1 - y2 > 0 ? 'up' : 'down');
 
-      //设置灵敏度限制
-      if (sensibility) {
-        if (dir == 'left' || dir == 'right') {
-          if ((_y / _x) > sensibility) dir = '';
-        } else if (dir == 'up' || dir == 'down') {
-          if ((_x / _y) > sensibility) dir = '';
-        }
+    //设置灵敏度限制
+    if (sensibility) {
+      if (dir == 'left' || dir == 'right') {
+        if ((_y / _x) > sensibility) dir = '';
+      } else if (dir == 'up' || dir == 'down') {
+        if ((_x / _y) > sensibility) dir = '';
       }
-      return dir;
     }
+    return dir;
+  }
 
-    //sensibility设置灵敏度，值为0-1
-    function flip(el, dir, fn, noDefault, sensibility, stepSet) {
-      if (!el || !el[0]) return;
-      var _dir = '', _step = stepSet || step;
+  //sensibility设置灵敏度，值为0-1
+  function flip(el, dir, fn, noDefault, sensibility, stepSet) {
+    if (!el || !el[0]) return;
+    var _dir = '', _step = stepSet || step;
 
-      /*
-      这里原来的逻辑是绑定几次flip便会执行几次，这里做一次优化
-      */
-      if (el[0].__flipEventObj) {
-        el[0].__flipEventObj['__flip_' + dir] = fn;
+    /*
+    这里原来的逻辑是绑定几次flip便会执行几次，这里做一次优化
+    */
+    if (el[0].__flipEventObj) {
+      el[0].__flipEventObj['__flip_' + dir] = fn;
 //        el[0].__flipEventObj['__flip_noDefault'] = noDefault;
 //        el[0].__flipEventObj['__flip_sensibility'] = sensibility;
-        return;
-      }
+      return;
+    }
 
-      el[0].__flipEventObj = {};
-      el[0].__flipEventObj['__flip_' + dir] = fn;
+    el[0].__flipEventObj = {};
+    el[0].__flipEventObj['__flip_' + dir] = fn;
 
-      //var _step = sensibility || step;
-      el.on(down, function (e) {
-        var pos = (e.touches && e.touches[0]) || e;
-        touch.x1 = pos.pageX;
-        touch.y1 = pos.pageY;
+    //var _step = sensibility || step;
+    el.on(down, function (e) {
+      var pos = (e.touches && e.touches[0]) || e;
+      touch.x1 = pos.pageX;
+      touch.y1 = pos.pageY;
 
-      }).on(move, function (e) {
+    }).on(move, function (e) {
 
-        var pos = (e.touches && e.touches[0]) || e;
-        touch.x2 = pos.pageX;
-        touch.y2 = pos.pageY;
+      var pos = (e.touches && e.touches[0]) || e;
+      touch.x2 = pos.pageX;
+      touch.y2 = pos.pageY;
 
-        //如果view过长滑不动是有问题的
-        //if (!noDefault) { e.preventDefault(); }
-        if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > _step) ||
-          (touch.y2 && Math.abs(touch.y1 - touch.y2) > _step)) {
-          _dir = swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2, sensibility);
-        }
-        var preventDefultFlag = typeof noDefault == 'function' ? noDefault(_dir) : noDefault;
-        if (!preventDefultFlag) {
-          e.preventDefault();
-        }
-      }).on(up, function (e) {
-        var pos = (e.changedTouches && e.changedTouches[0]) || e;
-        touch.x2 = pos.pageX;
-        touch.y2 = pos.pageY;
-
-        if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > _step) ||
+      //如果view过长滑不动是有问题的
+      //if (!noDefault) { e.preventDefault(); }
+      if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > _step) ||
         (touch.y2 && Math.abs(touch.y1 - touch.y2) > _step)) {
-          var _dir = swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2, sensibility);
+        _dir = swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2, sensibility);
+      }
+      var preventDefultFlag = typeof noDefault == 'function' ? noDefault(_dir) : noDefault;
+      if (!preventDefultFlag) {
+        e.preventDefault();
+      }
+    }).on(up, function (e) {
+      var pos = (e.changedTouches && e.changedTouches[0]) || e;
+      touch.x2 = pos.pageX;
+      touch.y2 = pos.pageY;
 
-          if (_.isFunction(el[0].__flipEventObj['__flip_' + _dir])) {
-            el[0].__flipEventObj['__flip_' + _dir]();
-          }
+      if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > _step) ||
+      (touch.y2 && Math.abs(touch.y1 - touch.y2) > _step)) {
+        var _dir = swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2, sensibility);
 
-        } else {
-
-          if (_.isFunction(el[0].__flipEventObj['__flip_tap'])) {
-            el[0].__flipEventObj['__flip_tap']();
-          }
+        if (_.isFunction(el[0].__flipEventObj['__flip_' + _dir])) {
+          el[0].__flipEventObj['__flip_' + _dir]();
         }
-        //l_wang 每次up后皆重置
-        touch = {};
-      });
-    }
 
-    function flipDestroy(el) {
-      if (!el || !el[0]) return;
+      } else {
 
-      el.off(down).off(move).off(up);
-      if (el[0].__flipEventObj) delete el[0].__flipEventObj;
+        if (_.isFunction(el[0].__flipEventObj['__flip_tap'])) {
+          el[0].__flipEventObj['__flip_tap']();
+        }
+      }
+      //l_wang 每次up后皆重置
+      touch = {};
+    });
+  }
 
-    }
+  function flipDestroy(el) {
+    if (!el || !el[0]) return;
 
-    _.flip = flip;
-    _.flipDestroy = flipDestroy;
+    el.off(down).off(move).off(up);
+    if (el[0].__flipEventObj) delete el[0].__flipEventObj;
 
-  })();
+  }
+
+  _.flip = flip;
+  _.flipDestroy = flipDestroy;
+
+})();
 
 
 //日期操作类

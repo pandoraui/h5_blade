@@ -4,10 +4,10 @@
     <script type="text/template" id="tpl_hsq_box">
     <%list.forEach(function(item){%>
       <li data-id="<%=item.id%>" class="iconfont <%= curId==item.id ? 'icon-check' : '' %>">
-        <h4><span class="name"><%=item.name%></span><span class="phone"><%=item.mobile%></span></h4>
-        <p><%=item.address%></p>
+        <h4><span class="name"><%=item.contacter%></span><span class="phone"><%=item.mobile%></span></h4>
+        <p><%=item.detail%></p>
       </li>
     <%})%>
-  </script>
+    </script>
   </ul>
 </div>

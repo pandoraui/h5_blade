@@ -2,24 +2,28 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
   function (PageView, viewhtml, AppModel, AppStore){
 
     var storeAddress = AppStore.Address.getInstance();
+    var ajaxOrderInit = AppModel.orderInit.getInstance();
+    var ajaxOrderSubmit = AppModel.orderSubmit.getInstance();
+
 
     return _.inherit(PageView, {
       pageName: 'order',
       events: {
         'click .J_s_invoice': 'selectInvoice',
         'click .J_s_invoice_types label': 'selectInvoiceTypes',
+        'click .J_go_pay': 'orderSubmit',
       },
       onCreate: function(){
         this.$el.html(viewhtml);
         //元素集合
         this.els = {
-          'hsq_box': this.$el.find('.hsq_box')
+          'hsq_box': this.$el.find('.hsq_box'),
         };
 
         var tpl_hsq_box = this.$el.find('#tpl_hsq_box');
 
         this.tpls = {
-            'hsq_box': tpl_hsq_box.html(),
+          'hsq_box': tpl_hsq_box.html(),
         };
         tpl_hsq_box.remove();
       },
@@ -43,7 +47,6 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
       },
       onShow: function(){
 
-
         this.initPage();
       },
       onHide: function(){},
@@ -51,12 +54,60 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
       initPage: function(){
         var scope = this;
 
-        var curAddress = storeAddress.get();
-        console.log(curAddress);
-      },
-      ajaxRequest: function(){},
-      renderPage: function(){
+        this.params = _.getUrlParam();
+        this.curAddress = storeAddress.get();
 
+        this.invoiceId = 1;
+        this.ajaxRequest();
+      },
+      ajaxRequest: function(){
+        var skusInfo = {
+          skuId: this.params.sid,
+          amount: this.params.amount,
+          price: this.params.price
+        };
+
+        ajaxOrderInit.param = {
+          addressId: '',
+          skusInfo: JSON.stringify([skusInfo]),
+        };
+
+        this.showLoading();
+        ajaxOrderInit.execute(function(res){
+          this.hideLoading();
+          //成功
+          console.log(res);
+
+          var data = res.data;
+
+          if(!this.curAddress){
+            this.curAddress = data.address || null;
+          }
+
+          this.renderPage(data);
+
+        },function(error){
+          //失败
+          console.log(error);
+          this.showToast(error.errmsg);
+        },this);
+      },
+      renderPage: function(data){
+        var address = this.curAddress;
+        if(address){
+          var tempCity = address.province == address.city ? address.city : (address.province + address.city);
+          address.detail = tempCity + address.district + address.detail_address;
+        }
+        var pageData = {
+          address: address,
+          pInfo: data.packageInfo,
+          paymentway: '',
+        };
+
+        var html = _.template(this.tpls.hsq_box)(pageData);
+        this.els.hsq_box.html(html);
+
+        this.els.$invoice_title = this.$el.find('.J_invoice_title');
       },
       selectInvoice: function(e){
         var target = $(e.currentTarget);
@@ -66,10 +117,13 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
           $header.addClass('icon-selected');
           target.next().show();
           this.useInvoice = true;
+
+          this.invoiceId = (this.invoiceType == 'company') ? 3 : 2;
         }else{
           $header.removeClass('icon-selected');
           target.next().hide();
           this.useInvoice = false;
+          this.invoiceId = 1;
         }
       },
       selectInvoiceTypes: function(e){
@@ -77,8 +131,63 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
         var $radioBox = target.find('.icon-select');
 
         this.invoiceType = target.data('type');
+        this.invoiceId = (this.invoiceType == 'company') ? 3 : 2;
         target.find('.icon-select').addClass('icon-selected').end()
               .siblings().find('.icon-select').removeClass('icon-selected');
+      },
+      checkOrderStatus: function(){
+        if(!this.curAddress){
+          this.showToast('请选择一个邮寄地址');
+          return false;
+        }
+
+        if(this.invoiceId == 3){
+          this.invoceTitle = this.els.$invoice_title.val().trim();
+          if(!this.invoceTitle){
+            this.showToast('请填写发票抬头');
+            return false;
+          }
+        }else{
+          this.invoceTitle = null;
+        }
+
+        return true;
+      },
+      orderSubmit: function(){
+        //去支付，要先检查下单条件是否满足：邮寄地址，发票选择
+        if(!this.checkOrderStatus()){
+          return;
+        }
+
+
+        ajaxOrderSubmit.param = {
+          addressId: '',
+          invoice: '',
+          notes: ' ',
+          confirmOrderSerialId: '',
+          couponCode: '',
+          couponId: '',
+        };
+
+        this.showLoading();
+        ajaxOrderSubmit.execute(function(res){
+          this.hideLoading();
+          //成功
+          console.log(res);
+
+          var data = res.data;
+
+          this.orderIds = data.orderIds;
+          this.goPay();
+
+        },function(error){
+          //失败
+          console.log(error);
+          this.showToast(error.errmsg);
+        },this);
+      },
+      goPay: function(){
+
       },
     });
 });

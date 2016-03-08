@@ -23,6 +23,11 @@
 .address-using{
   position: relative;
 
+  .no-address{
+    height: fontsize(70);
+    line-height: fontsize(70);
+  }
+
   &.selected{
     background: $hsq-lighter;
   }

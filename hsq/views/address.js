@@ -5,22 +5,31 @@ define(['PageView', getViewTemplatePath('address'), 'AppModel', 'AppStore'],
 
     var addressList = [
       {
-        id: 1,
-        name: '徐某某',
-        mobile: '134****3245',
-        address: '上海徐汇区城区钦州路100号2号楼XXX室'
+        "id": 10000001,
+        "province": "上海市",
+        "city": "上海市",
+        "district": "闵行区",
+        "contacter": "王二",
+        "detail_address": "100号2号楼206室",
+        "mobile": "170****5856"
       },
       {
-        id: 2,
-        name: '王二',
-        mobile: '134****3245',
-        address: '上海徐汇区城区钦州路100号2号楼XXX室'
+        "id": 10000002,
+        "province": "上海市",
+        "city": "上海市",
+        "district": "徐汇区",
+        "contacter": "赵子云",
+        "detail_address": "100号2号楼207室",
+        "mobile": "170****5856"
       },
       {
-        id: 3,
-        name: '司马无情',
-        mobile: '134****3245',
-        address: '上海徐汇区城区钦州路100号2号楼XXX室'
+        "id": 10000003,
+        "province": "上海市",
+        "city": "上海市",
+        "district": "长宁区",
+        "contacter": "司马无情",
+        "detail_address": "100号2号楼208室",
+        "mobile": "170****5856"
       },
     ];
     var tempArr = [];
@@ -83,14 +92,23 @@ define(['PageView', getViewTemplatePath('address'), 'AppModel', 'AppStore'],
       },
       ajaxRequest: function(){
         //更新默认地址，优先使用 store 地址，没有的话，使用ajax 中的默认地址
-        var curAddress = storeAddress.get() || {};
+        var curAddress = storeAddress.get();
 
-        tempArr = _.indexBy(addressList, 'id');
+        addressList = this.dealAddress(addressList);
         this.renderPage({
           list: addressList,
           curId: curAddress.id || 0
         });
 
+      },
+      dealAddress: function(addressList){
+        addressList.forEach(function(address){
+          var tempCity = address.province == address.city ? address.city : (address.province + address.city);
+          address.detail = tempCity + address.district + address.detail_address;
+        });
+
+        tempArr = _.indexBy(addressList, 'id');
+        return addressList;
       },
       renderPage: function(data){
 
@@ -101,7 +119,7 @@ define(['PageView', getViewTemplatePath('address'), 'AppModel', 'AppStore'],
         var target = $(e.currentTarget);
         var curId = target.data('id');
         target.addClass('icon-check').siblings().removeClass('icon-check');
-        this.curAddress = tempArr[curId] || {};
+        this.curAddress = tempArr[curId] || null;
 
         storeAddress.set(this.curAddress);
 

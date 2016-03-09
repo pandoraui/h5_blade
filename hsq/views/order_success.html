@@ -7,7 +7,7 @@
   </div>
   <div class="order-info">
     <%order.skuList.forEach(function(item){%>
-    <dl class="info-item border-top-line" data-link="detail?sid=<%=item.sku_id%>">
+    <dl class="info-item border-top-line">
       <dd class="oper fr">
         <dfn class="price">&yen;<%=_.formatPrice(item.unit_price)%></dfn>
         <p class="num">&times; <%=item.amount%></p>

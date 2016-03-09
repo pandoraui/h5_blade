@@ -58,7 +58,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
             tagname: 'back',
             value: '返回',
             callback: function() {
-              self.back();
+              self.back('list');
             }
           };
         }

@@ -2,9 +2,9 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
   function (PageView, viewhtml, AppModel, AppStore){
 
     var storeAddress = AppStore.Address.getInstance();
-    var ajaxOrderInit = AppModel.orderInit.getInstance();
-    var ajaxOrderSubmit = AppModel.orderSubmit.getInstance();
-    var ajaxOrderPay = AppModel.orderPay.getInstance();
+    var modelOrderInit = AppModel.orderInit.getInstance();
+    var modelOrderSubmit = AppModel.orderSubmit.getInstance();
+    var modelOrderPay = AppModel.orderPay.getInstance();
 
 
     return _.inherit(PageView, {
@@ -67,13 +67,13 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
           price: this.params.price
         };
 
-        ajaxOrderInit.param = {
+        modelOrderInit.param = {
           addressId: '',
           skusInfo: JSON.stringify([skusInfo]),
         };
 
         this.showLoading();
-        ajaxOrderInit.execute(function(res){
+        modelOrderInit.execute(function(res){
           this.hideLoading();
           //成功
           console.log(res);
@@ -158,7 +158,7 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
       },
       orderSubmit: function(){
         //去支付，要先检查下单条件是否满足：邮寄地址，发票选择
-        if(!this.checkOrderStatus()){
+        if( !this.checkOrderStatus() ){
           return;
         }
 
@@ -166,7 +166,7 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
           type: this.invoiceId,
           title: this.invoceTitle || '',
         };
-        ajaxOrderSubmit.param = {
+        modelOrderSubmit.param = {
           addressId: this.curAddress.id,
           invoice: JSON.stringify(invoiceInfo),
           notes: JSON.stringify({}),
@@ -176,7 +176,7 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
         };
 
         this.showLoading();
-        ajaxOrderSubmit.execute(function(res){
+        modelOrderSubmit.execute(function(res){
           this.hideLoading();
           //成功
           console.log(res);
@@ -193,7 +193,7 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
         },this);
       },
       goPay: function(){
-        //ajaxOrderPay
+        //modelOrderPay
       },
     });
 });

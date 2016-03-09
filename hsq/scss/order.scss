@@ -143,7 +143,8 @@
   .pay-countdown{
     display: inline-block;
     padding: fontsize(6) fontsize(10) 0;
-    line-height: 1.4;
+    // line-height: 1.4;
+    line-height: fontsize(38);
     font-size: fontsize(12);
     color: $hsq-gray;
 

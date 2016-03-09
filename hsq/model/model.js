@@ -2,8 +2,15 @@
 define(['AbstractModel', 'ApiConfig', 'AppStore'], function( AbstractModel, ApiConfig, AppStore) {
   var _model = {};
 
+/*
+  Usage Example
 
-  // var headStore = CommonStore.HeadStore.getInstance(),
+  var storeCommonLong = CommonStore.CommonLong.getInstance();
+  var storeCommonShort = CommonStore.CommonShort.getInstance();
+  var modelLogin = AppModel.login.getInstance();
+
+ */
+  //
   //   locationStore = CruiseStore.CruiseLocationStore.getInstance();
 
   // /**

@@ -17,7 +17,7 @@
     'detail': 1,
     'order': 1,
     'order_success': 0,
-    'address': 0,
+    'address': 1,
     'address_update': 0,
     'quick_login': 0,
   };

@@ -2,7 +2,7 @@ define(['PageView', getViewTemplatePath('address'), 'AppModel', 'AppStore'],
   function (PageView, viewhtml, AppModel, AppStore){
 
     var storeAddress = AppStore.Address.getInstance();
-    var ajaxAddressList = AppModel.addressList.getInstance();
+    var modelAddressList = AppModel.addressList.getInstance();
 
     // var addressList = [
     //   {
@@ -95,10 +95,10 @@ define(['PageView', getViewTemplatePath('address'), 'AppModel', 'AppStore'],
         //更新默认地址，优先使用 store 地址，没有的话，使用ajax 中的默认地址
         var curAddress = storeAddress.get() || {};
 
-        ajaxAddressList.param = {};
+        modelAddressList.param = {};
 
         this.showLoading();
-        ajaxAddressList.execute(function(res){
+        modelAddressList.execute(function(res){
           this.hideLoading();
 
           //成功

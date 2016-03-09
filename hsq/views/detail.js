@@ -2,8 +2,8 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
   function (PageView, viewhtml, AppModel, AppStore, Swiper, UISwiper, LazyLoad, Detect){
 
     // var ajaxTest = AppModel.getTestPage.getInstance();
-    var ajaxGetDetailDesc = AppModel.getDetailDesc.getInstance();
-    var ajaxGetDetailArticle = AppModel.getDetailArticle.getInstance();
+    var modelGetDetailDesc = AppModel.getDetailDesc.getInstance();
+    var modelGetDetailArticle = AppModel.getDetailArticle.getInstance();
 
     var limitMax = 5;
 
@@ -85,15 +85,15 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
       ajaxRequest: function(){
         var scope = this;
 
-        ajaxGetDetailDesc.param = {
+        modelGetDetailDesc.param = {
           productId: this.params.pid,
           skuId: this.params.sid,
         };
 
-        // this.dealParams(ajaxGetDetailDesc.param);
+        // this.dealParams(modelGetDetailDesc.param);
 
         this.showLoading();
-        ajaxGetDetailDesc.execute(function(res){
+        modelGetDetailDesc.execute(function(res){
 
           //成功
           console.log(res);
@@ -352,11 +352,11 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
       },
       //继续请求图文详情接口
       getDetailArticle: function(){
-        ajaxGetDetailArticle.param = {
+        modelGetDetailArticle.param = {
           productId: this.productId
         };
 
-        ajaxGetDetailArticle.execute(function(res){
+        modelGetDetailArticle.execute(function(res){
           //成功
           console.log(res);
 

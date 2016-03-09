@@ -131,7 +131,6 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
         if(!mobile){
           this.showToast('请输入手机号');
           this.focusInput(this.els.$nodeMobile);
-          return;
         }else if( !FormatReg.mobile.reg.test(mobile) ){
           this.showToast(FormatReg.mobile.tip);
           // this.focusInput(this.els.$nodeMobile);

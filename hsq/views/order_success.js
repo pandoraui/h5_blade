@@ -75,6 +75,7 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
           //失败
           this.showToast(error.errmsg);
 
+          
           // setTimeout(function(){
           //   scope
           // }, 1500);

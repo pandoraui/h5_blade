@@ -205,6 +205,8 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
 
           this.curView.show();
           this.lastView && this.lastView.hide();
+
+          console.log('waitAjax: ', !!this.curView.waitAjax)
           if( !(this.curView.waitAjax) ){
             this.loading.hide();
           }

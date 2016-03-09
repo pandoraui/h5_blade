@@ -5,7 +5,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
     var modelGetDetailDesc = AppModel.getDetailDesc.getInstance();
     var modelGetDetailArticle = AppModel.getDetailArticle.getInstance();
 
-    var limitMax = 5,
+    var limitMax = 10000000,
         isProductChange;
 
     var isWifiKey = Detect.isWifiKey;

@@ -72,7 +72,7 @@ define(['AbstractModel', 'ApiConfig', 'AppStore'], function( AbstractModel, ApiC
   //{"value":{"username":"138****1714","avatar":"","mobile":"13817131714","email":"","birthday":"0000-00-00","sex":0,"enabled":1,"token":"5f8facea123903bfa2e18340de673eef"},"timeout":"2016/06/16 11:09:55","savedate":"2016/03/08 11:09:55"}
 
   var storeLogin = AppStore.Login.getInstance();
-  var loginInfo = storeLogin.get();
+  var loginInfo = storeLogin.get() || {};
 
 
   /*
@@ -95,20 +95,23 @@ define(['AbstractModel', 'ApiConfig', 'AppStore'], function( AbstractModel, ApiC
       deviceType = "pad";
     }
   }
-  var commonParams = {
-    token: loginInfo.token || '',  //用户登录时必传
-    device: deviceType,    //设备
-    uuid: '',    //用户唯一标志
-    udid: '',    //设备唯一标志
-    timestamp: '',    //时间
-    channel: '',    //渠道
-    location: '',    //地理位置
-    net: '',    //网络
-    v: '',    //应用版本号
-    swidth: window.screen.width,    //屏幕宽度
-    sheight: window.screen.height,  //屏幕高度
-    page: '',    //当前页面
-    zoneId: '',    //当前收货省份
+  function setCommonParams(opts){
+    var opts = opts || loginInfo;
+    return {
+      token: opts.token || '',  //用户登录时必传
+      device: deviceType,    //设备
+      uuid: '',    //用户唯一标志
+      udid: '',    //设备唯一标志
+      timestamp: '',    //时间
+      channel: '',    //渠道
+      location: '',    //地理位置
+      net: '',    //网络
+      v: '',    //应用版本号
+      swidth: window.screen.width,    //屏幕宽度
+      sheight: window.screen.height,  //屏幕高度
+      page: '',    //当前页面
+      zoneId: '',    //当前收货省份
+    };
   };
 
   var buildurl = function() {
@@ -124,7 +127,7 @@ define(['AbstractModel', 'ApiConfig', 'AppStore'], function( AbstractModel, ApiC
         var opt = opts || {};
         this.url = url;
 
-        this.commonParams = commonParams;
+        this.commonParams = setCommonParams();
         // var _params = $.extend({}, commonParams, opt.param);
         this.param = opt.param || {};
         opt.method && (this.method = opt.method);
@@ -135,7 +138,14 @@ define(['AbstractModel', 'ApiConfig', 'AppStore'], function( AbstractModel, ApiC
       initialize: function($super, options) {
         //var options = this._propertys();
         $super(options);
-      }
+      },
+      //这里要每次 ajax 请求之前，更新公共参数（因为 token 可能发生变化了）
+      __updateOption: function(){
+        if(!loginInfo.token){
+          loginInfo = storeLogin.get() || {};
+          this.commonParams = setCommonParams(loginInfo);
+        }
+      },
     });
   };
 

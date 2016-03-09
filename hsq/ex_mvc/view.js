@@ -57,6 +57,8 @@
       });
 
       this.on('onShow', function () {
+        this._updatePageOptions();
+
         //生成头部
         this._createHeader();
 
@@ -67,6 +69,9 @@
       });
 
       this.on('onHide', function () {
+        // this.abort();
+        // this.__toast && this.__toast.hide();
+
         this.mask && this.mask.hide();
         this.onHide && this.onHide();
       });
@@ -118,6 +123,12 @@
     },
     updateTitle: function(title){
       document.title = title || '好食期';
+    },
+    errNextDeal: function(error){
+      var scope = this;
+      if(error.errno == 510010){
+        scope.forward('quick_login');
+      }
     },
     closeDownTip: function(e){
       this.downTip.hide();

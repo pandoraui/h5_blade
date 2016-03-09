@@ -135,11 +135,21 @@
         if (typeof onError === 'function') {
           setTimeout(function(){
             onError.call(scope || _scope, e);
+
+            setTimeout(function(){
+              if( $.isFunction(scope.errNextDeal) ){
+                scope.errNextDeal.call(scope || _scope, e);
+              }
+            }, 1500);
           }, 300);
         }
       }, this);
 
       // @description 从this.param中获得数据，做深copy
+      if( $.isFunction(this.__updateOption) ){
+        this.__updateOption();
+      }
+
       var params = params || _.clone(this.getParam() || {});
 
       var params = $.extend({},this.commonParams, params);

@@ -4,8 +4,9 @@ define(['PageView', getViewTemplatePath('address_update'), 'AppModel', 'AppStore
     // var storeAddress = AppStore.Address.getInstance();
     var modelAddressAdd = AppModel.addressAdd.getInstance();
 
+
     var newAddress = {},
-        district = {};
+        District = {};
 
     return _.inherit(PageView, {
       pageName: 'address_update',
@@ -87,12 +88,12 @@ define(['PageView', getViewTemplatePath('address_update'), 'AppModel', 'AppStore
           detailAddress: this.els.$inputAddressDetail.val().trim(),
 
           //所在区域
-          provinceId: district.provinceId,
-          province: district.province,
-          cityId: district.cityId,
-          city: district.city,
-          districtId: district.districtId,
-          district: district.district,
+          provinceId: District.provinceId,
+          province: District.province,
+          cityId: District.cityId,
+          city: District.city,
+          districtId: District.districtId,
+          district: District.district,
         };
 
         if(!newAddress.contacter){
@@ -118,7 +119,6 @@ define(['PageView', getViewTemplatePath('address_update'), 'AppModel', 'AppStore
           this.showToast('请输入详细地址');
           return;
         }
-
 
         return true;
       },

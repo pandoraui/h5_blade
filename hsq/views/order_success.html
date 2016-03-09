@@ -1,22 +1,26 @@
 
-<div class="xcard order-success">
-  <div class="tips border-bottom-line">
+<div class="xcard order-success hsq_box">
+  <script type="text/template" id="tpl_hsq_box">
+  <div class="tips">
     <h3>恭喜您，付款成功！</h3>
-    <p>订单号：10893443483 订单金额：&yen;46.00</p>
+    <p>订单号：<%=order.id%> 订单金额：&yen;<%=_.formatPrice(order.total_price)%></p>
   </div>
   <div class="order-info">
-    <dl class="info-item">
+    <%order.skuList.forEach(function(item){%>
+    <dl class="info-item border-top-line" data-link="detail?sid=<%=item.sku_id%>">
       <dd class="oper fr">
-        <dfn class="price">&yen;4.95</dfn>
-        <p class="num">&times; 4</p>
+        <dfn class="price">&yen;<%=_.formatPrice(item.unit_price)%></dfn>
+        <p class="num">&times; <%=item.amount%></p>
       </dd>
-      <dt class="img fl"><img src="https://placeholdit.imgix.net/~text?txtsize=9&txt=100%C3%97100&w=100&h=100" alt=""></dt>
+      <dt class="img fl"><img src="<%=item.skuThumbnail%>" alt=""></dt>
       <dd class="text">
-        <h5>产品标题，这是国外进口各种产品标题详细描述的标题</h5>
-        <p>苹果味<i class="v-line"></i>320g</p>
+        <h5><%=item.sku_name%></h5>
+        <p><%=_.pluck(item.attrs, 'value').join('<i class="v-line"></i>')%></p>
       </dd>
     </dl>
+    <%})%>
   </div>
+  </script>
 </div>
 
 <div class="xcard more-tips">

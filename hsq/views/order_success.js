@@ -33,12 +33,15 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
             value: '返回',
             callback: function() {
               //这里返回订单详情页
-              self.back();
+              self.backAction();
             }
           }
         };
         this.header.set(headerData);
         this.header.show();
+      },
+      backAction: function(){
+        this.back('detail?sid=' + this.skuId);
       },
       onShow: function(){
 
@@ -68,21 +71,19 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
 
           var data = res.data;
 
-          this.renderPage(data);
+          this.skuId = data.skuList && data.skuList[0] && data.skuList[0].skuId;
+
+          this.renderPage({order: data});
           this.hideLoading();
 
         },function(error){
           //失败
           this.showToast(error.errmsg);
-
-          
-          // setTimeout(function(){
-          //   scope
-          // }, 1500);
         },this);
       },
       renderPage: function(data){
-
+        var html = _.template(this.tpls.hsq_box)(data);
+        this.els.hsq_box.html(html);
       },
     });
 });

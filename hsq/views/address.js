@@ -51,7 +51,7 @@ define(['PageView', getViewTemplatePath('address'), 'AppModel', 'AppStore'],
         var tpl_hsq_box = this.$el.find('#tpl_hsq_box');
 
         this.tpls = {
-            'hsq_box': tpl_hsq_box.html(),
+          'hsq_box': tpl_hsq_box.html(),
         };
         tpl_hsq_box.remove();
       },

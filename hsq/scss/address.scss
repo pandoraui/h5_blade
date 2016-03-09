@@ -6,11 +6,16 @@
     padding: fontsize(16) fontsize(10);
     background: #fff;
 
+    &.icon-link:before,
     &.icon-check:before{
       position: absolute;
       right: fontsize(8);
       top: 50%;
       margin-top: fontsize(-24);
+    }
+
+    &.icon-link:before{
+      margin-top: fontsize(-10);
     }
   }
   span.name{
@@ -40,6 +45,7 @@
     color: $hsq-gray;
   }
 }
+
 .address-using {
   padding: fontsize(16) fontsize(10) fontsize(10);
   &:before{
@@ -51,7 +57,6 @@
     height: fontsize(40);
     margin-top: fontsize(-10);
     font-size: fontsize(20);
-    color: $hsq-gray;
   }
 }
 

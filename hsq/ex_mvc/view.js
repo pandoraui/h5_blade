@@ -60,6 +60,9 @@
         //生成头部
         this._createHeader();
 
+        //获取 url 参数
+        this.params = _.getUrlParam();
+
         this.onShow && this.onShow();
       });
 

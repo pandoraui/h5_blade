@@ -4,6 +4,7 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
     var storeAddress = AppStore.Address.getInstance();
     var ajaxOrderInit = AppModel.orderInit.getInstance();
     var ajaxOrderSubmit = AppModel.orderSubmit.getInstance();
+    var ajaxOrderPay = AppModel.orderPay.getInstance();
 
 
     return _.inherit(PageView, {
@@ -54,7 +55,6 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
       initPage: function(){
         var scope = this;
 
-        this.params = _.getUrlParam();
         this.curAddress = storeAddress.get();
 
         this.invoiceId = 1;
@@ -193,7 +193,7 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
         },this);
       },
       goPay: function(){
-
+        //ajaxOrderPay
       },
     });
 });

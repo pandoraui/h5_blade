@@ -2,7 +2,7 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
   function (PageView, viewhtml, AppModel, AppStore){
 
     // 此订单需要请求 ajax，获取对应的订单相关信息。
-    
+    var ajaxOrderDetail = AppModel.orderDetail.getInstance();
 
     return _.inherit(PageView, {
       pageName: 'order_success',
@@ -17,7 +17,7 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
         var tpl_hsq_box = this.$el.find('#tpl_hsq_box');
 
         this.tpls = {
-            'hsq_box': tpl_hsq_box.html(),
+          'hsq_box': tpl_hsq_box.html(),
         };
         tpl_hsq_box.remove();
       },

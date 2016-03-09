@@ -74,7 +74,6 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
         //     return new $.Swiper(container, params);
         // };
 
-        this.params = _.getUrlParam();
         this.ajaxRequest();
 
         // if(params.id){

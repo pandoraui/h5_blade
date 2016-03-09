@@ -37,17 +37,17 @@
       setHeader: function(){
         var self = this;
         var headerData = {
-          // back: false,
+          back: false,
           center: {
             tagname: 'title',
             value: ['首页']
           },
-          back: {
-            tagname: 'back',
-            callback: function() {
-              self.back('index');
-            }
-          }
+          // back: {
+          //   tagname: 'back',
+          //   callback: function() {
+          //     self.back('index');
+          //   }
+          // }
         };
         this.header.set(headerData);
         this.header.show();

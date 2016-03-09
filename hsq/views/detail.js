@@ -5,7 +5,15 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
     var modelGetDetailDesc = AppModel.getDetailDesc.getInstance();
     var modelGetDetailArticle = AppModel.getDetailArticle.getInstance();
 
-    var limitMax = 5;
+    var limitMax = 5,
+        isProductChange;
+
+    var isWifiKey = Detect.isWifiKey;
+    var Debug = true;
+
+    if(Debug){
+      isWifiKey = !isWifiKey;
+    }
 
     return _.inherit(PageView, {
       pageName: 'detail',
@@ -42,20 +50,29 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
             tagname: 'title',
             value: ['商品详情']
           },
-          back: {
+          back: false,
+        };
+
+        if(Debug){
+          headerData.back = {
             tagname: 'back',
             value: '返回',
             callback: function() {
-              self.back('index');
+              self.back();
             }
-          }
-        };
+          };
+        }
         this.header.set(headerData);
         this.header.show();
       },
       onShow: function(){
         //倒计时功能需要更新时清除下，不然会有闭包问题
         this.clearPreInit();
+
+        isProductChange  = !((this.productId == this.params.pid) || (this.skuId == this.params.sid));
+        if(isProductChange){
+          this.els.operNumberValue.val('1');
+        }
 
         this.initPage();
       },
@@ -94,7 +111,6 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
 
         this.showLoading();
         modelGetDetailDesc.execute(function(res){
-
           //成功
           console.log(res);
 
@@ -164,7 +180,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
         this.countDownStock(data);
 
         //有库存且可售时，显示立即购买按钮栏（目前还限制在 wifi 万能钥匙 app 中才显示）
-        if(this.left_stock>0 && this.left_times>0 && !Detect.isWifiKey){
+        if(this.left_stock>0 && this.left_times>0 && isWifiKey){
           // this.supportOrder = true;
           this.$tplbox.fexed_footer.show();
           if(!this.curAmount){

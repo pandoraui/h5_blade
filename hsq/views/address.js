@@ -4,35 +4,35 @@ define(['PageView', getViewTemplatePath('address'), 'AppModel', 'AppStore'],
     var storeAddress = AppStore.Address.getInstance();
     var modelAddressList = AppModel.addressList.getInstance();
 
-    // var addressList = [
-    //   {
-    //     "id": 10000001,
-    //     "province": "上海市",
-    //     "city": "上海市",
-    //     "district": "闵行区",
-    //     "contacter": "王二",
-    //     "detail_address": "100号2号楼206室",
-    //     "mobile": "170****5856"
-    //   },
-    //   {
-    //     "id": 10000002,
-    //     "province": "上海市",
-    //     "city": "上海市",
-    //     "district": "徐汇区",
-    //     "contacter": "赵子云",
-    //     "detail_address": "100号2号楼207室",
-    //     "mobile": "170****5856"
-    //   },
-    //   {
-    //     "id": 10000003,
-    //     "province": "上海市",
-    //     "city": "上海市",
-    //     "district": "长宁区",
-    //     "contacter": "司马无情",
-    //     "detail_address": "100号2号楼208室",
-    //     "mobile": "170****5856"
-    //   },
-    // ];
+    var addressTestList = [
+      {
+        "id": 10000001,
+        "province": "上海市",
+        "city": "上海市",
+        "district": "闵行区",
+        "contacter": "王二",
+        "detail_address": "100号2号楼206室",
+        "mobile": "170****5856"
+      },
+      {
+        "id": 10000002,
+        "province": "上海市",
+        "city": "上海市",
+        "district": "徐汇区",
+        "contacter": "赵子云",
+        "detail_address": "100号2号楼207室",
+        "mobile": "170****5856"
+      },
+      {
+        "id": 10000003,
+        "province": "上海市",
+        "city": "上海市",
+        "district": "长宁区",
+        "contacter": "司马无情",
+        "detail_address": "100号2号楼208室",
+        "mobile": "170****5856"
+      },
+    ];
     var tempArr = [];
 
     return _.inherit(PageView, {
@@ -108,6 +108,8 @@ define(['PageView', getViewTemplatePath('address'), 'AppModel', 'AppStore'],
 
           var addressList = data.list;
 
+          addressList = addressTestList;
+
           addressList = this.dealAddress(addressList);
 
           console.log(addressList)
@@ -118,7 +120,7 @@ define(['PageView', getViewTemplatePath('address'), 'AppModel', 'AppStore'],
 
         },function(error){
           //失败
-          this.errorTip(error.errmsg);
+          this.showToast(error.errmsg);
         },this);
 
 

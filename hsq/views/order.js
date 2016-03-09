@@ -188,7 +188,6 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
 
         },function(error){
           //失败
-          console.log(error);
           this.showToast(error.errmsg);
         },this);
       },

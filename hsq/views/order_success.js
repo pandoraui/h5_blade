@@ -33,7 +33,7 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
             value: '返回',
             callback: function() {
               //这里返回订单详情页
-              self.back('index');
+              self.back();
             }
           }
         };
@@ -49,9 +49,38 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
       initPage: function(){
         var scope = this;
 
+        this.ajaxRequest();
       },
-      ajaxRequest: function(){},
-      renderPage: function(){
+      ajaxRequest: function(){
+        var scope = this;
+        if(!this.params.oid){
+          this.showToast('订单号不存在！');
+          return;
+        }
+
+        this.showLoading();
+        modelOrderDetail.param = {
+          orderId: this.params.oid,
+        };
+        modelOrderDetail.execute(function(res){
+          //成功
+          console.log(res);
+
+          var data = res.data;
+
+          this.renderPage(data);
+          this.hideLoading();
+
+        },function(error){
+          //失败
+          this.showToast(error.errmsg);
+
+          // setTimeout(function(){
+          //   scope
+          // }, 1500);
+        },this);
+      },
+      renderPage: function(data){
 
       },
     });

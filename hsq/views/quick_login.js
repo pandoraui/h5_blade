@@ -119,7 +119,6 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
 
         },function(error){
           //失败
-          console.log(error);
           this.showToast(error.errmsg);
         },this);
       },
@@ -181,7 +180,6 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
 
         },function(error){
           //失败
-          console.log(error);
           this.showToast(error.errmsg);
         },this);
       },

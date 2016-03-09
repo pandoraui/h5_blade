@@ -126,6 +126,8 @@ define(['PageView', getViewTemplatePath('address_update'), 'AppModel', 'AppStore
         if( !this.checkNewAddress() ){
           return;
         }
+
+        
       },
     });
 });

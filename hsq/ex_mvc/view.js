@@ -15,11 +15,11 @@
     'index': 0,
     'list': 0,
     'detail': 1,
+    'quick_login': 0,
     'order': 1,
-    'order_success': 0,
+    'order_success': 1,
     'address': 1,
     'address_update': 0,
-    'quick_login': 0,
   };
 
   return _.inherit(AbstractView, {

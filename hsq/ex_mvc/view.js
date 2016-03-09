@@ -11,8 +11,20 @@
     '</div>'
   ].join('');
 
+  var waitAjaxPage = {
+    'index': 0,
+    'list': 0,
+    'detail': 1,
+    'order': 1,
+    'order_success': 0,
+    'address': 0,
+    'address_update': 0,
+    'quick_login': 0,
+  };
+
   return _.inherit(AbstractView, {
     header: null,
+    waitAjax: false,
     propertys: function ($super) {
       $super();
       this.openShadowDom = false;
@@ -67,6 +79,14 @@
       this.downTip.checkStatus();
       return this.downTip;
     },
+    _updatePageOptions: function(pageName){
+      var pageName = pageName || this.pageName;
+      if (!pageName) {
+        throw Error("This view need set the pageName!!!");
+        return;
+      }
+      this.waitAjax = !!waitAjaxPage[pageName] || false;
+    },
     /**
      * 生成头部
      */
@@ -100,10 +120,27 @@
       this.downTip.hide();
       // target.hide();
     },
-    showLoading: function(tip){
+    showLoading: function(tip, closeBtn){
+      var tip = tip || '加载中...';
+      var closeBtn = closeBtn || false;
+
+      // if(!this.loading){
+      //   this.__loading = new UILoadingLayer({
+      //     content: tip,
+      //     closeBtn: close
+      //   });
+      // }else{
+      //   this.__toast.content = tip;
+      //   this.__toast.closeBtn = closeBtn;
+      //
+      //   this.__toast.refresh();
+      // }
+
+      // this.__loading.show();
       Blade.loading.show();
     },
     hideLoading: function(tip){
+      // this.__loading && this.__loading.hide();
       Blade.loading.hide();
     },
     showToast: function(content, timer){

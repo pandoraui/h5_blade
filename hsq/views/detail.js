@@ -113,6 +113,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
           this.left_stock = data.left_stock;
           this.skuId = data.skuId;
 
+          console.log(222);
           this.renderPage(data);
           this.hideLoading();
 
@@ -126,6 +127,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
           console.log(error);
           this.errorTip(error.errmsg);
         },this);
+
       },
       errorTip: function(msg){
         var html = '';

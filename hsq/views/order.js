@@ -84,6 +84,9 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
             this.curAddress = data.address || null;
           }
 
+          //确认订单序列号
+          this.confirmSid = data.confirmSid;
+
           this.renderPage(data);
 
         },function(error){
@@ -159,12 +162,15 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
           return;
         }
 
-
+        var invoiceInfo = {
+          type: this.invoiceId,
+          title: this.invoceTitle || '',
+        };
         ajaxOrderSubmit.param = {
-          addressId: '',
-          invoice: '',
-          notes: ' ',
-          confirmOrderSerialId: '',
+          addressId: this.curAddress.id,
+          invoice: JSON.stringify(invoiceInfo),
+          notes: JSON.stringify({}),
+          confirmOrderSerialId: this.confirmSid,
           couponCode: '',
           couponId: '',
         };

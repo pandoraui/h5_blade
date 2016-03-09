@@ -205,8 +205,9 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
 
           this.curView.show();
           this.lastView && this.lastView.hide();
-          this.loading.hide();
-
+          if( !(this.curView.waitAjax) ){
+            this.loading.hide();
+          }
         });
       }
     },

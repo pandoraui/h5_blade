@@ -197,16 +197,16 @@ define(['AbstractModel', 'ApiConfig', 'AppStore'], function( AbstractModel, ApiC
   _model.orderDetail = _model.CustomModel("/order/orderdetail", {method: "GET"});
 
   //地址
-  _model.addressAdd = _model.CustomModel("/user/addaddress", {method: "POST"});
+  _model.addAddress = _model.CustomModel("/user/addaddress", {method: "POST"});
   _model.addressList = _model.CustomModel("/user/addresslist", {method: "GET"});
 
   //省市县三级数据
     //获取省份列表
-  _model.provinceList = _model.CustomModel("/nation/provincelist", {method: "GET"});
+  _model.addrListA = _model.CustomModel("/nation/provincelist", {method: "GET"});
     //获取城市列表
-  _model.cityList = _model.CustomModel("/nation/citylist", {method: "GET"});
+  _model.addrListB = _model.CustomModel("/nation/citylist", {method: "GET"});
     //获取行政区县列表
-  _model.districtList = _model.CustomModel("/nation/districtlist", {method: "GET"});
+  _model.addrListC = _model.CustomModel("/nation/districtlist", {method: "GET"});
 
 
 

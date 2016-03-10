@@ -1,0 +1,18 @@
+<div class="district_box">
+  <div class="district_list district_list_a">
+    <ul class="J_list_a"></ul>
+  </div>
+  <div class="district_list district_list_b">
+    <ul class="J_list_b">
+    </ul>
+  </div>
+  <div class="district_list district_list_c">
+    <ul class="J_list_c"></ul>
+  </div>
+  <script type="text/template" id="tpl_hsq_box">
+  <%var iconCheck = dataType == 'id_c' ? ' iconfont icon-check' : '';%>
+  <%list.forEach(function(item){%>
+    <li data-id="<%=item.id%>" class="<%=item.id == curId ? ('active' + iconCheck) : iconCheck %>"><%=item.province || item.city || item.district %></li>
+  <%})%>
+  </script>
+</div>

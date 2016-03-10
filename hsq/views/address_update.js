@@ -1,12 +1,11 @@
 define(['PageView', getViewTemplatePath('address_update'), 'AppModel', 'AppStore', 'FormatReg'],
   function (PageView, viewhtml, AppModel, AppStore, FormatReg){
 
-    // var storeAddress = AppStore.Address.getInstance();
-    var modelAddressAdd = AppModel.addressAdd.getInstance();
-
+    var storeCommonShort = AppStore.CommonShort.getInstance();
+    var modelAddAddress = AppModel.addAddress.getInstance();
 
     var newAddress = {},
-        District = {};
+        curDistrict = {};
 
     return _.inherit(PageView, {
       pageName: 'address_update',
@@ -55,7 +54,6 @@ define(['PageView', getViewTemplatePath('address_update'), 'AppModel', 'AppStore
             callback: function() {
               //这里返回订单详情页
               self.saveAddress();
-              // self.back();
             }
           }]
         };
@@ -63,6 +61,8 @@ define(['PageView', getViewTemplatePath('address_update'), 'AppModel', 'AppStore
         this.header.show();
       },
       onShow: function(){
+        curDistrict = storeCommonShort.getAttr('curDistrict') || {};
+
         this.initPage();
       },
       onHide: function(){},
@@ -71,13 +71,18 @@ define(['PageView', getViewTemplatePath('address_update'), 'AppModel', 'AppStore
         var scope = this;
         this.ajaxRequest();
       },
-      ajaxRequest: function(){},
+      ajaxRequest: function(){
+        this.renderPage();
+      },
       renderPage: function(){
-
+        if(curDistrict.id_c_name){
+          var address = curDistrict.id_a_name + curDistrict.id_b_name + curDistrict.id_c_name;
+          this.els.$inputAddress.val(address);
+        }
       },
       selectDistrict: function(){
-        //选择区域城市
-        console.log('选择城市');
+        //跳转去选择地址时，可把默认地址传递过去（用于编辑页面，暂时不需要）
+        this.forward('district');
       },
       checkNewAddress: function(){
         //检测新地址状态
@@ -88,12 +93,12 @@ define(['PageView', getViewTemplatePath('address_update'), 'AppModel', 'AppStore
           detailAddress: this.els.$inputAddressDetail.val().trim(),
 
           //所在区域
-          provinceId: District.provinceId,
-          province: District.province,
-          cityId: District.cityId,
-          city: District.city,
-          districtId: District.districtId,
-          district: District.district,
+          provinceId: curDistrict.id_a,
+          province: curDistrict.id_a_name,
+          cityId: curDistrict.id_b,
+          city: curDistrict.id_b_name,
+          districtId: curDistrict.id_c,
+          district: curDistrict.id_c_name,
         };
 
         if(!newAddress.contacter){
@@ -123,11 +128,32 @@ define(['PageView', getViewTemplatePath('address_update'), 'AppModel', 'AppStore
         return true;
       },
       saveAddress: function(){
+        var self = this;
         if( !this.checkNewAddress() ){
           return;
         }
 
-        
+        modelAddAddress.param = newAddress;
+
+        this.showLoading();
+        modelAddAddress.execute(function(res){
+          this.hideLoading();
+
+          //成功
+          console.log(res);
+
+          var data = res.data;
+
+          this.showToast('保存成功');
+
+          setTimeout(function(){
+            self.back();
+          }, 1500);
+
+        },function(error){
+          //失败
+          this.showToast(error.errmsg);
+        },this);
       },
     });
 });

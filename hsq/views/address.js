@@ -1,6 +1,7 @@
 define(['PageView', getViewTemplatePath('address'), 'AppModel', 'AppStore'],
   function (PageView, viewhtml, AppModel, AppStore){
 
+    var storeCommonShort = AppStore.CommonShort.getInstance();
     var storeAddress = AppStore.Address.getInstance();
     var modelAddressList = AppModel.addressList.getInstance();
 
@@ -38,7 +39,8 @@ define(['PageView', getViewTemplatePath('address'), 'AppModel', 'AppStore'],
     return _.inherit(PageView, {
       pageName: 'address',
       events: {
-        'click .address-list li': 'checkedAddress',
+        'click .address-list li': 'selectAddress',
+        'click li.add-address': 'addAddress',
       },
       onCreate: function(){
         // var viewhtml = '地址列表';
@@ -74,7 +76,7 @@ define(['PageView', getViewTemplatePath('address'), 'AppModel', 'AppStore'],
             value: '新建地址',
             callback: function() {
               //这里返回订单详情页
-              self.forward('address_update');
+              self.addAddress();
             }
           }]
         };
@@ -85,6 +87,11 @@ define(['PageView', getViewTemplatePath('address'), 'AppModel', 'AppStore'],
         this.initPage();
       },
       onHide: function(){},
+      addAddress: function(){
+        //新增地址，要清空上次的选择
+        storeCommonShort.setAttr('curDistrict', {});
+        this.forward('address_update');
+      },
       //初始化页面
       initPage: function(){
         var scope = this;
@@ -108,7 +115,7 @@ define(['PageView', getViewTemplatePath('address'), 'AppModel', 'AppStore'],
 
           var addressList = data.list;
 
-          addressList = addressTestList;
+          // addressList = addressTestList;
 
           addressList = this.dealAddress(addressList);
 
@@ -123,8 +130,6 @@ define(['PageView', getViewTemplatePath('address'), 'AppModel', 'AppStore'],
           this.showToast(error.errmsg);
         },this);
 
-
-
       },
       dealAddress: function(addressList){
         if(!addressList.length) return [];
@@ -138,11 +143,10 @@ define(['PageView', getViewTemplatePath('address'), 'AppModel', 'AppStore'],
         return addressList;
       },
       renderPage: function(data){
-
-        var html_address = _.template(this.tpls.hsq_box)(data);
-        this.els.hsq_box.html(html_address);
+        var html = _.template(this.tpls.hsq_box)(data);
+        this.els.hsq_box.html(html);
       },
-      checkedAddress: function(e){
+      selectAddress: function(e){
         var target = $(e.currentTarget);
         var curId = target.data('id');
 

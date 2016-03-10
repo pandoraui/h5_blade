@@ -128,7 +128,6 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
           this.left_stock = data.left_stock;
           this.skuId = data.skuId;
 
-          console.log(222);
           this.renderPage(data);
           this.hideLoading();
 
@@ -413,8 +412,11 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
         switch(oper){
           case 'minus':
             this.curAmount--;
-            if(this.curAmount == 1){
+            if(this.curAmount <= 1){
               this.els.operNumberMinus.addClass('disabled');
+            }
+            if(this.curAmount < 1){
+              this.curAmount = 1
             }
             this.els.operNumberValue.val(this.curAmount);
             this.els.operNumberPlus.removeClass('disabled');
@@ -431,7 +433,10 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
         };
       },
       goOrder: function(){
-
+        if(this.curAmount < 1) {
+          this.showToast('商品数量有误');
+          return;
+        };
         // 当前商品信息
         var productId = this.params.pid ? this.params.pid : 0;
         var curPrice = parseInt(this.curPrice);

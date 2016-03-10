@@ -53,20 +53,24 @@ module.exports = {
     "text!views/index.html",
     "views/list",
     "text!views/list.html",
+
     "views/detail",
     "text!views/detail.html",
-    "views/order",
-    "text!views/order.html",
-    "views/address",
-    // "text!views/address.html",
-    "views/address_update",
-    "text!views/address_update.html",
-    "views/order_success",
-    "text!views/order_success.html",
-
 
     "views/quick_login",
     "text!views/quick_login.html",
+
+    "views/address",
+    "text!views/address.html",
+    "views/address_update",
+    "text!views/address_update.html",
+    "views/district",
+    "text!views/district.html",
+
+    "views/order",
+    "text!views/order.html",
+    "views/order_success",
+    "text!views/order_success.html",
 
     "text!views/test.html",
 

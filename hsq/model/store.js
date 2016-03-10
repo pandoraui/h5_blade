@@ -37,7 +37,7 @@ define(["cLocalStore"], function(cStore) {
   });
 
   //公共短缓存
-  _ret.CommonShort = _ret.CustomStore("HSQ_COMMON_SHORT", "15M",{
+  _ret.CommonShort = _ret.CustomStore("HSQ_COMMON_SHORT", "30M",{
 
   });
 
@@ -53,9 +53,10 @@ define(["cLocalStore"], function(cStore) {
   //详情页
   _ret.DetailIntro = _ret.CustomStore("HSQ_DETAIL_INTRO", "1D", {});
 
-  
+
   _ret.Address = _ret.CustomStore("HSQ_ADDRESS", "10D", {});
   _ret.Login = _ret.CustomStore("HSQ_Login", "100D", {});
+  // _ret.District = _ret.CustomStore("HSQ_District", "100D", {});
 
 
 

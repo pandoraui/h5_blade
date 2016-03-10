@@ -8,7 +8,7 @@
   url('//at.alicdn.com/t/font_1456989254_7792046.svg#iconfont') format('svg'); /* iOS 4.1- */
 }
 
-.iconfont {
+.iconfont:before {
   font-family: "iconfont" !important;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
@@ -65,6 +65,7 @@
 .icon-link:before {
   content: "\e614";
   color: $hsq-gray;
+  font-size: fontsize(16);
 }
 .icon-back:before {
   content: "\e606";

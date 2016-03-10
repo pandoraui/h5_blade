@@ -193,6 +193,32 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
       },
       goPay: function(){
         //modelOrderPay
+        var returnUrl = window.location.origin + '/jump.html?oid=' + this.orderIds[0];
+
+        this.showLoading();
+        modelOrderPay.param = {
+          orderIds: this.orderIds.join(','),
+          type: 4,
+          returnUrl: returnUrl, //回跳地址，目前回跳到订单成功页面
+        };
+        modelOrderPay.execute(function(res){
+          this.hideLoading();
+
+          //成功
+          console.log(res);
+          var data = res.data;
+
+          this.paymentId = data.paymentId;
+          var requestUrl = data.requestUrl;
+
+          // this.jump(requestUrl);
+          window.location.href = requestUrl;
+          // this.showToast('下单成功');
+
+        },function(error){
+          //失败
+          this.showToast(error.errmsg);
+        },this);
       },
     });
 });

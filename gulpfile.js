@@ -189,6 +189,7 @@ gulp.task('copy', ['copy:venders'], function () {
       // {src: '.gitignore', dest: appDist},
       {src: appPath + 'd.html', dest: appDist},
       {src: appPath + 'help.html', dest: appDist},
+      {src: appPath + 'jump.html', dest: appDist},
       {src: appPath + 'main.js', dest: appDist},
       {src: appPath + 'favicon.*', dest: appDist},
       {src: appPath + 'images/*', dest: appDist + 'images/'},

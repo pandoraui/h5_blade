@@ -117,6 +117,10 @@
     min-height: fontsize(36);
     line-height: 1.4;
     border-bottom: 1px solid $hsq-lightest;
+
+    &.active{
+      color: $link-color;
+    }
   }
   .J_list_a {
     background: $hsq-lightest;

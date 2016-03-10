@@ -276,7 +276,11 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
       }
 
     },
-
+    jump: function(url) {
+      if(/^http(s)?:\/\//.test(url)){
+        window.location.href = url;
+      }
+    },
     //此处需要一个更新逻辑，比如在index view再点击到index view不会有反应，下次改**************************
     forward: function (viewId, opts) {
       if (!viewId) return;

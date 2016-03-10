@@ -193,6 +193,7 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
       },
       goPay: function(){
         //modelOrderPay
+        //据说这里的回跳地址不能带 ‘#’ 号，故作此中转页面
         var returnUrl = window.location.origin + '/jump.html?oid=' + this.orderIds[0];
 
         this.showLoading();

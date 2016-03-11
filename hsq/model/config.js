@@ -26,9 +26,12 @@ define([], function() {
         return hosts.pro;
       }
       if ( host.match(/^(localhost|10\.0|127\.0|192\.168)/i)) {
+        return hosts.local;
+      }
+      if ( host.match(/^(m\.devapi\.haoshiqi\.net)/i)) {
         return hosts.dev;
       }
-      if ( host.match(/^(staging)/i)) {
+      if ( host.match(/^(staging\.haoshiqi\.net)/i)) {
         return hosts.staging;
       }
       // if (host.match(/^(10\.8)/i) || host.match(/^h5seo\.mobile\.ctripcorp/i) || host.match(/^(h5seo\.mobile)/i)) {

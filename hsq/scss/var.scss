@@ -1,16 +1,29 @@
 
 
-$mainColor: #6A3905;
-$bodyBg: #f1f1f1;
-$hsq-gray: #959595;
-$hsq-grayer: #AEAEAE;
-$hsq-light: #d4d4d4;
-$hsq-lighter: #E4E4E4;
-$hsq-lightest: #f7f7f7;
+//线的2种颜色：深灰：#C4C4C4  浅灰：#E4E4E4
+//字体的4种颜色：咖啡色：#914E07   黑色：#252525  深灰：#959595  浅灰：#B4B4B4
 
-$color-light: rgb(196, 196, 196);   //#C4C4C4
-$color-lighter: rgb(228, 228, 228);   //#E4E4E4
 
-$yellow: #FFEE11;
-$yellow-active: #F2E110;
-$pink: #FF5555;
+$color-title:    #914E07;  //#6A3905;
+$color-font:     #252525;
+$color-gray:     #B4B4B4;
+$color-grayer:   #959595;
+
+$line-light:     #C4C4C4;  //rgb (196, 196, 196);
+$line-lighter:   #E4E4E4;  //rgb (228, 228, 228);
+$line-lightest:  #f7f7f7;
+
+$bg-light:       #f1f1f1;
+
+$mainColor:      $color-title;
+$bodyBg:         $bg-light;
+
+$hsq-gray:       #959595;
+$hsq-grayer:     #AEAEAE;
+$hsq-light:      #C4C4C4;
+$hsq-lighter:    #E4E4E4;
+$hsq-lightest:   #f7f7f7;
+
+$yellow:         #FFEE11;
+$yellow-active:  #F2E110;
+$pink:           #FF5555;

@@ -61,9 +61,6 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
         this.header.show();
       },
       onShow: function(){
-        if(this.Debug){
-          isWifiKey = !isWifiKey;
-        }
         //倒计时功能需要更新时清除下，不然会有闭包问题
         this.clearPreInit();
 
@@ -177,7 +174,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
         this.countDownStock(data);
 
         //有库存且可售时，显示立即购买按钮栏（目前还限制在 wifi 万能钥匙 app 中才显示）
-        if(this.left_stock>0 && this.left_times>0 && isWifiKey){
+        if( (this.left_stock>0 && this.left_times>0 && isWifiKey) || this.Debug ){
           // this.supportOrder = true;
           this.$tplbox.fexed_footer.show();
           if(!this.curAmount){

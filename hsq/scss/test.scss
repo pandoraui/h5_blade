@@ -6,10 +6,10 @@
     padding: 0 fontsize(10);
 
     &:hover{
-      background: $hsq-lighter;
+      background: $bg-light;
     }
     &:active{
-      background: $hsq-light;
+      background: $bg-light;
     }
   }
 }

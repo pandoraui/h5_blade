@@ -16,15 +16,15 @@
 .block{ display: block;}
 .list{ list-style: none;}
 
-.v-line{display: inline-block; overflow: hidden; margin: 0 fontsize(5); border-left: 1px solid $hsq-lighter; width: 0; height: 15px; vertical-align: middle;}
+.v-line{display: inline-block; overflow: hidden; margin: 0 fontsize(5); border-left: 1px solid $line-light; width: 0; height: 15px; vertical-align: middle;}
 
-.border-top-line{ border-top: 1px solid $hsq-lighter;}
-.border-bottom-line{ border-bottom: 1px solid $hsq-lighter;}
+.border-top-line{ border-top: 1px solid $line-lighter;}
+.border-bottom-line{ border-bottom: 1px solid $line-lighter;}
 
 #page-detail .bar-header,
 .cm-header {
-  background-color: rgba(255, 238, 17, 0.9);
-  color: $mainColor;
+  background-color: $bg-header;
+  color: $color-title;
   .cm-page-title,
   .title{
     font-size: fontsize(18);
@@ -32,12 +32,13 @@
     text-overflow: ellipsis;
     overflow: hidden;
   }
-  .button-link{color:$mainColor;}
-  .button-link:active{background-color: $yellow-active;}
-}
-.cm-header .cm-header-icon:active,
-.cm-header .cm-header-btn:active {
+  .button-link{color:$color-title;}
+
+  .button-link:active,
+  .cm-header-icon:active,
+  .cm-header-btn:active{
     background-color: $yellow-active;
+  }
 }
 
 dfn.price{
@@ -62,7 +63,7 @@ dfn.price{
   .card-title {
     padding: fontsize(10);
     height: fontsize(36);
-    border-bottom: 1px solid $hsq-lighter;
+    border-bottom: 1px solid $line-lighter;
 
     .tit{
       font-size: fontsize(16);
@@ -71,7 +72,7 @@ dfn.price{
   }
   .link-more {
     font-size: fontsize(12);
-    color: $hsq-gray;
+    color: $color-grayer;
   }
 }
 .group-list{
@@ -87,7 +88,7 @@ dfn.price{
 }
 .solid_line,
 .group-list li{
-  border-top: 1px solid $hsq-lighter;
+  border-top: 1px solid $line-lighter;
 }
 
 
@@ -106,7 +107,7 @@ dfn.price{
 }
 .btn-yellow{
   background: $yellow;
-  color: $mainColor;
+  color: $color-title;
 }
 .btn-pink{
   background: $pink;
@@ -167,7 +168,7 @@ dfn.price{
   }
   label{
     margin: 0;
-    color: $hsq-gray;
+    color: $color-grayer;
     height: fontsize(44);
   }
 }

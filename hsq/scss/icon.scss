@@ -64,12 +64,12 @@
 }
 .icon-link:before {
   content: "\e614";
-  color: $hsq-gray;
+  color: $color-grayer;
   font-size: fontsize(16);
 }
 .icon-back:before {
   content: "\e606";
-  color: $mainColor;
+  color: $color-title;
 }
 .icon-alipay:before {
   content: "\e61a";
@@ -77,7 +77,7 @@
 }
 .icon-select:before {
   content: "\e61c";
-  color: $hsq-gray;
+  color: $color-grayer;
 }
 .icon-selected:before {
   content: "\e61b";

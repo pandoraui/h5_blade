@@ -47,10 +47,10 @@
   }
   .num{
     font-size: fontsize(12);
-    color: $hsq-gray;
+    color: $color-grayer;
   }
   .label{
-    color: $hsq-gray;
+    color: $color-grayer;
   }
   .ib-label{
     display: inline-block;
@@ -69,7 +69,7 @@
   .c-info{
     margin-bottom: fontsize(5);
     font-size: fontsize(12);
-    color: $hsq-gray;
+    color: $color-grayer;
 
     .author,
     .time {

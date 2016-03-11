@@ -4,6 +4,39 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
     // 此订单需要请求 ajax，获取对应的订单相关信息。
     var modelOrderDetail = AppModel.orderDetail.getInstance();
 
+    var orderStatus = [{
+        title: '订单详情'
+      }, {
+        status_code: 1,
+        status: '未支付',
+        title: '待付款，订单付款请使用好食期app'
+      }, {
+        status_code: 2,
+        status: '已支付',
+        title: '恭喜您，付款成功！'
+      }, {
+        status_code: 3,
+        status: '已完成',
+        title: '交易完成'
+      }, {
+        status_code: 4,
+        status: '已取消',
+        title: '交易关闭'
+      }, {
+        status_code: 5,
+        status: '申请退款',
+        title: '退款待审核'
+      }, {
+        status_code: 6,
+        status: '退款中',
+        title: '退款中'
+      }, {
+        status_code: 7,
+        status: '已退款',
+        title: '已退款'
+      },
+    ];
+
     return _.inherit(PageView, {
       pageName: 'order_success',
       onCreate: function(){
@@ -26,7 +59,7 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
         var headerData = {
           center: {
             tagname: 'title',
-            value: ['付款成功']
+            value: ['订单详情']
           },
           back: {
             tagname: 'back',
@@ -73,7 +106,11 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
 
           this.skuId = data.skuList && data.skuList[0] && data.skuList[0].skuId;
 
-          this.renderPage({order: data});
+          var status_code = data.statusCode || 0;
+          this.renderPage({
+            order: data,
+            status: orderStatus[status_code] || orderStatus[0],
+          });
           this.hideLoading();
 
         },function(error){

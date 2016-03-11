@@ -20,6 +20,7 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
           "$nodeBtnCode": this.$el.find('.get_phone_code'),
           "$nodeMobile": this.$el.find('.J_phone'),
           "$nodeCode": this.$el.find('.J_code'),
+          "$nodeProtocol": this.$el.find('.protocol>.p_text'),
           "$nodeChecked": this.$el.find('.J_checked'),
           "$nodeLoginBtn": this.$el.find('.J_login_btn'),
           "hsq_box": this.$el.find('.hsq_box'),
@@ -68,8 +69,22 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
 
       },
       setProtocol: function(e){
-        var target = $(e.currentTarget);
+        if(e.target.nodeName == 'A'){
+          return;
+        }
+        if(e.target.nodeName == 'INPUT'){
+          //点击 input 时，出现双次点击问题
+          this.clickCheckBox(true);
+          return;
+        }
+        this.clickCheckBox();
+      },
+      clickCheckBox: function(bool){
+        console.log(111)
         var agreeProtocol = this.els.$nodeChecked[0].checked;
+        if(bool) {
+          agreeProtocol = !agreeProtocol;
+        }
         if(agreeProtocol){
           this.els.$nodeChecked[0].checked = false;
           this.els.$nodeLoginBtn.addClass('disabled');

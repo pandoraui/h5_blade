@@ -5,10 +5,10 @@
 // define(['libs'], function(libs) {
 define([], function() {
 
-  var testDebug = true;
+  var testDebug = false;
 
   var hosts = {
-    test: 'm.ctrip.com/restapi/soa2/10184',
+    test: 'm.devapi.haoshiqi.net:9502',
     local: 'm.devapi.haoshiqi.net:9502',
     dev: 'm.devapi.haoshiqi.net:9502',
     staging: 'm.devapi.haoshiqi.net:9502',
@@ -17,30 +17,26 @@ define([], function() {
   var config = {
     //运行环境
     runTimeEnvironment: function(test) {
+
+      //默认是调用线上，如果在 app 中以其他协议打开，域名无法匹配时，使用线上
+      var server = hosts.pro;
       if(test){
-        return hosts.test;
+        server = hosts.test;
       }
       //0本地 1dev 2staging 3pro
       var host = location.host;
       if (host.match(/^m\.haoshiqi\.net/i)) {
-        return hosts.pro;
+        return server;
       }
       if ( host.match(/^(localhost|10\.0|127\.0|192\.168)/i)) {
-        return hosts.local;
+        server = hosts.local;
+      }else if ( host.match(/^(m\.devapi\.haoshiqi\.net)/i)) {
+        server = hosts.dev;
       }
-      if ( host.match(/^(m\.devapi\.haoshiqi\.net)/i)) {
-        return hosts.dev;
-      }
-      if ( host.match(/^(staging\.haoshiqi\.net)/i)) {
-        return hosts.staging;
-      }
-      // if (host.match(/^(10\.8)/i) || host.match(/^h5seo\.mobile\.ctripcorp/i) || host.match(/^(h5seo\.mobile)/i)) {
-      //   return 1;
+      // else if ( host.match(/^(staging\.haoshiqi\.net)/i)) {
+      //   serverDomain = hosts.staging;
       // }
-      // if (host.match(/^(m\.uat)/i) || host.match(/^(m\.lpt10\.qa\.nt)/i)) {
-      //   return 2;
-      // }
-      return hosts.pro;
+      return server;
     },
     //api 域名地址
     restApi: function(protocol, url) {

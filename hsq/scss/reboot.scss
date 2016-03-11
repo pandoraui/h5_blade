@@ -30,7 +30,7 @@ p{margin-bottom: fontsize(10);}
 dl,dt,dd,ul,ol{margin: 0; padding: 0;}
 dfn,i{font-style: normal;}
 
-body{font-size: fontsize(14);overflow-y: scroll; background: $bg-lighter; }
+body{font-size: fontsize(14);overflow-y: scroll; background: $bg-lighter; color: $color-font; }
 #root,
 .viewport-wrapper{height: 100%; box-sizing: border-box;}
 .header-wrapper{position: fixed; z-index: 100;top:0;}

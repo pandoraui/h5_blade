@@ -4,29 +4,19 @@
 //字体的4种颜色：咖啡色：#914E07   黑色：#252525  深灰：#959595  浅灰：#B4B4B4
 
 
-$color-title:    #914E07;  //#6A3905;
-$color-font:     #252525;
-$color-gray:     #B4B4B4;
-$color-grayer:   #959595;
-$color-disabled: #E4E4E4;
+$color-title:    #914E07;  //rgb (145, 78, 7);
+$color-font:     #252525;  //rgb (37, 37, 37);
+$color-gray:     #B4B4B4;  //rgb (180, 180, 180);
+$color-grayer:   #959595;  //rgb (149, 149, 149);
+$color-disabled: #E4E4E4;  //rgb (228, 228, 228);
 
-// $line-light:     #B4B4B4;  //rgb (180, 180, 180);
 $line-light:     #C4C4C4;  //rgb (196, 196, 196);
 $line-lighter:   #E4E4E4;  //rgb (228, 228, 228);
 $line-lightest:  #f7f7f7;
 
-$bg-light:       #f7f7f7;
-$bg-lighter:     #f1f1f1;  //rgb (241, 241, 241);
+$bg-light:       #f7f7f7;  //test
+$bg-lighter:     #f1f1f1;  //bodyBg rgb (241, 241, 241);
 $bg-header:      rgba(255, 238, 17, 0.9);
-
-// $mainColor:      $color-title;
-// $bodyBg:         $bg-light;
-
-// $hsq-gray:       $color-grayer;
-// $hsq-grayer:     #AEAEAE;
-// $hsq-light:      #C4C4C4;
-// $hsq-lighter:    #E4E4E4;
-// $hsq-lightest:   #f7f7f7;
 
 $yellow:         #FFEE11;
 $yellow-active:  #F2E110;

@@ -96,7 +96,7 @@ define(['AbstractModel', 'ApiConfig', 'AppStore'], function( AbstractModel, ApiC
     }
   }
   function setCommonParams(opts){
-    var opts = opts || loginInfo;
+    var opts = opts || storeLogin.get() || {};
     return {
       token: opts.token || '',  //用户登录时必传
       device: deviceType,    //设备
@@ -143,8 +143,8 @@ define(['AbstractModel', 'ApiConfig', 'AppStore'], function( AbstractModel, ApiC
       __updateOption: function(){
         if(!loginInfo.token){
           loginInfo = storeLogin.get() || {};
-          this.commonParams = setCommonParams(loginInfo);
         }
+        this.commonParams = setCommonParams(loginInfo);
       },
     });
   };

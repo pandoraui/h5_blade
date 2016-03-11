@@ -152,7 +152,7 @@
 
       var params = params || _.clone(this.getParam() || {});
 
-      var params = $.extend({},this.commonParams, params);
+      var params = $.extend({}, this.commonParams, params);
 
       //设置contentType无效BUG，改动一，将contentType保存
       params.contentType = this.contentType;

@@ -22,6 +22,11 @@
     'address_update': 0,
   };
 
+  var Debug = true;
+  if(window.location.host.match(/^m\.haoshiqi\.net/i)){
+    Debug = false;
+  }
+
   return _.inherit(AbstractView, {
     header: null,
     waitAjax: false,
@@ -53,6 +58,7 @@
       $super();
 
       this.on('onCreate', function () {
+        this.__openDebug();
         this.onCreate && this.onCreate();
       });
 
@@ -81,6 +87,11 @@
         this.onDestroy && this.onDestroy();
       });
 
+    },
+    __openDebug: function(){
+      if(Debug){
+        this.Debug = Debug;
+      }
     },
     downTipCheckStatus: function(){
       this.downTip = new UIDownTip();
@@ -160,6 +171,10 @@
     showToast: function(content, timer){
       var content = content || '正在处理中...';
       var timer = timer || 1500;
+
+      if(content == '用户未登录'){
+        return false;
+      }
 
       if(!this.__toast){
         this.__toast = new UIToast({

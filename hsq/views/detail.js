@@ -9,11 +9,6 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
         isProductChange;
 
     var isWifiKey = Detect.isWifiKey;
-    var Debug = true;
-
-    if(Debug){
-      isWifiKey = !isWifiKey;
-    }
 
     return _.inherit(PageView, {
       pageName: 'detail',
@@ -53,7 +48,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
           back: false,
         };
 
-        if(Debug){
+        if(this.Debug){
           headerData.back = {
             tagname: 'back',
             value: '返回',
@@ -66,6 +61,9 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
         this.header.show();
       },
       onShow: function(){
+        if(this.Debug){
+          isWifiKey = !isWifiKey;
+        }
         //倒计时功能需要更新时清除下，不然会有闭包问题
         this.clearPreInit();
 

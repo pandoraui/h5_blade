@@ -1,3 +1,19 @@
+
+#root,
+.viewport-wrapper{height: 100%; box-sizing: border-box;}
+.js_shadow_root{
+  height: 100%;
+}
+.header-wrapper{
+  position: fixed;
+  z-index: 100;
+  top:0;
+  left: 0;
+  width: 100%;
+}
+.viewport-wrapper > .view{padding: fontsize(44) 0 0;}
+
+img.hsq-img{width: 100%;}
 .J_error_box p{
   margin: 1rem;
 }
@@ -173,6 +189,22 @@ dfn.price{
   }
 }
 
+//第三方页面，iframe 加载外部页面，如用户协议
+.page-view-iframe_page{
+  height: 100%;
+}
+.iframe_box{
+  overflow: hidden;
+
+  &,
+  .iframe_page{
+    border: none;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+  }
+}
+
 .fexed_footer{
   position: fixed;
   z-index: 100;
@@ -181,4 +213,11 @@ dfn.price{
   width: 100%;
   min-width: fontsize(300);
   box-shadow: 0 -3px 5px -1px rgba(0, 0, 0, 0.1);
+}
+
+//FIXED: 修复部分手机浏览器 fixed 抖动问题（安卓 UC，360等，在地址栏存在时，滚动页面，则 fixed 定位元素会抖动），
+//http://www.chenyudong.com/archives/chrome-position-fixed-shake.html
+.header-wrapper,
+.fexed_footer{
+  -webkit-transform: translateZ(0);
 }

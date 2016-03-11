@@ -9,7 +9,7 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
       pageName: 'quick_login',
       events: {
         'click .get_phone_code': 'clickBtnCode',
-        'click .J_login_btn': 'quickLogin',
+        'click .J_login_btn:not(.disabled)': 'quickLogin',
       },
       onCreate: function(){
         // var viewhtml = '下单成功';

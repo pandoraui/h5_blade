@@ -59,6 +59,7 @@ module.exports = {
 
     "views/quick_login",
     "text!views/quick_login.html",
+    "views/iframe_page",
 
     "views/address",
     "text!views/address.html",

@@ -136,11 +136,9 @@
           setTimeout(function(){
             onError.call(scope || _scope, e);
 
-            setTimeout(function(){
-              if( $.isFunction(scope.errNextDeal) ){
-                scope.errNextDeal.call(scope || _scope, e);
-              }
-            }, 1500);
+            if( $.isFunction(scope.errNextDeal) ){
+              scope.errNextDeal.call(scope || _scope, e);
+            }
           }, 300);
         }
       }, this);

@@ -51,7 +51,7 @@
     },
     events: {
       'click [data-link]': 'goLink',
-      'click .refreshPage': 'refreshPage'
+      'click .refreshPage': 'refreshPage',
     },
 
     addEvent: function ($super) {
@@ -63,13 +63,13 @@
       });
 
       this.on('onShow', function () {
+        //获取 url 参数
+        this.params = _.getUrlParam();
+
         this._updatePageOptions();
 
         //生成头部
         this._createHeader();
-
-        //获取 url 参数
-        this.params = _.getUrlParam();
 
         this.onShow && this.onShow();
       });
@@ -138,7 +138,9 @@
     errNextDeal: function(error){
       var scope = this;
       if(error.errno == 510010){
-        scope.forward('quick_login');
+        setTimeout(function(){
+          scope.forward('quick_login');
+        }, 100);
       }
     },
     closeDownTip: function(e){
@@ -228,7 +230,18 @@
       var target = $(e.currentTarget),
           link = target.data('link');
 
-      this.forward(link);
+      if(link != 'iframe_page'){
+        this.forward(link);
+      }else{
+        var iframeUrl = target.attr('href');
+        var iframeTitle = target.attr('title');
+        if( iframeUrl && iframeTitle ){
+          e.preventDefault();
+          e.stopPropagation();
+          this.forward('iframe_page?title=' + iframeTitle + '&iframe_url=' + encodeURIComponent(iframeUrl) );
+        }
+      }
+
     },
     show404: function(type){
       this.$el.html(warning404);

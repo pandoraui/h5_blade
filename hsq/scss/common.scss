@@ -144,6 +144,10 @@ dfn.price{
   background: $pink;
   color: #fff;
 }
+.btn.disabled{
+  background: $color-grayer;
+  color: #fff;
+}
 
 .label-line{
   position: relative;

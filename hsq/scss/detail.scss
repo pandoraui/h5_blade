@@ -67,7 +67,7 @@
     }
   }
   .stars{
-    color: rgba(254, 196, 70, 1);
+    color: $color-star;
 
     .icon-star:before{
       font-size: fontsize(12);

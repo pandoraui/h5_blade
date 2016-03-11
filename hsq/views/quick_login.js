@@ -9,6 +9,7 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
       pageName: 'quick_login',
       events: {
         'click .get_phone_code': 'clickBtnCode',
+        'click .protocol>.p_text': 'setProtocol',
         'click .J_login_btn:not(.disabled)': 'quickLogin',
       },
       onCreate: function(){
@@ -20,6 +21,7 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
           "$nodeMobile": this.$el.find('.J_phone'),
           "$nodeCode": this.$el.find('.J_code'),
           "$nodeChecked": this.$el.find('.J_checked'),
+          "$nodeLoginBtn": this.$el.find('.J_login_btn'),
           "hsq_box": this.$el.find('.hsq_box'),
         };
 
@@ -64,6 +66,17 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
       ajaxRequest: function(){},
       renderPage: function(){
 
+      },
+      setProtocol: function(e){
+        var target = $(e.currentTarget);
+        var agreeProtocol = this.els.$nodeChecked[0].checked;
+        if(agreeProtocol){
+          this.els.$nodeChecked[0].checked = false;
+          this.els.$nodeLoginBtn.addClass('disabled');
+        }else{
+          this.els.$nodeChecked[0].checked = true;
+          this.els.$nodeLoginBtn.removeClass('disabled');
+        }
       },
       checkBtnCode: function(){
         this.CountDown = new CountDown({

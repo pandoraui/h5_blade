@@ -38,6 +38,11 @@ img.hsq-img{width: 100%;}
 .block{ display: block;}
 .list{ list-style: none;}
 
+//placeholder并不支持padding和height值，在Android手机原生浏览器里面如果设置了line-height的值，比如设为line-height:32px
+//在Android自带浏览器、百度手机浏览器、小米自带浏览器上出现图一的问题（占位符靠顶部）。uc/qq正常
+//http://stackoverflow.com/questions/4919680/html5-placeholder-css-padding
+input{line-height: normal !important;  }
+
 .v-line{display: inline-block; overflow: hidden; margin: 0 fontsize(5); border-left: 1px solid $line-light; width: 0; height: 15px; vertical-align: middle;}
 
 .border-top-line{ border-top: 1px solid $line-lighter;}

@@ -230,18 +230,19 @@
       var target = $(e.currentTarget),
           link = target.data('link');
 
-      if(link != 'iframe_page'){
-        this.forward(link);
-      }else{
-        var iframeUrl = target.attr('href');
-        var iframeTitle = target.attr('title');
-        if( iframeUrl && iframeTitle ){
-          e.preventDefault();
-          e.stopPropagation();
-          this.forward('iframe_page?title=' + iframeTitle + '&iframe_url=' + encodeURIComponent(iframeUrl) );
-        }
-      }
-
+      switch (link) {
+        case 'iframe_page':
+            var iframeUrl = target.attr('href');
+            var iframeTitle = target.attr('title');
+            if( iframeUrl && iframeTitle ){
+              e.preventDefault();
+              e.stopPropagation();
+              this.forward('iframe_page?title=' + iframeTitle + '&iframe_url=' + encodeURIComponent(iframeUrl) );
+            }
+          break;
+        default:
+          this.forward(link);
+      };
     },
     show404: function(type){
       this.$el.html(warning404);

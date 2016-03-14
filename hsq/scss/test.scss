@@ -5,6 +5,8 @@
   li{
     padding: 0 fontsize(10);
 
+    a{display: block;}
+
     &:hover{
       background: $bg-lightest;
     }

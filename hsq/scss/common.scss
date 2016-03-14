@@ -11,7 +11,11 @@
   left: 0;
   width: 100%;
 }
-.viewport-wrapper > .view{padding: fontsize(44) 0 0;}
+.viewport-wrapper > .view{
+  // box-sizing: content-box;
+  padding: fontsize(44) 0 0;
+  // height: 100%;  //设定100%高度时，导致次容器设置背景色无法填满
+}
 
 img.hsq-img{width: 100%;}
 .J_error_box p{
@@ -28,6 +32,7 @@ img.hsq-img{width: 100%;}
 }
 
 .bar-nav ~ .content{top: 0; padding-top: 2.2rem;}
+.mt50{margin-top: fontsize(50);}
 .mb10{margin-bottom: fontsize(10);}
 .ml10{margin-left: fontsize(10);}
 .block{ display: block;}
@@ -162,6 +167,7 @@ dfn.price{
   display: block;
   width: 100%;
   height: fontsize(44);
+  font-size: fontsize(16);
   line-height: fontsize(44);
   margin-bottom: 0;
 

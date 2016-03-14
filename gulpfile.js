@@ -89,7 +89,10 @@ var appPath = 'hsq/';
 var appDist = 'dist/';
 var paths = {
   entry: {
-    html: appPath + 'index.html',
+    html: [
+      appPath + 'index.html',
+      appPath + 'zhuti/*.html',
+    ],
     fonts: appPath + 'dist/fonts',
     img: appPath + 'dist/img',
     // css: [styleThemes + 'hsq/hsqapp.scss', appPath + 'scss/hsq.scss'],
@@ -194,6 +197,7 @@ gulp.task('copy', ['copy:venders'], function () {
       {src: appPath + 'favicon.*', dest: appDist},
       {src: appPath + 'images/*', dest: appDist + 'images/'},
       {src: appPath + 'img/*', dest: appDist + 'assets/img/'},
+      {src: appPath + 'zhuti/*', dest: appDist + 'zhuti/'},
       {src: appPath + 'ex_mvc/*', dest: appDist + 'ex_mvc/'},
       {src: appPath + 'common/*', dest: appDist + 'common/'},
       {src: appPath + 'views/*', dest: appDist + 'views/'},

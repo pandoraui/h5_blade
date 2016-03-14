@@ -1,8 +1,10 @@
 
 
+$bg_reg_awards: #d54242;  //rgb(213, 66, 66);  //#d54242;
+
 //推荐有奖
 .page-view-zt_reg_awards{
-  background: rgb(213, 66, 66);  //#d54242;
+  background: $bg_reg_awards;
 }
 .reg_awards{
   .quick-form{
@@ -23,7 +25,7 @@
 
     .get_phone_code{
       &{
-        color: rgb(213, 66, 66);
+        color: $bg_reg_awards;
       }
     }
 
@@ -41,19 +43,29 @@
 .reg_awards {
   .rules{
     color: #fff;
+    .header {
+      text-align: center;
+    }
+    .tit{
+      position: relative;
+      top: fontsize(-23);
+      display: inline-block;
+      padding: 0 fontsize(10);
+      font-size: fontsize(16);
+      background: $bg_reg_awards;
+    }
+    .content{
+      font-size: fontsize(14);
+    }
   }
-  .header {
-    text-align: center;
-  }
-  .tit{
-    position: relative;
-    top: fontsize(-23);
-    display: inline-block;
-    padding: 0 fontsize(10);
-    font-size: fontsize(16);
-    background: rgb(213, 66, 66);
-  }
-  .content{
-    font-size: fontsize(14);
+}
+
+.reg_awards_step2{
+  padding: fontsize(10) fontsize(16);
+
+  .coupon-item{
+    border: 1px solid #fff;
+    border-radius: 3px;
+    margin-bottom: fontsize(10);
   }
 }

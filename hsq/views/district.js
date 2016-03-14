@@ -107,6 +107,8 @@ define(['PageView', getViewTemplatePath('district'), 'AppModel', 'AppStore', 'Fo
           curDistrict.id_a = target.data('id');
           curDistrict.id_a_name = target.text();
           target.addClass('active').siblings().removeClass('active');
+
+          curDistrict.id_c = '';
         }
 
         this.getAddrList({
@@ -135,6 +137,8 @@ define(['PageView', getViewTemplatePath('district'), 'AppModel', 'AppStore', 'Fo
           curDistrict.id_b = target.data('id');
           curDistrict.id_b_name = target.text();
           target.addClass('active').siblings().removeClass('active');
+
+          curDistrict.id_c = '';
         }
 
         this.getAddrList({
@@ -207,6 +211,10 @@ define(['PageView', getViewTemplatePath('district'), 'AppModel', 'AppStore', 'Fo
         // storeCommonShort.setAttr('curDistrict', curDistrict);
       },
       saveSelected: function(){
+        if(!curDistrict.id_c){
+          this.showToast('您必须选择区县');
+          return;
+        }
         storeCommonShort.setAttr('curDistrict', curDistrict);
         this.back();
       },

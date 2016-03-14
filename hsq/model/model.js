@@ -1,5 +1,5 @@
 
-define(['AbstractModel', 'ApiConfig', 'AppStore'], function( AbstractModel, ApiConfig, AppStore) {
+define(['AbstractModel', 'ApiConfig', 'AppStore', 'Detect'], function( AbstractModel, ApiConfig, AppStore, Detect) {
   var _model = {};
 
 /*
@@ -83,7 +83,6 @@ define(['AbstractModel', 'ApiConfig', 'AppStore'], function( AbstractModel, ApiC
 
   说明文档 https://worktile.com/share/pages/b1d17c75870545fea9aa76c26f12c3af
   */
-
   var deviceType = 'pc';
   if ($.os.phone) {
     deviceType = "phone";
@@ -95,6 +94,10 @@ define(['AbstractModel', 'ApiConfig', 'AppStore'], function( AbstractModel, ApiC
       deviceType = "pad";
     }
   }
+  var channel = '';
+  if(Detect.isWifiKey){
+    channel = 'wifikey';
+  }
   function setCommonParams(opts){
     var opts = opts || storeLogin.get() || {};
     return {
@@ -103,7 +106,7 @@ define(['AbstractModel', 'ApiConfig', 'AppStore'], function( AbstractModel, ApiC
       uuid: '',    //用户唯一标志
       udid: '',    //设备唯一标志
       timestamp: '',    //时间
-      channel: '',    //渠道
+      channel: channel,    //渠道
       location: '',    //地理位置
       net: '',    //网络
       v: '',    //应用版本号

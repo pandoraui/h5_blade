@@ -73,6 +73,7 @@ module.exports = {
     "views/order_success",
     "text!views/order_success.html",
 
+    "views/help",
     "text!views/test.html",
 
   ],

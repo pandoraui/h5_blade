@@ -3,13 +3,14 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
 
     // 此订单需要请求 ajax，获取对应的订单相关信息。
     var modelOrderDetail = AppModel.orderDetail.getInstance();
+    var modelOrderPay = AppModel.orderPay.getInstance();
 
     var orderStatus = [{
         title: '订单详情'
       }, {
         status_code: 1,
         status: '未支付',
-        title: '待付款，订单付款请使用好食期app'
+        title: '待付款'
       }, {
         status_code: 2,
         status: '已支付',
@@ -39,6 +40,9 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
 
     return _.inherit(PageView, {
       pageName: 'order_success',
+      events: {
+        'click .J_go_pay': 'goPay',
+      },
       onCreate: function(){
         // var viewhtml = '下单成功';
         this.$el.html(viewhtml);
@@ -56,10 +60,12 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
       },
       setHeader: function(){
         var self = this;
+
+        var title = this.params.oid ? '订单详情' : '下载';
         var headerData = {
           center: {
             tagname: 'title',
-            value: ['订单详情']
+            value: [title]
           },
           back: {
             tagname: 'back',
@@ -74,10 +80,13 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
         this.header.show();
       },
       backAction: function(){
-        this.back('detail?sid=' + this.skuId);
+        if(this.skuId){
+          this.back('detail?sid=' + this.skuId);
+        }else{
+          this.back();
+        }
       },
       onShow: function(){
-
         this.initPage();
       },
       onHide: function(){},
@@ -85,25 +94,29 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
       initPage: function(){
         var scope = this;
 
-        this.ajaxRequest();
+        if(this.params.oid){
+          // this.showToast('订单号不存在！');
+          // this.waitAjax = true; 该页面默认设定了等待 ajax 加载
+          this.ajaxRequest();
+        }else{
+          this.hideLoading();
+        }
       },
       ajaxRequest: function(){
         var scope = this;
-        if(!this.params.oid){
-          this.showToast('订单号不存在！');
-          return;
-        }
 
         this.showLoading();
         modelOrderDetail.param = {
           orderId: this.params.oid,
         };
         modelOrderDetail.execute(function(res){
+          this.hideLoading();
           //成功
           console.log(res);
 
           var data = res.data;
 
+          this.orderId = data.id;
           this.skuId = data.skuList && data.skuList[0] && data.skuList[0].skuId;
 
           var status_code = data.statusCode || 0;
@@ -111,7 +124,6 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
             order: data,
             status: orderStatus[status_code] || orderStatus[0],
           });
-          this.hideLoading();
 
         },function(error){
           //失败
@@ -121,6 +133,36 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
       renderPage: function(data){
         var html = _.template(this.tpls.hsq_box)(data);
         this.els.hsq_box.html(html);
+      },
+      goPay: function(){
+        //modelOrderPay
+        //据说这里的回跳地址不能带 ‘#’ 号，故作此中转页面
+        var returnUrl = window.location.origin + '/jump.html?oid=' + this.orderId;
+
+        this.showLoading();
+        modelOrderPay.param = {
+          orderIds: this.orderId,
+          type: 4,
+          returnUrl: returnUrl, //回跳地址，目前回跳到订单成功页面
+        };
+        modelOrderPay.execute(function(res){
+          this.hideLoading();
+
+          //成功
+          console.log(res);
+          var data = res.data;
+
+          this.paymentId = data.paymentId;
+          this.requestUrl = data.requestUrl;
+
+          // this.jump(requestUrl);
+          window.location.href = this.requestUrl;
+          // this.showToast('下单成功');
+
+        },function(error){
+          //失败
+          this.showToast(error.errmsg);
+        },this);
       },
     });
 });

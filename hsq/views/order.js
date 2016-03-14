@@ -47,10 +47,11 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
         this.header.show();
       },
       onShow: function(){
-
         this.initPage();
       },
-      onHide: function(){},
+      onHide: function(){
+        this.requestUrl = null;
+      },
       //初始化页面
       initPage: function(){
         var scope = this;
@@ -162,6 +163,10 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
           return;
         }
 
+        if(this.requestUrl){
+          this.goPay();
+          return;
+        }
         var invoiceInfo = {
           type: this.invoiceId,
           title: this.invoceTitle || '',
@@ -210,10 +215,10 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
           var data = res.data;
 
           this.paymentId = data.paymentId;
-          var requestUrl = data.requestUrl;
+          this.requestUrl = data.requestUrl;
 
           // this.jump(requestUrl);
-          window.location.href = requestUrl;
+          window.location.href = this.requestUrl;
           // this.showToast('下单成功');
 
         },function(error){

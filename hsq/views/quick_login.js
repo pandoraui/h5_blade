@@ -217,7 +217,6 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
           this.back(redirect_from);
 
         },function(error){
-          this.back(redirect_from);
           //失败
           this.showToast(error.errmsg);
         },this);

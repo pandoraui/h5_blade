@@ -30,6 +30,9 @@
   return _.inherit(AbstractView, {
     header: null,
     waitAjax: false,
+    // initialize: function initialize(options) {
+    //   this.__toast = new UIToast();
+    // },
     propertys: function ($super) {
       $super();
       this.openShadowDom = false;
@@ -171,6 +174,20 @@
       Blade.loading.hide();
     },
     showToast: function(content, timer){
+      // if (!params) params = {};
+      // if (typeof params == 'string') {
+      //   params = {
+      //     datamodel: {
+      //       content: params
+      //     }
+      //   };
+      // }
+      //
+      // this._toast.resetDefaultProperty();
+      // this._toast.setOption(params);
+      // this._toast.refresh();
+      // this._toast.show();
+
       var content = content || '正在处理中...';
       var timer = timer || 1500;
 
@@ -190,6 +207,8 @@
         this.__toast.refresh();
       }
       this.__toast.show();
+
+
     },
     showAlert: function(opts){
       var _default = {

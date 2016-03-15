@@ -277,9 +277,12 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
 
     },
     jump: function(url) {
-      if(/^http(s)?:\/\//.test(url)){
-        window.location.href = url;
+      if (_.isString(opt) && /^http(s)?:\/\//.test(opt)) {
+        window.location.href = opt;
       }
+      // else {
+      //   Guider.jump(opt);
+      // }
     },
     //此处需要一个更新逻辑，比如在index view再点击到index view不会有反应，下次改**************************
     forward: function (viewId, opts) {
@@ -318,7 +321,25 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
         }
       }
 
-    }
+    },
+
+    /**
+     * 保存滚动条位置
+     */
+    saveScrollPos: function () {
+      this.scrollPos = {
+        x: window.scrollX,
+        y: window.scrollY
+      };
+    },
+
+    /**
+     * 恢复原滚动条位置
+     * @method View.cPageView.restoreScrollPos
+     */
+    restoreScrollPos: function () {
+      window.scrollTo(this.scrollPos.x, this.scrollPos.y);
+    },
 
   });
 

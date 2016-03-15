@@ -28,6 +28,7 @@
   }
 
   return _.inherit(AbstractView, {
+
     header: null,
     waitAjax: false,
     // initialize: function initialize(options) {
@@ -121,7 +122,7 @@
 
       if(this.header && this.header.center && this.header.center.value && this.header.center.value[0]){
         var title = this.header.center.value[0];
-        this.updateTitle(title + '-好食期');
+        this.setTitle(title + '-好食期');
       }
     },
     setHeader: function () {
@@ -135,7 +136,7 @@
       // this.header.set(headerData);
       // this.header.show();
     },
-    updateTitle: function(title){
+    setTitle: function(title){
       document.title = title || '好食期';
     },
     errNextDeal: function(error){

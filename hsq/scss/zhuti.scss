@@ -1,10 +1,12 @@
 
 
-$bg_reg_awards: #d54242;  //rgb(213, 66, 66);  //#d54242;
+$reg_awards_c1: #d54242;  //rgb(213, 66, 66);
+$reg_awards_c2: #ffee11;  //rgb(255, 238, 17);
+$reg_awards_c3: #ff5555;  //rgb(255, 85, 85);
 
 //推荐有奖
 .page-view-zt_reg_awards{
-  background: $bg_reg_awards;
+  background: $reg_awards_c1;
 }
 .reg_awards{
   .quick-form{
@@ -20,12 +22,12 @@ $bg_reg_awards: #d54242;  //rgb(213, 66, 66);  //#d54242;
     }
 
     li{
-      border-top:1px solid rgba(255, 85, 85, 1);
+      border-top:1px solid $reg_awards_c3;
     }
 
     .get_phone_code{
       &{
-        color: $bg_reg_awards;
+        color: $reg_awards_c1;
       }
     }
 
@@ -52,7 +54,7 @@ $bg_reg_awards: #d54242;  //rgb(213, 66, 66);  //#d54242;
       display: inline-block;
       padding: 0 fontsize(10);
       font-size: fontsize(16);
-      background: $bg_reg_awards;
+      background: $reg_awards_c1;
     }
     .content{
       font-size: fontsize(14);
@@ -60,12 +62,105 @@ $bg_reg_awards: #d54242;  //rgb(213, 66, 66);  //#d54242;
   }
 }
 
-.reg_awards_step2{
-  padding: fontsize(10) fontsize(16);
+.reg_awards{
+
+  .c_1{
+    color: $reg_awards_c2;
+  }
+
+  .btn-box{
+    text-align: center;
+    margin: fontsize(32) 0;
+
+    .icon-detail-more{
+      position: relative;
+      padding-right: fontsize(50);
+    }
+    .icon-detail-more:before {
+      // float: right;
+      position: absolute;
+      right: fontsize(20);
+      top: 50%;
+      margin-top: fontsize(-12);
+      // margin-left: fontsize(10);
+      width: fontsize(24);
+      height: fontsize(24);
+      line-height: fontsize(23);
+      background: #E6D603;//rgba(145, 78, 7, 0.3);
+      border-radius: fontsize(100);
+      font-size: fontsize(16);
+    }
+  }
 
   .coupon-item{
     border: 1px solid #fff;
     border-radius: 3px;
-    margin-bottom: fontsize(10);
+    margin-bottom: fontsize(16);
+
+    p{
+      font-size: fontsize(12);
+      margin-bottom: 0;
+    }
+
+    .top{
+      background: $reg_awards_c3;
+      padding: fontsize(16) fontsize(10) fontsize(5) fontsize(20);
+      border-bottom: 1px dotted #fff;
+      min-height: fontsize(64);
+    }
+
+    dfn.price{
+      color: #fff;
+      font-size: 18px;
+      span{
+        display: inline-block;
+        font-size: fontsize(32);
+      }
+    }
+
+    .text{
+      overflow: hidden;
+      text-align: right;
+      color: #fff;
+
+      font-size: fontsize(16);
+
+      h4{
+        font-weight: normal;
+        margin-bottom: 0;
+      }
+    }
+
+    .bottom {
+      background: #fff;
+      color: $color-grayer;
+      padding: 0 fontsize(10);
+
+      height: fontsize(28);
+      line-height: fontsize(28);
+    }
+  }
+
+  .error-tip{
+    padding: fontsize(10) fontsize(10) 1px;
+    background: #fff;
+    color: red;
+    .text{
+      // padding-left: fontsize(5);
+      overflow: hidden;
+    }
+  }
+}
+
+.reg_awards_step2{
+  padding: fontsize(10) fontsize(16);
+
+  .header{
+    font-size: fontsize(18);
+    color: #fff;
+
+    p{
+      margin: fontsize(16) 0;
+    }
   }
 }

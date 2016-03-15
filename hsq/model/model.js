@@ -144,9 +144,7 @@ define(['AbstractModel', 'ApiConfig', 'AppStore', 'Detect'], function( AbstractM
       },
       //这里要每次 ajax 请求之前，更新公共参数（因为 token 可能发生变化了）
       __updateOption: function(){
-        if(!loginInfo.token){
-          loginInfo = storeLogin.get() || {};
-        }
+        loginInfo = storeLogin.get() || {};
         this.commonParams = setCommonParams(loginInfo);
       },
     });

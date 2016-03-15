@@ -212,7 +212,7 @@ define(['PageView', getViewTemplatePath('district'), 'AppModel', 'AppStore', 'Fo
       },
       saveSelected: function(){
         if(!curDistrict.id_c){
-          this.showToast('您必须选择区县');
+          this.showToast('请选择区县');
           return;
         }
         storeCommonShort.setAttr('curDistrict', curDistrict);

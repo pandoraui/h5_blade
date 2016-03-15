@@ -1,6 +1,5 @@
-// define(["libs", "AbstractStore", "cInherit"], function(libs, AbstractStore, cInherit) {
-// define(["libs", "AbstractStore"], function(libs, AbstractStore) {
-// define(["cStore"], function(cStore) {
+
+//localstorage 存储
 define(["cLocalStore"], function(cStore) {
   var _ret = {};
   _ret.CustomStore = function(key, lifeTime, defaultData) { //自定义

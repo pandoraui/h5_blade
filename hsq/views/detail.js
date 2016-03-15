@@ -48,7 +48,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
           back: false,
         };
 
-        if(this.Debug){
+        if(!isWifiKey && this.Debug){
           headerData.back = {
             tagname: 'back',
             value: '返回',

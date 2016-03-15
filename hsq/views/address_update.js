@@ -35,7 +35,7 @@ define(['PageView', getViewTemplatePath('address_update'), 'AppModel', 'AppStore
       setHeader: function(){
         var self = this;
         var type = 'add';
-        var title = type === 'add' ? '新增收获地址' : '修改地址';
+        var title = type === 'add' ? '新增收货地址' : '修改地址';
         var headerData = {
           center: {
             tagname: 'title',

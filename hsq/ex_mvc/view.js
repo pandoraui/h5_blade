@@ -1,6 +1,11 @@
 ﻿define(['UIView', 'UIHeader', 'UIDownTip', 'UILoadingLayer', 'UIToast', 'UIAlert'], function (AbstractView, UIHeader, UIDownTip, UILoadingLayer, UIToast, UIAlert) {
-  var $header = $('.header-wrapper');
+  
+  var Debug = false;
+  if(window.location.host.match(/^m\.haoshiqi\.net/i)){
+    Debug = false;
+  }
 
+  var $header = $('.header-wrapper');
   var warning404 = [
     '<div class="warning404">',
     '  <div class="fun">',
@@ -22,10 +27,6 @@
     'address_update': 0,
   };
 
-  var Debug = true;
-  if(window.location.host.match(/^m\.haoshiqi\.net/i)){
-    Debug = false;
-  }
 
   return _.inherit(AbstractView, {
 

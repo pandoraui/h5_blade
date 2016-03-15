@@ -53,9 +53,15 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
         this.header.show();
       },
       onShow: function(){
+        var loginInfo = storeLogin.get() || {};
+
+        if(loginInfo.token){
+          //您已经登录，直接返回
+          this.back();
+          return;
+        }
 
         this.initPage();
-
       },
       onHide: function(){},
       //初始化页面

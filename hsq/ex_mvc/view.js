@@ -1,8 +1,13 @@
 ﻿define(['UIView', 'UIHeader', 'UIDownTip', 'UILoadingLayer', 'UIToast', 'UIAlert'], function (AbstractView, UIHeader, UIDownTip, UILoadingLayer, UIToast, UIAlert) {
-  
+
   var Debug = false;
-  if(window.location.host.match(/^m\.haoshiqi\.net/i)){
+  var host = window.location.host;
+  if(host.match(/^m\.haoshiqi\.net/i)){
     Debug = false;
+  }else{
+    if(host.match(/^localhost/i) || host.match(/^10\.0/i)){
+      Debug = true;
+    }
   }
 
   var $header = $('.header-wrapper');

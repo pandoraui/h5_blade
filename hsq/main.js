@@ -86,12 +86,18 @@
     }
   };
 
+  var Debug = false;
+  var host = window.location.host;
+  if(host.match(/^localhost/i) || host.match(/^10\.0/i)){
+    Debug = true;
+  }
+
   require(['AbstractApp'], function (App) {
     //实例化App
     var app = new App({
       //选择pushState还是hashChange
       hasPushState: false,
-      'defaultView': 'index',
+      'defaultView': Debug ? 'index' : 'detail',
       'viewRootPath': '' + project + 'views/',
       animations: animations
     });

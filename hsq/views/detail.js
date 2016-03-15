@@ -166,6 +166,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
           imgList.length = 5;
         }
         this.swiper = new UISwiper(container, imgList);
+        container.find('img').css({'height': this.fullWidth});
 
         var html_desc = _.template(this.$tpl.detail_desc)(data);
         this.$tplbox.detail_desc.html(html_desc);

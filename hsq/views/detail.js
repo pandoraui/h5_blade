@@ -2,6 +2,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
   function (PageView, viewhtml, AppModel, AppStore, Swiper, UISwiper, LazyLoad, Detect){
 
     // var ajaxTest = AppModel.getTestPage.getInstance();
+    var storeLogin = AppStore.Login.getInstance();
     var modelGetDetailDesc = AppModel.getDetailDesc.getInstance();
     var modelGetDetailArticle = AppModel.getDetailArticle.getInstance();
 
@@ -433,6 +434,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
           this.showToast('商品数量有误');
           return;
         };
+
         // 当前商品信息
         var productId = this.params.pid ? this.params.pid : 0;
         var curPrice = parseInt(this.curPrice);
@@ -445,7 +447,15 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
 
         var params = '?' + (productId ? ('pid=' + productId) : ('sid=' + this.skuId) );
         params += ('&amount=' + this.curAmount) + '&price=' + curPrice;
-        this.forward('order' + params);
+
+        var loginInfo = storeLogin.get() || {};
+        var nextUrl = 'order' + params;
+        if(!loginInfo.token){
+          //?redirect_from=order%3Fsid%3D150%26amount%3D1%26price%3D1415
+          this.forward('quick_login?redirect_from=' + encodeURIComponent(nextUrl) );
+        }else{
+          this.forward(nextUrl);
+        }
       },
     });
 });

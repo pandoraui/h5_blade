@@ -57,8 +57,6 @@ define(["cLocalStore"], function(cStore) {
   _ret.Login = _ret.CustomStore("HSQ_Login", "100D", {});
   // _ret.District = _ret.CustomStore("HSQ_District", "100D", {});
 
-
-
   _ret.Zhuti = _ret.CustomStore('HSQ_ZHUTI_STORE', '30M', {});
 
   return _ret;

@@ -4,6 +4,7 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
     var storeLogin = AppStore.Login.getInstance();
     var modelLogin = AppModel.login.getInstance();
     var modelGetMobileCode = AppModel.getMobileCode.getInstance();
+    var redirect_from = '';
 
     return _.inherit(PageView, {
       pageName: 'quick_login',
@@ -35,6 +36,7 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
       },
       setHeader: function(){
         var self = this;
+        redirect_from = decodeURIComponent(this.params.redirect_from || '');
         var headerData = {
           center: {
             tagname: 'title',
@@ -53,13 +55,13 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
         this.header.show();
       },
       onShow: function(){
-        var loginInfo = storeLogin.get() || {};
+        // var loginInfo = storeLogin.get() || {};
 
-        if(loginInfo.token){
-          //您已经登录，直接返回
-          this.back();
-          return;
-        }
+        // if(loginInfo.token){
+        //   //您已经登录，直接返回
+        //   this.back();
+        //   return;
+        // }
 
         this.initPage();
       },
@@ -212,9 +214,10 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
 
           //如果是隐身模式，怎么登录，目前手机端隐身模式是不能访问存储的
           storeLogin.set(res.data);
-          this.back();
+          this.back(redirect_from);
 
         },function(error){
+          this.back(redirect_from);
           //失败
           this.showToast(error.errmsg);
         },this);

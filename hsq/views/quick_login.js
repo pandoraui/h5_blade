@@ -209,6 +209,8 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
 
           //成功后，要存储登录信息
           //{"errno":0,"errmsg":"success","data":{"username":"138****1714","avatar":"","mobile":"13817131714","email":"","birthday":"0000-00-00","sex":0,"enabled":1,"token":"5f8facea123903bfa2e18340de673eef"},"timestamp":1457406584,"serverlogid":"2842dbc50976c899d5285d80eb042481"}
+
+          //如果是隐身模式，怎么登录，目前手机端隐身模式是不能访问存储的
           storeLogin.set(res.data);
           this.back();
 

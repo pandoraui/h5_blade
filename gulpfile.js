@@ -550,9 +550,17 @@ var publish = {
 gulp.task('deploy', function(cb){
   runSequence('publish', ['cap:deploy'], cb);
 });
+gulp.task('deploy:prod', function(cb){
+  runSequence('publish', ['cap:deploy:prod'], cb);
+});
 
 gulp.task('cap:deploy', $.shell.task([
-  'cap deploy'
+  'cap dev deploy'
+],{
+  cwd: './deploy'
+}));
+gulp.task('cap:deploy:prod', $.shell.task([
+  'cap prod deploy'
 ],{
   cwd: './deploy'
 }));

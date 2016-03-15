@@ -4,6 +4,8 @@
 
     // var storeCommonLong = AppStore.CommonLong.getInstance();
     var storeCommonShort = AppStore.CommonShort.getInstance();
+    var storeLogin = AppStore.Login.getInstance();
+
 
     var testNum = 0;
     // return cPageView.extend({
@@ -74,6 +76,10 @@
             break;
           case 'show404':
             this.show404();
+            break;
+          case 'logout':
+            storeLogin.remove();
+            this.showToast('已退出登录');
             break;
           case 'storage':
             this.testStorage(e);

@@ -162,11 +162,15 @@ define(['AbstractModel', 'ApiConfig', 'AppStore', 'Detect'], function( AbstractM
   // });
 
 
+
+
   //主题活动项目
 
   //推荐有奖
-  //
+  //获取营销活动信息
   _model.getRewardInfo = _model.CustomModel("/reward/getrewardinfo", {method: "GET"});
+  //用户注册
+  _model.register = _model.CustomModel("/user/register", {method: "POST"});
 
 
   //获取短链接

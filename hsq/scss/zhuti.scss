@@ -1,17 +1,19 @@
 
 
-$reg_awards_c1: #d54242;  //rgb(213, 66, 66);
-$reg_awards_c2: #ffee11;  //rgb(255, 238, 17);
-$reg_awards_c3: #ff5555;  //rgb(255, 85, 85);
+$reg_reward_c1: #d54242;  //rgb(213, 66, 66);
+$reg_reward_c2: #ffee11;  //rgb(255, 238, 17);
+$reg_reward_c3: #ff5555;  //rgb(255, 85, 85);
 
 //推荐有奖
-.page-view-zt_reg_awards{
-  background: $reg_awards_c1;
+.page-view-zt_reg_reward{
+  background: $reg_reward_c1;
 }
-.reg_awards{
+
+.reg_reward {
   .quick-form{
     .group-list,
     .other{
+      margin-top: fontsize(16);
       background: none;
       box-sizing: border-box;
       padding: 0 fontsize(16);
@@ -22,12 +24,12 @@ $reg_awards_c3: #ff5555;  //rgb(255, 85, 85);
     }
 
     li{
-      border-top:1px solid $reg_awards_c3;
+      border-top:1px solid $reg_reward_c3;
     }
 
     .get_phone_code{
       &{
-        color: $reg_awards_c1;
+        color: $reg_reward_c1;
       }
     }
 
@@ -35,15 +37,8 @@ $reg_awards_c3: #ff5555;  //rgb(255, 85, 85);
       margin-top: fontsize(10);
     }
   }
-}
-
-.zhuti_box {
-  .rules {
-    padding: fontsize(10) fontsize(16);
-  }
-}
-.reg_awards {
   .rules{
+    padding: fontsize(10) fontsize(16);
     color: #fff;
     .header {
       text-align: center;
@@ -54,18 +49,15 @@ $reg_awards_c3: #ff5555;  //rgb(255, 85, 85);
       display: inline-block;
       padding: 0 fontsize(10);
       font-size: fontsize(16);
-      background: $reg_awards_c1;
+      background: $reg_reward_c1;
     }
     .content{
       font-size: fontsize(14);
     }
   }
-}
-
-.reg_awards{
 
   .c_1{
-    color: $reg_awards_c2;
+    color: $reg_reward_c2;
   }
 
   .btn-box{
@@ -92,7 +84,7 @@ $reg_awards_c3: #ff5555;  //rgb(255, 85, 85);
     }
   }
   .coupon-list{
-    margin-top: fontsize(30);
+    margin-top: fontsize(20);
     padding-top: 1px;
   }
   .coupon-item{
@@ -106,7 +98,7 @@ $reg_awards_c3: #ff5555;  //rgb(255, 85, 85);
     }
 
     .top{
-      background: $reg_awards_c3;
+      background: $reg_reward_c3;
       padding: fontsize(16) fontsize(10) fontsize(5) fontsize(20);
       border-bottom: 1px dotted #fff;
       min-height: fontsize(64);
@@ -154,13 +146,15 @@ $reg_awards_c3: #ff5555;  //rgb(255, 85, 85);
     }
   }
 }
-
-.reg_awards_step2,
-.reg_awards_step3{
-  padding: fontsize(10) fontsize(16);
+.reg_reward_step2{
+  padding: 0 fontsize(16);
+}
+.reg_reward_step2,
+.reg_reward_step3{
+  display: none;
 
   .header{
-    margin: fontsize(16) 0;
+    margin: fontsize(30) 0 fontsize(16);
     font-size: fontsize(18);
     color: #fff;
 

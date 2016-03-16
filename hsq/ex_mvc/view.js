@@ -22,6 +22,7 @@
   ].join('');
 
   var waitAjaxPage = {
+    'home': 0,
     'index': 0,
     'list': 0,
     'detail': 1,

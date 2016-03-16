@@ -22,6 +22,7 @@
       'Detect': project + 'common/Detect',
       'FormatReg': project + 'common/FormatReg',
       'CountDown': project + 'common/CountDown',
+      'LoginCommon': project + 'common/LoginCommon',
       // 'AppCommonStore': project + 'model/commonStore',
       // 'SwiperInit': 'blade/function/swiper-init',
     },

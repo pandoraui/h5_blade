@@ -26,6 +26,7 @@ module.exports = {
     "Detect": "common/Detect",
     "FormatReg": "common/FormatReg",
     "CountDown": "common/CountDown",
+    "LoginCommon": "common/LoginCommon",
 
     "PageView": "ex_mvc/view",
 
@@ -47,6 +48,11 @@ module.exports = {
     //抽象view
     "PageView",
     // "../blade/function/swiper",
+
+    //common
+    "LoginCommon",
+
+    //首页
     "views/home",
 
     //views
@@ -75,6 +81,11 @@ module.exports = {
     "text!views/order_success.html",
 
     "text!views/test.html",
+
+
+    //主题活动页面
+    "views/zt_reg_reward",
+    "text!views/zt_reg_reward.html",
 
   ],
   "exclude": [],

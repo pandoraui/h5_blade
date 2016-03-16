@@ -3,6 +3,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
 
     // var ajaxTest = AppModel.getTestPage.getInstance();
     var storeLogin = AppStore.Login.getInstance();
+    var storeWifiKeyParams = AppStore.wifiKeyParams.getInstance();
     var modelGetDetailDesc = AppModel.getDetailDesc.getInstance();
     var modelGetDetailArticle = AppModel.getDetailArticle.getInstance();
 
@@ -99,10 +100,14 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
       ajaxRequest: function(){
         var scope = this;
 
+        // lng lat openid operid
+
         modelGetDetailDesc.param = {
           productId: this.params.pid,
           skuId: this.params.sid,
         };
+
+
 
         // this.dealParams(modelGetDetailDesc.param);
 
@@ -435,6 +440,14 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
           this.showToast('商品数量有误');
           return;
         };
+
+        //这里需要存储一下 wifiKey 的参数，在提交订单时使用
+        storeWifiKeyParams.set({
+          openid: this.params.openid,
+          operid: this.params.operid,
+          lat: this.params.lat,  //经度
+          lng: this.params.lng,  //纬度
+        });
 
         // 当前商品信息
         var productId = this.params.pid ? this.params.pid : 0;

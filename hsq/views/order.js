@@ -1,11 +1,13 @@
-define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
-  function (PageView, viewhtml, AppModel, AppStore){
+define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detect'],
+  function (PageView, viewhtml, AppModel, AppStore, Detect){
 
     var storeAddress = AppStore.Address.getInstance();
+    var storeWifiKeyParams = AppStore.wifiKeyParams.getInstance();
     var modelOrderInit = AppModel.orderInit.getInstance();
     var modelOrderSubmit = AppModel.orderSubmit.getInstance();
     var modelOrderPay = AppModel.orderPay.getInstance();
 
+    var isWifiKey = Detect.isWifiKey;
 
     return _.inherit(PageView, {
       pageName: 'order',
@@ -171,6 +173,8 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
           type: this.invoiceId,
           title: this.invoceTitle || '',
         };
+
+
         modelOrderSubmit.param = {
           addressId: this.curAddress.id,
           invoice: JSON.stringify(invoiceInfo),
@@ -179,6 +183,11 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore',],
           couponCode: '',
           couponId: '',
         };
+
+        if(isWifiKey){
+          var wifiKeyParams = storeWifiKeyParams.get() || {};
+          modelOrderSubmit.param = $.extend(modelOrderSubmit.param, wifiKeyParams);
+        }
 
         this.showLoading();
         modelOrderSubmit.execute(function(res){

@@ -88,7 +88,7 @@
 
   var Debug = false;
   var host = window.location.host;
-  if(host.match(/^localhost/i) || host.match(/^10\.0/i)){
+  if(host.match(/^localhost/i)){
     Debug = true;
   }
 
@@ -97,7 +97,7 @@
     var app = new App({
       //选择pushState还是hashChange
       hasPushState: false,
-      'defaultView': Debug ? 'index' : 'detail',
+      'defaultView': Debug ? 'index' : 'home',
       'viewRootPath': '' + project + 'views/',
       animations: animations
     });

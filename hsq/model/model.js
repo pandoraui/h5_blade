@@ -10,64 +10,7 @@ define(['AbstractModel', 'ApiConfig', 'AppStore', 'Detect'], function( AbstractM
   var modelLogin = AppModel.login.getInstance();
 
  */
-  //
-  //   locationStore = CruiseStore.CruiseLocationStore.getInstance();
 
-  // /**
-  //  * 获取本地localStorage信息
-  //  **/
-  // // console.log(CommonCruiseModel);
-  // var getLocalData = function(name) {
-  //   var result = window.localStorage.getItem(name);
-  //   if (result) {
-  //   result = JSON.parse(result);
-  //   if (Date.parse(result.timeout.replace(/-/g, '/')) >= new Date()) {
-  //     return result.value || result.data;
-  //   }
-  //   }
-  //   return "";
-  // };
-  //
-  // /**
-  //  @ 读取客户端信息
-  //  @ DeviceType:  客户端的
-  //  @ Version:"5.9"  客户端app 版本号（H5就传H5）
-  //  @ Device:  客户端的机型
-  //  @ ScreenWidth: 屏幕宽
-  //  @ ScreenHeight: 屏幕高
-  //  @ ScreenDPI: 屏幕每英寸点数
-  //  @ ClientId:  //取cid
-  //  @ Longitude: //缓存的经度 since 5.7
-  //  @ Latitude:  //缓存的纬度 since 5.7
-  //  **/
-  // var getClientInfo = function() {
-  //   var clientInfo = {
-  //   Version: window.CruiseVersion(),
-  //   DeviceType: "unknown",
-  //   ScreenWidth: window.screen.width,
-  //   ScreenHeight: window.screen.height
-  //   };
-  //   if (isInApp) {
-  //   var deviceInfo = window.localStorage.getItem("DEVICEINFO") || '{}';
-  //   deviceInfo = JSON.parse(deviceInfo);
-  //
-  //   clientInfo.Device = deviceInfo ? deviceInfo.device : "";
-  //   }
-  //   clientInfo.ClientId = window.localStorage.getItem("GUID") || '';
-  //   if (window.screen.deviceXDPI) {
-  //   clientInfo.ScreenDpiX = window.screen.deviceXDPI;
-  //   clientInfo.ScreenDpiY = window.screen.deviceYDPI;
-  //   }
-  //   if ($.os.phone) {
-    //   if ($.os.iphone) {
-    //     clientInfo.DeviceType = "phone";
-    //   }
-    //   if ($.os.ipad) {
-    //     clientInfo.DeviceType = "pad";
-    //   }
-  //   }
-  //   return clientInfo;
-  // };
 
   //{"value":{"username":"138****1714","avatar":"","mobile":"13817131714","email":"","birthday":"0000-00-00","sex":0,"enabled":1,"token":"5f8facea123903bfa2e18340de673eef"},"timeout":"2016/06/16 11:09:55","savedate":"2016/03/08 11:09:55"}
 
@@ -212,12 +155,19 @@ define(['AbstractModel', 'ApiConfig', 'AppStore', 'Detect'], function( AbstractM
   _model.addrListC = _model.CustomModel("/nation/districtlist", {method: "GET"});
 
 
-
   //搜索项目获取列表，带缓存
   // _model.CruiseSearchPageModel = _model.CustomModel("/GetSearchItem",{
   //   param : CruiseStore.SearchParam.getInstance(),  //参数
   //   result: CruiseStore.SearchData.getInstance()  //数据
   // });
+
+
+  //主题活动项目
+
+  //推荐有奖
+  //
+  _model.getRewardInfo = _model.CustomModel("/reward/getrewardinfo", {method: "GET"});
+
 
   //获取短链接
   // _model.ShortUrlModel = _model.CustomModel("/GetShortUrl");

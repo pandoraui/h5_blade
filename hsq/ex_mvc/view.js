@@ -32,7 +32,6 @@
     'address_update': 0,
   };
 
-
   return _.inherit(AbstractView, {
 
     header: null,
@@ -73,10 +72,10 @@
       });
 
       this.on('onShow', function () {
+        this._updatePageOptions();
+
         //获取 url 参数
         this.params = _.getUrlParam();
-
-        this._updatePageOptions();
 
         //生成头部
         this._createHeader();
@@ -115,6 +114,12 @@
         return;
       }
       this.waitAjax = !!waitAjaxPage[pageName] || false;
+
+      //个别第三方程序，不经判断，不管 url 是否已经有 ？都直接后面添加？带自己的参数，
+      //这很坑，要处理一下
+      // var href = window.location.href;
+
+      // window.history.replaceState(null, document.title, href);
     },
     /**
      * 生成头部

@@ -47,6 +47,7 @@ module.exports = {
     //抽象view
     "PageView",
     // "../blade/function/swiper",
+    "views/home",
 
     //views
     "views/index",
@@ -73,7 +74,6 @@ module.exports = {
     "views/order_success",
     "text!views/order_success.html",
 
-    "views/help",
     "text!views/test.html",
 
   ],

@@ -1715,6 +1715,19 @@
     //示例如：http://m.ctrip.com/wechat/code.html?usertype=snsapi_userinfo&bindtype=bindwechat&jumpurl=http%3A%2F%2F10.0.0.119%3A8000%2Fwechat%2Fafterlogin%3Fbindtype%3Dbindwechat&code=0318f4f9425b94e272a68e58c81e0b5f&state=1440125203301
     //url = decodeURIComponent(url);
 
+    //还有个问题，如果有两个？，第二个替换成&才行
+    // url = url.replace(/(.*)\?(.*)\?(.*)/, '$1?$2&$3');
+    // var tempUrl = url.split('?');
+    //
+    // var tempLen = tempUrl.length;
+    // if(tempLen>1){
+    //   var temp = tempUrl[0];
+    //   for(var i=0;i<tempLen;i++){
+    //
+    //   }
+    // }
+    url = url.replace(/(.*)\?(.*)\?(.*)/, '$1?$2&$3');
+
     while (match = searchReg.exec(url)) {
       name = match[1];
       value = match[2];

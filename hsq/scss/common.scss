@@ -35,6 +35,8 @@ img.hsq-img{width: 100%;}
 .mt50{margin-top: fontsize(50);}
 .mb10{margin-bottom: fontsize(10);}
 .ml10{margin-left: fontsize(10);}
+.pt10{padding-top: fontsize(10);}
+.pt20{padding-top: fontsize(20);}
 .block{ display: block;}
 .list{ list-style: none;}
 .text-center{ text-align: center;}
@@ -247,4 +249,22 @@ dfn.price{
 .header-wrapper,
 .fexed_footer{
   -webkit-transform: translateZ(0);
+}
+
+.guide-box{
+  padding-top: fontsize(30);
+  h2{
+    font-weight: normal;
+  }
+  // .header{
+  //   h2,
+  //   p{
+  //     margin-bottom: fontsize(20);
+  //   }
+  // }
+  .app-logo{ margin: fontsize(20) 0 fontsize(30);}
+
+  .intro-text{
+    padding: fontsize(10) fontsize(10) 0;
+  }
 }

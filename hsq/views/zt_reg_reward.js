@@ -78,7 +78,7 @@ define(['PageView', getViewTemplatePath('zt_reg_reward'), 'AppModel', 'AppStore'
 
           this.ajaxRequest();
         }else{
-          this.showStep(1);
+          this.showStep(3);
         }
       },
       showStep: function(step){
@@ -115,7 +115,11 @@ define(['PageView', getViewTemplatePath('zt_reg_reward'), 'AppModel', 'AppStore'
 
         },function(error){
           //失败
-          this.showToast(error.errmsg);
+          if(error.errno == 9310001){
+            this.showStep(3);
+          }else{
+            this.showToast(error.errmsg);
+          }
         },this);
       },
       renderPage: function(data){

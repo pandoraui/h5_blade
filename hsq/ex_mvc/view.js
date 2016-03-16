@@ -34,9 +34,9 @@
   };
 
   return _.inherit(AbstractView, {
-
     header: null,
     waitAjax: false,
+    hashChangeParamsRefresh: true,
     // initialize: function initialize(options) {
     //   this.__toast = new UIToast();
     // },

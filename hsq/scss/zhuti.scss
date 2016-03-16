@@ -10,6 +10,9 @@ $reg_reward_c3: #ff5555;  //rgb(255, 85, 85);
 }
 
 .reg_reward {
+  p{
+    color: #fff;
+  }
   .quick-form{
     .group-list,
     .other{
@@ -143,6 +146,9 @@ $reg_reward_c3: #ff5555;  //rgb(255, 85, 85);
     .text{
       // padding-left: fontsize(5);
       overflow: hidden;
+      p {
+        color: red;
+      }
     }
   }
 }
@@ -151,7 +157,6 @@ $reg_reward_c3: #ff5555;  //rgb(255, 85, 85);
 }
 .reg_reward_step2,
 .reg_reward_step3{
-  display: none;
 
   .header{
     margin: fontsize(30) 0 fontsize(16);
@@ -163,3 +168,14 @@ $reg_reward_c3: #ff5555;  //rgb(255, 85, 85);
     }
   }
 }
+
+.reg_reward_step1,
+.reg_reward_step2,
+.reg_reward_step3{
+  display: none;
+}
+
+.reg_reward1 .reg_reward_step1,
+.reg_reward2 .reg_reward_step2,
+.reg_reward3 .reg_reward_step3{ display: block;}
+.reg_reward3 .rules{ display: none;}

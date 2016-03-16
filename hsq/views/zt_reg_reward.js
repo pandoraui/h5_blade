@@ -19,10 +19,7 @@ define(['PageView', getViewTemplatePath('zt_reg_reward'), 'AppModel', 'AppStore'
 
         //元素集合
         this.els = {
-          "$nodeStep1": this.$el.find('.reg_reward_step1'),
-          "$nodeStep2": this.$el.find('.reg_reward_step2'),
-          "$nodeStep3": this.$el.find('.reg_reward_step3'),
-          "$nodeStepAll": this.$el.find('.reg_reward_step'),
+          "$zhuti_box": this.$el.find('.zhuti_box'),
           "$nodeBtnCode": this.$el.find('.get_phone_code'),
           "$nodeMobile": this.$el.find('.J_phone'),
           "$nodeCode": this.$el.find('.J_code'),
@@ -46,14 +43,15 @@ define(['PageView', getViewTemplatePath('zt_reg_reward'), 'AppModel', 'AppStore'
             tagname: 'title',
             value: ['推荐有奖']
           },
-          back: {
-            tagname: 'back',
-            value: '返回',
-            callback: function() {
-              //这里返回订单详情页
-              self.backAction();
-            }
-          }
+          back: false,
+          // back: {
+          //   tagname: 'back',
+          //   value: '返回',
+          //   callback: function() {
+          //     //这里返回订单详情页
+          //     self.backAction();
+          //   }
+          // }
         };
         this.header.set(headerData);
         this.header.show();
@@ -68,10 +66,13 @@ define(['PageView', getViewTemplatePath('zt_reg_reward'), 'AppModel', 'AppStore'
       //初始化页面
       initPage: function(){
         var scope = this;
-        //active_code 活动码
-        //active_code 邀请码
 
-        if(this.params.active_code){
+        this.checkBtnCode(this.els.$nodeBtnCode);
+
+        //reward_code 活动码
+        //invite_code 邀请码
+
+        if(this.params.reward_code){
           this.showStep(1);
           this.checkBtnCode(this.els.$nodeBtnCode);
 
@@ -79,36 +80,38 @@ define(['PageView', getViewTemplatePath('zt_reg_reward'), 'AppModel', 'AppStore'
         }else{
           this.showStep(1);
         }
-
-
       },
       showStep: function(step){
-        this.els.$nodeStepAll.hide();
-        var $nodestep = '$nodeStep' + (step || 1);
-        this.els[$nodestep].show();
+        var stepClass = 'reg_reward' + (step || 1);
+        this.els.$zhuti_box.removeClass('reg_reward1 reg_reward2 reg_reward3').addClass(stepClass);
       },
       ajaxRequest: function(){
         var scope = this;
 
         this.showLoading();
         modelGetRewardInfo.param = {
-          rewardCode: this.params.oid,
+          rewardCode: this.params.reward_code,
         };
         modelGetRewardInfo.execute(function(res){
           this.hideLoading();
           //成功
           console.log(res);
-
           var data = res.data;
 
-          this.orderId = data.id;
-          this.skuId = data.skuList && data.skuList[0] && data.skuList[0].skuId;
+          //活动是否生效
+          var dataList = [];
+          if(data.status && !data.is_expired){
+            dataList = data.couponList;
+          }
 
-          var status_code = data.statusCode || 0;
-          this.renderPage({
-            order: data,
-            status: orderStatus[status_code] || orderStatus[0],
-          });
+          if(dataList.length){
+            this.renderPage({
+              list: dataList
+            });
+            this.showStep(1);
+          }else{
+            this.showStep(3);
+          }
 
         },function(error){
           //失败
@@ -129,10 +132,6 @@ define(['PageView', getViewTemplatePath('zt_reg_reward'), 'AppModel', 'AppStore'
 
         if(this.checkMobile(this.els.$nodeMobile)){
           this.getMobileCode(this.mobile, this.els.$nodeCode);
-          // if(!this.isNeedImgCode()){
-          // }else{
-          //   this.getImgCode();
-          // }
         }
       },
       goRegister: function(){
@@ -144,6 +143,8 @@ define(['PageView', getViewTemplatePath('zt_reg_reward'), 'AppModel', 'AppStore'
           mobile: this.mobile,
           type: 5,
           verifyCode: this.mobileCode,
+          rewardCode: this.params.reward_code || '',
+          inviteCode: this.params.invite_code || '',
         };
 
         this.showLoading();
@@ -157,7 +158,9 @@ define(['PageView', getViewTemplatePath('zt_reg_reward'), 'AppModel', 'AppStore'
           //{"errno":0,"errmsg":"success","data":{"username":"138****1714","avatar":"","mobile":"13817131714","email":"","birthday":"0000-00-00","sex":0,"enabled":1,"token":"5f8facea123903bfa2e18340de673eef"},"timestamp":1457406584,"serverlogid":"2842dbc50976c899d5285d80eb042481"}
 
           //如果是隐身模式，怎么登录，目前手机端隐身模式是不能访问存储的???
-          storeLogin.set(res.data);
+          // storeLogin.set(res.data);
+
+          this.showStep(2);
           // this.back(redirect_from, {replace: true});
 
         },function(error){

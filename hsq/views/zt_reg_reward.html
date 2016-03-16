@@ -1,4 +1,4 @@
-<div class="zhuti_box reg_reward">
+<div class="zhuti_box reg_reward reg_reward1">
   <div class="reg_reward_step reg_reward_step1">
     <div class="quick-login">
       <div class="top">
@@ -21,47 +21,45 @@
           </li>
         </ul>
         <div class="other">
-          <p class="btn btn-block btn-yellow J_register_btn">注册领红包</p>
+          <span class="btn btn-block btn-yellow J_register_btn">注册领红包</span>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="reg_reward_step reg_reward_step2">
+  <div class="reg_reward_step reg_reward_step2 hsq_box">
+    <script type="text/template" id="tpl_hsq_box">
     <div class="header text-center">
       <p><img src="assets/img/logo.png" width="60" height="60" alt=""></p>
-      <p>恭喜您！成功领取<span class="c_1">15元</span>优惠券</p>
+      <%if(list.length){%>
+        <p>恭喜您！成功领取<span class="c_1">15元</span>优惠券</p>
+      <%}else{%>
+        <p>该活动已下线</p>
+      <%}%>
     </div>
     <div class="coupon-list">
-      <div class="coupon-item">
-        <div class="top">
-          <dfn class="price fl">&yen;<span>10</span></dfn>
-          <div class="text">
-            <h4>优惠券</h4>
-            <p> 全场满50元使用</p>
+      <%if(list.length){%>
+      <%list.forEach(function(item){%>
+        <div class="coupon-item">
+          <div class="top">
+            <dfn class="price fl">&yen;<span><%=item.value%></span></dfn>
+            <div class="text">
+              <h4><%=item.title%></h4>
+              <p><%=item.sub_title%></p>
+            </div>
+          </div>
+          <div class="bottom">
+            <p><span class="date fr"><%_.dateUtil.format(item.start_at*1000, {format: 'Y.M.D'})%>-<%_.dateUtil.format(item.end_at*1000, {format: 'Y.M.D'})%></span>使用期限</p>
           </div>
         </div>
-        <div class="bottom">
-          <p><span class="date fr">2016.2.6-2016.4.23</span>使用期限</p>
-        </div>
-      </div>
-      <div class="coupon-item">
-        <div class="top">
-          <dfn class="price fl">&yen;<span>5</span></dfn>
-          <div class="text">
-            <h4>优惠券</h4>
-            <p> 全场满20元使用</p>
-          </div>
-        </div>
-        <div class="bottom">
-          <p><span class="date fr">2016.2.6-2016.4.23</span>使用期限</p>
-        </div>
-      </div>
+      <%})%>
+      <%}%>
     </div><!--//.coupon-list-->
 
     <div class="btn-box">
       <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.doweidu.android.haoshiqi" class="btn btn-yellow iconfont icon-detail-more">立即下载 APP</a>
     </div>
+    </script>
   </div>
 
   <div class="reg_reward_step reg_reward_step3">

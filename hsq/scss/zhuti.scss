@@ -110,9 +110,11 @@ $reg_reward_c3: #ff5555;  //rgb(255, 85, 85);
     dfn.price{
       color: #fff;
       font-size: 18px;
+      line-height: 1;
       span{
         display: inline-block;
-        font-size: fontsize(32);
+        font-size: fontsize(45);
+        padding-left: fontsize(5);
       }
     }
 

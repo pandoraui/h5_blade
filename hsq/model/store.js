@@ -53,7 +53,7 @@ define(["cLocalStore"], function(cStore) {
   _ret.DetailIntro = _ret.CustomStore("HSQ_DETAIL_INTRO", "1D", {});
 
 
-  _ret.Address = _ret.CustomStore("HSQ_ADDRESS", "10D", {});
+  _ret.Address = _ret.CustomStore("HSQ_ADDRESS", "1H", {});
   _ret.Login = _ret.CustomStore("HSQ_Login", "100D", {});
 
   //wifiKey 下单参数

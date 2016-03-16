@@ -5381,8 +5381,22 @@ var Zepto = (function () {
 
 
 
+
+
   // 获取url参数
-  // 这个方法还是有问题
+  /*
+  这个方法还是有问题
+  问题1：这里为什么要 decode？默认的 url 就应该是一个非 encode 的 url
+  这里做 decode 会导致如下示例无法正常取 code 值，参数 decode 后已经乱套了
+  示例如：http://m.ctrip.com/wechat/code.html?usertype=snsapi_userinfo&bindtype=bindwechat&jumpurl=http%3A%2F%2F10.0.0.119%3A8000%2Fwechat%2Fafterlogin%3Fbindtype%3Dbindwechat&code=0318f4f9425b94e272a68e58c81e0b5f&state=1440125203301
+  url = decodeURIComponent(url);
+
+  问题2：url 如果有两个？，第二个替换成&才行
+  有些很恶心的第三方 app，不管你的 url 带不带 ? 他们直接加 ? 带自己的参数，如微信，wifiKey
+  这样转发出去，可能影响我们取有效的 key-value 值
+  **/
+
+  //规则规则，参数都为 key-value 值形式，若值为 url，必须 encodeURIComponent 处理
   _.getUrlParam = function (url, key) {
     if (!url) url = window.location.href;
 
@@ -5392,12 +5406,7 @@ var Zepto = (function () {
     var urlParams = {};
     var match, name, value, isArray;
 
-    //这里为什么要 decode？默认的 url 就应该是一个非 encode 的 url
-    //这里做 decode 会导致如下示例无法正常取 code 值，参数 decode 后已经乱套了
-    //示例如：http://m.ctrip.com/wechat/code.html?usertype=snsapi_userinfo&bindtype=bindwechat&jumpurl=http%3A%2F%2F10.0.0.119%3A8000%2Fwechat%2Fafterlogin%3Fbindtype%3Dbindwechat&code=0318f4f9425b94e272a68e58c81e0b5f&state=1440125203301
-    //url = decodeURIComponent(url);
 
-    //还有个问题，如果有两个？，第二个替换成&才行
     // url = url.replace(/(.*)\?(.*)\?(.*)/, '$1?$2&$3');
     // var tempUrl = url.split('?');
     //

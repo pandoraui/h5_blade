@@ -58,7 +58,7 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
       initPage: function(){
         var scope = this;
 
-        this.curAddress = storeAddress.get();
+        this.curAddress = storeAddress.get() || {};
 
         this.invoiceId = 1;
         this.ajaxRequest();
@@ -71,7 +71,7 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
         };
 
         modelOrderInit.param = {
-          addressId: '',
+          addressId: this.curAddress.id || '',
           skusInfo: JSON.stringify([skusInfo]),
         };
 
@@ -81,22 +81,53 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
           //成功
           console.log(res);
 
-          var data = res.data;
+          this.orderInitDeal(res);
+        },function(error){
+          //失败
+          console.log(error);
+          this.orderInitDeal(error);
+          // this.showToast(error.errmsg);
+        },this);
+      },
+      orderInitDeal: function(res){
+        this.hideLoading();
+        var data = res.data;
 
-          if(!this.curAddress){
-            this.curAddress = data.address || null;
-          }
+        if( $.isEmptyObject(this.curAddress) ){
+          this.curAddress = data.address || {};
+        }
 
+        //如果当前地址不支持配送，则提示他 sku信息中的canDelivery
+        if(res.errno == 0 || res.errno == 610021){
           //确认订单序列号
           this.confirmSid = data.confirmSid;
 
           this.renderPage(data);
 
-        },function(error){
-          //失败
-          console.log(error);
-          this.showToast(error.errmsg);
-        },this);
+          if(res.errno == 610021){
+            this.checkDelivery(res);
+          }
+        }else{
+          this.showToast(res.errmsg);
+        }
+      },
+      checkDelivery: function(res){
+        // this.showToast(res.errmsg);
+        //是否有某些产品不支持配送
+        var tipTitle = '';
+        var itemList = res.data.packageInfo.itemList;
+        itemList.forEach(function(item, index){
+          item.skuList.forEach(function(skuItem){
+            if(!skuItem.canDelivery){
+              tipTitle = skuItem.sku_name;
+            }
+          });
+        });
+        if(tipTitle){
+          this.showToast('该地址不支持配送！');
+        }else{
+          this.showToast(res.errmsg);
+        }
       },
       renderPage: function(data){
         var address = this.curAddress;
@@ -173,7 +204,6 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
           type: this.invoiceId,
           title: this.invoceTitle || '',
         };
-
 
         modelOrderSubmit.param = {
           addressId: this.curAddress.id,

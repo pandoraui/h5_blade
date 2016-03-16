@@ -3,6 +3,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
 
     // var ajaxTest = AppModel.getTestPage.getInstance();
     var storeLogin = AppStore.Login.getInstance();
+    var storeAddress = AppStore.Address.getInstance();
     var storeWifiKeyParams = AppStore.wifiKeyParams.getInstance();
     var modelGetDetailDesc = AppModel.getDetailDesc.getInstance();
     var modelGetDetailArticle = AppModel.getDetailArticle.getInstance();
@@ -461,6 +462,9 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
 
         var params = '?' + (productId ? ('pid=' + productId) : ('sid=' + this.skuId) );
         params += ('&amount=' + this.curAmount) + '&price=' + curPrice;
+
+        //下单之前，清除本地选择的地址
+        storeAddress.remove();
 
         var loginInfo = storeLogin.get() || {};
         var nextUrl = 'order' + params;

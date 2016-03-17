@@ -63,7 +63,11 @@
       'click [data-link]': 'goLink',
       'click .refreshPage': 'refreshPage',
     },
-
+    scrollTo: function(x, y){
+      setTimeout(function(){
+        window.scrollTo(x||0, y||0);
+      }, 100);
+    },
     addEvent: function ($super) {
       $super();
 

@@ -165,6 +165,7 @@ define(['PageView', getViewTemplatePath('zt_reg_reward'), 'AppModel', 'AppStore'
           // storeLogin.set(res.data);
 
           this.showStep(2);
+          this.scrollTo(0, 0);
           // this.back(redirect_from, {replace: true});
 
         },function(error){

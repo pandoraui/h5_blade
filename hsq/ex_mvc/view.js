@@ -1,4 +1,6 @@
-﻿define(['UIView', 'UIHeader', 'UIDownTip', 'UILoadingLayer', 'UIToast', 'UIAlert'], function (AbstractView, UIHeader, UIDownTip, UILoadingLayer, UIToast, UIAlert) {
+﻿define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer', 'UIToast', 'UIAlert', 'AppStore'], function (AbstractView, UIHeader, Detect, Tongji, UIDownTip, UILoadingLayer, UIToast, UIAlert, AppStore) {
+
+  var storeLogin = AppStore.Login.getInstance();
 
   var Debug = false;
   var host = window.location.host;
@@ -125,6 +127,10 @@
       // var href = window.location.href;
 
       // window.history.replaceState(null, document.title, href);
+
+      var loginInfo = storeLogin.get() || {};
+      this.logged = !!loginInfo.token;
+      this.sendHmt();
     },
     /**
      * 生成头部
@@ -285,6 +291,42 @@
     },
     refreshPage: function(){
       window.location.reload();
+    },
+    /**
+     * 发送 _hmt 百度统计代码
+     * @method pageView.sendHmt()
+     */
+    sendHmt: function (retry) {
+      var view = this;
+      if (!window._hmt) window._hmt = [];
+      var url = this.$el.attr('page-url'),
+          pageId = "",
+          orderid = "";
+      // if (pageId === 0) {
+      //   return;
+      // }
+
+      // var hmtURL = window.location.origin + window.location.pathname + '#' + url;
+      // var hmtURL = window.location.pathname + '#' + url;
+      var hmtURL = window.location.href;
+      var customValue = this.logged ? Tongji.CustomValue.LOGGED_YES : Tongji.CustomValue.LOGGED_NO;
+
+      //统计 PV
+      Tongji.trackPage(hmtURL);
+      //统计是否登录
+      Tongji.customVar(Tongji.CustomIndex.LOGGED, Tongji.CustomName.LOGGED, customValue, Tongji.CustomScope.LOG);
+      //统计web页面宿主
+      Tongji.customVar(Tongji.CustomIndex.HOST, Tongji.CustomName.HOST, Detect.host || 'PC', Tongji.CustomScope.HOST);
+      //统计访问平台
+      Tongji.customVar(Tongji.CustomIndex.PLATFORM, Tongji.CustomName.PLATFORM, Detect.platform || 'PC', Tongji.CustomScope.PLATFORM);
+
+      // var refererView = Lizard.instance.views[this.referrer];
+      // window.__bfi.push(['_asynRefresh', {
+      //   page_id: pageId,
+      //   orderid: orderid,
+      //   url: this._hybridUrl(ubtURL),
+      //   refer: refererView?refererView._hybridUrl(window.location.protocol + '//' + window.location.host + refererView.$el.attr('page-url')):document.referrer
+      // }]);
     },
   });
 

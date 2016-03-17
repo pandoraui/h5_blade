@@ -120,9 +120,13 @@ define(['AbstractModel', 'ApiConfig', 'AppStore', 'Detect'], function( AbstractM
   */
 
   //首页请求
-  //_model.CruiseHomePage = _model.CustomModel("/GetHomePage");
 
-  _model.getTestPage = _model.CustomModel("/GetHomePage", {method: "GET"});
+  // _model.getTestPage = _model.CustomModel("/GetHomePage", {method: "GET"});
+
+  //获取推荐商品列表
+  _model.productRList = _model.CustomModel("/product/recommendproducts", {method: "GET"});
+  //分类列表页
+  _model.categoryList = _model.CustomModel("/category/categorylist", {method: "GET"});
 
   //详情页
   _model.getDetailDesc = _model.CustomModel("/product/iteminfo", {method: "GET"});

@@ -1,0 +1,14 @@
+
+//列表页
+.page-view-list{
+  background: #fff;
+}
+
+.list-box{
+  .ul-list{
+    .item{
+      padding: fontsize(10);
+      border-bottom: 1px solid $line-lighter;
+    }
+  }
+}

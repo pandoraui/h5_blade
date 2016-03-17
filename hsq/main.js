@@ -1,4 +1,13 @@
 
+//统计代码
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?d211ce22f96ac8839475cfc3f64c40b8";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+
 (function () {
   var project = './';
   var blade = './blade/';
@@ -20,6 +29,7 @@
 
       //组件
       'Detect': project + 'common/Detect',
+      'Tongji': project + 'common/Tongji',
       'FormatReg': project + 'common/FormatReg',
       'CountDown': project + 'common/CountDown',
       'LoginCommon': project + 'common/LoginCommon',

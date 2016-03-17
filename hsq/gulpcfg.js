@@ -24,6 +24,7 @@ module.exports = {
     "AppStore": "model/store",
 
     "Detect": "common/Detect",
+    "Tongji": "common/Tongji",
     "FormatReg": "common/FormatReg",
     "CountDown": "common/CountDown",
     "LoginCommon": "common/LoginCommon",
@@ -39,6 +40,7 @@ module.exports = {
     "./main",
     "ApiConfig",
     "Detect",
+    "Tongji",
     "FormatReg",
     "CountDown",
     "AppModel",

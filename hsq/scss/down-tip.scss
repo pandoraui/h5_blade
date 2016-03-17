@@ -1,3 +1,6 @@
+
+// downTip 提醒悬浮框
+
 .down-tip{font-size: fontsize(14);
   position: fixed; z-index: 100; bottom: -2px;left:0;width: 100%; min-height: fontsize(30); line-height: fontsize(30);color: #fff;
   .tip-bg{position: absolute; width: 100%;height: 100%; background: rgba(0,0,0,0.7); z-index: 1;}

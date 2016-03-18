@@ -191,15 +191,20 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
         return true;
       },
       orderSubmit: function(){
+        this.trackEvent('order_submit');
+
         //去支付，要先检查下单条件是否满足：邮寄地址，发票选择
         if( !this.checkOrderStatus() ){
           return;
         }
 
         if(this.requestUrl){
+          this.trackEvent('click_order_pay');
           this.goPay();
+
           return;
         }
+
         var invoiceInfo = {
           type: this.invoiceId,
           title: this.invoceTitle || '',
@@ -228,6 +233,8 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
           var data = res.data;
 
           this.orderIds = data.orderIds;
+
+          this.trackEvent('auto_order_pay');
           this.goPay();
 
         },function(error){

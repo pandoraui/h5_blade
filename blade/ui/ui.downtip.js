@@ -1,5 +1,6 @@
 /*
   down-tip 组件
+  //此组件可迁移至 common 中
 */
 define(['UIView'], function (UIView) {
   var imgLogoSrc = "assets/img/logo.png";

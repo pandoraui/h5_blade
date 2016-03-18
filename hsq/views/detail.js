@@ -437,6 +437,8 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
         };
       },
       goOrder: function(){
+        this.trackEvent('gobuy');
+
         if(this.curAmount < 1) {
           this.showToast('商品数量有误');
           return;

@@ -64,6 +64,7 @@
     events: {
       'click [data-link]': 'goLink',
       'click .refreshPage': 'refreshPage',
+      'click [data-event="tj"]': '_trackEvent',
     },
     scrollTo: function(x, y){
       setTimeout(function(){
@@ -298,6 +299,7 @@
     /**
      * 发送 _hmt 百度统计代码
      * @method pageView.sendHmt()
+     * 关于统计，在使用上，要更为便捷才可以，配置自定义属性，即可统计数据
      */
     sendHmt: function (retry) {
       var view = this;
@@ -309,15 +311,14 @@
       //   return;
       // }
 
-
       var customValue = this.logged ? Tongji.CustomValue.LOGGED_YES : Tongji.CustomValue.LOGGED_NO;
 
       //统计是否登录
-      Tongji.customVar(Tongji.CustomIndex.LOGGED, Tongji.CustomName.LOGGED, customValue, Tongji.CustomScope.LOG);
+      Tongji._customVar(Tongji.CustomIndex.LOGGED, Tongji.CustomName.LOGGED, customValue, Tongji.CustomScope.LOG);
       //统计web页面宿主
-      Tongji.customVar(Tongji.CustomIndex.HOST, Tongji.CustomName.HOST, Detect.host || 'PC', Tongji.CustomScope.HOST);
+      Tongji._customVar(Tongji.CustomIndex.HOST, Tongji.CustomName.HOST, Detect.host || 'PC', Tongji.CustomScope.HOST);
       //统计访问平台
-      Tongji.customVar(Tongji.CustomIndex.PLATFORM, Tongji.CustomName.PLATFORM, Detect.platform || 'PC', Tongji.CustomScope.PLATFORM);
+      Tongji._customVar(Tongji.CustomIndex.PLATFORM, Tongji.CustomName.PLATFORM, Detect.platform || 'PC', Tongji.CustomScope.PLATFORM);
 
       if(!url) return;
 
@@ -340,7 +341,7 @@
       }
       var hmtURL = '/' + url + searchParams;
       //统计 PV
-      Tongji.trackPage(hmtURL);
+      Tongji._trackPage(hmtURL);
 
       // var refererView = Lizard.instance.views[this.referrer];
       // window.__bfi.push(['_asynRefresh', {
@@ -350,6 +351,13 @@
       //   refer: refererView?refererView._hybridUrl(window.location.protocol + '//' + window.location.host + refererView.$el.attr('page-url')):document.referrer
       // }]);
     },
+    //统计事件，点击 “立即购买” 行为
+    trackEvent: function(type){
+      var curEvent = Tongji.CustomEvent[type];
+      if(!curEvent) return;
+
+      Tongji._trackEvent.apply(Tongji, curEvent);
+    }
   });
 
 });

@@ -139,6 +139,8 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
         //据说这里的回跳地址不能带 ‘#’ 号，故作此中转页面
         var returnUrl = window.location.origin + '/jump.html?oid=' + this.orderId;
 
+        this.trackEvent('continue_order_pay');
+
         this.showLoading();
         modelOrderPay.param = {
           orderIds: this.orderId,

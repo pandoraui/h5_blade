@@ -139,6 +139,8 @@ define(['PageView', getViewTemplatePath('zt_reg_reward'), 'AppModel', 'AppStore'
         }
       },
       goRegister: function(){
+        this.trackEvent('reg_reward');
+
         if( !(this.checkMobile(this.els.$nodeMobile) && this.checkCode(this.els.$nodeCode) ) ){
           return;
         }

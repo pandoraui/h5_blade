@@ -118,6 +118,8 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
         }
       },
       quickLogin: function(){
+        this.trackEvent('quick_login');
+        
         if(this.checkMobile(this.els.$nodeMobile) && this.checkCode(this.els.$nodeCode)){
           if(!this.els.$nodeChecked[0].checked){
             this.showToast('您必须选择同意用户协议');

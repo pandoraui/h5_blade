@@ -79,15 +79,17 @@
       });
 
       this.on('onShow', function () {
-        this._updatePageOptions();
-
         //获取 url 参数
         this.params = _.getUrlParam();
+
+        this._updatePageOptions();
 
         //生成头部
         this._createHeader();
 
         this.onShow && this.onShow();
+
+        this.sendHmt();
       });
 
       this.on('onHide', function () {
@@ -130,7 +132,7 @@
 
       var loginInfo = storeLogin.get() || {};
       this.logged = !!loginInfo.token;
-      this.sendHmt();
+
     },
     /**
      * 生成头部
@@ -164,6 +166,7 @@
     errNextDeal: function(error){
       var scope = this;
       if(error.errno == 510010){
+        storeLogin.remove();
         setTimeout(function(){
           scope.forward('quick_login');
         }, 100);
@@ -299,26 +302,45 @@
     sendHmt: function (retry) {
       var view = this;
       if (!window._hmt) window._hmt = [];
-      var url = this.$el.attr('page-url'),
+      var url = this.$root.attr('page-url'),
           pageId = "",
           orderid = "";
       // if (pageId === 0) {
       //   return;
       // }
 
-      // var hmtURL = window.location.origin + window.location.pathname + '#' + url;
-      // var hmtURL = window.location.pathname + '#' + url;
-      var hmtURL = window.location.href;
+
       var customValue = this.logged ? Tongji.CustomValue.LOGGED_YES : Tongji.CustomValue.LOGGED_NO;
 
-      //统计 PV
-      Tongji.trackPage(hmtURL);
       //统计是否登录
       Tongji.customVar(Tongji.CustomIndex.LOGGED, Tongji.CustomName.LOGGED, customValue, Tongji.CustomScope.LOG);
       //统计web页面宿主
       Tongji.customVar(Tongji.CustomIndex.HOST, Tongji.CustomName.HOST, Detect.host || 'PC', Tongji.CustomScope.HOST);
       //统计访问平台
       Tongji.customVar(Tongji.CustomIndex.PLATFORM, Tongji.CustomName.PLATFORM, Detect.platform || 'PC', Tongji.CustomScope.PLATFORM);
+
+      if(!url) return;
+
+
+      /*注意：以下格式链接会被过滤，不统计
+        带 hash 值的
+        包含 window.location.origin 的
+        完整链接也不行 window.location.href
+
+        标准格式如： _hmt.push(['_trackPageview', '/virtual/login']);
+      */
+
+      // var hmtURL = window.location.origin + window.location.pathname + '/' + url;
+      // var hmtURL = window.location.pathname + '#' + url;
+      // var hmtURL = window.location.href;
+
+      var searchParams = '';
+      if( !$.isEmptyObject(this.params) ){
+        searchParams =  '?' + $.param(this.params);
+      }
+      var hmtURL = '/' + url + searchParams;
+      //统计 PV
+      Tongji.trackPage(hmtURL);
 
       // var refererView = Lizard.instance.views[this.referrer];
       // window.__bfi.push(['_asynRefresh', {

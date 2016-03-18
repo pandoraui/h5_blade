@@ -7,7 +7,7 @@ define(['Detect'],function(Detect){
   //详细参看 http://tongji.baidu.com/open/api/more?p=ref_setCustomVar
   var BaiduTongji = {
     trackPage: function(pageURL){
-      _hmt.push(['_trackPageview', pageURL]);
+      _hmt && _hmt.push(['_trackPageview', pageURL]);
     },
     trackEvent: function(category, action, opt_label){
       _hmt && _hmt.push(['_trackEvent', category, action, opt_label, opt_value]);

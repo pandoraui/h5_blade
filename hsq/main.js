@@ -1,6 +1,6 @@
 
 //统计代码
-var _hmt = _hmt || [];
+if (!window._hmt) window._hmt = [];
 (function() {
   var hm = document.createElement("script");
   hm.src = "//hm.baidu.com/hm.js?d211ce22f96ac8839475cfc3f64c40b8";

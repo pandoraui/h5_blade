@@ -5393,6 +5393,10 @@ var Zepto = (function () {
 
   问题2：url 如果有两个？，第二个替换成&才行
   有些很恶心的第三方 app，不管你的 url 带不带 ? 他们直接加 ? 带自己的参数，如微信，wifiKey
+  如：
+  http://m.haoshiqi.net/index.html?from=singlemessage&isappinstalled=1?sid=150
+  //微信默认转发链接，这样处理，导致页面直接挂了，因为他参数加前面，我取不到我要的参数了，处理后才能拿到我要的参数
+  http://m.haoshiqi.net/index.html#detail?sid=235?openid=6c3d4d3cd62311e5afd76c92bf0ccc49&operid=14580358593451860495&lng=121.437046&long=121.437046&lat=31.167036&coordtype=b&maptype=baidu&srcFrom=
   这样转发出去，可能影响我们取有效的 key-value 值
   **/
 
@@ -5415,9 +5419,16 @@ var Zepto = (function () {
     //   var temp = tempUrl[0];
     //   for(var i=0;i<tempLen;i++){
     //
-    //   }
+    //   }gu
     // }
+    //TODO：更好的方法做这件事，location.hash 替换掉 hash 部分以及第一个？，
+    //      然后剩余部分的？全部替换为 &，之后取 key-value 值
+    //故此方法可以优化[2016-03-18记]
     url = url.replace(/(.*)\?(.*)\?(.*)/, '$1?$2&$3');
+
+    //var url = 'http://www.w3school.com.cn/tags/html_ref_canvas.asp?aa=1?cc=2&rr=4';
+    //var reg = /^(http(?:s?):\/\/[\w\.\/?]+)([\w?=&]*)/
+    //url.replace(reg, function(match,s1,s2){ return s1 + (!!s2 ? s2.replace(/\?/g,'&') : '');})
 
     while (match = searchReg.exec(url)) {
       name = match[1];

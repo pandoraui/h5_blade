@@ -351,7 +351,7 @@
       //   refer: refererView?refererView._hybridUrl(window.location.protocol + '//' + window.location.host + refererView.$el.attr('page-url')):document.referrer
       // }]);
     },
-    //统计事件，点击 “立即购买” 行为
+    //统计事件，通过 type 统一调用 Tongji 模块中对应的参数
     trackEvent: function(type){
       var curEvent = Tongji.CustomEvent[type];
       if(!curEvent) return;

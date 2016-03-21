@@ -5,7 +5,7 @@ define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer',
   var Debug = false;
   var host = window.location.host;
   var pathname = window.location.pathname;
-  if(pathname === '/d.html' || host.match(/^localhost/i) || host.match(/^10\.0/i)){
+  if(pathname === '/d.html' || host.match(/^localhost/i) ){
     Debug = true;
   }
 
@@ -25,7 +25,7 @@ define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer',
   var waitAjaxPage = {
     'home': 0,
     'index': 0,
-    'list': 0,
+    'list': 1,
     'detail': 1,
     'quick_login': 0,
     'order': 1,
@@ -163,6 +163,7 @@ define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer',
         x: window.scrollX,
         y: window.scrollY,
       };
+      // console.log('保存位置：', this.scrollPos);
     },
 
     /**
@@ -170,12 +171,13 @@ define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer',
      * @method View.cPageView.restoreScrollPos
      */
     restoreScrollPos: function () {
-      window.scrollTo(this.scrollPos.x, this.scrollPos.y);
+      var scrollPos = this.scrollPos;
+      setTimeout(function(){
+        window.scrollTo(scrollPos.x, scrollPos.y);
+      }, 100);
     },
     scrollTo: function(x, y){
-      setTimeout(function(){
-        window.scrollTo(x||0, y||0);
-      }, 100);
+      window.scrollTo(x||0, y||0);
     },
     /**
      * 生成头部

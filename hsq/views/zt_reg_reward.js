@@ -95,7 +95,6 @@ define(['PageView', getViewTemplatePath('zt_reg_reward'), 'AppModel', 'AppStore'
         modelGetRewardInfo.execute(function(res){
           this.hideLoading();
           //成功
-          console.log(res);
           var data = res.data;
 
           //活动是否生效

@@ -30,7 +30,8 @@
       color: $color-grayer;
 
       .price{
-        min-width: 110px;
+        // min-width: fontsize(110);
+        min-width: fontsize(70);
       }
 
       del{

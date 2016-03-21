@@ -35,20 +35,31 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore'],
             tagname: 'title',
             value: ['列表页']
           },
-          back: {
+          back: false,
+        };
+        if(this.Debug){
+          headerData.back = {
             tagname: 'back',
             value: '返回',
             callback: function() {
               self.back('index');
             }
-          }
-        };
+          };
+        }
         this.header.set(headerData);
         this.header.show();
       },
       onShow: function(){
 
-        this.initPage();
+        if(!this.loaded){
+          this.pageNum = 1;
+          this.loadover = false;
+          this.initPage();
+        }else{
+
+        }
+
+
       },
       onHide: function(){},
       //初始化页面
@@ -74,6 +85,7 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore'],
           var data = res.data;
           this.timestamp = res.timestamp;
           this.totalPage = data.totalPage;
+          this.loaded = true;
 
           this.renderPage(data);
 
@@ -135,7 +147,7 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore'],
           _diff_price = (this.timestamp - item.seller_time)*_diff_m_price;
         }
         var _deal_price = (item.price - _diff_price).toFixed(6);
-        var _format_price = _.formatPrice(_deal_price, 2, 0);
+        var _format_price = _.formatPrice(_deal_price, 6, 0);
 
         return _format_price;
       },
@@ -168,7 +180,11 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore'],
             this.showToast(error.errmsg);
           },this);
         }else{
-          this.renderPage({}, true);
+          if(!this.loadover){
+            this.loadover = true;
+            this.renderPage({}, true);
+          }
+
         }
 
       },

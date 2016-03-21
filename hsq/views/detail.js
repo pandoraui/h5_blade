@@ -48,19 +48,15 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
             tagname: 'title',
             value: ['商品详情']
           },
-          back: false,
-        };
-
-        // if(!isWifiKey && this.Debug){
-        if(this.Debug){
-          headerData.back = {
+          back: {
             tagname: 'back',
             value: '返回',
             callback: function() {
               self.back('list');
             }
-          };
-        }
+          },
+        };
+
         this.header.set(headerData);
         this.header.show();
       },
@@ -115,9 +111,8 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
         this.showLoading();
         modelGetDetailDesc.execute(function(res){
           //成功
-          console.log(res);
-
           var data = res.data;
+
           //下架时间 = 保质期 - 保质期前 N 时间下线
           data._offline_times = data.expired_date - data.offline_before_expired;//下架时间
           this.timestamp = res.timestamp;
@@ -159,7 +154,6 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
         }
       },
       renderPage: function(data){
-        console.log('渲染页面');
 
         //注意，自己自定义的挂在 data 上的变量，使用_开头，避免后期服务器端修改，导致数据冲突
         data._deal_stock = this.dealStock(data)._deal_stock;
@@ -378,8 +372,6 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
 
         modelGetDetailArticle.execute(function(res){
           //成功
-          console.log(res);
-
           var data = res.data;
 
           this.renderDetailArticle(data);

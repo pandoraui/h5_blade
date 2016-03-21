@@ -138,10 +138,7 @@ define(['PageView', getViewTemplatePath('address_update'), 'AppModel', 'AppStore
         this.showLoading();
         modelAddAddress.execute(function(res){
           this.hideLoading();
-
           //成功
-          console.log(res);
-
           var data = res.data;
 
           this.showToast('保存成功');

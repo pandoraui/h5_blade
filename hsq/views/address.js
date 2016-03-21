@@ -79,7 +79,6 @@ define(['PageView', getViewTemplatePath('address'), 'AppModel', 'AppStore'],
         modelAddressList.execute(function(res){
           this.hideLoading();
           //成功
-          console.log(res);
           var data = res.data;
 
           var addressList = data.list;

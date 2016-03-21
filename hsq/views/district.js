@@ -167,9 +167,9 @@ define(['PageView', getViewTemplatePath('district'), 'AppModel', 'AppStore', 'Fo
           obj.model.execute(function(res){
             this.hideLoading();
             //成功
-            console.log(res);
+            var data = res.data;
 
-            addrTempList[type] = res.data.list;
+            addrTempList[type] = data.list;
 
             //缓存一下数据
             storeCommonShort.setAttr('addrTempList', addrTempList);

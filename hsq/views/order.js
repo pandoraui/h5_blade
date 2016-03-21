@@ -79,7 +79,6 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
         modelOrderInit.execute(function(res){
           this.hideLoading();
           //成功
-          console.log(res);
 
           this.orderInitDeal(res);
         },function(error){
@@ -228,8 +227,6 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
         modelOrderSubmit.execute(function(res){
           this.hideLoading();
           //成功
-          console.log(res);
-
           var data = res.data;
 
           this.orderIds = data.orderIds;
@@ -255,9 +252,7 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
         };
         modelOrderPay.execute(function(res){
           this.hideLoading();
-
           //成功
-          console.log(res);
           var data = res.data;
 
           this.paymentId = data.paymentId;

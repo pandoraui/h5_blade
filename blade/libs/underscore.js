@@ -1790,7 +1790,8 @@
     if(is0) price += 1;
     // 需要小数点后2位
     needCount = needCount || 2;
-    smallCount = smallCount || 2;
+    // 更小数部分
+    smallCount = smallCount || 0;
     var fn = fn || 'round';
     var numStr = Math[fn](price * Math.pow(10, needCount)).toString();
     var index = numStr.length - needCount;

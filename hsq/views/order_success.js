@@ -112,8 +112,6 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
         modelOrderDetail.execute(function(res){
           this.hideLoading();
           //成功
-          console.log(res);
-
           var data = res.data;
 
           this.orderId = data.id;
@@ -149,9 +147,7 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
         };
         modelOrderPay.execute(function(res){
           this.hideLoading();
-
           //成功
-          console.log(res);
           var data = res.data;
 
           this.paymentId = data.paymentId;

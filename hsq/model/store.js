@@ -49,6 +49,8 @@ define(["cLocalStore"], function(cStore) {
     islocated: false
   });
 
+  //列表页
+  _ret.RPList = _ret.CustomStore("HSQ_RP_List", "10M", {});
   //详情页
   _ret.DetailIntro = _ret.CustomStore("HSQ_DETAIL_INTRO", "1D", {});
 

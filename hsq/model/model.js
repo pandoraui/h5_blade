@@ -102,8 +102,8 @@ define(['AbstractModel', 'ApiConfig', 'AppStore', 'Detect'], function( AbstractM
    *    余下的部分应在**保证理解**请求数据意义的情况下**尽量简短**
    *  在页面中调用使用时
    *  如上命名可简化如下：
-   *  searchPageModel = CruiseModel.SearchPage.getInstance()
-   *  locationStore   = CruiseStore.Location.getInstance()
+   *  searchPageModel = AppModel.SearchPage.getInstance()
+   *  locationStore   = AppStore.Location.getInstance()
    *  推荐的命名：(页面使用时采用小驼峰并追加Model/Store后缀，如：addCustomerModel)
    *  _model.AddCustomer        //新增××
    *  _model.UpdateCustomer     //更新××
@@ -124,7 +124,10 @@ define(['AbstractModel', 'ApiConfig', 'AppStore', 'Detect'], function( AbstractM
   // _model.getTestPage = _model.CustomModel("/GetHomePage", {method: "GET"});
 
   //获取推荐商品列表
-  _model.productRList = _model.CustomModel("/product/recommendproducts", {method: "GET"});
+  _model.RPList = _model.CustomModel("/product/recommendproducts", {
+    method: "GET",
+    result: AppStore.RPList.getInstance()  //数据
+  });
   //分类列表页
   _model.categoryList = _model.CustomModel("/category/categorylist", {method: "GET"});
 
@@ -160,9 +163,9 @@ define(['AbstractModel', 'ApiConfig', 'AppStore', 'Detect'], function( AbstractM
 
 
   //搜索项目获取列表，带缓存
-  // _model.CruiseSearchPageModel = _model.CustomModel("/GetSearchItem",{
-  //   param : CruiseStore.SearchParam.getInstance(),  //参数
-  //   result: CruiseStore.SearchData.getInstance()  //数据
+  // _model.SearchPage = _model.CustomModel("/GetSearchItem",{
+  //   param : AppStore.SearchParam.getInstance(),  //参数
+  //   result: AppStore.SearchData.getInstance()  //数据
   // });
 
 

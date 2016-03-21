@@ -3,18 +3,35 @@
   var Model = _.inherit({
     //默认属性
     propertys: function () {
+      //数据请求url, 必填
       this.url = null;
+
+      //请求参数,必选,
       this.param = null;
+
+      //数据返回时的自定义格式化函数
       this.dataformat = null;
+
+      //验证返回结果正确性的函数集合
       this.validates = [];
+
+      //通讯协议,http/https
       this.protocol = (window.location.protocol.indexOf("https") > -1) ? "https" : "http";
+
+      //提交数据格式 json/form/jsonp
       this.contentType = 'json';
+
+      //数据提交方式,post/get
       this.method = 'POST';
 
+      //超时时间
       this.timeout = 30000;
 
       //是否主动取消当前ajax
       this.isAbort = false;
+
+      //参数设置函数
+      this.onBeforeCompleteCallback = null;
 
       this.baseurl = {
         domain: '',
@@ -44,17 +61,18 @@
       this.assert();
 
     },
-
+    //设置model属性值
     setAttr:function(key, val){
       this[key] = val;
     },
-
+    //将返回数据回调函数放到队列中
     pushValidates: function (handler) {
       if (typeof handler === 'function') {
         this.validates.push($.proxy(handler, this));
       }
     },
 
+    //设置提交参数的值，如只传key一个参数，则置
     setParam: function (key, val) {
       if (typeof key === 'object' && !val) {
         this.param = key;
@@ -62,9 +80,18 @@
         this.param[key] = val;
       }
     },
-
+    //获取model的查询参数
     getParam: function () {
       return this.param;
+    },
+
+    //获得查询结果结果
+    getResult: function () {
+      return this.result;
+    },
+    //获得查询结果结果，建议使用Model.cAbstractModel.getResult
+    getResultStore: function () {
+      return this.getResult();
     },
 
     //构建url请求方式，子类可复写，我们的model如果localstorage设置了值便直接读取，但是得是非正式环境
@@ -159,13 +186,13 @@
 
       if (this.contentType === 'json') {
         // @description 跨域请求
-        cAjax.cros(url, this.method, params, __onComplete, __onError);
+        cAjax.cros(url, this.method, params, __onComplete, __onError, this.timeout);
       } else if (this.contentType === 'jsonp') {
         // @description jsonp的跨域请求
-        cAjax.jsonp(url, params, __onComplete, __onError);
+        cAjax.jsonp(url, params, __onComplete, __onError, this.timeout);
       } else {
         // @description 默认post请求
-        cAjax.post(url, params, __onComplete, __onError);
+        cAjax.post(url, params, __onComplete, __onError, this.timeout);
       }
     },
     /**

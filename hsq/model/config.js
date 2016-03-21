@@ -16,11 +16,12 @@ define([], function() {
   };
   var config = {
     //运行环境
-    runTimeEnvironment: function(test) {
+    runTimeEnvironment: function() {
       //默认是调用线上，如果在 app 中以其他协议打开，域名无法匹配时，使用线上
       var server = hosts.pro;
-      if(test){
+      if(testDebug){
         server = hosts.test;
+        return server;
       }
       //0本地 1dev 2staging 3pro
       var host = window.location.host;

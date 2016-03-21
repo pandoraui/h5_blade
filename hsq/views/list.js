@@ -2,7 +2,8 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore'],
   function (PageList, viewhtml, AppModel, AppStore){
 
 
-    var modelProductRList = AppModel.productRList.getInstance();
+    var modelRPList = AppModel.RPList.getInstance();
+    var sroreRPList = AppStore.RPList.getInstance();
 
     return _.inherit(PageList, {
     // return PageView.extend({
@@ -71,7 +72,7 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore'],
       ajaxRequest: function(){
         var self = this;
 
-        modelProductRList.param = {
+        modelRPList.param = {
           needPagination: this.needPagination,
           pageNum: this.pageNum,
           pageLimit: this.pageLimit,
@@ -79,7 +80,7 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore'],
 
         this.showLoading();
         //ajax去发送短信
-        modelProductRList.execute(function(res){
+        modelRPList.execute(function(res){
           this.hideLoading();
           //成功
           var data = res.data;
@@ -94,7 +95,7 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore'],
         },function(error){
           //失败
           this.showToast(error.errmsg);
-        },this);
+        }, this);
       },
       renderPage: function(data, bool){
         var html = '';
@@ -156,7 +157,7 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore'],
 
         if(this.pageNum < this.totalPage){
           this.pageNum++;
-          modelProductRList.param = {
+          modelRPList.param = {
             needPagination: this.needPagination,
             pageNum: this.pageNum,
             pageLimit: this.pageLimit,
@@ -164,7 +165,7 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore'],
 
           this.showBottomLoading();
           //ajax去发送短信
-          modelProductRList.execute(function(res){
+          modelRPList.execute(function(res){
             this.hideBottomLoading();
             //成功
             var data = res.data;

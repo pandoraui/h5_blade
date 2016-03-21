@@ -32,23 +32,24 @@ define([], function () {
   /**
   * AJAX GET方式访问接口
   */
-  function get(url, data, callback, error) {
+  function get(url, data, callback, error, timeout) {
     var opt = _getCommonOpt(url, data, callback, error);
     opt.type = 'GET';
+    opt.timeout = timeout;
     return _sendReq(opt);
   }
 
   /**
   * AJAX POST方式访问接口
   */
-  function post(url, data, callback, error) {
+  function post(url, data, callback, error, timeout) {
     var contentType = data.contentType;
     // data = JSON.stringify(data);
     data = JSON.stringify(data);
     var opt = _getCommonOpt(url, data, callback, error);
     opt.type = 'POST';
     opt.dataType = 'json';
-    opt.timeout = 30000;
+    opt.timeout = timeout;
     opt.contentType = 'application/json';//_getContentType(contentType) || 'application/json';
     return _sendReq(opt);
   }
@@ -56,18 +57,19 @@ define([], function () {
   /**
   * 以GET方式跨域访问外部接口
   */
-  function jsonp(url, data, callback, error) {
+  function jsonp(url, data, callback, error, timeout) {
     var opt = _getCommonOpt(url, data, callback, error);
     opt.type = 'GET';
     opt.dataType = 'jsonp';
     opt.crossDomain = true;
+    opt.timeout = timout;
     return _sendReq(opt);
   }
 
   /**
   * 以POST方法跨域访问外部接口
   */
-  function cros(url, type, data, callback, error) {
+  function cros(url, type, data, callback, error, timeout) {
     var contentType = data.contentType;
 
     if (type.toLowerCase() !== 'get'){
@@ -79,6 +81,7 @@ define([], function () {
     opt.crossDomain = true;
     opt.data = data;
     opt.contentType = _getContentType(contentType) || 'application/json';
+    opt.timeout = timeout;
 
     return _sendReq(opt);
   }
@@ -113,7 +116,15 @@ define([], function () {
       data: _compact(opt.data), //清除为空的参数
       contentType: opt.contentType,
       timeout: opt.timeout || 50000,
-      success: function (res) {
+
+      // 获取响应的字节长度（responseText.length 系字符数）
+      beforeSend: function (xhr) {
+        xhr.onprogress = function (event) {
+          loadedLength = event.loaded ? event.loaded : event.position;
+        }
+      },
+
+      success: function (res, status, xhr) {
         if(res && res.errno === 0){
           opt.callback(res);
         }else{
@@ -128,8 +139,10 @@ define([], function () {
     //这两个属性不要
     delete(obj.data.contentType);
     delete(obj.contentType);
+
     //是否是跨域则加上这条
     if (opt.url.indexOf(window.location.host) === -1) obj.crossDomain = !!opt.crossDomain;
+
     return $.ajax(obj);
   }
 

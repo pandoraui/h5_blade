@@ -27,7 +27,7 @@ define([], function() {
       if (host.match(/^m\.haoshiqi\.net/i)) {
         return server;
       }
-      if ( host.match(/^(localhost|10\.0|127\.0|192\.168)/i)) {
+      if ( host.match(/^(localhost|10\.0|127\.0|192\.168)/i) ) {
         server = hosts.local;
       }else if ( host.match(/^(m\.devapi\.haoshiqi\.net)/i)) {
         server = hosts.dev;

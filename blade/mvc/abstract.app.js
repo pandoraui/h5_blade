@@ -150,11 +150,17 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
       //但是如果当前view就是 马上要访问的view的话，这里就不会触发他的onHide事件
       //所以lastview可能并不存在
       if (lastView && lastView != curView) {
+        if(lastView.keepScrollPos){
+          lastView.saveScrollPos();
+        }
+
         this.lastView = lastView;
       }
 
+
       //如果当前view存在，则执行请onload事件
       if (curView) {
+        curView.restoreScrollPos();
 
         //如果当前要跳转的view就是当前view的话便不予处理
         //这里具体处理逻辑要改*************************************
@@ -321,24 +327,6 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
         }
       }
 
-    },
-
-    /**
-     * 保存滚动条位置
-     */
-    saveScrollPos: function () {
-      this.scrollPos = {
-        x: window.scrollX,
-        y: window.scrollY
-      };
-    },
-
-    /**
-     * 恢复原滚动条位置
-     * @method View.cPageView.restoreScrollPos
-     */
-    restoreScrollPos: function () {
-      window.scrollTo(this.scrollPos.x, this.scrollPos.y);
     },
 
   });

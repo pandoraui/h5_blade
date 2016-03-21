@@ -118,6 +118,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
           console.log(res);
 
           var data = res.data;
+          //下架时间 = 保质期 - 保质期前 N 时间下线
           data._offline_times = data.expired_date - data.offline_before_expired;//下架时间
           this.timestamp = res.timestamp;
           data.timestamp = res.timestamp;
@@ -394,18 +395,17 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
 
         //此处要做图片延迟加载，将所有的 img 图片 src 替换掉
         var $tempBox = $('<div id="temp"></div>');
+        var imgPlaceHold = this.imgPlaceHold;
         $tempBox.html(html_article);
         $tempBox.find('img').forEach(function(item){
           var src = $(item).attr('src');
-          $(item).addClass('lazy').attr('data-src',src).attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEXCwsK592mkAAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==');
+          $(item).addClass('lazy').attr('data-src',src).attr('src', imgPlaceHold);
         });
         var tempHtml = $tempBox.html();
 
         this.$tplbox.detail_article.html(tempHtml);
 
-        $('img.lazy').scrollLoading({
-          // container: $('.viewport-wrapper'),
-        });
+        this.imgLazyLoad();
       },
       operNumber: function(e){
         var target = $(e.currentTarget);

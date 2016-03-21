@@ -1,16 +1,15 @@
-﻿define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer', 'UIToast', 'UIAlert', 'AppStore'], function (AbstractView, UIHeader, Detect, Tongji, UIDownTip, UILoadingLayer, UIToast, UIAlert, AppStore) {
+define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer', 'UIToast', 'UIAlert', 'AppStore', 'LazyLoad'], function (AbstractView, UIHeader, Detect, Tongji, UIDownTip, UILoadingLayer, UIToast, UIAlert, AppStore, LazyLoad) {
 
   var storeLogin = AppStore.Login.getInstance();
 
   var Debug = false;
   var host = window.location.host;
-  if(host.match(/^m\.haoshiqi\.net/i)){
-    Debug = false;
-  }else{
-    if(host.match(/^localhost/i) || host.match(/^10\.0/i)){
-      Debug = true;
-    }
+  var pathname = window.location.pathname;
+  if(pathname === '/d.html' || host.match(/^localhost/i) || host.match(/^10\.0/i)){
+    Debug = true;
   }
+
+  var imgPlaceHold = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEXCwsK592mkAAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==";
 
   var $header = $('.header-wrapper');
   var warning404 = [
@@ -36,9 +35,16 @@
   };
 
   return _.inherit(AbstractView, {
+    /**
+     * 滚动条位置
+     * @var
+     * @private
+     */
+    scrollPos: { x: 0, y: 0 },
     header: null,
     waitAjax: false,
     hashChangeParamsRefresh: true,
+    imgPlaceHold: imgPlaceHold,
     // initialize: function initialize(options) {
     //   this.__toast = new UIToast();
     // },
@@ -66,17 +72,16 @@
       'click .refreshPage': 'refreshPage',
       'click [data-event="tj"]': '_trackEvent',
     },
-    scrollTo: function(x, y){
-      setTimeout(function(){
-        window.scrollTo(x||0, y||0);
-      }, 100);
-    },
     addEvent: function ($super) {
       $super();
 
       this.on('onCreate', function () {
         this.__openDebug();
         this.onCreate && this.onCreate();
+      });
+
+      this.on('onPreShow', function () {
+        // this.saveScrollPos();
       });
 
       this.on('onShow', function () {
@@ -88,15 +93,30 @@
         //生成头部
         this._createHeader();
 
+        if (this.onBottomPull) {
+          this._onWidnowScroll = $.proxy(this.onWidnowScroll, this);
+          this.addScrollListener();
+        }
+
+        if (this.scrollZero) {
+          this.scrollTo(0, 0);
+        }
+
         this.onShow && this.onShow();
 
         this.sendHmt();
+
+        //如果定义了addScrollListener,说明要监听滚动条事,此方法在cListView中实现
+        // this.addScrollListener && this.addScrollListener();
       });
 
       this.on('onHide', function () {
+        // this.hideLoading();
         // this.abort();
         // this.__toast && this.__toast.hide();
+        // this.saveScrollPos();
 
+        this.removeScrollListener && this.removeScrollListener();
         this.mask && this.mask.hide();
         this.onHide && this.onHide();
       });
@@ -134,6 +154,28 @@
       var loginInfo = storeLogin.get() || {};
       this.logged = !!loginInfo.token;
 
+    },
+    /**
+     * 保存滚动条位置
+     */
+    saveScrollPos: function () {
+      this.scrollPos = {
+        x: window.scrollX,
+        y: window.scrollY,
+      };
+    },
+
+    /**
+     * 恢复原滚动条位置
+     * @method View.cPageView.restoreScrollPos
+     */
+    restoreScrollPos: function () {
+      window.scrollTo(this.scrollPos.x, this.scrollPos.y);
+    },
+    scrollTo: function(x, y){
+      setTimeout(function(){
+        window.scrollTo(x||0, y||0);
+      }, 100);
     },
     /**
      * 生成头部
@@ -176,6 +218,14 @@
     closeDownTip: function(e){
       this.downTip.hide();
       // target.hide();
+    },
+    imgLazyLoad: function(){
+      var lazyLoadList = this.$el.find('img.lazy');
+      if(lazyLoadList.length){
+        lazyLoadList.scrollLoading({
+          // container: $('.viewport-wrapper'),
+        });
+      }
     },
     showLoading: function(tip, closeBtn){
       var tip = tip || '加载中...';
@@ -354,7 +404,7 @@
     //统计事件，通过 type 统一调用 Tongji 模块中对应的参数
     trackEvent: function(type){
       var curEvent = Tongji.CustomEvent[type];
-      if(!curEvent) return;
+      if(!curEvent || Debug) return;
 
       Tongji._trackEvent.apply(Tongji, curEvent);
     }

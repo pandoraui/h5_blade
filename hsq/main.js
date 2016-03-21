@@ -21,7 +21,9 @@ if (!window._hmt) window._hmt = [];
     baseUrl: './',  //js文件载入基路径
     //enforceDefine: true,//enforceDefine用来强制模块使用define定义，否则可能会报No define call for ...之类错误
     paths: {  //路径别名
-      'PageView': project + 'ex_mvc/view',
+      'PageView': project + 'ex_mvc/PageView',
+      'PageList': project + 'ex_mvc/PageList',
+
       'ApiConfig': project + 'model/config',
       'Swiper': blade + 'function/swiper',
       'AppModel': project + 'model/model',
@@ -99,7 +101,8 @@ if (!window._hmt) window._hmt = [];
 
   var Debug = false;
   var host = window.location.host;
-  if(host.match(/^localhost/i)){
+  var pathname = window.location.pathname;
+  if(host.match(/^localhost/i) || pathname === '/d.html'){
     Debug = true;
   }
 

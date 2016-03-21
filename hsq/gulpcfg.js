@@ -29,7 +29,8 @@ module.exports = {
     "CountDown": "common/CountDown",
     "LoginCommon": "common/LoginCommon",
 
-    "PageView": "ex_mvc/view",
+    "PageView": "ex_mvc/PageView",
+    "PageList": "ex_mvc/PageList",
 
   },
   // "viewsExclude": [
@@ -49,6 +50,7 @@ module.exports = {
 
     //抽象view
     "PageView",
+    "PageList",
     // "../blade/function/swiper",
 
     //common

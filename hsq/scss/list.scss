@@ -4,11 +4,79 @@
   background: #fff;
 }
 
-.list-box{
-  .ul-list{
-    .item{
-      padding: fontsize(10);
-      border-bottom: 1px solid $line-lighter;
+.ul-list{
+  .item{
+    padding: fontsize(10);
+    border-bottom: 1px solid $line-lighter;
+    overflow: hidden;
+
+    .img{
+      float: left;
+      display: inline;
+      overflow: hidden;
+      margin-right: fontsize(10);
+      width: fontsize(100);
+      height: fontsize(100);
+
+      img{
+        width: 100%;
+        height: 100%;
+      }
     }
+
+    .text{
+      overflow: hidden;
+      font-size: fontsize(12);
+      color: $color-grayer;
+
+      .price{
+        min-width: 110px;
+      }
+
+      del{
+        color: $color-gray;
+      }
+
+      h3{
+        overflow: hidden;
+        margin-bottom: fontsize(5);
+        height: fontsize(30);
+        font-size: fontsize(14);
+        font-weight: normal;
+        line-height: 1.2;
+        color: $color-font;
+      }
+
+      p{
+        margin: 0;
+      }
+
+      .stop{
+        color: $color-price;
+      }
+    }
+
+  }
+
+}
+
+.pull-loading{
+  margin-bottom: fontsize(5);
+  height: fontsize(40);
+  line-height: fontsize(40);
+  text-align: center;
+  font-size: fontsize(14);
+
+
+
+  .icon-loading{
+    font-size: fontsize(24);
+    // color: $color-grayer;
+  }
+
+  .text{
+    display: inline-block;
+    padding-left: fontsize(5);
+    // color: $color-grayer;
   }
 }

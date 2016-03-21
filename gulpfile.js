@@ -489,7 +489,7 @@ gulp.task('watch', function() {
 // 启动预览服务，并监视 Dist 目录变化自动刷新浏览器
 gulp.task('serve', ['watch'], function () {
   browserSync({
-    // port: 5000, //默认3000
+    port: 80, //默认3000
     // ui: {    //更改默认端口weinre 3001
     //     port: 5001,
     //     weinre: {

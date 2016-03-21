@@ -42,6 +42,7 @@ define([], function() {
     propertys: function () {
       //这里设置UI的根节点所处包裹层
       this.wrapper = $('body');
+      this.$body = $('body');
       this.id = _.uniqueId('ui-view-');
 
       //与模板对应的css文件，默认不存在，需要各个组件复写

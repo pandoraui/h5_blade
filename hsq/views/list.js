@@ -51,18 +51,32 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore'],
         this.header.show();
       },
       onShow: function(){
-
         if(!this.loaded){
-          this.pageNum = 1;
-          this.loadover = false;
+          this.resetPageData();
           this.initPage();
-        }else{
-
         }
 
-
+        if(this.loadedTimeout){
+          clearTimeout(this.loadedTimeout);
+        }
       },
-      onHide: function(){},
+      onHide: function(){
+        this.setTimeoutUpdateData();
+      },
+      setTimeoutUpdateData: function(){
+        var self = this;
+        //页面缓存的问题，如果离开列表页15分钟，则重新进入列表页会重新加载
+        if(!this.loadedTimeout){
+          this.loadedTimeout = setTimeout(function(){
+            self.resetPageData();
+          }, 900000);
+        }
+      },
+      resetPageData: function(){
+        this.pageNum = 1;
+        this.loadover = false;
+        this.saveScrollPos(0, 0);
+      },
       //初始化页面
       initPage: function(){
         var scope = this;

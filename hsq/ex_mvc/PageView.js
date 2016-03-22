@@ -158,10 +158,10 @@ define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer',
     /**
      * 保存滚动条位置
      */
-    saveScrollPos: function () {
+    saveScrollPos: function (x, y) {
       this.scrollPos = {
-        x: window.scrollX,
-        y: window.scrollY,
+        x: x || window.scrollX,
+        y: y || window.scrollY,
       };
       // console.log('保存位置：', this.scrollPos);
     },

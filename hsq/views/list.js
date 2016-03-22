@@ -134,10 +134,11 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore'],
         data.imgPlaceHold = this.imgPlaceHold;
 
         data.list.forEach(function(item, index){
-          //剩余时间
-          item.skuInfo._left_times = item.skuInfo.expired_date - self.timestamp;
           //下线时间
           item.skuInfo._offline_times = item.skuInfo.expired_date - item.skuInfo.offline_before_expired;
+          //剩余时间
+          item.skuInfo._left_times = item.skuInfo._offline_times - self.timestamp;
+          if(index ==2) debugger;
           item._format_price = self.dealPrice(item.skuInfo);
         });
         return data;
@@ -158,7 +159,7 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore'],
         var _diff_m_price;
         var _diff_price;
 
-        if( item._left_times <= 0 || item._offline_times - item.seller_time <= 0 ){
+        if( (item._left_times < 1) || (item._offline_times - item.seller_time < 1) ){
           //如果已下线 或 下线时间小于开卖时间
           _diff_m_price = 0;
           _diff_price = _diff_all_price;
@@ -186,7 +187,7 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore'],
           };
 
           this.showBottomLoading();
-          //ajax去发送短信
+
           modelRPList.execute(function(res){
             this.hideBottomLoading();
             //成功

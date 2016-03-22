@@ -117,7 +117,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
 
           //下架时间 = 保质期 - 保质期前 N 时间下线
           data._offline_times = data.expired_date - data.offline_before_expired;//下架时间
-          data._left_times = data.expired_date - this.timestamp;  //剩余时间
+          data._left_times = data._offline_times - this.timestamp;  //剩余时间
 
           data.timestamp = res.timestamp;
 
@@ -350,7 +350,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
         var _diff_m_price;
         var _diff_price;
 
-        if(data._left_times < 1 || data._offline_times - data.seller_time < 1){
+        if( (data._left_times < 1) || (data._offline_times - data.seller_time < 1) ){
           //如果已下线 或 下线时间小于开卖时间
           _diff_m_price = 0;
           _diff_price = _diff_all_price;

@@ -4,7 +4,7 @@
   <script type="text/template" id="tpl_hsq_box">
     <div class="xcard">
       <div class="address-using iconfont icon-link" data-link='address'>
-        <%if(address){%>
+        <%if(address && address.contacter && address.mobile && address.detail){%>
         <h4><%=address.contacter%></h4>
         <h4><%=address.mobile%></h4>
         <p><%=address.detail%></p>

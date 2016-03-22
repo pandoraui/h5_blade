@@ -12,7 +12,7 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
         'click .get_phone_code': 'clickBtnCode',
         'click .protocol>.p_text': 'setProtocol',
         'click .J_login_btn:not(.disabled)': 'quickLogin',
-        // 'click .J_quick_login_btn:not(.disabled)': 'quick_Login',
+        'click .J_quick_login_btn:not(.disabled)': 'quick_Login',
       },
       onCreate: function(){
         // var viewhtml = '下单成功';
@@ -71,6 +71,12 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
       initPage: function(){
         var scope = this;
 
+        if(this.Debug && !this.quick_login_btn){
+          var quick_login_btn = '<p class="btn btn-block btn-yellow J_quick_login_btn">免验证登录</p>';
+          this.els.$nodeLoginBtn.after(quick_login_btn);
+          this.quick_login_btn = true;
+        }
+
         this.checkBtnCode(this.els.$nodeBtnCode);
       },
       ajaxRequest: function(){},
@@ -119,7 +125,7 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
       },
       quickLogin: function(){
         this.trackEvent('quick_login');
-        
+
         if(this.checkMobile(this.els.$nodeMobile) && this.checkCode(this.els.$nodeCode)){
           if(!this.els.$nodeChecked[0].checked){
             this.showToast('您必须选择同意用户协议');
@@ -128,11 +134,11 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
           }
         }
       },
-      // quick_Login: function(){
-      //   var loginInfo = {"username":"138****1714","avatar":"","mobile":"13817131714","email":"","birthday":"0000-00-00","sex":0,"enabled":1,"token":"5f8facea123903bfa2e18340de673eef"};
-      //   storeLogin.set(loginInfo);
-      //   this.back(redirect_from, {replace: true});
-      // },
+      quick_Login: function(){
+        var loginInfo = {"token":"cb28816d15aee46de423d729a2218c0b"};
+        storeLogin.set(loginInfo);
+        this.back(redirect_from, {replace: true});
+      },
       goLogin: function(){
         modelLogin.param = {
           mobile: this.mobile,

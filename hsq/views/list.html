@@ -12,7 +12,15 @@
           <del><%=(item.skuInfo.market_price*0.01).toFixed(2)%></del>
         </p>
         <p>保质期至：<%=_.dateUtil.format(item.skuInfo.expired_date*1000, {format: 'Y年M月D日'})%></p>
-        <p><span class="num">仅剩<%=item.skuInfo.left_stock%>件</span></p>
+        <p><%if(item.skuInfo._left_times > 1){%>
+            <%if(item.skuInfo.left_stock > 0){%>
+              <span class="num">仅剩<%=item.skuInfo.left_stock%>件</span>
+            <%}else{%>
+              <span class="stop">已售完</span>
+            <%}%>
+          <%}else{%>
+            <span class="stop">已停售</span>
+          <%}%></p>
       </div>
     </div>
     <%})%>

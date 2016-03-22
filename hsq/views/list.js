@@ -207,7 +207,6 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore'],
             this.loadover = true;
             this.renderPage({}, true);
           }
-
         }
 
       },

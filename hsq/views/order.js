@@ -14,12 +14,13 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
       events: {
         'click .J_s_invoice': 'selectInvoice',
         'click .J_s_invoice_types label': 'selectInvoiceTypes',
-        'click .J_go_pay': 'orderSubmit',
+        'click .J_go_pay:not(.disabled)': 'orderSubmit',
       },
       onCreate: function(){
         this.$el.html(viewhtml);
         //元素集合
         this.els = {
+          // '$submitBtn': this.$el.find('.J_go_pay'),
           'hsq_box': this.$el.find('.hsq_box'),
         };
 
@@ -58,7 +59,7 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
       initPage: function(){
         var scope = this;
 
-        this.curAddress = storeAddress.get() || {};
+        this.curAddress = storeAddress.get();
 
         this.invoiceId = 1;
         this.ajaxRequest();
@@ -71,7 +72,7 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
         };
 
         modelOrderInit.param = {
-          addressId: this.curAddress.id || '',
+          addressId: this.curAddress && this.curAddress.id,
           skusInfo: JSON.stringify([skusInfo]),
         };
 
@@ -92,8 +93,8 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
         this.hideLoading();
         var data = res.data;
 
-        if( $.isEmptyObject(this.curAddress) ){
-          this.curAddress = data.address || {};
+        if( $.isEmptyObject(this.curAddress) && !$.isEmptyObject(data.address) ){
+          this.curAddress = data.address;
         }
 
         //如果当前地址不支持配送，则提示他 sku信息中的canDelivery
@@ -109,6 +110,19 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
         }else{
           this.showToast(res.errmsg);
         }
+
+        this.updateSubmitBtnStatus(res);
+      },
+      updateSubmitBtnStatus: function(res){
+        this.els.$submitBtn = this.$el.find('.J_go_pay');
+
+        if(res.errno == 0){
+          this.canSubmit = true;
+          this.els.$submitBtn.removeClass('disabled');
+        } else {
+          this.canSubmit = false;
+          this.els.$submitBtn.addClass('disabled');
+        }
       },
       checkDelivery: function(res){
         // this.showToast(res.errmsg);
@@ -123,7 +137,11 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
           });
         });
         if(tipTitle){
-          this.showToast('该地址不支持配送！');
+          if(!$.isEmptyObject(this.curAddress)){
+            this.showToast('该地址不支持配送！');
+          }else{
+            console.log('请选择一个地址');
+          }
         }else{
           this.showToast(res.errmsg);
         }
@@ -173,7 +191,7 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
       },
       checkOrderStatus: function(){
         if(!this.curAddress){
-          this.showToast('请选择一个邮寄地址');
+          this.showToast('请选择一个收货地址');
           return false;
         }
 
@@ -187,6 +205,10 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
           this.invoceTitle = null;
         }
 
+        if(!this.canSubmit){
+          console.log('不能提交订单');
+          return false;
+        }
         return true;
       },
       orderSubmit: function(){
@@ -210,7 +232,7 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
         };
 
         modelOrderSubmit.param = {
-          addressId: this.curAddress.id,
+          addressId: this.curAddress && this.curAddress.id,
           invoice: JSON.stringify(invoiceInfo),
           notes: JSON.stringify({}),
           confirmOrderSerialId: this.confirmSid,

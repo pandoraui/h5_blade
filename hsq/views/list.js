@@ -138,7 +138,6 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore'],
           item.skuInfo._offline_times = item.skuInfo.expired_date - item.skuInfo.offline_before_expired;
           //剩余时间
           item.skuInfo._left_times = item.skuInfo._offline_times - self.timestamp;
-          if(index ==2) debugger;
           item._format_price = self.dealPrice(item.skuInfo);
         });
         return data;
@@ -170,9 +169,6 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore'],
         var _deal_price = (item.price - _diff_price).toFixed(6);
         var _format_price = _.formatPrice(_deal_price, 6, 0);
 
-        if(_format_price<=0){
-          debugger;
-        }
         return _format_price;
       },
       onBottomPull: function(){

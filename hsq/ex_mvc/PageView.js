@@ -354,7 +354,8 @@ define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer',
      * 关于统计，在使用上，要更为便捷才可以，配置自定义属性，即可统计数据
      */
     sendHmt: function (retry) {
-      var view = this;
+      if(Debug) return;
+
       if (!window._hmt) window._hmt = [];
       var url = this.$root.attr('page-url'),
           pageId = "",

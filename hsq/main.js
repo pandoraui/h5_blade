@@ -111,7 +111,7 @@ if (!window._hmt) window._hmt = [];
     var app = new App({
       //选择pushState还是hashChange
       hasPushState: false,
-      'defaultView': Debug ? 'index' : 'home',
+      'defaultView': Debug ? 'index' : 'list',
       'viewRootPath': '' + project + 'views/',
       animations: animations
     });

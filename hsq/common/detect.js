@@ -47,6 +47,7 @@ define([], function(){
   // 多维度内部APP userAgent 规范：
   // navigator.userAgent + DWD_IQG/3.2.2.x
   // Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4 DWD_IQG/3.2.2
+  // Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4 DWD_HSQ/3.2.2
   var iqgUA = userAgent.match(/\sdwd_iqg\/([\d\.]+)/)
   if(iqgUA){
     detect.isIqg = true;
@@ -55,6 +56,17 @@ define([], function(){
     }
   }
   if(iqgUA){
+    detect.dwd = {};
+  }
+
+  var hsqUA = userAgent.match(/\sdwd_hsq\/([\d\.]+)/)
+  if(hsqUA){
+    detect.isHsq = true;
+    detect.hsq = {
+      version: hsqUA[1]
+    }
+  }
+  if(hsqUA){
     detect.dwd = {};
   }
 
@@ -75,9 +87,9 @@ define([], function(){
 
   var c = _const;
   detect.host = detect.micromessenger ? c.HOST_WECHAT :
-        detect.hsq ? c.HOST_DWD_HSQ :
+        detect.isHsq ? c.HOST_DWD_HSQ :
         detect.isWifiKey ? c.HOST_WIFIKEY :
-        detect.iqg ? c.HOST_DWD_IQG :
+        detect.isIqg ? c.HOST_DWD_IQG :
         detect.isAlipay ? c.HOST_ALIPAY :
         browser.chrome ? c.HOST_CHROME :
         browser.firefox ? c.HOST_FIREFOX:

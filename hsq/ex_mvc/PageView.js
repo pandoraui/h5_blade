@@ -32,6 +32,9 @@ define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer',
     'order_success': 1,
     'address': 1,
     'address_update': 0,
+    'district': 1,
+    'iframe_page': 0,
+    'zt_reg_reward': 0,
   };
 
   return _.inherit(AbstractView, {
@@ -354,8 +357,6 @@ define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer',
      * 关于统计，在使用上，要更为便捷才可以，配置自定义属性，即可统计数据
      */
     sendHmt: function (retry) {
-      if(Debug) return;
-
       if (!window._hmt) window._hmt = [];
       var url = this.$root.attr('page-url'),
           pageId = "",
@@ -363,6 +364,7 @@ define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer',
       // if (pageId === 0) {
       //   return;
       // }
+      if(Debug || !url) return;
 
       var customValue = this.logged ? Tongji.CustomValue.LOGGED_YES : Tongji.CustomValue.LOGGED_NO;
 
@@ -373,7 +375,6 @@ define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer',
       //统计访问平台
       Tongji._customVar(Tongji.CustomIndex.PLATFORM, Tongji.CustomName.PLATFORM, Detect.platform || 'PC', Tongji.CustomScope.PLATFORM);
 
-      if(!url) return;
 
 
       /*注意：以下格式链接会被过滤，不统计

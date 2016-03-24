@@ -85,6 +85,18 @@ var AUTOPREFIXER_BROWSERS = [
   'bb >= 10'
 ];
 
+//七牛存储
+
+// upload docs assets to Qiniu
+// 配置应该可以，一个配置使用多个对应，如图片以及 js、css 对应关系
+var hsqQnConfig = require('./qnConfig').hsq;
+var qnOptions = {
+  accessKey: hsqQnConfig.qnAK,
+  secretKey: hsqQnConfig.qnSK,
+  bucket: hsqQnConfig.qnBucketUIS,
+  origin: hsqQnConfig.qnDomainUIS
+};
+
 var appPath = 'hsq/';
 var appDist = 'dist/';
 var paths = {
@@ -339,6 +351,7 @@ gulp.task('hsqjs', function () {
     // }));
 
   return !isProduction ? s : s //.pipe($.uglify())
+      .pipe($.replace(/\\n\s*/g, '')) //TODO：还可以去掉 html 注释等
       .pipe($.rename({suffix: '.min'}))
       .pipe(md5(10, paths.quoteSrc))
       .pipe(gulp.dest(paths.dist.js))
@@ -372,6 +385,7 @@ gulp.task('libs', ['copy', 'html'], function () {
     // }));
 
   return !isProduction ? s : s.pipe($.uglify())
+      // .pipe($.replace(/\\n\s*/g, ''))  //这里放开会报错
       .pipe($.rename({suffix: '.min'}))
       .pipe(md5(10, paths.quoteSrc))
       .pipe(gulp.dest(paths.dist.js))
@@ -452,10 +466,12 @@ vinyl-buffer用于将vinyl流转化为buffered vinyl文件（gulp-sourcemaps及�
 // });
 
 // 压缩 HTML
+var isUsingQn = false;
 gulp.task('html', function () {
   return gulp.src(paths.entry.html)
     //.pipe($.minifyHtml())
     .pipe($.replace(/\{\{__VERSION__\}\}/g, isProduction ? '.min' : ''))
+    .pipe($.replace(/\{\{__DOMAIN__\}\}/g, isUsingQn ? qnOptions.origin : ''))
     .pipe(gulp.dest(paths.dist.html))
     .pipe($.size({title: 'html'}));
 });
@@ -526,13 +542,25 @@ gulp.task('scripts', function (cb) {
 
 // 默认任务
 gulp.task('default', function (cb) {
+  isUsingQn = false;
   console.log('生产环境：' + isProduction);
-  //runSequence('clean', ['styles', 'jshint', 'html', 'images', 'copy', 'browserify'], cb);
   runSequence('clean', ['copy', 'html', 'styles', 'scripts'], cb);
-  // runSequence('clean', ['styles', 'html', 'images', 'copy', 'browserify'], cb);
+});
+gulp.task('qn:tasks', function (cb) {
+  isUsingQn = true;
+  console.log('生产环境：' + isProduction);
+  runSequence('clean', ['copy', 'html', 'styles', 'scripts'], 'qn', cb);
 });
 
-
+gulp.task('qn', function() {
+  gulp.src([
+    "dist/assets/**/*",
+    "!dist/*.html",
+  ]).pipe($.qndn.upload({
+      prefix: 'assets/',
+      qn: qnOptions
+    }));
+});
 
 // gulp-git 改变版本号以及创建一个 git tag
 // http://www.gulpjs.com.cn/docs/recipes/bump-version-and-create-git-tag/
@@ -566,11 +594,22 @@ gulp.task('cap:deploy:prod', $.shell.task([
 }));
 
 gulp.task('pro', $.shell.task([
-  'NODE_ENV=production gulp dev'
-]));
-gulp.task('pro:dist', $.shell.task([
   'NODE_ENV=production gulp'
 ]));
+gulp.task('pro:serve', $.shell.task([
+  'NODE_ENV=production gulp',
+  'gulp serve'
+]));
+gulp.task('qn:serve', $.shell.task([
+  'NODE_ENV=production gulp qn:tasks',
+  'gulp serve'
+]));
+gulp.task('pro:dist', $.shell.task([
+  'NODE_ENV=production gulp qn:tasks'
+]));
+// gulp.task('pro:prod', $.shell.task([
+//   'NODE_ENV=production gulp pro:tasks'
+// ]));
 
 // gulp.task('bump-version', function () {
 // // 注意：这里我硬编码了更新类型为 'patch'，但是更好的做法是用
@@ -584,7 +623,10 @@ gulp.task('pro:dist', $.shell.task([
 //还可以这样啊，哈哈
 var ghPages = require('gulp-gh-pages');
 gulp.task('publish', ['pro:dist'], function() {
-  return gulp.src('./dist/**/*')
+  return gulp.src([
+      'dist/**/*',
+      '!dist/**/*.min*',
+    ])
     .pipe(ghPages({
       //默认发送当前分支的 dist 到远程 gh-pages 分支(如果此分支没有，则在远程创建一个)
       //我需要发送到远程的特淡定 branch 分支，比如 release 分支，但现在不行

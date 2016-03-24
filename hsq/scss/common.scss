@@ -250,6 +250,7 @@ dfn.price{
 .header-wrapper,
 .fexed_footer{
   -webkit-transform: translateZ(0);
+  // -webkit-overflow-scrolling: touch;  // 滚动不流畅，此属性可以恢复弹性滚动 http://efe.baidu.com/blog/mobile-fixed-layout
 }
 
 .guide-box{

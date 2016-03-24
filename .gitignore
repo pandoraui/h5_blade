@@ -14,6 +14,7 @@ node_modules
 .publish/
 deploy/
 grunt/
+qnConfig.js
 
 .publish
 dist/*

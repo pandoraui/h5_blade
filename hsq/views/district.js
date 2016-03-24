@@ -182,6 +182,9 @@ define(['PageView', getViewTemplatePath('district'), 'AppModel', 'AppStore', 'Fo
           },this);
         }else{
           this.renderList(obj);
+
+          //如果不去 ajax 请求，直接隐藏 loading 效果
+          this.hideLoading();
         }
       },
       renderList: function(obj){

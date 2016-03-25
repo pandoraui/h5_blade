@@ -15,6 +15,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
 
     return _.inherit(PageView, {
       pageName: 'detail',
+      waitAjax: true,
       events: {
         'click .pay-btn': 'goOrder',
         'click .oper-number>[data-oper]:not(.disabled)': 'operNumber',

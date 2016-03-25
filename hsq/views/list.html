@@ -3,13 +3,13 @@
   <div class="ul-list rec-list hsq_box J_list_pull">
     <script type="text/template" id="tpl_hsq_box">
     <%list.forEach(function(item){%>
-    <div class="item" datt-pid="<%item.id%>" data-sid="<%=item.skuInfo.id%>">
-      <div class="img"><img class="lazy" src="<%=imgPlaceHold%>" data-src="<%=item.skuInfo.skuPic%>" alt=""></div>
+    <div class="item" data-pid="<%=item.id%>" data-sid="<%=item.skuInfo.id%>">
+      <div class="img"><img class="lazy" src="<%=imgPlaceHold%>" data-src="<%=item.skuInfo.thumbnail%>" alt=""></div>
       <div class="text">
         <h3><%=item.skuInfo.name%></h3>
         <p>
           <dfn class="price">&yen; <span class="price_num J_price_box"><%=(item._format_price)%><i></i></span></dfn>
-          <del><%=(item.skuInfo.market_price*0.01).toFixed(2)%></del>
+          <del class="price"><%=(item.skuInfo.market_price*0.01).toFixed(2)%></del>
         </p>
         <p>保质期至：<%=_.dateUtil.format(item.skuInfo.expired_date*1000, {format: 'Y年M月D日'})%></p>
         <p><%if(item.skuInfo._left_times > 1){%>

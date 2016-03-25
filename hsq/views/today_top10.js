@@ -1,8 +1,11 @@
-define(['PageView', getViewTemplatePath('today_top10'), 'AppModel', 'AppStore'],
-  function (PageView, viewhtml, AppModel, AppStore){
+define(['PageView', getViewTemplatePath('today_top10'), 'AppModel', 'AppStore', 'DealData'],
+  function (PageView, viewhtml, AppModel, AppStore, DealData){
 
     var storeLogin = AppStore.Login.getInstance();
+    var modelTodayTop10 = AppModel.todayTop10.getInstance();
 
+    var skuIds = [225, 222, 241, 226, 166, 232, 229, 227, 230];
+    skuIds = [150, 151];
     var top10_list = [
       {
         id: 225,
@@ -46,10 +49,13 @@ define(['PageView', getViewTemplatePath('today_top10'), 'AppModel', 'AppStore'],
         desc: '草莓香气依旧贮存，味道不失，营养留存。自然红，自然香，完整保留。酸甜的汁液裹挟着大自然的温热在味蕾中翻覆，纵然是阴雨连绵也暖意满满。'
       },
     ];
+    top10_list = _.indexBy(top10_list, 'id');
 
-    return _.inherit(PageView, $.extend({
+    return _.inherit(PageView, $.extend(DealData, {
       pageName: 'zhuti',
+      waitAjax: true,
       events: {
+        'click .top10_list .J_go_detail': 'goDetail',
       },
       onCreate: function(){
         // var viewhtml = '下单成功';
@@ -98,64 +104,96 @@ define(['PageView', getViewTemplatePath('today_top10'), 'AppModel', 'AppStore'],
       initPage: function(){
         var scope = this;
 
-        // this.ajaxRequest();
-        var imgPlace = 'https://placeholdit.imgix.net/~text?txtsize=60&txt=640%C3%97380&w=640&h=380';
-        top10_list.forEach(function(item){
-            item.pic = imgPlace;
-            item.price = '23.06';
-        });
-
-        this.renderPage({
-          title: '零食和看剧更配哦',
-          subTitle: '吃不胖的美味',
-          date: '3月23日',
-          introPic: imgPlace,
-          intro: '最近,《太阳的后裔》正在热播, 宋仲基老公真是火的不要不要的，让妹纸们瞬间鼻血直喷,疯狂舔屏,哭着喊着要给仲基欧巴生猴子,比起老公的撩妹技能，妹纸们也要准备好各式零食，方能展开最舒服的追剧模式，关键是！这些都是吃不胖的美味！！！',
-          list: top10_list,
-          imgPlaceHold: this.imgPlaceHold,
-        });
+        this.ajaxRequest();
+        // var imgPlace = 'https://placeholdit.imgix.net/~text?txtsize=60&txt=640%C3%97380&w=640&h=380';
+        // top10_list.forEach(function(item){
+        //     item.pic = imgPlace;
+        //     item.price = '23.06';
+        // });
+        //
+        // this.renderPage({
+        //   title: '零食和看剧更配哦',
+        //   subTitle: '吃不胖的美味',
+        //   date: '3月23日',
+        //   introPic: imgPlace,
+        //   intro: '最近,《太阳的后裔》正在热播, 宋仲基老公真是火的不要不要的，让妹纸们瞬间鼻血直喷,疯狂舔屏,哭着喊着要给仲基欧巴生猴子,比起老公的撩妹技能，妹纸们也要准备好各式零食，方能展开最舒服的追剧模式，关键是！这些都是吃不胖的美味！！！',
+        //   list: top10_list,
+        //   imgPlaceHold: this.imgPlaceHold,
+        // });
       },
       ajaxRequest: function(){
         var scope = this;
 
         this.showLoading();
-        modelGetRewardInfo.param = {
-          rewardCode: this.params.reward_code,
+        modelTodayTop10.param = {
+          topicCode: this.params.topic_code || 'test',
+          skuIds: this.params.skuids || skuIds.join(','),
         };
-        modelGetRewardInfo.execute(function(res){
+        modelTodayTop10.execute(function(res){
           this.hideLoading();
           //成功
           var data = res.data;
 
-          //活动是否生效
-          var dataList = [];
-          if(data.status && !data.is_expired){
-            dataList = data.couponList;
-          }
+          this.timestamp = res.timestamp;
 
-          if(dataList.length){
-            this.renderPage({
-              list: dataList
-            });
-            this.showStep(1);
-          }else{
-            this.showStep(3);
-          }
+          this.renderPage(data);
 
         },function(error){
           //失败
-          if(error.errno == 9310001){
-            this.showStep(3);
-          }else{
-            this.showToast(error.errmsg);
-          }
+          this.showToast(error.errmsg);
         },this);
       },
+      dealData: function(data){
+        var self = this;
+        data.imgPlaceHold = this.imgPlaceHold;
+
+        data.list.forEach(function(item, index){
+          var skuId = item.skuInfo.id;
+          if(top10_list[skuId] || 1){
+            item.skuInfo.desc = top10_list['225'].desc;
+          }
+          //下线时间
+          item.skuInfo._offline_times = item.skuInfo.expired_date - item.skuInfo.offline_before_expired;
+          //剩余时间
+          item.skuInfo._left_times = item.skuInfo._offline_times - self.timestamp;
+          item._format_price = self.dealPrice(item.skuInfo);
+          console.log(item._format_price)
+        });
+        return data;
+      },
       renderPage: function(data){
-        var html = _.template(this.tpls.hsq_box)(data);
+        var imgPlace = 'https://placeholdit.imgix.net/~text?txtsize=60&txt=640%C3%97380&w=640&h=380';
+
+        if(data.list && data.list.length){
+          data = this.dealData(data);
+        }
+        var top10Data = {
+          title: '零食和看剧更配哦',
+          subTitle: '吃不胖的美味',
+          date: '3月23日',
+          introPic: imgPlace,
+          intro: '最近,《太阳的后裔》正在热播, 宋仲基老公真是火的不要不要的，让妹纸们瞬间鼻血直喷,疯狂舔屏,哭着喊着要给仲基欧巴生猴子,比起老公的撩妹技能，妹纸们也要准备好各式零食，方能展开最舒服的追剧模式，关键是！这些都是吃不胖的美味！！！',
+          list: data.list,
+          imgPlaceHold: this.imgPlaceHold,
+        };
+
+        var html = _.template(this.tpls.hsq_box)(top10Data);
         this.els.hsq_box.html(html);
 
         this.imgLazyLoad();
+      },
+      goDetail: function(e){
+        var target = $(e.currentTarget),
+            sid = target.data('sid');
+
+
+        var detailUrl = 'detail?sid=' + sid;
+        if(this.Detect.isHsq){
+          //如果是好食期 APP 内，则跳转 app 内连接
+
+        }else{
+          this.forward(detailUrl);
+        }
       },
     }));
 });

@@ -22,20 +22,17 @@ define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer',
     '</div>'
   ].join('');
 
-  var waitAjaxPage = {
-    'home': 0,
-    'index': 0,
-    'list': 1,
-    'detail': 1,
-    'quick_login': 0,
-    'order': 1,
-    'order_success': 1,
-    'address': 1,
-    'address_update': 0,
-    'district': 1,
-    'iframe_page': 0,
-    'zt_reg_reward': 0,
-  };
+  //这个还是放在各自界面比较好
+  // var waitAjaxPage = {
+  //   'home': 0,
+  //   'index': 0,
+  //   'list': 1,
+  //   'detail': 1,
+  //   'order': 1,
+  //   'order_success': 1,
+  //   'address': 1,
+  //   'district': 1,
+  // };
 
   return _.inherit(AbstractView, {
     /**
@@ -48,6 +45,7 @@ define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer',
     waitAjax: false,
     hashChangeParamsRefresh: true,
     imgPlaceHold: imgPlaceHold,
+    Detect: Detect,
     // initialize: function initialize(options) {
     //   this.__toast = new UIToast();
     // },
@@ -146,7 +144,7 @@ define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer',
         throw Error("This view need set the pageName!!!");
         return;
       }
-      this.waitAjax = !!waitAjaxPage[pageName] || false;
+      // this.waitAjax = !!waitAjaxPage[pageName] || false;
 
       //个别第三方程序，不经判断，不管 url 是否已经有 ？都直接后面添加？带自己的参数，
       //这很坑，要处理一下

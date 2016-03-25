@@ -171,13 +171,15 @@ define(['AbstractModel', 'ApiConfig', 'AppStore', 'Detect'], function( AbstractM
 
 
 
-  //主题活动项目
+  //主题活动、专题等
 
   //推荐有奖
   //获取营销活动信息
   _model.getRewardInfo = _model.CustomModel("/reward/getrewardinfo", {method: "GET"});
   //用户注册
   _model.register = _model.CustomModel("/user/register", {method: "POST"});
+  //每日 Top 10
+  _model.todayTop10 = _model.CustomModel("/product/topicskusinfo", {method: "GET"});
 
 
   //获取短链接

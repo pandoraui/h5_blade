@@ -11,6 +11,7 @@ define(['PageView', getViewTemplatePath('order'), 'AppModel', 'AppStore', 'Detec
 
     return _.inherit(PageView, {
       pageName: 'order',
+      waitAjax: true,
       events: {
         'click .J_s_invoice': 'selectInvoice',
         'click .J_s_invoice_types label': 'selectInvoiceTypes',

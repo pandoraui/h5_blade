@@ -12,6 +12,7 @@ define(['PageView', getViewTemplatePath('district'), 'AppModel', 'AppStore', 'Fo
 
     return _.inherit(PageView, {
       pageName: 'district',
+      waitAjax: true,
       events: {
         'click .J_list_a>li:not(.active)': 'getAddrListB',
         'click .J_list_b>li:not(.active)': 'getAddrListC',

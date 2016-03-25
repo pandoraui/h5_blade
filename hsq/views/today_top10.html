@@ -18,23 +18,24 @@
     <%if(list.length){%>
       <%list.forEach(function(item){%>
       <div class="line-index"></div>
-      <div class="xcard">
+      <div class="xcard" data-pid="<%=item.id%>" data-sid="<%=item.skuInfo.id%>">
         <div class="content">
-          <h3><%=item.name%></h3>
-          <p><%=item.desc%></p>
+          <h3><%=item.skuInfo.name.replace(/\s*【(.*)】\s*/, '')%></h3>
+          <p><%=item.skuInfo.desc%></p>
         </div>
         <div class="img">
-          <img class="lazy" src="<%=imgPlaceHold%>" data-src="<%=item.pic%>" alt="">
+          <img class="lazy" src="<%=imgPlaceHold%>" data-src="<%=item.skuInfo.thumbnail%>" alt="">
         </div>
 
         <div class="oper">
-          <a data-sid="<%=item.skuId%>" class="btn btn-small btn-pink fr">去购买</a>
-          <dfn class="price">&yen; <%=item.price%></dfn> <del><%=item.price%></del>
+          <a data-pid="<%=item.id%>" data-sid="<%=item.skuInfo.id%>" class="btn btn-small btn-pink fr J_go_detail">去购买</a>
+          <dfn class="price">&yen; <%=(item._format_price)%></dfn>
+          <del class="price"><%=(item.skuInfo.market_price*0.01).toFixed(2)%></del>
         </div>
       </div>
       <%})%>
     <%}else{%>
-      <p>该活动已下线</p>
+      <p>商品已下线</p>
     <%}%>
   </div>
   </script>

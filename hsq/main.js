@@ -35,6 +35,7 @@ if (!window._hmt) window._hmt = [];
       'FormatReg': project + 'common/FormatReg',
       'CountDown': project + 'common/CountDown',
       'LoginCommon': project + 'common/LoginCommon',
+      'DealData': project + 'common/DealData',
       // 'AppCommonStore': project + 'model/commonStore',
       // 'SwiperInit': 'blade/function/swiper-init',
     },

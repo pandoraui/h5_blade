@@ -9,6 +9,7 @@ define(['PageView', getViewTemplatePath('address'), 'AppModel', 'AppStore'],
 
     return _.inherit(PageView, {
       pageName: 'address',
+      waitAjax: true,
       events: {
         'click .address-list li': 'selectAddress',
         'click li.add-address': 'addAddress',

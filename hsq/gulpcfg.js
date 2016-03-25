@@ -28,6 +28,7 @@ module.exports = {
     "FormatReg": "common/FormatReg",
     "CountDown": "common/CountDown",
     "LoginCommon": "common/LoginCommon",
+    "DealData": "common/DealData",
 
     "PageView": "ex_mvc/PageView",
     "PageList": "ex_mvc/PageList",
@@ -55,6 +56,7 @@ module.exports = {
 
     //common
     "LoginCommon",
+    "DealData",
 
     //首页
     "views/home",

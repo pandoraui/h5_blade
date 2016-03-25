@@ -86,6 +86,10 @@ dfn.price{
     font-style: normal;
   }
 }
+del.price{
+  color: $color-gray;
+}
+
 .xcard{
   background: #fff;
   margin-bottom: fontsize(10);

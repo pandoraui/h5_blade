@@ -1,0 +1,41 @@
+
+<div class="today_top10 hsq_box">
+  <script type="text/template" id="tpl_hsq_box">
+  <div class="xcard zt_top10_card">
+    <div class="banner">
+      <img class="lazy" src="<%=imgPlaceHold%>" data-src="<%=introPic%>" alt="">
+      <div class="text">
+        <h1><%=title%></h1>
+        <p><%=subTitle%></p>
+        <span class="date"><%=date%></span>
+      </div>
+    </div>
+
+    <div class="intro"><%=intro%></div>
+  </div>
+
+  <div class="top10_list">
+    <%if(list.length){%>
+      <%list.forEach(function(item){%>
+      <div class="line-index"></div>
+      <div class="xcard">
+        <div class="content">
+          <h3><%=item.name%></h3>
+          <p><%=item.desc%></p>
+        </div>
+        <div class="img">
+          <img class="lazy" src="<%=imgPlaceHold%>" data-src="<%=item.pic%>" alt="">
+        </div>
+
+        <div class="oper">
+          <a data-sid="<%=item.skuId%>" class="btn btn-small btn-pink fr">去购买</a>
+          <dfn class="price">&yen; <%=item.price%></dfn> <del><%=item.price%></del>
+        </div>
+      </div>
+      <%})%>
+    <%}else{%>
+      <p>该活动已下线</p>
+    <%}%>
+  </div>
+  </script>
+</div>

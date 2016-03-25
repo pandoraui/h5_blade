@@ -87,9 +87,16 @@ module.exports = {
     "text!views/test.html",
 
 
-    //主题活动页面
+  //主题活动页面
+    //推荐有奖
     "views/zt_reg_reward",
     "text!views/zt_reg_reward.html",
+    //每日Top 10
+    "views/today_top10",
+    "text!views/today_top10.html",
+    //top10 专题列表
+    "views/zt_top10",
+    "text!views/zt_top10.html",
 
   ],
   "exclude": [],

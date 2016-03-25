@@ -183,3 +183,127 @@ $reg_reward_c3: #ff5555;  //rgb(255, 85, 85);
 .reg_reward2 .reg_reward_step2,
 .reg_reward3 .reg_reward_step3{ display: block;}
 .reg_reward3 .rules{ display: none;}
+
+
+
+//每日 top 10
+.page-view-today_top10{
+  background: #fff;
+}
+
+.zt_top10_card{
+  .banner {
+    position: relative;
+    padding-bottom: 1px;
+
+    .img{
+      z-index: 1;
+    }
+    .text{
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      left: 0;
+      padding-top: 20%;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      color: #fff;
+
+      h1{
+        margin: 0 0 fontsize(10);
+        font-size: fontsize(30);
+        font-weight: bold;
+      }
+      p{
+        box-sizing: content-box;
+        display: inline-block;
+        padding: 0 fontsize(10);
+        border: 1px solid #fff;
+        height: fontsize(30);
+        line-height: fontsize(30);
+        font-size: fontsize(18);
+        background: rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .date{
+      position: absolute;
+      bottom: fontsize(5);;
+      right: fontsize(10);
+      font-size: fontsize(12);
+    }
+
+  }
+
+  .intro{
+    margin: fontsize(16) 0;
+    padding: 0 fontsize(16);
+  }
+}
+
+.today_top10{
+  color: $color-grayer;
+
+  p{
+    line-height: fontsize(18);
+  }
+
+  .line-index{
+    position: relative;
+    margin: fontsize(30) fontsize(16) fontsize(20);
+    height: fontsize(10);
+    border-top: 1px solid $color-title;
+    text-align: center;
+    counter-increment: todaytopnumber;
+
+    &:before,
+    &:after{
+      content: '';
+      position: relative;
+      display: block;
+      top: fontsize(-10);
+      margin: 0 auto;
+    }
+
+    &:before{
+      background: #fff;
+      width: fontsize(60);
+      height: fontsize(20);
+    }
+
+    &:after{
+      content: counter(todaytopnumber);
+      display: inline-block;
+      top: fontsize(-30);
+      padding: 0 fontsize(6);
+      width: auto;
+      height: fontsize(20);
+      border-radius: fontsize(100);
+      background: $yellow;
+      color: $color-title;
+    }
+  }
+  .xcard {
+
+    .content,
+    .oper,
+    .intro{
+      margin: fontsize(16) 0;
+      padding: 0 fontsize(16);
+    }
+
+    h3{
+      text-align: center;
+      color: $color-font;
+    }
+  }
+
+  img.lazy{
+    width: 100%;
+    min-height: fontsize(180);
+    max-height: fontsize(240);
+  }
+
+
+}

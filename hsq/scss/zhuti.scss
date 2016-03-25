@@ -209,6 +209,7 @@ $reg_reward_c3: #ff5555;  //rgb(255, 85, 85);
       height: 100%;
       text-align: center;
       color: #fff;
+      background: rgba(0, 0, 0, 0.3);
 
       h1{
         margin: 0 0 fontsize(10);
@@ -223,7 +224,7 @@ $reg_reward_c3: #ff5555;  //rgb(255, 85, 85);
         height: fontsize(30);
         line-height: fontsize(30);
         font-size: fontsize(18);
-        background: rgba(0, 0, 0, 0.1);
+        background: rgba(0, 0, 0, 0.2);
       }
     }
 
@@ -302,7 +303,6 @@ $reg_reward_c3: #ff5555;  //rgb(255, 85, 85);
   img.lazy{
     width: 100%;
     min-height: fontsize(180);
-    max-height: fontsize(240);
   }
 
 

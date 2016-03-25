@@ -149,20 +149,19 @@ define(['PageView', getViewTemplatePath('today_top10'), 'AppModel', 'AppStore', 
 
         data.list.forEach(function(item, index){
           var skuId = item.skuInfo.id;
-          if(top10_list[skuId] || 1){
-            item.skuInfo.desc = top10_list['225'].desc;
+          if(top10_list[skuId]){
+            item.skuInfo.desc = top10_list[skuId].desc;
           }
           //下线时间
           item.skuInfo._offline_times = item.skuInfo.expired_date - item.skuInfo.offline_before_expired;
           //剩余时间
           item.skuInfo._left_times = item.skuInfo._offline_times - self.timestamp;
           item._format_price = self.dealPrice(item.skuInfo);
-          console.log(item._format_price)
         });
         return data;
       },
       renderPage: function(data){
-        var imgPlace = 'https://placeholdit.imgix.net/~text?txtsize=60&txt=640%C3%97380&w=640&h=380';
+        var top_banner = 'http://7xs7z4.com1.z0.glb.clouddn.com/zhuti/top10/top10_1.jpg';
 
         if(data.list && data.list.length){
           data = this.dealData(data);
@@ -171,7 +170,7 @@ define(['PageView', getViewTemplatePath('today_top10'), 'AppModel', 'AppStore', 
           title: '零食和看剧更配哦',
           subTitle: '吃不胖的美味',
           date: '3月23日',
-          introPic: imgPlace,
+          introPic: top_banner,
           intro: '最近,《太阳的后裔》正在热播, 宋仲基老公真是火的不要不要的，让妹纸们瞬间鼻血直喷,疯狂舔屏,哭着喊着要给仲基欧巴生猴子,比起老公的撩妹技能，妹纸们也要准备好各式零食，方能展开最舒服的追剧模式，关键是！这些都是吃不胖的美味！！！',
           list: data.list,
           imgPlaceHold: this.imgPlaceHold,

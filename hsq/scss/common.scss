@@ -17,6 +17,9 @@
   min-height: 100%;
   // height: 100%;  //设定100%高度时，导致次容器设置背景色无法填满
 }
+.is_in_app .viewport-wrapper > .view{
+  padding: 0;
+}
 
 img.hsq-img{width: 100%;}
 .J_error_box p{
@@ -30,6 +33,10 @@ img.hsq-img{width: 100%;}
   ~ p {
     margin: 0.4rem 0 0.4rem;
   }
+}
+
+.bg_white{
+  background: #fff;
 }
 
 .bar-nav ~ .content{top: 0; padding-top: 2.2rem;}

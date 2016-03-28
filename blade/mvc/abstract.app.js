@@ -283,6 +283,7 @@ define(['UIHeader', 'UILoadingLayer'], function (UIHeader, UILoadingLayer) {
 
     },
     jump: function(url) {
+      // http link
       if (_.isString(opt) && /^http(s)?:\/\//.test(opt)) {
         window.location.href = opt;
       }

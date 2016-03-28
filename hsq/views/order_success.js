@@ -77,7 +77,6 @@ define(['PageView', getViewTemplatePath('order_success'), 'AppModel', 'AppStore'
           }
         };
         this.header.set(headerData);
-        this.header.show();
       },
       backAction: function(){
         if(this.skuId){

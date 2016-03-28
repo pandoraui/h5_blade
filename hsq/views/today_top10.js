@@ -91,7 +91,6 @@ define(['PageView', getViewTemplatePath('today_top10'), 'AppModel', 'AppStore', 
           // }
         };
         this.header.set(headerData);
-        this.header.show();
       },
       backAction: function(){
         this.back();
@@ -152,6 +151,9 @@ define(['PageView', getViewTemplatePath('today_top10'), 'AppModel', 'AppStore', 
           if(top10_list[skuId]){
             item.skuInfo.desc = top10_list[skuId].desc;
           }
+          if(self.Debug){
+            item.skuInfo.desc = top10_list['241'].desc;
+          }
           //下线时间
           item.skuInfo._offline_times = item.skuInfo.expired_date - item.skuInfo.offline_before_expired;
           //剩余时间
@@ -188,8 +190,8 @@ define(['PageView', getViewTemplatePath('today_top10'), 'AppModel', 'AppStore', 
 
         var detailUrl = 'detail?sid=' + sid;
         if(this.Detect.isHsq){
-          //如果是好食期 APP 内，则跳转 app 内连接
-
+          //如果是好食期 APP 内，则通过 schemaUrl 实现跳转 app 内连接
+          this.jumpApp('detail?skuId=' + sid);
         }else{
           this.forward(detailUrl);
         }

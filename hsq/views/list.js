@@ -49,7 +49,6 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore', 'DealDa
           };
         }
         this.header.set(headerData);
-        this.header.show();
       },
       onShow: function(){
         if(!this.loaded){
@@ -94,7 +93,6 @@ define(['PageList', getViewTemplatePath('list'), 'AppModel', 'AppStore', 'DealDa
         };
 
         this.showLoading();
-        //ajax去发送短信
         modelRPList.execute(function(res){
           this.hideLoading();
           //成功

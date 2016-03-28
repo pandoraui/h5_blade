@@ -57,7 +57,6 @@ define(['PageView', getViewTemplatePath('test'), 'AppModel', 'AppStore'],
           // }
         };
         this.header.set(headerData);
-        this.header.show();
       },
       onShow: function(){
         this.initPage();

@@ -52,7 +52,6 @@
           // }
         };
         this.header.set(headerData);
-        this.header.show();
       },
       onShow: function(){
 

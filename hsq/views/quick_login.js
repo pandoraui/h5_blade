@@ -53,7 +53,6 @@ define(['PageView', getViewTemplatePath('quick_login'), 'AppModel', 'AppStore', 
           }
         };
         this.header.set(headerData);
-        this.header.show();
       },
       onShow: function(){
         // var loginInfo = storeLogin.get() || {};

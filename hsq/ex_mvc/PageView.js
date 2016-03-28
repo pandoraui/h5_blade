@@ -1,4 +1,4 @@
-define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer', 'UIToast', 'UIAlert', 'AppStore', 'LazyLoad'], function (AbstractView, UIHeader, Detect, Tongji, UIDownTip, UILoadingLayer, UIToast, UIAlert, AppStore, LazyLoad) {
+define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer', 'UIToast', 'UIAlert', 'AppStore', 'LazyLoad', 'SchemaUrl'], function (AbstractView, UIHeader, Detect, Tongji, UIDownTip, UILoadingLayer, UIToast, UIAlert, AppStore, LazyLoad, SchemaUrl) {
 
   var storeLogin = AppStore.Login.getInstance();
 
@@ -34,7 +34,7 @@ define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer',
   //   'district': 1,
   // };
 
-  return _.inherit(AbstractView, {
+  return _.inherit(AbstractView, $.extend(SchemaUrl, {
     /**
      * 滚动条位置
      * @var
@@ -91,8 +91,9 @@ define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer',
 
         this._updatePageOptions();
 
-        //生成头部
-        this._createHeader();
+        //生成头部 如果在好食期 App 里，不要生成头部，但要更新 document.title
+        this._createHeader( this.Detect.isHsq );
+
 
         if (this.onBottomPull) {
           this._onWidnowScroll = $.proxy(this.onWidnowScroll, this);
@@ -183,16 +184,24 @@ define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer',
     /**
      * 生成头部
      */
-    _createHeader: function () {
+    _createHeader: function (isInApp) {
       this.header = new UIHeader({
         wrapper: $header
       });
 
       this.setHeader();
 
+      if(isInApp){
+        this.header.hide();
+        this.$body.addClass('is_in_app');
+      }else{
+        this.header.show();
+        this.$body.removeClass('is_in_app');
+      }
+
       if(this.header && this.header.center && this.header.center.value && this.header.center.value[0]){
         var title = this.header.center.value[0];
-        this.setTitle(title + '-好食期');
+        this.setTitle(title);
       }
     },
     setHeader: function () {
@@ -409,7 +418,7 @@ define(['UIView', 'UIHeader', 'Detect', 'Tongji', 'UIDownTip', 'UILoadingLayer',
       if(!curEvent || Debug) return;
 
       Tongji._trackEvent.apply(Tongji, curEvent);
-    }
-  });
+    },
+  }));
 
 });

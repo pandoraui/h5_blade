@@ -7,7 +7,7 @@ define(['PageView', getViewTemplatePath('zt_reg_reward'), 'AppModel', 'AppStore'
     var redirect_from = '';
 
     return _.inherit(PageView, $.extend(LoginCommon, {
-      pageName: 'zhuti',
+      pageName: 'zt_reg_reward',
       events: {
         'click .get_phone_code': 'clickBtnCode',
         // 'click .protocol>.p_text': 'setProtocol',
@@ -54,7 +54,6 @@ define(['PageView', getViewTemplatePath('zt_reg_reward'), 'AppModel', 'AppStore'
           // }
         };
         this.header.set(headerData);
-        this.header.show();
       },
       backAction: function(){
         this.back();

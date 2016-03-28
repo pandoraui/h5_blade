@@ -58,7 +58,6 @@ define(['PageView', getViewTemplatePath('address_update'), 'AppModel', 'AppStore
           }]
         };
         this.header.set(headerData);
-        this.header.show();
       },
       onShow: function(){
         curDistrict = storeCommonShort.getAttr('curDistrict') || {};

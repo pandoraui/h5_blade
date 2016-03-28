@@ -60,7 +60,6 @@ define(['PageView', getViewTemplatePath('district'), 'AppModel', 'AppStore', 'Fo
           }]
         };
         this.header.set(headerData);
-        this.header.show();
       },
       onShow: function(){
         curDistrict = storeCommonShort.getAttr('curDistrict') || {};

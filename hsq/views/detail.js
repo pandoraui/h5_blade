@@ -59,11 +59,15 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
         };
 
         this.header.set(headerData);
-        this.header.show();
       },
       onShow: function(){
         //倒计时功能需要更新时清除下，不然会有闭包问题
         this.clearPreInit();
+
+        // 统一参数
+        if(this.params.skuid && !this.params.sid){
+          this.params.sid = this.params.skuid;
+        }
 
         isProductChange  = !((this.productId == this.params.pid) || (this.skuId == this.params.sid));
         if(isProductChange){

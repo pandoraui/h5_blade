@@ -41,7 +41,6 @@ define(['PageView', getViewTemplatePath('zt_top10'), 'AppModel', 'AppStore'],
           // }
         };
         this.header.set(headerData);
-        this.header.show();
       },
       backAction: function(){
         this.back();

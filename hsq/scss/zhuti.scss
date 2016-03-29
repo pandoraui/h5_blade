@@ -255,12 +255,14 @@ $reg_reward_c3: #ff5555;  //rgb(255, 85, 85);
     counter-increment: todaytopnumber;
 
     &:before,
+    i._index,
     &:after{
       content: '';
       position: relative;
       display: block;
-      top: fontsize(-10);
       margin: 0 auto;
+      top: fontsize(-10);
+      font-style: normal;
     }
 
     &:before{
@@ -269,8 +271,8 @@ $reg_reward_c3: #ff5555;  //rgb(255, 85, 85);
       height: fontsize(20);
     }
 
+    i._index,
     &:after{
-      content: counter(todaytopnumber);
       display: inline-block;
       top: fontsize(-30);
       padding: 0 fontsize(6);
@@ -279,6 +281,14 @@ $reg_reward_c3: #ff5555;  //rgb(255, 85, 85);
       border-radius: fontsize(100);
       background: $yellow;
       color: $color-title;
+    }
+    &:after{
+      display: none;
+      //红米 note 支持此属性有差异，索引从 0 开始
+      content: counter(todaytopnumber);
+    }
+    i._index{
+
     }
   }
   .xcard {

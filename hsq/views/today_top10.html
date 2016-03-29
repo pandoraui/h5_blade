@@ -17,8 +17,8 @@
 
     <div class="top10_list">
       <%if(list.length){%>
-        <%list.forEach(function(item){%>
-        <div class="line-index"></div>
+        <%list.forEach(function(item, index){%>
+        <div class="line-index"><i class="_index"><%=index+1%></i></div>
         <div class="xcard" data-pid="<%=item.id%>" data-sid="<%=item.skuInfo.id%>">
           <div class="content">
             <h3><%=item.skuInfo.name.replace(/\s*【(.*)】\s*/, '')%></h3>

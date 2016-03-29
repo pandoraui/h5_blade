@@ -304,18 +304,30 @@ $reg_reward_c3: #ff5555;  //rgb(255, 85, 85);
     }
   }
 
-  img.lazy{
+  .banner img.lazy{
     width: 100%;
     min-height: fontsize(180);
   }
 
   .top10_list .img{
+    min-height: fontsize(160);
     overflow: hidden;
+    text-align: center;
   }
 
+  // .top10_list ._v_m {
+  //   width: 0;
+  //   height: 100%;
+  //   display: inline-block;
+  //   vertical-align: middle;
+  // }
   .top10_list img.lazy {
-    margin-top: -18%;
-    margin-bottom: -18%;
+    width: 100%;
+
+    display: inline-block;
+    vertical-align: middle;
+    // margin-top: -10%;
+    // margin-bottom: -10%;
   }
 }
 

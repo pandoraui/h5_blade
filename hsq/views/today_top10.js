@@ -4,8 +4,8 @@ define(['PageView', getViewTemplatePath('today_top10'), 'AppModel', 'AppStore', 
     var storeLogin = AppStore.Login.getInstance();
     var modelTodayTop10 = AppModel.todayTop10.getInstance();
 
-    var skuIds = [225, 222, 241, 226, 166, 232, 229, 227, 230];
-    skuIds = [150, 151];
+    var skuIds = [225, 222, 241, 226, 166, 232, 236, 229, 227, 230];
+    // skuIds = [150, 151];
     var top10_list = [
       {
         id: 225,
@@ -101,6 +101,7 @@ define(['PageView', getViewTemplatePath('today_top10'), 'AppModel', 'AppStore', 
       onHide: function(){},
       //初始化页面
       initPage: function(){
+        // this.fullWidth = $(document).width();
         var scope = this;
 
         this.ajaxRequest();
@@ -151,9 +152,9 @@ define(['PageView', getViewTemplatePath('today_top10'), 'AppModel', 'AppStore', 
           if(top10_list[skuId]){
             item.skuInfo.desc = top10_list[skuId].desc;
           }
-          if(self.Debug){
-            item.skuInfo.desc = top10_list['241'].desc;
-          }
+          // if(self.Debug){
+          //   item.skuInfo.desc = top10_list['241'].desc;
+          // }
           //下线时间
           item.skuInfo._offline_times = item.skuInfo.expired_date - item.skuInfo.offline_before_expired;
           //剩余时间
@@ -169,11 +170,12 @@ define(['PageView', getViewTemplatePath('today_top10'), 'AppModel', 'AppStore', 
           data = this.dealData(data);
         }
         var top10Data = {
+          // fullWidth: this.fullWidth * 0.65,
           title: '零食和看剧更配哦',
           subTitle: '吃不胖的美味',
           date: '3月23日',
           introPic: top_banner,
-          intro: '最近,《太阳的后裔》正在热播, 宋仲基老公真是火的不要不要的，让妹纸们瞬间鼻血直喷,疯狂舔屏,哭着喊着要给仲基欧巴生猴子,比起老公的撩妹技能，妹纸们也要准备好各式零食，方能展开最舒服的追剧模式，关键是！这些都是吃不胖的美味！！！',
+          intro: '最近,《太阳的后裔》正在热播, 宋仲基老公真是火的不要不要的，让妹纸们瞬间鼻血直喷，疯狂舔屏，哭着喊着要给仲基欧巴生猴子，比起老公的撩妹技能，妹纸们也要准备好各式零食，方能展开最舒服的追剧模式，关键是！这些都是吃不胖的美味！！！',
           list: data.list,
           imgPlaceHold: this.imgPlaceHold,
         };

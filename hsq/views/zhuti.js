@@ -7,6 +7,10 @@ define(['PageView', 'AppModel', 'AppStore'],
     var storeLogin = AppStore.Login.getInstance();
     var modelRPList = AppModel.RPList.getInstance();
 
+    var codeTypeList = {
+      1001: 'iqg_banner',
+    };
+
     return _.inherit(PageView, $.extend({
       pageName: 'zhuti',
       events: {
@@ -34,8 +38,11 @@ define(['PageView', 'AppModel', 'AppStore'],
       initPage: function(){
         var scope = this;
         var code = this.params.code;
+        var type = codeTypeList[code];
 
-        switch (code) {
+        if(!type) return;
+
+        switch (type) {
           case 'iqg_banner':
             this.ajaxRPList();
             break;

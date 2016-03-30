@@ -1,0 +1,175 @@
+
+//地址相关类页面（地址列表、新增地址）
+
+
+// 地址管理
+.address-list{
+  li {
+    margin-bottom: fontsize(10);
+    padding: fontsize(16) fontsize(50) fontsize(16) fontsize(10);
+    background: #fff;
+
+    &.icon-link:before,
+    &.icon-check:before{
+      position: absolute;
+      right: fontsize(8);
+      top: 50%;
+      margin-top: fontsize(-24);
+    }
+
+    &.icon-link:before{
+      margin-top: fontsize(-10);
+    }
+  }
+  span.name{
+    font-size: fontsize(16);
+    display: inline-block;
+    min-width: fontsize(80);
+  }
+}
+.address-list li,
+.address-using{
+  position: relative;
+
+  .no-address{
+    height: fontsize(70);
+    line-height: fontsize(70);
+  }
+
+  h4{
+    font-weight: normal;
+    font-size: fontsize(16);
+  }
+  p{
+    margin-bottom: 0;
+    color: $color-grayer;
+  }
+}
+
+.address-using {
+  padding: fontsize(16) fontsize(10) fontsize(10);
+  &:before{
+    position: absolute;
+    right: 0;
+    top:50%;
+    display: inline-block;
+    width: fontsize(30);
+    height: fontsize(40);
+    margin-top: fontsize(-10);
+    font-size: fontsize(20);
+  }
+}
+
+//新增、编辑地址
+.address-update{
+  .input-text {
+    padding-left: fontsize(90);
+  }
+
+  li{
+    &.icon-link:before{
+      position: absolute;
+      z-index: 10;
+      right: fontsize(5);
+    }
+  }
+}
+
+.page-view-district{
+
+  &,
+  .js_shadow_root,
+  .district_box,
+  .district_list{
+    height: 100%;
+  }
+}
+//选择城市区域
+.district_list{
+  box-sizing: content-box;
+  float: left;
+  display: inline;
+  // padding-bottom: 3000px;
+  // margin-bottom: -3000px;
+  // width: 33.333%;
+  border-left: 1px solid $line-light;
+  background: #fff;
+  margin-left: -1px;
+
+  &.district_list_a{ width: 30%;}
+  &.district_list_b{ width: 32%;}
+  &.district_list_c{ width: 38%;}
+
+  ul{
+    // overflow: hidden;
+    box-sizing: border-box;
+    list-style: none;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: fontsize(40);
+  }
+  li{
+    position: relative;
+    box-sizing: border-box;
+    padding: fontsize(8) fontsize(5);
+    // height: fontsize(36);
+    min-height: fontsize(36);
+    line-height: 1.4;
+    border-bottom: 1px solid $line-lighter;
+
+    &.active{
+      color: $link-color;
+    }
+  }
+  .J_list_a {
+    background: $line-lightest;
+    // margin: 0;
+    height: 100%;
+    // li{
+    //   // padding-top: 7px;
+    //   // margin-top: -1px;
+    //   border-bottom: 1px solid $line-light;
+    // }
+  }
+  .J_list_a>li.active{
+    background: #fff;
+  }
+  .J_list_b,
+  .J_list_c{
+    padding: 0 fontsize(3);
+  }
+
+  // .J_list_b>li,
+  // .J_list_c>li {
+  //   border-bottom: 1px solid $line-light;
+  // }
+
+  .J_list_b>li.active:before {
+    content: '';
+    position: absolute;
+    right: fontsize(-6);
+    top: 50%;
+    width: fontsize(8);
+    height: fontsize(8);
+    margin-top: fontsize(-4);
+    border-left: 1px solid $line-light;
+    border-bottom: 1px solid $line-light;
+    background-color: #fff;
+    transform: rotateZ(45deg);
+  }
+
+  .J_list_c>li{
+    &:before{
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      margin-top: fontsize(-11);
+      font-size: fontsize(20);
+    }
+    &.active:before{
+      display: inline-block;
+    }
+  }
+}

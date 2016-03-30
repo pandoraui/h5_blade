@@ -1,0 +1,95 @@
+
+
+//快捷登录，包括主题的推荐有奖的注册框
+
+.quick-login{
+  .top {
+    position: relative;
+
+    h3{
+      position: absolute;
+      width: 100%;
+      top: 34%;
+      text-align: center;
+      font-size: fontsize(24);
+      color: #fff;
+      font-weight: normal;
+    }
+  }
+}
+
+.quick-form{
+  font-size: fontsize(16);
+
+  .code-box{
+    position: absolute;
+    right: 0;
+    z-index: 10;
+    float: right;
+    display: inline;
+    margin: 0;
+    height: fontsize(44);
+    line-height: fontsize(44);
+  }
+
+  .v-line {
+    height: fontsize(27);
+    margin: 0;
+  }
+
+  .get_phone_code{
+    box-sizing: content-box;
+    display: inline-block;
+    height: 100%;
+    min-width: fontsize(90);
+    padding: 0 fontsize(16) 0 fontsize(10);
+    text-align: center;
+
+    i.text,
+    i.num{
+      position: relative;;
+      z-index: 5;
+
+      user-select: none;
+    }
+    i.num{
+      position: absolute;
+      z-index: 8;
+      display: inline-block;
+      left: fontsize(10);
+      right: fontsize(16);
+      top: 0;
+      height: 100%;
+      text-align: center;
+      background: #fff;
+
+      &:empty{
+        display: none;
+      }
+    }
+
+    &.disabled i.num{
+      color: $color-gray;
+    }
+  }
+
+  input.input-text {
+    width: 100%;
+  }
+
+  .other {
+    padding: fontsize(10) fontsize(16);
+  }
+
+  .protocol {
+    color: $color-grayer;
+
+    .p_text{
+      padding: fontsize(6) 0 0;
+    }
+  }
+  .btn-yellow {
+    margin-top: fontsize(24);
+    font-size: fontsize(18);
+  }
+}

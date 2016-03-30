@@ -1,0 +1,283 @@
+
+#root,
+.viewport-wrapper{height: 100%; box-sizing: border-box;}
+.js_shadow_root{
+  height: 100%;
+}
+.header-wrapper{
+  position: fixed;
+  z-index: 100;
+  top:0;
+  left: 0;
+  width: 100%;
+}
+.viewport-wrapper > .view{
+  // box-sizing: content-box;
+  padding: fontsize(44) 0 0;
+  min-height: 100%;
+  // height: 100%;  //设定100%高度时，导致次容器设置背景色无法填满
+}
+.is_in_app .viewport-wrapper > .view{
+  padding: 0;
+}
+
+img.hsq-img{width: 100%;}
+.J_error_box p{
+  margin: 1rem;
+}
+
+.cm-loading .preloader{
+  width: 2.5rem;
+  height: 2.5rem;
+
+  ~ p {
+    margin: 0.4rem 0 0.4rem;
+  }
+}
+
+.bg_white{
+  background: #fff;
+}
+
+.bar-nav ~ .content{top: 0; padding-top: 2.2rem;}
+.mt50{margin-top: fontsize(50);}
+.mb10{margin-bottom: fontsize(10);}
+.ml10{margin-left: fontsize(10);}
+.pt10{padding-top: fontsize(10);}
+.pt20{padding-top: fontsize(20);}
+.block{ display: block;}
+.list{ list-style: none;}
+.text-center{ text-align: center;}
+.text-right { text-align: right;}
+
+//placeholder并不支持padding和height值，在Android手机原生浏览器里面如果设置了line-height的值，比如设为line-height:32px
+//在Android自带浏览器、百度手机浏览器、小米自带浏览器上出现图一的问题（占位符靠顶部）。uc/qq正常
+//解决办法：把line-height设置为line-height:normal(或者不设置行高问题，只设置padding即可)
+//参看：
+//http://stackoverflow.com/questions/4919680/html5-placeholder-css-padding
+//http://caibaojian.com/html5-placeholder-discuzz.html
+input{line-height: normal !important;  }
+
+.v-line{display: inline-block; overflow: hidden; margin: 0 fontsize(5); border-left: 1px solid $line-light; width: 0; height: 15px; vertical-align: middle;}
+
+.border-top-line{ border-top: 1px solid $line-lighter;}
+.border-bottom-line{ border-bottom: 1px solid $line-lighter;}
+
+#page-detail .bar-header,
+.cm-header {
+  background-color: $bg-header;
+  color: $color-title;
+  .cm-page-title,
+  .title{
+    font-size: fontsize(18);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .button-link{color:$color-title;}
+
+  .button-link:active,
+  .cm-header-icon:active,
+  .cm-header-btn:active{
+    background-color: $yellow-active;
+  }
+}
+
+dfn.price{
+  display: inline-block;
+  font-style: normal;
+  font-size: fontsize(20);
+  color: $color-price;
+  i{
+    font-size: fontsize(14);
+    font-style: normal;
+  }
+}
+del.price{
+  color: $color-gray;
+}
+
+.xcard{
+  background: #fff;
+  margin-bottom: fontsize(10);
+}
+.hsq-card{
+  font-size: fontsize(14);
+  p{
+    margin: 0
+  }
+  .card-title {
+    padding: fontsize(10);
+    height: fontsize(36);
+    border-bottom: 1px solid $line-lighter;
+
+    .tit{
+      font-size: fontsize(16);
+      line-height: 1;
+    }
+  }
+  .link-more {
+    font-size: fontsize(12);
+    color: $color-grayer;
+  }
+}
+.group-list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li{
+    min-height: fontsize(18);
+    margin: -1px 0 0 0;
+    line-height: fontsize(18);
+  }
+}
+.solid_line,
+.group-list li{
+  border-top: 1px solid $line-lighter;
+}
+
+
+.btn{
+  display: inline-block;
+  text-align: center;
+  padding: 0 fontsize(20);
+  height: fontsize(40);
+  font-size: fontsize(16);
+  line-height: fontsize(40);
+  border-radius: fontsize(4);
+}
+.btn-blue{
+  background: #4e92df;
+  color: #fff;
+}
+.btn-yellow{
+  background: $yellow;
+  color: $color-title;
+}
+.btn-pink{
+  background: $pink;
+  color: #fff;
+}
+.btn-block{
+  box-sizing: border-box;
+  display: block;
+}
+.btn-yellow:active{
+  background: $yellow-active;
+}
+.btn-small{
+  padding: 0 fontsize(10);
+  height: fontsize(30);
+  font-size: fontsize(14);
+  line-height: fontsize(30);
+}
+.pay-btn{
+  display: inline-block;
+  line-height: fontsize(48);
+  font-size: fontsize(18);
+  padding: 0 fontsize(20);
+  background: $pink;
+  color: #fff;
+}
+.btn.disabled{
+  background: $color-grayer;
+  color: #fff;
+}
+
+.label-line{
+  position: relative;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  height: fontsize(44);
+  // font-size: fontsize(16);
+  line-height: fontsize(44);
+  margin-bottom: 0;
+
+  .tit{
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    display: inline-block;
+    width: fontsize(86);
+    padding-left: fontsize(16);
+  }
+
+  .input-text{
+    position: relative;
+    z-index: 9;
+    border: none;
+    box-sizing: border-box;
+    height: 100%;
+    padding: fontsize(3) fontsize(16);
+
+    display: block;
+    width: 100%;
+  }
+}
+.form-base{
+  li{
+    position: relative;
+    min-height: fontsize(44);
+    line-height: fontsize(44);
+    padding-bottom: 1px;
+  }
+  label{
+    margin: 0;
+    color: $color-grayer;
+    height: fontsize(44);
+  }
+}
+
+//第三方页面，iframe 加载外部页面，如用户协议
+.page-view-iframe_page{
+  height: 100%;
+}
+.iframe_box{
+  overflow: hidden;
+
+  &,
+  .iframe_page{
+    border: none;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+  }
+}
+
+.fexed_footer{
+  position: fixed;
+  z-index: 100;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  min-width: fontsize(300);
+  box-shadow: 0 -3px 5px -1px rgba(0, 0, 0, 0.1);
+}
+
+//FIXED: 修复部分手机浏览器 fixed 抖动问题（安卓 UC，360等，在地址栏存在时，滚动页面，则 fixed 定位元素会抖动），
+//http://www.chenyudong.com/archives/chrome-position-fixed-shake.html
+.header-wrapper,
+.fexed_footer{
+  -webkit-transform: translateZ(0);
+  // -webkit-overflow-scrolling: touch;  // 滚动不流畅，此属性可以恢复弹性滚动 http://efe.baidu.com/blog/mobile-fixed-layout
+}
+
+.guide-box{
+  padding-top: fontsize(30);
+  h2{
+    font-weight: normal;
+  }
+  // .header{
+  //   h2,
+  //   p{
+  //     margin-bottom: fontsize(20);
+  //   }
+  // }
+  .app-logo{ margin: fontsize(20) 0 fontsize(30);}
+
+  .intro-text{
+    padding: fontsize(10) fontsize(10) 0;
+  }
+}

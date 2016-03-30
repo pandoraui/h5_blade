@@ -1,0 +1,95 @@
+<div class="zhuti_box reg_reward reg_reward1">
+  <div class="reg_reward_step reg_reward_step1">
+    <div class="quick-login">
+      <div class="top">
+        <img class="hsq-img" src="images/reg_reward.jpg" alt="">
+      </div>
+      <div class="form-base quick-form">
+        <ul class="xcard group-list">
+          <li>
+            <label class="label-line">
+              <input type="tel" class="input-text J_phone" maxlength="11" placeholder="请输入手机号">
+            </label>
+          </li>
+          <li>
+            <label class="label-line">
+              <p class="code-box">
+                <span class="get_phone_code"><i class="text">获取验证码</i><i class="num"></i></span>
+              </p>
+              <input type="tel" class="input-text J_code" maxlength="8" placeholder="请输入验证码">
+            </label>
+          </li>
+        </ul>
+        <div class="other">
+          <span class="btn btn-block btn-yellow J_register_btn">注册领红包</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reg_reward_step reg_reward_step2 hsq_box">
+    <script type="text/template" id="tpl_hsq_box">
+    <div class="header text-center">
+      <p><img src="assets/img/logo.png" width="60" height="60" alt=""></p>
+      <%if(list.length){%>
+        <p>恭喜您！成功领取<span class="c_1">15元</span>优惠券</p>
+      <%}else{%>
+        <p>该活动已下线</p>
+      <%}%>
+    </div>
+    <div class="coupon-list">
+      <%if(list.length){%>
+      <%list.forEach(function(item){%>
+        <div class="coupon-item">
+          <div class="top">
+            <dfn class="price fl">&yen;<span><%=parseInt(item.value*0.01)%></span></dfn>
+            <div class="text">
+              <h4><%=item.title%></h4>
+              <p><%=item.sub_title%></p>
+            </div>
+          </div>
+          <div class="bottom">
+            <p><span class="date fr"><%=_.dateUtil.format(item.start_at*1000, {format: 'Y.M.D'})%>-<%=_.dateUtil.format(item.end_at*1000, {format: 'Y.M.D'})%></span>使用期限</p>
+          </div>
+        </div>
+      <%})%>
+      <%}%>
+    </div><!--//.coupon-list-->
+
+    <div class="btn-box">
+      <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.doweidu.android.haoshiqi" class="btn btn-yellow iconfont icon-detail-more">立即下载 APP</a>
+    </div>
+    </script>
+  </div>
+
+  <div class="reg_reward_step reg_reward_step3">
+    <div class="error-tip">
+      <span class="fl">提示：</span>
+      <div class="text">
+        <p>您访问的活动链接错误或失效了~</p>
+        <p>亲，别伤心！<br>邀请好友注册，照样拿红包。</p>
+      </div>
+    </div>
+    <img class="hsq-img" src="images/reg_reward2.jpg" alt="">
+    <div class="header text-center">
+      <p><img src="assets/img/logo.png" width="60" height="60" alt=""></p>
+    </div>
+    <div class="btn-box">
+      <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.doweidu.android.haoshiqi" class="btn btn-yellow iconfont icon-detail-more">立即下载 APP 邀请好友</a>
+    </div>
+  </div>
+
+  <div class="rules mt50">
+    <div class="header">
+      <p class="solid_line"></p>
+      <span class="tit">活动规则</span>
+    </div>
+    <div class="content">
+      1、新用户手机号注册，即可获得15元红包（全场通用）；<br>
+      2、领取红包后，凭注册的手机号快捷登录（使用手机号码绑定已有账户将无法领券），优惠券会自动到账，请到个人中心查看“我的优惠券”；<br>
+      3、每个手机号只能领取一次优惠券，优惠券限有效期内使用；<br>
+      4、如存在违规行为（包括但不限于恶意套现，机器作弊），好食期将取消参与资格，优惠券作废；<br>
+      5、优惠券面额可能发生调整，请以当次活动实际到账面额、购物结算时为准；好食期可在法律允许范围内对本次活动规则进行解释。
+    </div>
+  </div>
+</div>

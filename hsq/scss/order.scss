@@ -1,0 +1,196 @@
+
+//下单相关页面（订单详情下单悬浮框，下单页，订单详情页）
+
+//详情页下单
+.order-buy{
+  box-sizing: content-box;
+  padding: fontsize(4) fontsize(10) fontsize(5);
+  height: fontsize(40);
+  line-height: fontsize(40);
+  background: $line-lightest;
+
+  .pay-btn{
+    height: fontsize(40);
+    line-height: fontsize(40);
+    border-radius: 2px;
+  }
+}
+
+//下单页面
+.page-view-order{
+  padding-bottom: fontsize(50) !important;
+}
+.order-info{
+  p{
+    margin: 0;
+  }
+  .info-item{
+    padding: fontsize(10) fontsize(10);
+    min-height: fontsize(75);
+  }
+
+  .img{
+    margin-right: fontsize(10);
+    img{
+      width: fontsize(50);
+      height: fontsize(50);
+    }
+  }
+  dd.oper{
+    width: fontsize(80);
+    text-align: right;
+
+    .price{
+      display: block;
+      height: fontsize(32);
+      font-size: fontsize(16);
+    }
+  }
+  dd.text{
+    font-size: fontsize(12);
+    overflow: hidden;
+    h5{
+      height: fontsize(32);
+      margin: 0 0 fontsize(4);
+      font-weight: normal;
+      line-height: 1.4;
+      overflow: hidden;
+    }
+    p{
+      color: $color-grayer;
+    }
+  }
+}
+.order-info-total{
+  padding: fontsize(10);
+  text-align: right;
+
+  .price{
+    font-size: fontsize(16);
+  }
+  .text{
+    padding-left: fontsize(20);
+  }
+}
+
+.payway-list {
+  li{
+    position: relative;
+    box-sizing: content-box;
+    padding: fontsize(8);
+    height: fontsize(30);
+    line-height: fontsize(30);
+    font-size: fontsize(16);
+
+    &:before{
+      position: absolute;
+      width: fontsize(20);
+      height: fontsize(20);
+      line-height: fontsize(20);
+      right: fontsize(-50);
+      top: 50%;
+      margin-top: fontsize(-10);
+    }
+    &.icon-selected:before{
+      right: fontsize(8);
+    }
+  }
+  .icon-alipay{
+    display: inline-block;
+    width: fontsize(30);
+    height: fontsize(30);
+    line-height: fontsize(30);
+    vertical-align: middle;
+    margin-right: fontsize(10);
+    &:before{
+      font-size: fontsize(30);
+    }
+  }
+}
+
+.invoice{
+  .header,
+  .label-line{
+    height: fontsize(44);
+    line-height: fontsize(44);
+  }
+  .header{
+    padding: 0 fontsize(16);
+  }
+  .label-line p{
+    margin: 0;
+    padding-left: fontsize(60);
+    padding-right: fontsize(30);
+    text-align: center;
+
+    label{
+      margin: 0;
+      display: inline-block;
+      padding: 0 fontsize(35) 0 fontsize(15);
+    }
+  }
+  input.input-text {
+    padding-left: fontsize(60);
+  }
+}
+
+.order-pay{
+  overflow: hidden;
+  height: fontsize(48);
+  background: #fff;
+
+  .pay-btn{
+    height: 100%;
+    border-radius: 0;
+  }
+  .pay-countdown{
+    display: inline-block;
+    padding: fontsize(6) fontsize(10) 0;
+    // line-height: 1.4;
+    line-height: fontsize(38);
+    font-size: fontsize(12);
+    color: $color-grayer;
+
+    i{
+      display: block;
+      font-style: normal;
+      font-size: fontsize(14);
+    }
+  }
+}
+
+
+/* 下单成功页面 */
+.order-success{
+  .info-item{
+    padding: fontsize(16) fontsize(10);
+  }
+  .tips{
+    padding: fontsize(25) fontsize(10) 0;
+
+    h3{
+      margin-bottom: fontsize(10);
+      font-size: fontsize(18);
+      text-align: center;
+      font-weight: normal;
+    }
+    p{
+      color: $color-grayer;
+    }
+  }
+}
+.more-tips{
+  padding: fontsize(25) fontsize(10);
+  text-align: center;
+
+  h4{
+    margin-bottom: fontsize(25);
+    font-size: fontsize(16);
+    font-weight: normal;
+  }
+
+  p{
+    margin: fontsize(25) 0 0;
+    color: $color-gray;
+  }
+}

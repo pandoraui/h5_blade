@@ -1,0 +1,106 @@
+
+// icon 字体图标
+
+@font-face {
+  font-family: 'iconfont';
+  src: url('//at.alicdn.com/t/font_1458012715_6862202.eot'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_1458012715_6862202.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_1458012715_6862202.woff') format('woff'), /* chrome、firefox */
+  url('//at.alicdn.com/t/font_1458012715_6862202.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_1458012715_6862202.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont:before {
+  font-family: "iconfont" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-loading:before {
+  content: "\e619";
+}
+.icon-star:before {
+  content: "\e602";
+}
+.icon-app:before {
+  content: "\e609";
+}
+.icon-home:before {
+  content: "\e60c";
+}
+.icon-favorite:before {
+  content: "\e611";
+}
+.icon-safe:before {
+  content: "\e604";
+}
+.icon-menu:before {
+  content: "\e617";
+}
+.icon-map:before {
+  content: "\e618";
+}
+.icon-cart:before {
+  content: "\e605";
+}
+.icon-share:before {
+  content: "\e608";
+}
+.icon-atm:before {
+  content: "\e603";
+}
+.icon-set:before {
+  content: "\e616";
+}
+.icon-people:before {
+  content: "\e601";
+}
+.icon-edit:before {
+  content: "\e600";
+}
+.icon-check:before {
+  content: "\e615";
+  color: $pink;
+  font-size: fontsize(32);
+}
+.icon-link:before {
+  content: "\e614";
+  color: $color-gray;
+  font-size: fontsize(16);
+}
+.icon-back:before {
+  content: "\e606";
+  color: $color-title;
+}
+.icon-alipay:before {
+  content: "\e61a";
+  color: #1dabeb;
+}
+.icon-select:before {
+  content: "\e61c";
+  color: $color-grayer;
+}
+.icon-selected:before {
+  content: "\e61b";
+  color: $pink;
+}
+
+.icon-minus:before {
+  content: "\e61d";
+}
+.icon-plus:before {
+  content: "\e61e";
+}
+
+.icon-detail-more:before {
+  content: "\e620";
+}
+
+img.icon-label{display: inline-block; height: fontsize(15); }
+
+.anim-spin{
+  display: inline-block;
+  transform-origin: 50%;
+  animation: preloader-spin 1s steps(12, end) infinite;
+}

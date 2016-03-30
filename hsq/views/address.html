@@ -1,0 +1,19 @@
+
+<div class="address-list">
+  <ul class="list hsq_box">
+    <script type="text/template" id="tpl_hsq_box">
+    <%if(list.length){%>
+    <%list.forEach(function(item){%>
+      <li data-id="<%=item.id%>" class="iconfont <%= curId==item.id ? 'icon-check' : '' %>">
+        <h4><span class="name"><%=item.contacter%></span><span class="phone"><%=item.mobile%></span></h4>
+        <p><%=item.detail%></p>
+      </li>
+    <%})%>
+    <%}else{%>
+      <li class="add-address iconfont icon-link">
+        <p>还没有地址？去新增地址</p>
+      </li>
+    <%}%>
+    </script>
+  </ul>
+</div>

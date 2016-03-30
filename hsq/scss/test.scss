@@ -1,0 +1,24 @@
+
+
+.link-list{
+  line-height: fontsize(30);
+  li{
+    padding: 0 fontsize(10);
+
+    a{display: block;}
+
+    &:hover{
+      background: $bg-lightest;
+    }
+    &:active{
+      background: $bg-lightest;
+    }
+  }
+}
+
+.page-view-index{
+  h3{
+    margin: fontsize(20) 0 fontsize(10);
+    padding: 0 fontsize(10);
+  }
+}

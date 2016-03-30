@@ -1,0 +1,13 @@
+
+// downTip 提醒悬浮框
+
+.down-tip{font-size: fontsize(14);
+  position: fixed; z-index: 100; bottom: -2px;left:0;width: 100%; min-height: fontsize(30); line-height: fontsize(30);color: #fff;
+  .tip-bg{position: absolute; width: 100%;height: 100%; background: rgba(0,0,0,0.7); z-index: 1;}
+  img{float: left; display: inline-block;width: fontsize(32);height: fontsize(32);margin-top: fontsize(3);margin-right: fontsize(3);}
+  p{position: relative; z-index: 2;margin: 0;padding:1px 0 2px fontsize(25);}
+  .text{display: block;}
+  .btn{box-sizing: border-box; padding:0 fontsize(10); line-height: fontsize(28); height: fontsize(28); color: #FFEE11; background: none; border: 1px solid #FFEE11; border-radius: 50px;}
+  .close{position: absolute; z-index: 10;left:0;top:0;display: inline-block;width: fontsize(24); height: fontsize(24); line-height: 1.5;padding: 0 fontsize(5) fontsize(5) 0;text-align: center;color:#fff;border-bottom-right-radius: fontsize(35);background: #000;}
+  a{display: block; overflow: hidden;padding: fontsize(5) fontsize(10) fontsize(5) fontsize(5); color:#fff;}
+}

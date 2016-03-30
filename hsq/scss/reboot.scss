@@ -1,0 +1,33 @@
+
+html,body{
+  margin: 0;
+  padding: 0;
+}
+html,body,
+.h100,#main {
+  height:100%
+}
+.fl {
+  float:left
+}
+.fr {
+  float:right
+}
+.main-frame {
+  min-width:240px;
+  height:100%
+}
+.main-viewport {
+  position:relative;
+  height:100%
+}
+.sub-viewport {
+  position:relative;
+  overflow-x:hidden;
+  min-height:100%
+}
+p{margin-bottom: fontsize(10);}
+dl,dt,dd,ul,ol{margin: 0; padding: 0;}
+dfn,i{font-style: normal;}
+
+body{font-size: fontsize(14);overflow-y: scroll; background: $bg-lighter; color: $color-font; }

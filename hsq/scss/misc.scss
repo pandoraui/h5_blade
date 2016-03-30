@@ -1,0 +1,103 @@
+
+
+// 杂项
+// 加减操作组件
+// 404界面
+
+/*!
+ * misc.css v1.0
+ * Author Pandora
+**/
+
+/* 数字加减操作 */
+.oper-number * {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  *zoom: 1;
+}
+.oper-number {
+  display: inline-block;
+  height: fontsize(40);
+  line-height: fontsize(40);
+  text-align: center;
+  overflow: hidden;
+  *zoom: 1;
+  vertical-align: middle;
+  border: 1px solid $line-lighter;
+
+  /* 禁止选中文字 */
+  user-select: none;
+
+  .icon-minus,
+  .icon-plus {
+    font-style: normal;
+    width: fontsize(40);
+    color: $color-grayer;
+    cursor: pointer;
+    // font-family: \5b8b\4f53,sans-serif;
+    font-size: fontsize(24);
+    text-align: center;
+    vertical-align: top;
+    background-color: #fff;
+    cursor: pointer;
+  }
+
+  .icon-minus   { border-right: 1px solid $line-lighter;}
+  .icon-plus { border-left : 1px solid $line-lighter;}
+  .icon-minus:hover,
+  .icon-plus:hover {
+    background-color: #fff;
+    text-decoration: none;
+    color: $color-grayer;
+  }
+
+  .icon-minus.disabled,
+  .icon-minus.disabled:hover,
+  .icon-plus.disabled,
+  .icon-plus.disabled:hover {
+    cursor: default;
+    color: $color-disabled;
+    cursor: not-allowed;
+  }
+
+  input.input-number {
+    border: none;
+    outline: none;
+    background-color: #fff;
+    position: relative;
+    width: fontsize(50);
+    vertical-align: top;
+    height: fontsize(40);
+    line-height: fontsize(40);
+    text-align: center;
+    font-size: fontsize(16);
+
+    ime-mode: disabled;
+  }
+  input.input-number:focus {
+    box-shadow: none;
+  }
+}
+
+// 404界面
+.warning404{
+  padding: 20% fontsize(10) fontsize(10);
+  text-align: center;
+
+  .fun {
+    margin-bottom: fontsize(30);
+
+    img{
+      width: fontsize(120);
+      height: fontsize(120);
+    }
+  }
+
+  .btn{
+    border-radius: fontsize(4);
+    height: fontsize(33);
+    line-height: fontsize(33);
+  }
+}

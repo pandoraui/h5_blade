@@ -1,0 +1,79 @@
+
+<div class="J_error_box"></div>
+<div class="J_showview_box">
+  <div class="swiper-container" data-space-between='10'></div>
+
+  <div class="tplbox_box" id="tplbox_detail">
+    <script type="text/template" id="tpl_detail">
+    <!--产品描述-->
+    <div class="xcard hsq-card detail-desc">
+      <ul class="list group-list">
+        <li>
+          <div class="tit"><%=name%></div>
+          <p class="info-line">
+            <span id="J_stock_box" class="num fr"><%=_deal_stock%></span>
+            <dfn class="price">&yen; <span class="price_num" id="J_price_box"><%=_format_price%></span></dfn>
+            <del><%=(market_price*0.01).toFixed(2)%></del>
+          </p>
+        </li>
+        <li><span class="label">保质期至：<%=_.dateUtil.format(expired_date*1000, {format: 'Y年M月D日'})%></span></li>
+        <%if(attrs.length){%>
+        <li><span class="label">口味/净含量：<%=_.pluck(attrs, 'value').join('、')%></span></li>
+        <%}%>
+        <%if(labels.length){%>
+          <li>
+            <%labels.forEach(function(item){%>
+            <span class="ib-label"><img class="icon-label" src="<%=item.icon%>"> <%=item.text%></span>
+            <%})%>
+          </li>
+        <%}%>
+      </ul>
+    </div>
+
+    <!--评价晒单-->
+    <% if (ugcBrief.totalCnt){%>
+    <div class="xcard hsq-card card-comments">
+      <div class="card-title">
+        <span class="link-more fr"><%=ugcBrief.totalCnt%>条评论</span>
+        <div class="tit">评价晒单</div>
+      </div>
+      <ul class="group-list list-comments">
+        <%ugcBrief.list.forEach(function(item){%>
+        <li>
+          <p class="c-info">
+            <span class="stars fr stars-score-<%=item.score%>"><i class="iconfont icon-star"></i><i class="iconfont icon-star"></i><i class="iconfont icon-star"></i><i class="iconfont icon-star"></i><i class="iconfont icon-star"></i></span>
+            <span class="author"><%=item.username%></span>
+            <span class="time"><%=_humanTimes(item.created_at)%></span>
+          </p>
+          <div class="c-text">
+            <%=item.content%>
+          </div>
+        </li>
+        <%})%>
+      </ul>
+    </div>
+    <%}%>
+    </script>
+  </div>
+
+  <div id="tplbox_detail_article">
+    <script type="text/template" id="tpl_detail_article">
+    <!--图文详情-->
+    <div class="xcard hsq-card detail-article">
+      <div class="card-title">
+        <div class="tit">图文详情</div>
+      </div>
+      <div class="main-article">
+        <%=graphicDetail%>
+      </div>
+    </div>
+    </script>
+  </div>
+
+  <div class="fexed_footer hide">
+    <div class="order-buy">
+      <span class="pay-btn fr">立即购买</span>
+      <span class="oper-number"><a class="iconfont icon-minus disabled" data-oper="minus"></a><input readonly type="text" data-type="inputNumber" data-oper="plus" class="input-number" value="1" maxlength="3"><a class="iconfont icon-plus" data-oper="plus"></a></span>
+    </div>
+  </div>
+</div>

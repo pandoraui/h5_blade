@@ -48,10 +48,12 @@ define(['cPageView', 'Tongji', 'UIDownTip', 'AppStore', 'SchemaApp'], function (
 
     },
     onPreShow: function(){
+      //每次加载更新 登录状态，用于数据统计
       var loginInfo = storeLogin.get() || {};
       this.logged = !!loginInfo.token;
     },
     ajaxErrNext: function(error){
+      //针对 ajax 报错中未登录类型，跳转到登录界面
       var scope = this;
       if(error.errno == 510010){
         storeLogin.remove();

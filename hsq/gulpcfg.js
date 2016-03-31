@@ -23,10 +23,8 @@ module.exports = {
     "AppModel": "model/model",
     "AppStore": "model/store",
 
-    "SchemaUrl": "common/SchemaUrl",
-    "Detect": "common/Detect",
+    "SchemaApp": "common/SchemaApp",
     "Tongji": "common/Tongji",
-    "FormatReg": "common/FormatReg",
     "CountDown": "common/CountDown",
     "LoginCommon": "common/LoginCommon",
     "DealData": "common/DealData",
@@ -42,10 +40,8 @@ module.exports = {
     //项目基础部分
     "./main",
     "ApiConfig",
-    "SchemaUrl",
-    "Detect",
+    "SchemaApp",
     "Tongji",
-    "FormatReg",
     "CountDown",
     "AppModel",
     "AppStore",

@@ -32,8 +32,7 @@
  *  });_
  *
  */
-define(['cPageView', 'cUIBase'],
-  function (CPageView, cUIBase) {
+define(['cPageView'], function (cPageView) {
     "use strict";
     var options = {};
 
@@ -41,6 +40,23 @@ define(['cPageView', 'cUIBase'],
     options.__isComplete__ = false;
     options.__isLoading__ = false;
     options.refreshLoading = null;
+
+    var getPageScrollPos = function () {
+      var left = Math.max(document.documentElement.scrollLeft, document.body.scrollLeft),
+          top = Math.max(document.documentElement.scrollTop, document.body.scrollTop),
+          height = Math.min(document.documentElement.clientHeight, document.body.clientHeight),
+          width = Math.min(document.documentElement.clientWidth, document.body.clientWidth),
+          pageWidth = Math.max(document.documentElement.scrollWidth, document.body.scrollWidth),
+          pageHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+      return {
+          top: top,
+          left: left,
+          height: height,
+          width: width,
+          pageWidth: pageWidth,
+          pageHeight: pageHeight
+      };
+  };
 
     /*
      * 增加监听
@@ -52,13 +68,13 @@ define(['cPageView', 'cUIBase'],
       var self = this;
       if (this.onTopPull) {
         _.flip(this.$el, 'down', function () {
-          var pos = cUI.Tools.getPageScrollPos();
+          var pos = getPageScrollPos();
           if (pos.top <= 10 && !self.__isLoading__) {
             self.__isLoading__ = true;
             self.onTopPull();
           }
         }, function (dir) {
-          var pos = cUI.Tools.getPageScrollPos();
+          var pos = getPageScrollPos();
           return  dir != 'down'||  pos.top >=10 ;
         }, 0, 5);
       }
@@ -77,7 +93,7 @@ define(['cPageView', 'cUIBase'],
     };
 
     options.onWidnowScroll = function () {
-      var pos = cUIBase.getPageScrollPos();
+      var pos = getPageScrollPos();
       if (pos.top == 0) return;
       var h = pos.pageHeight - (pos.top + pos.height);
       //fix ios 不容易加载更多数据问题 shbzhang 2014/1/6
@@ -137,9 +153,10 @@ define(['cPageView', 'cUIBase'],
      * 在当前list底部显示loading
      * @method View.cListView.showBottomLoading
      */
-    options.showBottomLoading = function () {
+    options.showBottomLoading = function (listRoot) {
       //保证每次bottomload在最下面
-      this.$el.append(this.getLoading());
+      var listRoot = listRoot || this.$el.find('.J_list_pull');
+      listRoot.append(this.getLoading());
       this.refreshLoading.show();
     };
 
@@ -149,7 +166,7 @@ define(['cPageView', 'cUIBase'],
      * @deprecated
      */
     options.hideBottomLoading = function () {
-      this.hiderefreshLoading();
+      this.hideRefreshLoading();
     };
 
     /**
@@ -169,11 +186,12 @@ define(['cPageView', 'cUIBase'],
      */
     options.getLoading = function () {
       if (!this.refreshLoading) {
-        this.refreshLoading = $('<div class="cui-zl-load" id="zlLoading"> <div class="cui-i cui-b-loading"></div><div class="cui-i  cui-mb-logo"></div> <p>加载中</p></div>');
+        this.refreshLoading = $('<div class="pull-loading pull-loading-bottom" id="J_loading_bottom"><span class="iconfont icon-loading anim-spin"></span> <span class="text">加载中</span></div>');
       }
       return this.refreshLoading;
     };
 
-    var PageView = CPageView.extend(options);
-    return PageView;
+    // var PageView = PageView.extend(options);
+    var cPageList = _.inherit(cPageView, options);
+    return cPageList;
   });

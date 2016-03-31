@@ -1,5 +1,5 @@
 
-define(['AbstractModel', 'ApiConfig', 'AppStore', 'Detect'], function( AbstractModel, ApiConfig, AppStore, Detect) {
+define(['AbstractModel', 'ApiConfig', 'AppStore', 'cDetect'], function( AbstractModel, ApiConfig, AppStore, cDetect) {
   var _model = {};
 
 /*
@@ -38,7 +38,7 @@ define(['AbstractModel', 'ApiConfig', 'AppStore', 'Detect'], function( AbstractM
     }
   }
   var channel = '';
-  if(Detect.isWifiKey){
+  if(cDetect.isWifiKey){
     channel = 'wifikey';
   }
   function setCommonParams(opts){

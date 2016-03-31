@@ -8138,13 +8138,19 @@ var Zepto = (function () {
       // "cInherit": srcDir + "common/c.inherit",
 
       //核心部分：
-
       "text": srcDir + "libs/require.text",
       "cAjax": srcDir + "mvc/c.ajax",
       // "cInherit": srcDir + "common/c.inherit",
       "AbstractApp": srcDir + "mvc/abstract.app",
       "AbstractModel": srcDir + "mvc/abstract.model",
       "AbstractView": srcDir + "mvc/abstract.view",
+
+      //工具类
+      "cDetect": srcDir + "common/c.detect",
+      "cValidate": srcDir + "common/c.validate",
+      "cSchema": srcDir + "common/c.schema",
+      "cCount": srcDir + "common/c.count", //统计
+      // "cLazyload": srcDir + "common/c.lazyload",
 
       //data
       "cUtilDate": srcDir + "util/c.util.date",
@@ -8165,8 +8171,6 @@ var Zepto = (function () {
       "T_UIHeader": srcDir + "ui/core.header.html",
       "C_UIHeader": srcDir + "ui/core.header.css",
 
-      // "cPageView": srcDir + "page/page.view",
-      // "cPageList": srcDir + "page/c.page.list",
 
       //基础组件部分
 
@@ -8271,9 +8275,13 @@ var Zepto = (function () {
       // "C_UITab": srcDir + "ui/ui.tab.css",
 
       //"cHighlight": srcDir + "common/c.highlight",
+
+
+      "cPageView": srcDir + "page/c.page.view",
+      "cPageList": srcDir + "page/c.page.list",
     },
     "map": {
-      // TODO：这个没起效果
+      // TODO：这个没起效果 !!!
       "*": {
         // "cUtility": "cUtilCommon",
         "cStore": "cLocalStore",

@@ -1,5 +1,5 @@
-define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swiper', 'UISwiper', 'LazyLoad', 'Detect'],
-  function (PageView, viewhtml, AppModel, AppStore, Swiper, UISwiper, LazyLoad, Detect){
+define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swiper', 'UISwiper'],
+  function (PageView, viewhtml, AppModel, AppStore, Swiper, UISwiper){
 
     // var ajaxTest = AppModel.getTestPage.getInstance();
     var storeLogin = AppStore.Login.getInstance();
@@ -10,8 +10,6 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
 
     var limitMax = 10000000,
         isProductChange;
-
-    var isWifiKey = Detect.isWifiKey;
 
     return _.inherit(PageView, {
       pageName: 'detail',
@@ -187,7 +185,7 @@ define(['PageView', getViewTemplatePath('detail'), 'AppModel', 'AppStore', 'Swip
         this.countDownStock(data);
 
         //有库存且可售时，显示立即购买按钮栏（目前还限制在 wifi 万能钥匙 app 中才显示）
-        if( (this.left_stock>0 && this.left_times>0 && isWifiKey) || this.Debug ){
+        if( (this.left_stock>0 && this.left_times>0 && this.Detect.isWifiKey) || this.Debug ){
           // this.supportOrder = true;
           this.$tplbox.fexed_footer.show();
           if(!this.curAmount){

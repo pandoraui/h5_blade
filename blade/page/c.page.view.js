@@ -1,127 +1,123 @@
-/**
- * @File c.page.view.js
- * @Description:多数UI View的基类，提供基础方法，以及自建事件机
- * @author shbzhang@ctrip.com
- * @date 2014-09-30 15:23:20
- * @version V1.0
- */
-/**
- * View 基类,继承自Bacbone.View
- * @namespace View.cPageView
- * @example
- * defined('cPageView',function(cPageView){
- *  var view = cPageView.extend({
- *    //view初始化调用,在生命周期中只调用一次
- *    onCreate:function(){
- *    },
- *    //view显示时调用
- *    onShow:function(){
- *    ),
- *    //view隐藏调用
- *    onHide:function(){
- *    },
- *    //view获得视口时调用,此方法仅在hybrid有效
- *    onAppear:function(){
- *    }
- *  })
- * })
- */
-// define(['libs', 'UIHeader'], function (libs, Header) {
-define(['UIHeader'], function (Header) {
-    "use strict";
 
-    var PageView = Backbone.View.extend({
-      /**
-       * 滚动条位置
-       * @var
-       * @private
-       */
-      scrollPos: { x: 0, y: 0 },
-      /**
-       * 标题组件
-       * @var View.cPageView.header
-       * @type UIHeader
-       */
-      header: null,
+/*
+* cPageView
+* 多数UI View的基类，提供基础方法，以及自建事件机
+* @example
+* defined('cPageView',function(cPageView){
+*  var view = cPageView.extend({
+*    //view初始化调用,在生命周期中只调用一次
+*    onCreate:function(){
+*    },
+*    //view显示时调用
+*    onShow:function(){
+*    ),
+*    //view隐藏调用
+*    onHide:function(){
+*    },
+*    //view获得视口时调用,此方法仅在hybrid有效
+*    onAppear:function(){
+*    }
+*  })
+* })
+*/
 
+define(['UIView', 'UIHeader', 'cDetect', 'cCount', 'UILoadingLayer', 'UIToast', 'UIAlert', 'LazyLoad'], function (AbstractView, UIHeader, cDetect, cCount, UILoadingLayer, UIToast, UIAlert, LazyLoad) {
 
-      /**
-       * web 环境下使用pageid
-       * @var View.cPageView.pageid
-       * @type {number|string}
-       */
-      pageid: 0,
+  var Debug = false;
+  var host = window.location.host;
+  var pathname = window.location.pathname;
+  if(pathname === '/d.html' || host.match(/^localhost/i) ){
+    Debug = true;
+  }
 
-      /**
-       * 页面切换时，是否要滚动至顶部
-       * @var View.cPageView.scrollZero
-       * @type {boolean}
-       */
-      scrollZero: true,
+  var imgPlaceHold = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEXCwsK592mkAAAACklEQVQI12NgAAAAAgAB4iG8MwAAAABJRU5ErkJggg==";
 
-      /**
-       * 页面切换时，是否执行onShow onHide
-       * @var View.cPageView.triggerShow
-       * @type {boolean}
-       */
-      triggerShow: true,
+  var $header = $('.header-wrapper');
+  var warning404 = [
+    '<div class="warning404">',
+    '  <div class="fun">',
+    '    <img src="https://placeholdit.imgix.net/~text?txtsize=23&txt=240%C3%97240&w=240&h=240" alt="">',
+    '  </div>',
+    '  <p>加载失败，请稍后重新加载</p>',
+    '  <p><span class="btn btn-pink refreshPage">刷新试试</span></p>',
+    '</div>'
+  ].join('');
 
-      /**
-       * 页面切换时，是否执行onShow onHide
-       * @var View.cPageView.triggerHide
-       * @type {boolean}
-       */
-      triggerHide: true,
+  //这个还是放在各自界面比较好
+  // var waitAjaxPage = {
+  //   'home': 0,
+  //   'index': 0,
+  //   'list': 1,
+  //   'detail': 1,
+  //   'order': 1,
+  //   'order_success': 1,
+  //   'address': 1,
+  //   'district': 1,
+  // };
 
-      /**
-       * View构造函数
-       */
-      initialize: function () {
-        this.id = this.$el.attr("id");
-        this.create();
-      },
+  return _.inherit(AbstractView, $.extend({
+    /**
+     * 滚动条位置
+     * @var
+     * @private
+     */
+    scrollPos: { x: 0, y: 0 },
+    header: null,
+    waitAjax: false,
+    keepScrollPos: false,
+    hashChangeParamsRefresh: true,
+    imgPlaceHold: imgPlaceHold,
+    Detect: cDetect,
+    isInApp: cDetect.isInApp,
+    _CustomEvent: {}, //自定义事件，需要项目中覆盖
+    // initialize: function initialize(options) {
+    //   this.__toast = new UIToast();
+    // },
+    _warning404: warning404,
+    propertys: function ($super) {
+      $super();
+      this.openShadowDom = false;
+      this.addEvents(this.events);
+    },
 
-      /**
-       * 生成头部
-       */
-      _createHeader: function () {
-        var hDom = $('#headerview');
-        this.header = this.headerview = new Header({ 'root': hDom });
-      },
+    resetPropery: function ($super) {
+      $super();
 
-      /**
-       * create 方法,View首次初始化是调用
-       * @method View.cPageView.onCreate
-       */
-      create: function () {
-        //调用子类onCreate
+      var i = 0, len = 0 , k;
+
+      if(this.APP && this.APP.interface) {
+        for(i = 0, len = this.APP.interface.length; i < len; i++){
+          k = this.APP.interface[i];
+          if(_.isFunction(this.APP[k])) this[k] = $.proxy(this.APP[k], this.APP);
+        }
+      }
+
+    },
+    events: {
+      'click [data-link]': 'goLink',
+      'click .refreshPage': 'refreshPage',
+      'click [data-event="tj"]': '_trackEvent',
+    },
+    addEvent: function ($super) {
+      $super();
+
+      this.on('onCreate', function () {
+        this.__openDebug();
         this.onCreate && this.onCreate();
-      },
+      });
 
-      /**
-       * view 销毁方法
-       * @method View.cPageView.destroy
-       */
-      destroy: function () {
-        this.$el.remove();
-      },
+      this.on('onPreShow', function () {
 
-      /**
-       * View 显示时调用的方法
-       * @method View.cPageView.onShow
-       */
-      show: function () {
-        // fix ios 页面切换键盘不消失的bug shbzhang 2014-10-22 10:44:29
-        document.activeElement && document.activeElement.blur();
-        //生成头部
+      });
+
+      this.on('onShow', function () {
+        //获取 url 参数
+        this.params = _.getUrlParam();
+
+        this._updatePageOptions();
+
         this._createHeader();
-        //调用子类onShow方法
-        !this.switchByOut && this.$el.show();
 
-        this.triggerShow && this.onShow && this.onShow();
-
-        //注册Web_view_did_appear 事件
-        // Guider.registerAppearEvent(this.onAppear);
 
         if (this.onBottomPull) {
           this._onWidnowScroll = $.proxy(this.onWidnowScroll, this);
@@ -129,260 +125,280 @@ define(['UIHeader'], function (Header) {
         }
 
         if (this.scrollZero) {
-          window.scrollTo(0, 0);
+          this.scrollTo(0, 0);
         }
 
-        this.triggerShow = true;
-        this.triggerHide = true;
+        this.onShow && this.onShow();
+
+        this.sendHmt();
 
         //如果定义了addScrollListener,说明要监听滚动条事,此方法在cListView中实现
-        this.addScrollListener && this.addScrollListener();
-      },
+        // this.addScrollListener && this.addScrollListener();
+      });
 
-      /**
-       * View 隐藏
-       * @method View.cPageView.onHide
-       */
-      hide: function () {
-        //取消web_view_did_appear 事件的注册
-        // Guider.unregisterAppearEvent();
-        //调用子类onHide方法
-        this.triggerHide && this.onHide && this.onHide();
+      this.on('onHide', function () {
+        // this.hideLoading();
+        // this.abort();
+        // this.__toast && this.__toast.hide();
+        // this.saveScrollPos();
+
         this.removeScrollListener && this.removeScrollListener();
-        this.$el.hide();
-      },
+        this.mask && this.mask.hide();
+        this.onHide && this.onHide();
+      });
 
-      /**
-       * View 从Native 回来，重新获取焦点时调用，此方法只在hybrid可用
-       * @method View.cPageView.onAppear
-       * @param {String} data 再次唤醒事由Native传来的参数
-       */
-      onAppear: function (data) {
-        console.log('onAppear --------------');
-      },
+      this.on('onDestroy', function () {
+        this.mask && this.mask.destroy();
+        this.onDestroy && this.onDestroy();
+      });
 
-      /**
-       * 跨频道跳转
-       * @param {String|JSON} opt
-       */
-      jump: function (opt) {
-        if (_.isString(opt)) {
-          window.location.href = opt;
-        } else {
-          // Guider.jump(opt);
-        }
-      },
-      /*add by wxj 20140527 22:33 end*/
-      /**
-       * 前进
-       * @method View.cPageView.forward
-       * @param url
-       */
-      forward: function (url, opt) {
-        Blade.forward.apply(null, arguments);
-      },
-      /**
-       * 回退至前一页面
-       * @method View.cPageView.back
-       * @param url
-       */
-      back: function (url, opt) {
-        Blade.back.apply(null, arguments);
-      },
+    },
+    __openDebug: function(){
+      if(Debug){
+        this.Debug = Debug;
+      }
+    },
+    _updatePageOptions: function(pageName){
+      var pageName = pageName || this.pageName;
+      if (!pageName) {
+        throw Error("This view need set the pageName!!!");
+        return;
+      }
+      // this.waitAjax = !!waitAjaxPage[pageName] || false;
+    },
+    /**
+     * 保存滚动条位置
+     */
+    saveScrollPos: function (x, y) {
+      this.scrollPos = {
+        x: x || window.scrollX,
+        y: y || window.scrollY,
+      };
+      // console.log('保存位置：', this.scrollPos);
+    },
 
-      /**
-       * 刷新页面
-       */
-      refresh: function () {
+    /**
+     * 恢复原滚动条位置
+     * @method View.cPageView.restoreScrollPos
+     */
+    restoreScrollPos: function () {
+      var scrollPos = this.scrollPos;
+      setTimeout(function(){
+        window.scrollTo(scrollPos.x, scrollPos.y);
+      }, 100);
+    },
+    scrollTo: function(x, y){
+      window.scrollTo(x||0, y||0);
+    },
+    /**
+     * 生成头部
+     */
+    _createHeader: function (isInApp) {
+      this.header = new UIHeader({
+        wrapper: $header
+      });
 
-      },
-      /**
-       * 唤醒App,要求返回一个app接受的字符串
-       * @method View.cPageView.getAppUrl
-       * @return {String} url
-       */
-      getAppUrl: function () {
-        return "";
-      },
+      this.setHeader();
 
-      /**
-       * 返回URL中参数的值
-       * @method View.cPageView.getQuery
-       * @param key
-       * @returns {string} value 返回值
-       */
-      getQuery: function (key) {
-        return Blade.P(key);
-      },
-      /**
-       * 保存滚动条位置
-       */
-      saveScrollPos: function () {
-        this.scrollPos = {
-          x: window.scrollX,
-          y: window.scrollY
+      //生成头部 如果在好食期 App 里，不要生成头部，但要更新 document.title
+      if(!this.isInApp){
+        this.header.show();
+        this.$body.removeClass('is_in_app');
+      }else{
+        this.header.hide();
+        this.$body.addClass('is_in_app');
+      }
+
+      //更新 TDK
+      if(this.header && this.header.center && this.header.center.value && this.header.center.value[0]){
+        var title = this.header.center.value[0];
+        this.setTitle(title);
+      }
+    },
+    setHeader: function () {
+      var self = this;
+      // var headerData = {
+      //   center: {
+      //     tagname: 'title',
+      //     value: ['好食期']
+      //   }
+      //   back: false,
+      // };
+      // this.header.set(headerData);
+    },
+    setTitle: function(title){
+      document.title = title || '首页';
+    },
+    ajaxErrNext: function(error){
+      console.log('ajax请求失败后，在这里进行下一步处理');
+    },
+    imgLazyLoad: function(){
+      var lazyLoadList = this.$el.find('img.lazy');
+      if(lazyLoadList.length){
+        lazyLoadList.scrollLoading({
+          // container: $('.viewport-wrapper'),
+        });
+      }
+    },
+    showLoading: function(tip, closeBtn){
+      var tip = tip || '加载中...';
+      var closeBtn = closeBtn || false;
+      Blade.loading.show();
+    },
+    hideLoading: function(tip){
+      Blade.loading.hide();
+    },
+    __toast: new UIToast(),
+    _showToast: function(params){
+      if (!params) params = {};
+      if (!params || (typeof params == 'string') ) {
+        params = {
+          content: params || '正在处理中...',
+          hideSec: 1500,
         };
-      },
+      }
 
-      /**
-       * 恢复原滚动条位置
-       * @method View.cPageView.restoreScrollPos
-       */
-      restoreScrollPos: function () {
-        window.scrollTo(this.scrollPos.x, this.scrollPos.y);
-      },
+      if(!params.validate) return false;
 
-      /**
-       * 空方法,兼容1.1
-       */
-      turning: function () {
+      // this.__toast.resetDefaultProperty();
+      this.__toast.setOption(params);
+      this.__toast.refresh();
+      this.__toast.show();
 
-      },
-      /**
-       * 显示单个按钮的alert框
-       * @param message 内容
-       * @param title 标题
-       */
-      showMessage: function (params) {
-        Blade.showMessage(params);
-      },
-
-      /**
-       * 隐藏Alert框
-       */
-      hideMessage: function () {
-        Blade.hideMessage();
-      },
-
-      /**
-       * 显示两个按钮的confirm 对话框
-       * @param message 内容
-       * @param title 标题
-       * @param okFn  按钮1回调
-       * @param cancelFn 按钮2回调
-       * @param okTxt   按钮1文本
-       * @param cancelTxt 按钮2文本
-       */
-      showConfirm: function (params) {
-        Blade.showConfirm(params);
-      },
-
-      /**
-       * 隐藏confirm对话框
-       */
-      hideConfirm: function () {
-        Blade.hideConfirm();
-      },
-
-
-      /**
-       * 显示showWarnig404,此组件有一个拨打电话和一个重试按钮
-       *
-       */
-      showWarning404: function (params) {
-        Blade.showWarning404(params);
-
-      },
-
-      /**
-       * 隐藏waring404组件
-       */
-      hideWarning404: function () {
-        Blade.hideWarning404();
-      },
-
-      /**
-       * 显示Toast
-       * @method View.cPageView.showToast
-       * @param {object} params
-       * @param {string} params.title 标题
-       * @param {number} params.timeout 显示时长
-       * @param {callback} params.callback 隐藏时回调
-       * @param {boolean} params.clickToHide 是否允许点击界面任一处,隐藏Toast
-       */
-      showToast: function (params) {
-        Blade.showToast(params);
-      },
-
-      /**
-       * 隐藏toast
-       * @method View.cPageView.hideToast
-       */
-      hideToast: function () {
-        Blade.hideToast();
-      },
-
-      /**
-       * 显示Loading
-       * @method View.cPageView.showLoading
-       */
-      showLoading: function (params) {
-        Blade.showLoading(params);
-//        this.loading.firer = this;
-      },
-
-      /**
-       * 隐藏Loading
-       * @method View.cPageView.hideLoading
-       */
-      hideLoading: function () {
-//        if (!this.loading.firer || this.loading.firer == this)
-        Blade.hideLoading();
-      },
-
-
-      /**
-       * 设置html的title
-       * @method View.cPageView.setTitle
-       * @param title
-       */
-      setTitle: function (title) {
-        document.title = title;
-      },
-
-
-      // /**
-      //  * 发送UBT统计代码
-      //  * @method View.cPageView.sendUbt
-      //  */
-      // sendUbt: function (retry) {
-      //   var view = this;
-      //   if (!window.__bfi) window.__bfi = [];
-      //   var url = this.$el.attr('page-url'),
-      //       pageId = Blade.isHybrid?view.hpageid:view.pageid,
-      //       orderid = Blade.P("orderid") || Blade.P("oid") || "";
-      //   if (pageId === 0) {
-      //     return;
-      //   }
-      //   $('#bf_ubt_orderid').val(orderid);
-      //   var ubtURL = window.location.protocol + '//' + window.location.host + url;
-      //   var refererView = Blade.instance.views[this.referrer];
-      //   window.__bfi.push(['_asynRefresh', {
-      //     page_id: pageId,
-      //     orderid: orderid,
-      //     url: this._hybridUrl(ubtURL),
-      //     refer: refererView?refererView._hybridUrl(window.location.protocol + '//' + window.location.host + refererView.$el.attr('page-url')):document.referrer
-      //   }]);
-      // },
+      // var content = content || '正在处理中...';
+      // var timer = timer || 1500;
       //
-      //
-      // /**
-      //  * 获得页面Url,hyrbid会增加一个虚拟域名
-      //  */
-      // _getViewUrl: function () {
-      //   var url = this._hybridUrl(location.href);
-      //   return url;
-      // },
-      //
-      // _hybridUrl: function(url) {
-      //   if (Blade.isInCtripApp)
-      //   {
-      //     return 'http://hybridm.ctrip.com' + this.$el.attr('page-url');
-      //   } else {
-      //     return url;
-      //   }
+      // if(content == '用户未登录'){
+      //   return false;
       // }
-    })
-    return PageView;
+      //
+      // if(!this.__toast){
+      //   this.__toast = new UIToast({
+      //     content: content,
+      //     hideSec: timer
+      //   });
+      // }else{
+      //   this.__toast.content = content;
+      //   this.__toast.hideSec = timer;
+      //
+      //   this.__toast.refresh();
+      // }
+      // this.__toast.show();
 
-  });
+
+    },
+    showAlert: function(opts){
+      var _default = {
+        title: '提醒',
+        content: '确认要这样操作吗？',
+        btns: [
+          { name: '取消', className: 'cui-btns-no' },
+          { name: '确定', className: 'cui-btns-ok' }
+        ],
+        events: {
+          'click .cui-btns-no': 'noAction',
+          'click .cui-btns-ok': 'okAction',
+        },
+        noAction: function() {
+          this.hide();
+        },
+        okAction: function() {
+          this.hide();
+        }
+      };
+      var options = $.extend({}, _default, opts || {});
+
+      if(!this.__alert){
+        this.__alert = new UIAlert(options);
+      }else{
+        //怎么更新内容呢？
+        this.__alert = $.extend(this.__alert, options);
+
+        this.__alert.refresh();
+      }
+      this.__alert.show();
+    },
+    // formatCode: function () {
+    //   window.sss = this;
+    //   hljs.initHighlighting(this);
+    // }
+    goLink: function(e){
+      var target = $(e.currentTarget),
+          link = target.data('link');
+
+      switch (link) {
+        case 'iframe_page':
+            //以下都为必填项
+            //<a href="url" data-link="iframe_page" title="好食期用户协议">好食期用户协议</a>
+            var iframeUrl = target.attr('href');
+            var iframeTitle = target.attr('title');
+            if( iframeUrl && iframeTitle ){
+              e.preventDefault();
+              e.stopPropagation();
+              this.forward('iframe_page?title=' + iframeTitle + '&iframe_url=' + encodeURIComponent(iframeUrl) );
+            }
+          break;
+        default:
+          this.forward(link);
+      };
+    },
+    show404: function(type){
+      this.$el.html(this._warning404);
+    },
+    refreshPage: function(){
+      window.location.reload();
+    },
+    /**
+     * 发送 _hmt 百度统计代码
+     * @method pageView.sendHmt()
+     * 关于统计，在使用上，要更为便捷才可以，配置自定义属性，即可统计数据
+     */
+    sendHmt: function (retry) {
+      if (!window._hmt) window._hmt = [];
+      var url = this.$root.attr('page-url'),
+          pageId = "",
+          orderid = "";
+      // if (pageId === 0) {
+      //   return;
+      // }
+      if(Debug || !url) return;
+
+      var customValue = this.logged ? cCount.CustomValue.LOGGED_YES : cCount.CustomValue.LOGGED_NO;
+
+      //统计是否登录
+      cCount._customVar(cCount.CustomIndex.LOGGED, cCount.CustomName.LOGGED, customValue, cCount.CustomScope.LOG);
+      //统计web页面宿主
+      cCount._customVar(cCount.CustomIndex.HOST, cCount.CustomName.HOST, Detect.host || 'PC', cCount.CustomScope.HOST);
+      //统计访问平台
+      cCount._customVar(cCount.CustomIndex.PLATFORM, cCount.CustomName.PLATFORM, Detect.platform || 'PC', cCount.CustomScope.PLATFORM);
+
+      /*注意：以下格式链接会被过滤，不统计
+        带 hash 值的
+        包含 window.location.origin 的
+        完整链接也不行 window.location.href
+
+        标准格式如： _hmt.push(['_trackPageview', '/virtual/login']);
+      */
+
+      // var hmtURL = window.location.origin + window.location.pathname + '/' + url;
+      // var hmtURL = window.location.pathname + '#' + url;
+      // var hmtURL = window.location.href;
+
+      var searchParams = '';
+      if( !$.isEmptyObject(this.params) ){
+        searchParams =  '?' + $.param(this.params);
+      }
+      var hmtURL = '/' + url + searchParams;
+      //统计 PV
+      cCount._trackPage(hmtURL);
+    },
+    //统计事件，通过 type 统一调用 cCount 模块中对应的参数
+    trackEvent: function(type){
+      var curEvent = this._CustomEvent[type];
+      if(!curEvent || Debug) return;
+
+      cCount._trackEvent.apply(cCount, curEvent);
+    },
+  }));
+
+});

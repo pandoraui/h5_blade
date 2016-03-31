@@ -11,14 +11,9 @@ haoshiqi://com.doweidu/sku?skuId={id}&xx={?}&xxx={?}
 */
 
 define([], function(){
-  var _schema = 'haoshiqi://com.doweidu/';
-  var _schema_urls = {
-    home: _schema + 'home',
-    detail: _schema + 'sku',          //?skuId={id}&xx={?}&xxx={?}
-    merchant: _schema + 'merchant',   //?merchantId={id}&xx={?}&xxx={?}
-  };
   var Schema = {
     getAppUrl: function(url){
+      var _schema_urls = this._schema_urls || {};
       var _tempArr = url.split('?');
       var params = '';
       var pageName = 'home';
@@ -28,7 +23,11 @@ define([], function(){
       if(_tempArr.length){
         params = '?' + _tempArr.join('&');
       }
-      var schemaUrl = _schema_urls[pageName] + params;
+
+      var schemaUrl = '';
+      if(_schema_urls[pageName]){
+        schemaUrl = _schema_urls[pageName] + params;
+      }
 
       return schemaUrl;
     },

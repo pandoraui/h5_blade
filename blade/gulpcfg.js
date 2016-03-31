@@ -52,6 +52,14 @@ module.exports = {
           "AbstractApp": "mvc/abstract.app",
           "AbstractModel": "mvc/abstract.model",
 
+
+          //工具类
+          "cDetect": "common/c.detect",
+          "cValidate": "common/c.validate",
+          "cSchema": "common/c.schema",
+          "cCount": "common/c.count", //统计
+          // "cLazyload": "common/c.lazyload",
+
           "cUtilDate": "util/c.util.date",
           "cUtilObject": "util/c.util.object",
           "cAbstractStorage": "data/storage/c.abstract.storage",
@@ -69,9 +77,6 @@ module.exports = {
           "UIHeader": "ui/core.header",
           "T_UIHeader": "ui/core.header.html",
           // "C_UIHeader": "ui/core.header.css",
-
-          "cPageView": "page/page.view",
-          // "cPageList": "page/page.list",
 
           //基础组件部分
 
@@ -124,6 +129,8 @@ module.exports = {
           // "UICalendar": "ui/ui.calendar",
           // "UISlider": "ui/ui.slider",
           // "UIWarning404": "ui/ui.warning404",
+          "cPageView": "page/c.page.view",
+          "cPageList": "page/c.page.list",
         },
         "map": {
           "*": {
@@ -140,6 +147,12 @@ module.exports = {
           "AbstractApp",      //: "mvc/abstract.app",
           "AbstractModel",    //: "mvc/abstract.model",
           // "AbstractView",     //: "mvc/abstract.view",
+
+          "cDetect",
+          "cValidate",
+          "cSchema",
+          "cCount",
+
           "cUtilDate",
           "cUtilObject",
           "cAbstractStorage",
@@ -195,7 +208,8 @@ module.exports = {
           //
           // "text!ui/ui.warning404.html"
 
-
+          "cPageView",
+          "cPageList",
         ],
         // "out": distDir + "out/blade.js"
       }

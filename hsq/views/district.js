@@ -1,5 +1,5 @@
-define(['PageView', getViewTemplatePath('district'), 'AppModel', 'AppStore', 'FormatReg'],
-  function (PageView, viewhtml, AppModel, AppStore, FormatReg){
+define(['PageView', getViewTemplatePath('district'), 'AppModel', 'AppStore'],
+  function (PageView, viewhtml, AppModel, AppStore){
 
     var storeCommonShort = AppStore.CommonShort.getInstance();
     var modelAddrListA = AppModel.addrListA.getInstance();

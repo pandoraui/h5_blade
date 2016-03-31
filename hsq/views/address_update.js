@@ -1,5 +1,5 @@
-define(['PageView', getViewTemplatePath('address_update'), 'AppModel', 'AppStore', 'FormatReg'],
-  function (PageView, viewhtml, AppModel, AppStore, FormatReg){
+define(['PageView', getViewTemplatePath('address_update'), 'AppModel', 'AppStore', 'cValidate'],
+  function (PageView, viewhtml, AppModel, AppStore, cValidate){
 
     var storeCommonShort = AppStore.CommonShort.getInstance();
     var modelAddAddress = AppModel.addAddress.getInstance();
@@ -108,8 +108,8 @@ define(['PageView', getViewTemplatePath('address_update'), 'AppModel', 'AppStore
         if(!newAddress.mobile){
           this.showToast('请输入手机号');
           return;
-        } else if( !FormatReg.mobile.reg.test(newAddress.mobile) ){
-          this.showToast(FormatReg.mobile.tip);
+        } else if( !cValidate.isMobile(newAddress.mobile) ){
+          this.showToast('手机格式不正确');
           // this.focusInput(this.els.$nodeMobile);
           return;
         }

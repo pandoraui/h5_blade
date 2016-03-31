@@ -70,6 +70,11 @@ define([], function(){
     detect.dwd = {};
   }
 
+  // 在自己的 App 内
+  if(detect.isIqg || detect.isHsq){
+    detect.isInApp = true;
+  }
+
   // wifi万能钥匙
   // Mozilla/5.0 (Linux; Android 4.4.4; MI 4W Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36 wkbrowser 3.1.9 629
   var wifiKey = userAgent.match(/\s*wkbrowser[\s|\/]*([\d\.]+)\s(\d+)/)

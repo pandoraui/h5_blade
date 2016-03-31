@@ -1,5 +1,5 @@
-define(['PageView', 'AppModel', 'AppStore', 'CountDown', 'FormatReg'],
-  function (PageView, AppModel, AppStore, CountDown, FormatReg){
+define(['PageView', 'AppModel', 'AppStore', 'CountDown', 'cValidate'],
+  function (PageView, AppModel, AppStore, CountDown, cValidate){
 
     var storeLogin = AppStore.Login.getInstance();
     var modelLogin = AppModel.login.getInstance();
@@ -60,8 +60,8 @@ define(['PageView', 'AppModel', 'AppStore', 'CountDown', 'FormatReg'],
         if(!mobile){
           this.showToast('请输入手机号');
           this.focusInput($node);
-        }else if( !FormatReg.mobile.reg.test(mobile) ){
-          this.showToast(FormatReg.mobile.tip);
+        } else if( !cValidate.isMobile(mobile) ){
+            this.showToast('手机格式不正确');
           // this.focusInput($node);
         }else{
           bool = true;

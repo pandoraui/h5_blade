@@ -30,10 +30,8 @@ if (!window._hmt) window._hmt = [];
       'AppStore': project + 'model/store',
 
       //组件
-      'SchemaUrl': project + 'common/SchemaUrl',
-      'Detect': project + 'common/Detect',
+      'SchemaApp': project + 'common/SchemaApp',
       'Tongji': project + 'common/Tongji',
-      'FormatReg': project + 'common/FormatReg',
       'CountDown': project + 'common/CountDown',
       'LoginCommon': project + 'common/LoginCommon',
       'DealData': project + 'common/DealData',

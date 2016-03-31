@@ -163,8 +163,8 @@
           setTimeout(function(){
             onError.call(scope || _scope, e);
 
-            if( $.isFunction(scope.errNextDeal) ){
-              scope.errNextDeal.call(scope || _scope, e);
+            if( $.isFunction(scope.ajaxErrNext) ){
+              scope.ajaxErrNext.call(scope || _scope, e);
             }
           }, 300);
         }

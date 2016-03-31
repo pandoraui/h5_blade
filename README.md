@@ -4,6 +4,7 @@
 
 注意，此项目依赖 smacss-extend 的项目，因为其为非稳定版本，暂使用软链接引入使用。另准备集成 iqg 项目，需接入 wechat JSSDK 等。
 
+
     //命令如下：
     //ln –s 源文件 目标文件
     ln -s ~/github/.../smacss-extend/src ./src
